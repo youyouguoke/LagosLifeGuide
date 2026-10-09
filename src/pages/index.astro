@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="LagosLifeGuide.app — Independent Lagos Life Companion"
+  description="Independent Lagos Life guides, verified game data, and a first-week planner. Not affiliated with the game's developer."
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card">
+      <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+        Make Your Next Move Count.
+      </h1>
+      <p class="mt-space-md max-w-xl text-body-lg text-on-surface-variant">
+        Explore Lagos Life guides, verified game information, and plan your next steps.
+      </p>
+      <p class="mt-space-md inline-flex items-center gap-2 rounded-full bg-brand-soft px-3.5 py-1.5 text-label-md text-verified">
+        <span class="h-2 w-2 rounded-full bg-verified" aria-hidden="true"></span>
+        Independent third-party guide — not affiliated with the game's developer
+      </p>
+      <div class="mt-space-lg flex flex-wrap gap-space-sm">
+        <a
+          href="/tools/first-week-planner/"
+          class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-label-lg font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-brand-dark"
+        >
+          Plan My First Week
+        </a>
+        <a
+          href="/game-data/"
+          class="inline-flex items-center justify-center rounded-full bg-surface-container-lowest px-6 py-3.5 text-label-lg font-semibold text-on-surface shadow-sm transition-colors hover:bg-surface-container-low"
+        >
+          Explore Game Data
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

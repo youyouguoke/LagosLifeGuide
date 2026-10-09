@@ -1,0 +1,39 @@
+---
+const year = new Date().getFullYear();
+const links = [
+  { href: "/about/", label: "About" },
+  { href: "/sources/", label: "Sources & Verification" },
+  { href: "/report-error/", label: "Report an Error" },
+];
+---
+
+<footer class="border-t border-outline-variant/60 bg-surface-container-low">
+  <div
+    class="mx-auto flex max-w-[1280px] flex-col gap-space-lg px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"
+  >
+    <div class="flex flex-col justify-between gap-space-md sm:flex-row sm:items-center">
+      <span class="text-headline-sm font-semibold text-on-surface">
+        LagosLifeGuide<span class="text-primary-container">.app</span>
+      </span>
+      <nav class="flex flex-wrap gap-space-md" aria-label="Footer">
+        {
+          links.map((l) => (
+            <a
+              href={l.href}
+              class="text-label-lg text-on-surface-variant transition-colors hover:text-primary"
+            >
+              {l.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+    <p class="max-w-3xl text-body-md text-text-muted">
+      LagosLifeGuide.app is an independent fan-made resource and is not affiliated with or
+      endorsed by the game's developer. Game trademarks and related intellectual property belong
+      to their respective owners. Content is for game information reference only — always defer
+      to the current state of the game itself.
+    </p>
+    <p class="text-body-sm text-text-muted">© {year} LagosLifeGuide.app</p>
+  </div>
+</footer>

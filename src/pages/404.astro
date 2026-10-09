@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you are looking for does not exist."
+  noindex={true}
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="rounded-panel border border-border bg-surface-container-lowest p-space-lg text-center shadow-card">
+      <p class="text-label-lg font-semibold uppercase tracking-widest text-lagoon">404</p>
+      <h1 class="mt-space-sm text-headline-lg font-bold text-on-surface">Page not found</h1>
+      <p class="mx-auto mt-space-md max-w-md text-body-lg text-on-surface-variant">
+        The page you are looking for does not exist or may have moved.
+      </p>
+      <div class="mt-space-lg flex flex-wrap justify-center gap-space-sm">
+        <a
+          href="/"
+          class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white transition-colors hover:bg-brand-dark"
+        >
+          Back to Home
+        </a>
+        <a
+          href="/report-error/"
+          class="inline-flex items-center justify-center rounded-full bg-brand-soft px-6 py-3 text-label-lg font-semibold text-brand-dark transition-colors hover:bg-surface-container"
+        >
+          Report a Broken Link
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
