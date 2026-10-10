@@ -1,4 +1,5 @@
 ---
+import HeroBackdrop from "../../components/HeroBackdrop.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 
@@ -31,7 +32,13 @@ const facts = [
   description="LagosLifeGuide.app is an independent, fan-made Lagos Life companion. Not affiliated with or endorsed by the game's developer. Trademarks belong to their owners."
   canonicalPath="/about/"
 >
-  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+  <section class="relative mx-auto max-w-[1280px] overflow-hidden px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <HeroBackdrop
+      src="/images/hero/about-danfo-street.jpg"
+      credit="Kaizenify · CC BY-SA 4.0"
+      creditUrl="https://commons.wikimedia.org/wiki/File:Danfo_buses_on_the_street_of_Lagos_11_38_39_243000.jpeg"
+      alt="Danfo buses on a Lagos street"
+    />
     <SectionHeader
       eyebrow="About"
       title="An independent companion for Lagos Life players"

@@ -1,4 +1,5 @@
 ---
+import HeroBackdrop from "../../components/HeroBackdrop.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const officialUrl = "https://lagoslife.app";
@@ -39,7 +40,13 @@ const faqs = [
   description="The official Lagos Life game link, how to sign in safely, and what to do when the official site will not load. Independent guide — we never ask for your password."
   canonicalPath="/play/"
 >
-  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+  <section class="relative mx-auto max-w-[1280px] overflow-hidden px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+      <HeroBackdrop
+        src="/images/hero/official-og.png"
+        credit="Official game artwork · lagoslife.app"
+        creditUrl="https://lagoslife.app"
+        alt="Lagos Life official artwork"
+      />
     <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
       Official Access
     </div>
