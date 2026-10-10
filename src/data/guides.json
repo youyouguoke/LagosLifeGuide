@@ -1,5 +1,59 @@
 [
   {
+    "slug": "how-to-play",
+    "title": "How to Play Lagos Life: A Verified Beginner Walkthrough",
+    "summary": "The eight decisions that make up a first session, in order: open the official game, record your starting state, cover rent before anything else, pick from the 13 no-requirement careers, work a shift, recover your meters, train toward a skill gate, then review the week in the planner. Every number cited is in our public dataset.",
+    "topic": "Beginner",
+    "verificationStatus": "partial",
+    "updatedAt": "2026-10-10",
+    "sourceIds": [
+      "src-game-target"
+    ],
+    "limitations": [
+      "All figures come from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
+      "Rent period, action prices, and shift scheduling mechanics are not stated in the game files — steps that depend on them say so explicitly.",
+      "This guide covers the browser version at lagoslife.app only. Other apps or sites named 'Lagos Life' are different games."
+    ],
+    "sections": [
+      {
+        "heading": "1. Open the Official Game — and Only the Official Game",
+        "body": "The game this guide covers lives at lagoslife.app, in your browser, free to open. Two safety habits before anything else: read the address bar before you type any password, and never enter account details on a third-party guide site — including this one. LagosLifeGuide.app does not host the game and will never ask for your game password. If an embedded browser inside a social app fails to load the game, copy the address into your regular browser."
+      },
+      {
+        "heading": "2. Write Down Your Starting State",
+        "body": "Before you spend anything, record four numbers from the game screen: your cash, your current job (or none), your housing and its cost, and any recurring obligations. These four inputs are exactly what the First Week Planner on this site asks for. If a number is unknown, leave it blank — the planner treats unknown as unknown, never as zero, and this guide will flag where that matters."
+      },
+      {
+        "heading": "3. Cover Rent Before Anything Else",
+        "body": "The verified cheapest roofs in the game are the UNILAG Hall of Residence at ₦1,200, a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro at ₦2,600, and a single room in Kubwa at ₦2,800. Here is the honest catch: the game files record these amounts but not the rent period. Until that is verified in-game, reserve several periods' worth before optional spending — how many periods is a judgement call the data cannot make for you. What the data can tell you: even the mid-tier ₦6,000 options (Yaba, Gwarinpa, D-Line) cost less than one Banking shift."
+      },
+      {
+        "heading": "4. Pick Your First Job From the 13 No-Requirement Careers",
+        "body": "Thirteen careers accept you with zero requirements, and their verified level-1 pay per shift is: Banking (Marketer) ₦11,600 · Tech (Intern) ₦9,900 · Nursing ₦9,100 · Trading, DJ, Teaching ₦8,300 · Music, Hairstyling, Chef, Fitness Coach, Event Planning, Retail ₦7,400 · Content Creator, Football (Pundit) ₦6,600. Abuja and Port Harcourt have their own entry jobs (Keke Riding, Mai Shayi, Wuse Market Trading, Creek Road Trading, Ferry Work, Bole & Fish, Security at ₦7,400–₦8,300), and Airport Staff pays ₦12,000 with no listed requirement. Best early income: Banking. Best long-run tech path: Tech Intern. Full five-level ladders for all 33 careers are in the career guide and the Game Data directory."
+      },
+      {
+        "heading": "5. Work a Shift, Then Read the Actual Credit",
+        "body": "Client data gives base pay per shift, but what lands in your wallet can differ — bonuses, deductions, or rank effects are exactly the kind of thing only an observed shift confirms. After your first shift, write down the amount actually received and use that number in the planner from then on. If the received amount consistently differs from our table, that is a reportable correction: use the feedback button (bottom-right) and pick 'Correction'."
+      },
+      {
+        "heading": "6. Recover Meters Before the Next Long Action",
+        "body": "The verified basics: Sleep restores +12 energy over 8 hours on any bed; Soak Garri & Sugar takes 12 minutes and restores +22 hunger. Cooking actions (Jollof, Amala & Ewedu) exist in the data with effects recorded, but their prices are not — check the in-game cost before relying on them. Training and work both drain meters (Lift Weights costs energy -14 and hygiene -18, for example), so the loop that keeps you productive is: work, eat, recover, then train — not the reverse."
+      },
+      {
+        "heading": "7. Train Toward One Skill Gate",
+        "body": "Five skills gate the high-paying careers: fitness (Medicine ₦21,000, Aviation, Oil & Gas), coding (Product Management, Oil & Gas alternative), comedy (Broadcasting), charisma (Real Estate), hustle (Civil Service). The best recorded trainers: Lift Weights for fitness (rate 2.0), Weekend Hackathon or Side Project for coding (2.0 / 1.6), filming a skit for comedy (1.5), Practise Speech or the club run for charisma (1.3 / 1.5), Buy & Resell Goods for hustle (1.5). Pick ONE gate for your first weeks — splitting training across skills is how first weeks stall. Details in the skill training guide."
+      },
+      {
+        "heading": "8. Review the Week, Then Choose One Next Goal",
+        "body": "End the week with the First Week Planner: enter what you now know (observed shift pay, actual rent charged — note the period the game states), pick a goal (financial stability, career growth, or exploration), and let it compute what remains after known costs. It labels that figure as 'remaining after known costs', never as your balance. If the result is Blocked or Partial, the reason shown is data-backed: either an input is unknown or no verified dataset supports a recommendation yet. That is the tool working as intended, not a bug."
+      },
+      {
+        "heading": "Common Questions, Honestly Answered",
+        "body": "Is Lagos Life free? The client at lagoslife.app opens in a browser without a purchase step; anything beyond that is not in our verified data. Can I play on my phone? The game is a browser app; our site works on mobile, but we have not verified the game's own mobile behaviour in-game. Why is my pay different from your table? Base pay is from the game's files; your observed credit is the ground truth — report the difference and we log it. How long does a skill take to level? The files record training rates but not their unit, so we publish rates as relative speed only. Is this the same Lagos Life from the app store? No — lagoslife.app is a distinct game from similarly named apps; our data does not transfer to them."
+      }
+    ]
+  },
+  {
     "slug": "first-week-roadmap",
     "title": "Your First Week in Lagos Life: A Beginner's Roadmap",
     "summary": "Thirteen careers accept you with zero requirements, the cheapest bed in the game costs ₦1,200, and two free actions cover your sleep and hunger. Here's how the first seven days actually add up — every number verified against the game's own data files.",

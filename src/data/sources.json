@@ -17,5 +17,14 @@
     "accessedAt": "2026-10-09",
     "applicableGameUrl": "https://lagoslife.com.ng",
     "notes": "DIFFERENT GAME INSTANCE (Google Play: com.greatcallie.lagoslife). Similar name and theme; data must NOT be mixed with the target instance. Recorded to document the conflict."
+  },
+  {
+    "id": "src-guide-lagoslife-space",
+    "url": "https://lagoslife.space/how-to-play/",
+    "title": "Lagos Life Guide — How to Play (independent competitor guide)",
+    "evidenceType": "third_party",
+    "accessedAt": "2026-10-10",
+    "applicableGameUrl": "https://lagoslife.app",
+    "notes": "Independent third-party guide covering the same game instance. Reviewed during editorial process for topic coverage; not cited as evidence for any published value on this site."
   }
 ]
