@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const officialUrl = "https://lagoslife.app";
+
+const platforms = [
+  {
+    t: "On Android",
+    steps: [
+      "Open Chrome and go to lagoslife.app.",
+      "Sign in (or continue as the game allows), then open Chrome's menu (⋮).",
+      "Tap “Install app” (or “Add to Home screen” on older versions).",
+      "Launch from the new icon — it opens standalone, like a native app.",
+    ],
+  },
+  {
+    t: "On iPhone / iPad",
+    steps: [
+      "Open Safari and go to lagoslife.app.",
+      "Tap the Share button (square with arrow).",
+      "Scroll to “Add to Home Screen” and confirm.",
+      "Launch from the new icon — it opens full-screen, like a native app.",
+    ],
+  },
+];
+
+const checks = [
+  {
+    t: "No verified official native app",
+    d: "For the lagoslife.app game we have verified no official iOS/Android store listing. If an app store shows a “Lagos Life” app, check its developer against the official site before assuming it's this game — the best-known store result (GreatCallie's) is a different game entirely.",
+  },
+  {
+    t: "Progress follows your account",
+    d: "Because the game runs from the browser, your saved progress is tied to the account you use inside the game — not to one physical phone. Install the home-screen icon on a new device, sign in, and your character should be there.",
+  },
+  {
+    t: "Use a guide alongside on small screens",
+    d: "Our planner and guides are mobile-first. Split-screen (where your phone supports it) or switch between the game icon and your browser — the planner saves its state locally, so your inputs survive the switch.",
+  },
+];
+---
+
+<BaseLayout
+  title="Lagos Life App: Play on Browser & Phone | LagosLifeGuide.app"
+  description="The Lagos Life “app” is a web app — install it from lagoslife.app on Android or iPhone with no store download. Includes how to spot unofficial look-alike apps."
+  canonicalPath="/app/"
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
+      Browser &amp; Mobile
+    </div>
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-inverse-surface md:text-display-hero">
+      The Lagos Life App Is a Web App
+    </h1>
+    <p class="mt-space-sm max-w-3xl text-body-lg text-on-surface-variant">
+      No store download is needed for the official game. The site at {officialUrl} ships a web
+      app manifest — verified from its own files on 2026-10-10 — which means your phone can install
+      it directly from the browser, full-screen icon and all.
+    </p>
+
+    <!-- What the app is -->
+    <div class="mt-space-lg grid gap-space-md md:grid-cols-3">
+      <div class="rounded-3xl bg-surface-container-low p-space-md md:col-span-2">
+        <h2 class="text-headline-md font-semibold text-inverse-surface">What the “app” actually is</h2>
+        <p class="mt-space-xs text-body-md text-on-surface-variant">
+          The official game describes itself (in its own manifest) as “Sims, but make it Eko. A
+          life-sim set in Lagos, with real players.” Technically it is a
+          <strong class="font-semibold text-on-surface">PWA — a progressive web app</strong>:
+          one codebase at lagoslife.app that browsers can install to your home screen with a
+          standalone, app-like window. That install step is the closest thing to an “app download”
+          this game has — anything in an app store under a similar name should be treated as a
+          different product until proven otherwise.
+        </p>
+        <div class="mt-space-md flex flex-wrap gap-2">
+          <a href="/play/" class="rounded-full border border-outline-variant px-4 py-2 text-label-md font-semibold text-primary transition-colors hover:bg-surface-container-low">Official link &amp; sign-in help</a>
+          <a href="/download/" class="rounded-full border border-outline-variant px-4 py-2 text-label-md font-semibold text-primary transition-colors hover:bg-surface-container-low">Download &amp; install steps</a>
+        </div>
+      </div>
+      <div class="rounded-3xl border border-outline-variant/50 bg-surface p-space-md">
+        <h2 class="text-headline-sm font-semibold text-inverse-surface">Verified from the game's files</h2>
+        <ul class="mt-space-xs list-disc space-y-1 pl-5 text-body-md text-on-surface-variant">
+          <li>Web app manifest present (name “Lagos Life”, standalone display)</li>
+          <li>Categories: games, entertainment, social</li>
+          <li>Language: en-NG</li>
+          <li>No store listing verified for this instance</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Install steps -->
+    <div class="mt-space-xl">
+      <h2 class="text-headline-lg font-bold text-inverse-surface">Install it on your phone</h2>
+      <div class="mt-space-md grid gap-space-md md:grid-cols-2">
+        {platforms.map((p) => (
+          <div class="rounded-3xl bg-surface-container-low p-space-md">
+            <h3 class="text-headline-md font-semibold text-on-surface">{p.t}</h3>
+            <ol class="mt-space-xs list-decimal space-y-1.5 pl-5 text-body-md text-on-surface-variant">
+              {p.steps.map((s) => <li>{s}</li>)}
+            </ol>
+          </div>
+        ))}
+      </div>
+      <p class="mt-space-sm text-body-sm text-text-muted">
+        Menu labels vary slightly by browser version; the capability itself comes from the game's
+        manifest, not from the browser brand.
+      </p>
+    </div>
+
+    <!-- Checks -->
+    <div class="mt-space-xl grid gap-space-md md:grid-cols-3">
+      {checks.map((c) => (
+        <div class="rounded-2xl border border-outline-variant/50 bg-surface p-space-md">
+          <h3 class="text-headline-sm font-semibold text-on-surface">{c.t}</h3>
+          <p class="mt-space-xs text-body-md text-on-surface-variant">{c.d}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="mt-space-lg text-body-sm text-text-muted">
+      Last reviewed 2026-10-10. Manifest facts verified against lagoslifeguide's captured copy of
+      the game site's files; platform menu steps are general knowledge and can vary by version.
+      Found an official store listing for this exact game? Tell us via the feedback button —
+      that's exactly the kind of evidence we log.
+    </p>
+  </section>
+</BaseLayout>

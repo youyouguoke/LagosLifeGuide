@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const officialUrl = "https://lagoslife.app";
+
+const apkChecks = [
+  {
+    t: "Who is the developer?",
+    d: "An official package would be published by the same operator as lagoslife.app. A different company name — or no verifiable link between the APK publisher and the official site — is a stop sign.",
+  },
+  {
+    t: "Where did you find it?",
+    d: "Third-party APK mirrors carry re-signed and modified packages as a rule, not an exception. If the official site does not link the file, treat it as unverified.",
+  },
+  {
+    t: "What permissions does it want?",
+    d: "A life-sim has no business requesting SMS, call-log, accessibility, or device-admin access. Permission overreach is the single most reliable APK red flag.",
+  },
+  {
+    t: "Does it ask for your game password outside the game?",
+    d: "Credential phishing is the most common fake-game pattern. The real game only ever asks for credentials at lagoslife.app itself.",
+  },
+];
+---
+
+<BaseLayout
+  title="Lagos Life Download & Install Guide (No APK Needed) | LagosLifeGuide.app"
+  description="Lagos Life needs no download: install the official web app from lagoslife.app on Android or iPhone. Plus how to assess any APK claiming to be the game."
+  canonicalPath="/download/"
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
+      Download &amp; Install
+    </div>
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-inverse-surface md:text-display-hero">
+      Lagos Life Download: Nothing to Download
+    </h1>
+    <p class="mt-space-sm max-w-3xl text-body-lg text-on-surface-variant">
+      The official game is a browser app at {officialUrl} — there is no verified official APK,
+      installer, or store package for it. “Installing” Lagos Life means adding the official web app
+      to your home screen, which takes under a minute.
+    </p>
+
+    <!-- The only install steps -->
+    <div class="mt-space-lg rounded-3xl bg-surface-container-low p-space-md sm:p-space-lg">
+      <h2 class="text-headline-md font-semibold text-inverse-surface">The only install steps you need</h2>
+      <div class="mt-space-md grid gap-space-md md:grid-cols-2">
+        <div class="rounded-2xl bg-surface-container-lowest p-space-md">
+          <h3 class="text-headline-sm font-semibold text-on-surface">Android (Chrome)</h3>
+          <ol class="mt-space-xs list-decimal space-y-1.5 pl-5 text-body-md text-on-surface-variant">
+            <li>Open <strong class="font-semibold">{officialUrl}</strong> in Chrome.</li>
+            <li>Tap the menu (⋮) → “Install app” (or “Add to Home screen”).</li>
+            <li>Confirm. The Lagos Life icon appears on your home screen.</li>
+          </ol>
+        </div>
+        <div class="rounded-2xl bg-surface-container-lowest p-space-md">
+          <h3 class="text-headline-sm font-semibold text-on-surface">iPhone / iPad (Safari)</h3>
+          <ol class="mt-space-xs list-decimal space-y-1.5 pl-5 text-body-md text-on-surface-variant">
+            <li>Open <strong class="font-semibold">{officialUrl}</strong> in Safari.</li>
+            <li>Tap Share → “Add to Home Screen”.</li>
+            <li>Confirm. The Lagos Life icon appears on your home screen.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="mt-space-md text-body-sm text-on-surface-variant">
+        This works because the game ships a web app manifest (verified from its own files on
+        2026-10-10) declaring standalone, app-like display. See the
+        <a href="/app/" class="font-semibold text-primary hover:underline">phone guide</a> for usage
+        tips and the <a href="/play/" class="font-semibold text-primary hover:underline">official-link page</a> for sign-in help.
+      </p>
+    </div>
+
+    <!-- APK assessment -->
+    <div class="mt-space-xl">
+      <h2 class="text-headline-lg font-bold text-inverse-surface">
+        Someone offered you a “Lagos Life APK”? Run these checks
+      </h2>
+      <p class="mt-1 max-w-3xl text-body-md text-on-surface-variant">
+        We have verified no official APK for this game. That doesn't stop unofficial ones from
+        circulating — especially while the game is viral. Four checks, in order of reliability:
+      </p>
+      <div class="mt-space-md grid gap-space-md sm:grid-cols-2">
+        {apkChecks.map((c, i) => (
+          <div class="rounded-2xl border border-outline-variant/50 bg-surface p-space-md">
+            <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-surface-container-high text-label-md font-bold text-primary">
+              {i + 1}
+            </span>
+            <h3 class="mt-space-xs text-headline-sm font-semibold text-on-surface">{c.t}</h3>
+            <p class="mt-1 text-body-md text-on-surface-variant">{c.d}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-space-md rounded-2xl bg-error-container/15 p-space-md text-body-md text-on-surface">
+        <strong class="font-semibold">Bottom line:</strong> if any check fails — or you simply
+        can't verify the publisher — don't install it. The browser version at {officialUrl} is the
+        complete game, and it's the only version this guide's data describes.
+      </p>
+    </div>
+
+    <!-- When it won't load -->
+    <div class="mt-space-xl rounded-3xl bg-surface-container-low/50 p-space-md sm:p-space-lg">
+      <h2 class="text-headline-lg font-bold text-inverse-surface">When the installed icon misbehaves</h2>
+      <ul class="mt-space-md list-disc space-y-1.5 pl-5 text-body-md text-on-surface-variant">
+        <li>It keeps reconnecting: close every other tab of the game, check the network, reopen from the icon.</li>
+        <li>It opens a blank page: delete the home-screen shortcut and re-add it from a fresh browser visit to {officialUrl}.</li>
+        <li>You're signed out: sign back in from the game screen — and only clear site data if you're certain you can sign in again.</li>
+      </ul>
+    </div>
+
+    <p class="mt-space-lg text-body-sm text-text-muted">
+      Last reviewed 2026-10-10. Facts about the official install path (web app manifest, no store
+      listing verified) come from the game's own site files captured in our
+      <a href="/sources/" class="font-semibold text-primary hover:underline">public evidence archive</a>.
+      Found an official package we should know about? Use the feedback button — “Correction”.
+    </p>
+  </section>
+</BaseLayout>

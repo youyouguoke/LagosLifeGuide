@@ -1,0 +1,139 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const officialUrl = "https://lagoslife.app";
+
+const symptoms = [
+  {
+    t: "Blank page or endless spinner",
+    d: "Open the address in a regular browser (Chrome, Safari, Edge), not inside a social app's embedded browser. Use one tab only, check your connection, then reload the official address.",
+  },
+  {
+    t: "Game loads but keeps reconnecting",
+    d: "Close duplicate tabs, switch from Wi-Fi to mobile data (or back) once to isolate the network, and avoid VPNs that bounce your region mid-session.",
+  },
+  {
+    t: "Signed out and cannot get back in",
+    d: "Re-open lagoslife.app and use the sign-in option shown by the game itself. Only clear site data as a last resort — and only if you are sure you can sign back into your saved account afterwards.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Is Lagos Life free to open?",
+    a: "The official client at lagoslife.app loads in a browser without a purchase step. Anything beyond that — in-game purchases, subscriptions — is not in our verified data, so we don't comment on it.",
+  },
+  {
+    q: "Is lagoslife.app the same as the Lagos Life app on the Play Store?",
+    a: "No. The Play Store has Lagos Life titles from other operators (for example GreatCallie's game, which also runs lagoslife.com.ng). Those are different games with different data. This guide covers only the browser game at lagoslife.app.",
+  },
+  {
+    q: "Does LagosLifeGuide.app host the game?",
+    a: "Never. We are an independent guide. The only official address we point to is lagoslife.app, and we will never ask for your game password.",
+  },
+];
+---
+
+<BaseLayout
+  title="Play Lagos Life — Official Link & Sign-In Help | LagosLifeGuide.app"
+  description="The official Lagos Life game link, how to sign in safely, and what to do when the official site will not load. Independent guide — we never ask for your password."
+  canonicalPath="/play/"
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
+      Official Access
+    </div>
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-inverse-surface md:text-display-hero">
+      Play Lagos Life: Official Link &amp; Sign-In Help
+    </h1>
+    <p class="mt-space-sm max-w-3xl text-body-lg text-on-surface-variant">
+      One official address, a few safety habits, and honest troubleshooting. Everything below was
+      checked against the game's own site files on 2026-10-10.
+    </p>
+
+    <!-- Official link card -->
+    <div class="mt-space-lg rounded-3xl bg-surface-container-low p-space-md sm:p-space-lg">
+      <div class="flex flex-col items-start justify-between gap-space-md md:flex-row md:items-center">
+        <div>
+          <p class="text-label-sm font-bold uppercase tracking-wider text-primary">Official game</p>
+          <p class="mt-1 text-headline-lg font-bold text-inverse-surface">
+            <a href={officialUrl} rel="noopener" class="text-primary underline decoration-wavy underline-offset-4 hover:text-brand-dark">{officialUrl}</a>
+          </p>
+          <p class="mt-2 max-w-2xl text-body-md text-on-surface-variant">
+            The site's own manifest describes it as "Sims, but make it Eko. A life-sim set in
+            Lagos, with real players." It installs as a standalone web app (PWA) — see our
+            <a href="/download/" class="font-semibold text-primary hover:underline">download &amp; install guide</a>
+            and <a href="/app/" class="font-semibold text-primary hover:underline">phone guide</a>.
+          </p>
+        </div>
+        <a
+          href={officialUrl}
+          rel="noopener"
+          class="inline-flex shrink-0 items-center justify-center rounded-full bg-primary-container px-space-lg py-3 text-label-lg font-semibold text-on-primary transition-colors hover:bg-primary"
+        >
+          Open the official game
+        </a>
+      </div>
+      <p class="mt-space-md rounded-xl bg-surface-container-lowest p-space-sm text-body-sm text-on-surface-variant">
+        Safety rule #1: read the address bar before typing any password. The only official address
+        is <strong class="font-semibold text-on-surface">lagoslife.app</strong> — not this guide
+        site, not any look-alike domain.
+      </p>
+    </div>
+
+    <!-- Which site is official -->
+    <div class="mt-space-xl grid gap-space-md md:grid-cols-2">
+      <div class="rounded-3xl border border-outline-variant/50 bg-surface p-space-md">
+        <h2 class="text-headline-md font-semibold text-inverse-surface">Which Lagos Life is this?</h2>
+        <p class="mt-space-xs text-body-md text-on-surface-variant">
+          This guide covers the browser game at <strong class="font-semibold text-on-surface">lagoslife.app only</strong>.
+          Other sites and apps using the same or similar names — including lagoslife.com.ng, a
+          different game from operator GreatCallie — are separate games. Their data, accounts, and
+          prices do not transfer, and our datasets do not describe them.
+        </p>
+      </div>
+      <div class="rounded-3xl border border-outline-variant/50 bg-surface p-space-md">
+        <h2 class="text-headline-md font-semibold text-inverse-surface">Saving progress</h2>
+        <p class="mt-space-xs text-body-md text-on-surface-variant">
+          The game offers account sign-in, and we recommend using it before your first session goes
+          long. The exact sign-in options are part of the game client and can change; trust only
+          the options the game itself shows you at lagoslife.app — never a form on any third-party
+          site asking for your game password.
+        </p>
+      </div>
+    </div>
+
+    <!-- Troubleshooting -->
+    <div class="mt-space-xl">
+      <h2 class="text-headline-lg font-bold text-inverse-surface">If the official link will not load</h2>
+      <div class="mt-space-md grid gap-space-md md:grid-cols-3">
+        {symptoms.map((s) => (
+          <div class="rounded-2xl bg-surface-container-low p-space-md">
+            <h3 class="text-headline-sm font-semibold text-on-surface">{s.t}</h3>
+            <p class="mt-space-xs text-body-md text-on-surface-variant">{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="mt-space-xl rounded-3xl bg-surface-container-low/50 p-space-md sm:p-space-lg">
+      <h2 class="text-headline-lg font-bold text-inverse-surface">Quick answers</h2>
+      <div class="mt-space-md space-y-space-md">
+        {faqs.map((f) => (
+          <div>
+            <h3 class="text-headline-sm font-semibold text-on-surface">{f.q}</h3>
+            <p class="mt-1 text-body-md text-on-surface-variant">{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <p class="mt-space-lg text-body-sm text-text-muted">
+      Last reviewed 2026-10-10. The official-link facts (address, manifest description, PWA
+      capability) were verified against the game's own site files. Browser menu steps are general
+      knowledge and can vary by version. See something changed?
+      Use the feedback button (bottom-right) — pick "Correction".
+    </p>
+  </section>
+</BaseLayout>
