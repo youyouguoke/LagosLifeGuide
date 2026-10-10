@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://lagoslifeguide.app/sitemap-index.xml
+Sitemap: https://lagoslifeguide.app/sitemap.xml
