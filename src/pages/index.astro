@@ -2,6 +2,18 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EmptyState from "../components/EmptyState.astro";
 import VerificationBadge from "../components/VerificationBadge.astro";
+import guides from "../data/guides.json";
+import jobs from "../data/jobs.json";
+import housingCosts from "../data/housing-costs.json";
+import skillsActions from "../data/skills-actions.json";
+import locations from "../data/locations.json";
+
+const dataCounts = [
+  { label: "Careers", count: jobs.length },
+  { label: "Housing & Costs", count: housingCosts.length },
+  { label: "Skills & Actions", count: skillsActions.length },
+  { label: "Locations", count: locations.length },
+];
 
 /** Inline SVG icons (stroke style) — no external icon font dependency. */
 const icon = (paths: string, filled = false) =>
@@ -310,10 +322,44 @@ const trustCards = [
         <p class="mt-1 text-body-md text-on-surface-variant">Practical step-by-step strategies documented by dedicated players.</p>
       </div>
     </div>
-    <EmptyState
-      title="No guides published yet"
-      description="Our first field handbooks are being researched and verified. Check back soon — every guide will carry a clear verification status before it ships."
-    />
+    {
+      guides.length === 0 ? (
+        <EmptyState
+          title="No guides published yet"
+          description="Our first field handbooks are being researched and verified. Check back soon — every guide will carry a clear verification status before it ships."
+        />
+      ) : (
+        <div class="grid grid-cols-1 gap-space-md md:grid-cols-3">
+          {guides.slice(0, 3).map((g) => (
+            <a
+              href={`/guides/${g.slug}/`}
+              class="group flex flex-col rounded-3xl border border-outline-variant/50 bg-surface p-space-md transition-shadow hover:shadow-lg"
+            >
+              <div class="mb-space-sm flex items-center justify-between gap-space-sm">
+                <span class="rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
+                  {g.topic}
+                </span>
+                <VerificationBadge status={g.verificationStatus} />
+              </div>
+              <h3 class="text-headline-sm font-semibold text-inverse-surface group-hover:text-primary">
+                {g.title}
+              </h3>
+              <p class="mt-space-xs line-clamp-3 text-body-md text-on-surface-variant">
+                {g.summary}
+              </p>
+              <span class="mt-space-sm inline-flex items-center gap-1 text-label-md font-semibold text-primary">
+                Read guide <span class="[&>svg]:h-4 [&>svg]:w-4" set:html={i.arrow} />
+              </span>
+            </a>
+          ))}
+        </div>
+      )
+    }
+    <div class="mt-space-md text-center">
+      <a href="/guides/" class="inline-flex items-center gap-1.5 rounded-full border border-outline-variant px-space-md py-2.5 text-label-lg font-semibold text-primary transition-colors hover:bg-surface-container-low">
+        All guides <span class="[&>svg]:h-4 [&>svg]:w-4" set:html={i.arrow} />
+      </a>
+    </div>
   </section>
 
   <!-- 4. GAME DATA (honest empty state) -->
@@ -333,12 +379,23 @@ const trustCards = [
           <span>Unknown values are marked <strong class="font-semibold text-inverse-surface">"Data Pending"</strong> — never estimated.</span>
         </div>
       </div>
-      <EmptyState
-        title="Datasets are on the way"
-        description="Verified districts, transport schedules, businesses, and housing data will be published here with source and verification status attached to every entry."
-        actionHref="/game-data/"
-        actionLabel="Open the Game Data directory"
-      />
+      <div class="grid grid-cols-2 gap-space-md md:grid-cols-4">
+        {dataCounts.map((d) => (
+          <a
+            href="/game-data/"
+            class="group rounded-3xl border border-outline-variant/50 bg-surface p-space-md transition-shadow hover:shadow-lg"
+          >
+            <div class="text-headline-lg font-extrabold tracking-tight text-primary">{d.count}</div>
+            <div class="mt-1 text-label-lg font-semibold text-inverse-surface">{d.label}</div>
+            <div class="mt-space-xs text-body-sm text-on-surface-variant">Verified records with per-field evidence</div>
+          </a>
+        ))}
+      </div>
+      <div class="mt-space-md text-center">
+        <a href="/game-data/" class="inline-flex items-center gap-1.5 rounded-full bg-primary-container px-space-md py-2.5 text-label-lg font-semibold text-on-primary transition-colors hover:bg-primary">
+          Open the Game Data directory <span class="[&>svg]:h-4 [&>svg]:w-4" set:html={i.arrow} />
+        </a>
+      </div>
     </div>
   </section>
 

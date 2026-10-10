@@ -1,1 +1,110 @@
-[]
+[
+  {
+    "slug": "first-week-roadmap",
+    "title": "Your First Week in Lagos Life: A Beginner's Roadmap",
+    "summary": "Thirteen careers accept you with zero requirements, the cheapest bed in the game costs ₦1,200, and two free actions cover your sleep and hunger. Here's how the first seven days actually add up — every number verified against the game's own data files.",
+    "topic": "Beginner",
+    "verificationStatus": "partial",
+    "updatedAt": "2026-10-10",
+    "sourceIds": ["src-game-target"],
+    "limitations": [
+      "All figures were extracted from the game's client data files on 2026-10-09 (document review). An in-game spot-check is still pending.",
+      "The game files do not state how often rent is charged — weekly, daily, or monthly is unverified. Budget with the First Week Planner and treat rent period as unknown.",
+      "Action costs: the extracted data records effects and duration for actions but not their prices. Where an action costs money in-game, that price is not yet verified."
+    ],
+    "sections": [
+      {
+        "heading": "Start Earning on Day One: 13 Careers With Zero Requirements",
+        "body": "You don't need any skill or certificate to start working. The game data lists 13 entry careers with no requirements, paying per shift: Banking (Marketer) ₦11,600 · Tech (Intern) ₦9,900 · Nursing ₦9,100 · Trading, DJ, and Teaching ₦8,300 · Music, Hairstyling, Chef, Fitness Coach, Event Planning, and Retail ₦7,400 · Content Creator and Football (Pundit) ₦6,600. If your goal is maximum early cash, Banking pays the best on day one. Trading at ₦8,300 is the best-paid career whose later levels we cover in the career ladders guide. Every one of these has five promotion levels — the level-1 job is a starting point, never a ceiling."
+      },
+      {
+        "heading": "Sleep Cheap: The Cheapest Roofs in the Game",
+        "body": "The cheapest place to live is the UNILAG Hall of Residence in Akoka at ₦1,200. After that: a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro (Port Harcourt) at ₦2,600, and a single room in Kubwa (Abuja) at ₦2,800. A self-contain in Yaba, a mini flat in Gwarinpa (Abuja), and a mini flat in D-Line (Port Harcourt) all cost ₦6,000 — the natural upgrade once your career income stabilises. At the other extreme, a mansion on Banana Island costs ₦1,500,000 — 1,250× the UNILAG hostel. Warning: the game files record these rent amounts but not the rent period, so we cannot yet tell you whether ₦6,000 means per week or per month. Verify in-game before committing your savings."
+      },
+      {
+        "heading": "Keep Your Meters Green for Free",
+        "body": "Two basic actions cost nothing and cover your core needs. Sleep restores +12 energy over 8 hours (480 minutes) — a mattress is enough, better beds don't change the effect in the extracted data. Soak Garri & Sugar takes 12 minutes and restores +22 hunger. Cooking actions like Cook Jollof and Amala & Ewedu exist in the data with their effects recorded, but their ingredient costs are not in the extracted table — check the in-game price before your shopping run. Simplest sustainable loop for week one: work a shift, eat garri, sleep, repeat — then bank everything above your rent."
+      },
+      {
+        "heading": "Plan the Week With Real Numbers",
+        "body": "The First Week Planner on this site runs entirely in your browser: enter your starting cash, your rent, any recurring costs you know, pick a goal, and it computes what remains after known costs — labelled as such, never presented as your total balance. Because our datasets record effects and pay per shift, the planner can already reason about your week even while some cost data is still being verified. Unknown inputs stay unknown; the tool never treats a blank as zero."
+      }
+    ]
+  },
+  {
+    "slug": "career-ladders-pay",
+    "title": "Every Career Path and What Each Level Pays",
+    "summary": "33 career tracks across three cities, each with five levels. Oil & Gas tops out at ₦96,000 per shift — the highest verified pay in the game. Full ladders for the five main paths, plus which careers are gated behind skill levels.",
+    "topic": "Careers",
+    "verificationStatus": "partial",
+    "updatedAt": "2026-10-10",
+    "sourceIds": ["src-game-target"],
+    "limitations": [
+      "Pay figures come from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
+      "Promotion thresholds between levels exist in the game files but are only partially readable — we do not publish them until fully verified. See each job record for what's confirmed.",
+      "Abuja and Port Harcourt careers require travelling to those cities; how travel works is not yet verified."
+    ],
+    "sections": [
+      {
+        "heading": "How Careers Are Structured",
+        "body": "Every career has five levels, and each level pays per shift. Level-1 roles are open to everyone; mid-tier careers (₦17,000–₦21,000 per shift) require one skill at level 3 — for example Medicine requires fitness level 3, Oil & Gas requires fitness level 3 or coding level 3, Product Management requires coding level 3, Broadcasting requires comedy level 3, Real Estate requires charisma level 3, Aviation requires fitness level 3, and Lagos Civil Service requires hustle level 3. Abuja's Civil Service variant accepts charisma level 2 or coding level 2. That means your first weeks should pair a no-requirement job with skill training aimed at the gate you want to unlock."
+      },
+      {
+        "heading": "Tech: ₦9,900 → ₦76,500 Per Shift",
+        "body": "Intern ₦9,900 · Junior Dev ₦19,500 · Senior Dev ₦32,800 · Tech Lead ₦47,300 · CTO ₦76,500. Tech starts average and ends near the top. The related Product Management track (coding level 3 required) pays ₦20,000 at level 1, so a coding build has two destinations."
+      },
+      {
+        "heading": "Banking: ₦11,600 → ₦72,000 Per Shift",
+        "body": "Marketer ₦11,600 · Relationship Officer ₦21,000 · Branch Manager ₦31,500 · Executive Director ₦44,600 · MD/CEO ₦72,000. The best-paying day-one career in the game, and the second-highest final salary. No skill gate — pure income from the start."
+      },
+      {
+        "heading": "Oil & Gas: ₦20,000 → ₦96,000 Per Shift",
+        "body": "Field Technician ₦20,000 · Drilling Engineer ₦31,000 · Asset Manager ₦45,000 · General Manager ₦63,000 · Country MD ₦96,000. The highest verified pay in the game at level 5, and the best level-1 pay of any gated career (tied with Medicine). Gate: fitness level 3, or coding level 3 as an alternative. The Port Harcourt Refining track is the related mid-tier path at ₦14,000 with no skill requirement listed."
+      },
+      {
+        "heading": "Medicine: ₦21,000 → ₦90,000 Per Shift",
+        "body": "House Officer ₦21,000 · Resident Doctor ₦31,000 · Registrar ₦44,000 · Consultant ₦60,000 · Chief Medical Director ₦90,000. The best level-1 pay in the entire game, gated behind fitness level 3. A fitness-first build earns more from day one of the gated career than most careers pay at level 3."
+      },
+      {
+        "heading": "Retail and the Creative Tier",
+        "body": "Retail: Sales Rep ₦7,400 → Retail Boss ₦60,000. Music, Hairstyling, Chef, Fitness Coach, and Event Planning all start at ₦7,400; Content Creator and Football start at ₦6,600 — the lowest entry pays, so treat creative work as a passion pick rather than an optimal first job unless its later levels (recorded in the game data) justify it for your plan. All five-level ladders for all 33 careers are in the Game Data directory with per-field verification."
+      },
+      {
+        "heading": "City Tracks: Abuja, Port Harcourt, and the Airport",
+        "body": "Beyond Lagos, the game data lists Abuja careers — Keke Riding and Mai Shayi (tea vendor) at ₦7,400, Wuse Market Trading at ₦8,300, Lounge Waiting at ₦6,600 — and Port Harcourt careers — Creek Road Trading ₦8,300, Ferry Work, Bole & Fish, and Security at ₦7,400. Airport Staff pays ₦12,000 with no listed requirements, and Refinery Work in Port Harcourt pays ₦14,000, also ungated. If you spawn outside Lagos, these are your on-ramps; how inter-city travel works is not yet verified."
+      }
+    ]
+  },
+  {
+    "slug": "housing-costs-compared",
+    "title": "Where to Live: Every Rent Price Compared",
+    "summary": "17 rentable homes across Lagos, Abuja, and Port Harcourt — from the ₦1,200 UNILAG hostel to the ₦1,500,000 Banana Island mansion. City-by-city tiers, what the honest unknowns are, and the three mid-tier sweet spots at ₦6,000.",
+    "topic": "Housing",
+    "verificationStatus": "partial",
+    "updatedAt": "2026-10-10",
+    "sourceIds": ["src-game-target"],
+    "limitations": [
+      "Rents verified from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
+      "Rent period (per week / per month / one-time) is NOT stated in the game files — this is our biggest open unknown and it changes every affordability conclusion. Confirm in-game.",
+      "Furnishing is separate: 69 furniture items carry one-time prices in the data, but which items each home requires is not yet verified."
+    ],
+    "sections": [
+      {
+        "heading": "The Full Picture: 17 Homes, 3 Cities",
+        "body": "Lagos (cheapest to priciest): UNILAG Hall of Residence, Akoka ₦1,200 · face-me-I-face-you, Mushin ₦2,400 · self-contain, Yaba ₦6,000 · mini-flat, Lekki Phase 1 ₦17,000 · terrace duplex, Ikate ₦45,000 · family duplex, Magodo GRA ₦110,000 · duplex, Ikoyi ₦250,000 · mansion, Banana Island ₦1,500,000. Abuja: single room, Kubwa ₦2,800 · mini flat, Gwarinpa ₦6,000 · serviced apartment, Wuse 2 ₦34,000 · detached house, Maitama ₦240,000 · mansion, Asokoro ₦1,400,000. Port Harcourt: single room, Rumuokoro ₦2,600 · mini flat, D-Line ₦6,000 · serviced apartment, Woji ₦32,000 · colonial duplex, Old GRA ₦220,000."
+      },
+      {
+        "heading": "The ₦6,000 Sweet Spot",
+        "body": "Three different cities offer the same ₦6,000 mid-tier: a Yaba self-contain in Lagos, a Gwarinpa mini flat in Abuja, and a D-Line mini flat in Port Harcourt. If your career is in Lagos, Yaba is the natural upgrade from Mushin at only 2.5× the price — and Yaba is also home to CcHub (08:00–23:00 in the game), which matters for tech-flavoured play. Until the rent period is verified, we can't rank these by true affordability; what we can say is that the game designers priced the three cities' mid-tiers identically."
+      },
+      {
+        "heading": "The Luxury Cliff",
+        "body": "The jump from mid-tier to luxury is steep everywhere: Ikoyi at ₦250,000 is 42× the Yaba self-contain beside it in the same city; Banana Island at ₦1,500,000 is 88× the Lekki mini-flat two tiers below. Abuja and Port Harcourt mirror this — Maitama ₦240,000 and Old GRA ₦220,000 against ₦6,000 mid-tiers. On any career's pay curve, luxury housing is a late-game decision: even a Country MD (Oil & Gas, ₦96,000 per shift) would feel a Banana Island mansion."
+      },
+      {
+        "heading": "What We Don't Know Yet",
+        "body": "Three open questions before any rent is 'advice' rather than 'data': (1) the rent period — weekly or monthly changes the maths by 4×; (2) furnishing requirements — the data prices 69 furniture items separately (one-time), but which homes demand which items is unverified; (3) location-linked perks — homes near job hubs may save commute time, but commute mechanics are not in the extracted data. Every one of these is marked 'Not yet verified' on the individual housing records in our Game Data directory, and any confirmed answer you find in-game can be reported from the record page."
+      }
+    ]
+  }
+]

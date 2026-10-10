@@ -304,9 +304,13 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
                   {section.heading}
                 </h2>
               </div>
-              <p class="text-body-lg leading-relaxed text-on-surface-variant">
-                {section.body}
-              </p>
+              <div class="space-y-space-sm">
+                {section.body.split(/\n\n+/).map((para) => (
+                  <p class="text-body-lg leading-relaxed text-on-surface-variant">
+                    {para}
+                  </p>
+                ))}
+              </div>
             </section>
           ))
         }
