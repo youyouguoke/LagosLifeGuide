@@ -14,392 +14,550 @@ const jobOptions = jobs
   title="Plan Your First Week — LagosLifeGuide.app"
   description="Build a practical plan around your current situation and what you want to achieve."
 >
-  <section
-    class="mx-auto max-w-[960px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"
-  >
-    <header class="max-w-3xl">
-      <p class="text-label-lg font-semibold uppercase tracking-widest text-brand-dark">Tools</p>
+  <div class="mx-auto max-w-[1280px] px-margin md:px-margin-tablet lg:px-margin-desktop">
+    <!-- Top utility bar: breadcrumb + local-storage status (Stitch sub-nav treatment) -->
+    <section class="w-full py-space-md">
+      <div class="flex flex-col gap-space-sm md:flex-row md:items-center md:justify-between">
+        <nav
+          class="flex items-center gap-space-xs text-on-surface-variant text-label-md"
+          aria-label="Breadcrumb"
+        >
+          <a class="flex items-center gap-1 transition-colors hover:text-primary" href="/tools/">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1Z" stroke-linejoin="round" />
+            </svg>
+            Tools
+          </a>
+          <span>/</span>
+          <span class="font-bold text-primary">First Week Planner</span>
+        </nav>
+        <div
+          class="flex flex-wrap items-center gap-space-md rounded-full bg-surface-container-lowest px-space-md py-1.5 shadow-sm"
+        >
+          <div class="flex items-center gap-1.5 text-tertiary">
+            <span class="h-2 w-2 animate-pulse rounded-full bg-primary-container"></span>
+            <span class="text-label-md text-on-surface">Saved locally in browser</span>
+            <span class="text-[11px] text-outline">(no cloud sync)</span>
+          </div>
+          <div class="flex items-center gap-space-xs">
+            <button
+              type="button"
+              id="planner-clear"
+              class="rounded-md px-2.5 py-0.5 text-label-md text-error transition-colors hover:bg-error-container"
+            >
+              Clear Data
+            </button>
+          </div>
+        </div>
+        <p id="planner-save-error" class="hidden w-full text-body-md font-semibold text-needs-verification" role="status">
+          Saving unavailable in this browser — you can keep planning, but progress won't persist.
+        </p>
+        <p id="planner-cleared-note" class="hidden w-full text-body-md font-semibold text-verified" role="status">
+          Saved plan cleared.
+        </p>
+      </div>
+    </section>
+
+    <!-- Page title & overview header -->
+    <header class="w-full pb-space-lg">
+      <div
+        class="inline-flex items-center gap-2 rounded-full bg-secondary-fixed px-3 py-1 text-label-sm uppercase tracking-wide text-on-secondary-fixed"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 5H6a2 2 0 0 0-2 2v13a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2h-3" />
+          <rect x="9" y="3" width="6" height="4" rx="1" />
+        </svg>
+        3-Step Planning Tool
+      </div>
       <h1 class="mt-space-xs text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
         Plan Your First Week
       </h1>
-      <p class="mt-space-sm text-body-lg text-on-surface-variant">
+      <p class="mt-space-sm max-w-2xl text-body-lg text-on-surface-variant">
         Build a practical plan around your current situation and what you want to achieve.
       </p>
+
+      <!-- Stepper indicator (Stitch tab treatment) -->
+      <ol
+        id="planner-steps"
+        class="mt-space-lg grid grid-cols-1 gap-space-sm md:grid-cols-3"
+        aria-label="Planner progress"
+      >
+        <li
+          data-step-indicator="1"
+          aria-current="step"
+          class="flex items-center gap-space-sm rounded-2xl bg-surface-container p-space-md text-left transition-all"
+        >
+          <span
+            data-step-num
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface-variant text-label-lg font-bold text-on-surface-variant"
+            >1</span
+          >
+          <div class="min-w-0">
+            <span class="block text-label-sm font-bold uppercase tracking-wider text-outline">Step 01</span>
+            <span data-step-label class="block text-headline-sm font-semibold text-on-surface-variant">Your Situation</span>
+          </div>
+        </li>
+        <li
+          data-step-indicator="2"
+          class="flex items-center gap-space-sm rounded-2xl bg-surface-container p-space-md text-left opacity-80 transition-all hover:opacity-100"
+        >
+          <span
+            data-step-num
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface-variant text-label-lg font-bold text-on-surface-variant"
+            >2</span
+          >
+          <div class="min-w-0">
+            <span class="block text-label-sm font-semibold uppercase tracking-wider text-outline">Step 02</span>
+            <span data-step-label class="block text-headline-sm font-semibold text-on-surface-variant">Your Primary Goal</span>
+          </div>
+        </li>
+        <li
+          data-step-indicator="3"
+          class="flex items-center gap-space-sm rounded-2xl bg-surface-container p-space-md text-left opacity-80 transition-all hover:opacity-100"
+        >
+          <span
+            data-step-num
+            class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface-variant text-label-lg font-bold text-on-surface-variant"
+            >3</span
+          >
+          <div class="min-w-0">
+            <span class="block text-label-sm font-semibold uppercase tracking-wider text-outline">Final Step</span>
+            <span data-step-label class="block text-headline-sm font-semibold text-on-surface-variant">Review &amp; Build Plan</span>
+          </div>
+        </li>
+      </ol>
     </header>
 
-    <!-- Persistence notice (UIUX §7.7) -->
-    <div
-      class="mt-space-md flex flex-wrap items-center gap-space-sm rounded-card border border-border bg-surface-container-low p-space-md"
-    >
-      <p class="text-body-md text-on-surface-variant">
-        Your plan is saved only in this browser.
-      </p>
-      <button
-        type="button"
-        id="planner-clear"
-        class="rounded-full border border-outline px-4 py-1.5 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
-      >
-        Clear Saved Plan
-      </button>
-      <p id="planner-save-error" class="hidden text-body-md font-semibold text-needs-verification" role="status">
-        Saving unavailable in this browser — you can keep planning, but progress won't persist.
-      </p>
-      <p id="planner-cleared-note" class="hidden text-body-md font-semibold text-verified" role="status">
-        Saved plan cleared.
-      </p>
-    </div>
-
-    <!-- Step indicator (UIUX §7.2): green active state -->
-    <ol
-      id="planner-steps"
-      class="mt-space-lg grid grid-cols-1 gap-space-sm sm:grid-cols-3"
-      aria-label="Planner progress"
-    >
-      <li
-        data-step-indicator="1"
-        aria-current="step"
-        class="flex items-center gap-space-sm rounded-card border border-border bg-surface-container-lowest px-space-md py-space-sm"
-      >
-        <span
-          data-step-num
-          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-lg font-bold text-text-muted"
-          >1</span
+    <!-- Interactive planner workspace -->
+    <form id="planner-form" novalidate class="grid grid-cols-1 items-start gap-gutter-desktop lg:grid-cols-12">
+      <!-- Main planning column (8 cols) -->
+      <div class="flex flex-col gap-space-lg lg:col-span-8">
+        <!-- STEP 1 — Current Situation Inputs -->
+        <section
+          id="planner-panel-1"
+          data-panel
+          aria-labelledby="planner-panel-1-title"
+          class="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm transition-all"
         >
-        <span data-step-label class="text-label-lg font-semibold text-on-surface-variant">Your Situation</span>
-      </li>
-      <li
-        data-step-indicator="2"
-        class="flex items-center gap-space-sm rounded-card border border-border bg-surface-container-lowest px-space-md py-space-sm"
-      >
-        <span
-          data-step-num
-          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-lg font-bold text-text-muted"
-          >2</span
-        >
-        <span data-step-label class="text-label-lg font-semibold text-on-surface-variant">Your Goal</span>
-      </li>
-      <li
-        data-step-indicator="3"
-        class="flex items-center gap-space-sm rounded-card border border-border bg-surface-container-lowest px-space-md py-space-sm"
-      >
-        <span
-          data-step-num
-          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-lg font-bold text-text-muted"
-          >3</span
-        >
-        <span data-step-label class="text-label-lg font-semibold text-on-surface-variant">Your Plan</span>
-      </li>
-    </ol>
-
-    <form id="planner-form" novalidate class="mt-space-lg">
-      <!-- STEP 1 — Your Situation (UIUX §7.3) -->
-      <section
-        id="planner-panel-1"
-        data-panel
-        aria-labelledby="planner-panel-1-title"
-        class="rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card"
-      >
-        <h2 id="planner-panel-1-title" class="text-headline-md font-bold tracking-tight text-on-surface">
-          Your Situation
-        </h2>
-        <p class="mt-space-xs text-body-md text-on-surface-variant">
-          Everything here is optional. Unknown stays unknown — it is never treated as zero.
-        </p>
-
-        <div class="mt-space-lg grid gap-space-md">
-          <div>
-            <label for="planner-cash" class="text-label-lg font-semibold text-on-surface">
-              Current cash
-              <span class="ml-1 font-normal text-text-muted">(optional)</span>
-            </label>
-            <input
-              id="planner-cash"
-              name="cash"
-              type="number"
-              inputmode="decimal"
-              min="0"
-              step="any"
-              autocomplete="off"
-              class="mt-space-xs w-full max-w-xs rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
-            />
-            <p class="mt-space-xs text-body-md text-text-muted">
-              Leave blank if unknown — we never treat unknown as zero.
+          <div class="pb-space-md">
+            <span class="text-label-sm font-bold uppercase text-primary">Parameters</span>
+            <h2 id="planner-panel-1-title" class="mt-0.5 text-headline-lg font-bold tracking-tight text-on-surface">
+              01. Current Situation Inputs
+            </h2>
+            <p class="mt-space-xs text-body-md text-on-surface-variant">
+              Everything here is optional. Unknown stays unknown — it is never treated as zero.
             </p>
-            <p id="planner-cash-error" class="mt-space-xs hidden text-body-md font-semibold text-needs-verification" role="alert"></p>
           </div>
 
-          <div>
-            <span class="text-label-lg font-semibold text-on-surface">
-              Current job
-              <span class="ml-1 font-normal text-text-muted">(optional)</span>
-            </span>
-            {jobOptions.length > 0 ? (
-              <select
-                id="planner-job"
-                name="job"
-                class="mt-space-xs block w-full max-w-xs rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
-              >
-                <option value="">Not selected / no job</option>
-                {jobOptions.map((j) => (
-                  <option value={j.id}>{j.name}</option>
-                ))}
-              </select>
-            ) : (
-              <p class="mt-space-xs rounded-xl bg-surface-container-low px-4 py-3 text-body-md text-on-surface-variant">
-                No verified job list is published yet, so there's no dropdown to pick from.
-                This field stays empty until verified job data exists.
-              </p>
-            )}
-          </div>
-
-          <fieldset>
-            <legend class="text-label-lg font-semibold text-on-surface">Housing cost</legend>
-            <div class="mt-space-xs flex flex-wrap items-center gap-space-sm">
+          <div class="grid gap-space-md">
+            <div>
+              <label for="planner-cash" class="text-label-lg font-semibold text-on-surface">
+                Current cash
+                <span class="ml-1 font-normal text-text-muted">(optional)</span>
+              </label>
               <input
-                id="planner-housing"
-                name="housingCost"
+                id="planner-cash"
+                name="cash"
                 type="number"
                 inputmode="decimal"
                 min="0"
                 step="any"
                 autocomplete="off"
-                placeholder="Amount"
-                aria-label="Housing cost amount"
-                class="w-40 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
+                class="mt-space-xs w-full max-w-xs rounded-xl border border-outline-variant bg-surface-container-low/60 px-4 py-3 text-body-lg text-on-surface transition-all hover:bg-surface-container-low focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-container"
               />
-              <label class="sr-only" for="planner-housing-period">Housing cost period</label>
-              <select
-                id="planner-housing-period"
-                name="housingCostPeriod"
-                class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
-              >
-                <option value="week">per week</option>
-                <option value="day">per day</option>
-              </select>
+              <p class="mt-space-xs text-body-md text-outline">
+                Leave blank if unknown — we never treat unknown as zero.
+              </p>
+              <p id="planner-cash-error" class="mt-space-xs hidden text-body-md font-semibold text-needs-verification" role="alert"></p>
             </div>
-            <p class="mt-space-xs text-body-md text-text-muted">
-              Mixed periods (day/week) are never added together.
-            </p>
-            <p id="planner-housing-error" class="mt-space-xs hidden text-body-md font-semibold text-needs-verification" role="alert"></p>
-          </fieldset>
 
-          <fieldset>
-            <legend class="text-label-lg font-semibold text-on-surface">
-              Known recurring costs
-              <span class="ml-1 font-normal text-text-muted">(optional)</span>
-            </legend>
-            <div id="planner-recurring" class="mt-space-xs grid gap-space-sm"></div>
+            <div>
+              <span class="text-label-lg font-semibold text-on-surface">
+                Current job
+                <span class="ml-1 font-normal text-text-muted">(optional)</span>
+              </span>
+              {jobOptions.length > 0 ? (
+                <select
+                  id="planner-job"
+                  name="job"
+                  class="mt-space-xs block w-full max-w-xs rounded-xl border border-outline-variant bg-surface-container-low/60 px-4 py-3 text-body-lg text-on-surface transition-all hover:bg-surface-container-low focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-container"
+                >
+                  <option value="">Not selected / no job</option>
+                  {jobOptions.map((j) => (
+                    <option value={j.id}>{j.name}</option>
+                  ))}
+                </select>
+              ) : (
+                <p class="mt-space-xs rounded-xl bg-surface-container-low px-4 py-3 text-body-md text-on-surface-variant">
+                  No verified job list is published yet, so there's no dropdown to pick from.
+                  This field stays empty until verified job data exists.
+                </p>
+              )}
+            </div>
+
+            <fieldset>
+              <legend class="text-label-lg font-semibold text-on-surface">Housing cost</legend>
+              <div class="mt-space-xs flex flex-wrap items-center gap-space-sm">
+                <input
+                  id="planner-housing"
+                  name="housingCost"
+                  type="number"
+                  inputmode="decimal"
+                  min="0"
+                  step="any"
+                  autocomplete="off"
+                  placeholder="Amount"
+                  aria-label="Housing cost amount"
+                  class="w-40 rounded-xl border border-outline-variant bg-surface-container-low/60 px-4 py-3 text-body-lg text-on-surface transition-all hover:bg-surface-container-low focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-container"
+                />
+                <label class="sr-only" for="planner-housing-period">Housing cost period</label>
+                <select
+                  id="planner-housing-period"
+                  name="housingCostPeriod"
+                  class="rounded-xl border border-outline-variant bg-surface-container-low/60 px-4 py-3 text-body-lg text-on-surface transition-all hover:bg-surface-container-low focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-container"
+                >
+                  <option value="week">per week</option>
+                  <option value="day">per day</option>
+                </select>
+              </div>
+              <p class="mt-space-xs text-body-md text-outline">
+                Mixed periods (day/week) are never added together.
+              </p>
+              <p id="planner-housing-error" class="mt-space-xs hidden text-body-md font-semibold text-needs-verification" role="alert"></p>
+            </fieldset>
+
+            <fieldset>
+              <legend class="text-label-lg font-semibold text-on-surface">
+                Known recurring costs
+                <span class="ml-1 font-normal text-text-muted">(optional)</span>
+              </legend>
+              <div id="planner-recurring" class="mt-space-xs grid gap-space-sm"></div>
+              <button
+                type="button"
+                id="planner-add-cost"
+                class="mt-space-sm inline-flex items-center gap-1 rounded-full border border-outline px-4 py-2 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+                </svg>
+                Add a recurring cost
+              </button>
+            </fieldset>
+
+            <div>
+              <label for="planner-skills" class="text-label-lg font-semibold text-on-surface">
+                Current skills
+                <span class="ml-1 font-normal text-text-muted">(optional)</span>
+              </label>
+              <input
+                id="planner-skills"
+                name="skills"
+                type="text"
+                autocomplete="off"
+                placeholder="e.g. typing, driving, trading"
+                class="mt-space-xs w-full rounded-xl border border-outline-variant bg-surface-container-low/60 px-4 py-3 text-body-lg text-on-surface transition-all hover:bg-surface-container-low focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-container"
+              />
+              <p class="mt-space-xs text-body-md text-outline">
+                Separate skills with commas. Free text is stored as typed — no invented skill list.
+              </p>
+            </div>
+          </div>
+
+          <p id="planner-step1-error" class="mt-space-md hidden rounded-xl bg-needs-verification-bg px-4 py-3 text-body-md font-semibold text-needs-verification" role="alert"></p>
+
+          <div class="mt-space-lg flex items-center gap-space-sm">
             <button
               type="button"
-              id="planner-add-cost"
-              class="mt-space-sm inline-flex items-center gap-1 rounded-full border border-outline px-4 py-2 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+              id="planner-next-1"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-primary-container px-space-lg py-3 text-label-lg font-bold text-on-primary shadow-md transition-all hover:bg-primary hover:shadow-lg"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+              Continue to Your Goal
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M5 12h14m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
-              Add a recurring cost
             </button>
-          </fieldset>
+          </div>
+        </section>
 
-          <div>
-            <label for="planner-skills" class="text-label-lg font-semibold text-on-surface">
-              Current skills
-              <span class="ml-1 font-normal text-text-muted">(optional)</span>
+        <!-- STEP 2 — Choose Your Primary Goal (Stitch goal-selection cards) -->
+        <section
+          id="planner-panel-2"
+          data-panel
+          hidden
+          aria-labelledby="planner-panel-2-title"
+          class="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm transition-all"
+        >
+          <div class="flex flex-col gap-space-xs pb-space-md sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <span class="text-label-sm font-bold uppercase text-primary">Objective Selector</span>
+              <h2 id="planner-panel-2-title" class="mt-0.5 text-headline-lg font-bold tracking-tight text-on-surface">
+                02. Choose Your Primary Goal
+              </h2>
+            </div>
+            <p class="text-body-sm text-outline">Select one core trajectory for week 1</p>
+          </div>
+          <p class="text-body-md text-on-surface-variant">
+            These are planning preferences, not claims about official game systems.
+          </p>
+
+          <div class="mt-space-lg grid gap-space-md md:grid-cols-3" role="radiogroup" aria-label="Choose your goal">
+            <label
+              data-goal-card
+              class="group relative cursor-pointer overflow-hidden rounded-2xl bg-surface-container p-space-lg transition-all has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary has-[:checked]:bg-surface-container-low has-[:checked]:shadow-md has-[:checked]:ring-2 has-[:checked]:ring-primary-container has-[:checked]:[&_[data-goal-badge]]:inline-flex"
+            >
+              <input type="radio" name="goal" value="financial_stability" class="sr-only" />
+              <div class="mb-space-md flex items-center justify-between">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-on-primary shadow-sm">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <span data-goal-badge class="hidden items-center gap-1 rounded-full bg-primary-container px-2.5 py-0.5 text-label-sm font-bold text-on-primary">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="m8.5 12.5 2.5 2.5 4.5-5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Active Choice
+                </span>
+              </div>
+              <span class="block text-headline-md font-semibold text-on-surface">Financial Stability</span>
+              <p class="mt-space-xs text-body-md text-on-surface-variant">
+                Prioritize steady income and keeping known costs under control. Recommendations lean
+                toward work and earning actions.
+              </p>
             </label>
-            <input
-              id="planner-skills"
-              name="skills"
-              type="text"
-              autocomplete="off"
-              placeholder="e.g. typing, driving, trading"
-              class="mt-space-xs w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
-            />
-            <p class="mt-space-xs text-body-md text-text-muted">
-              Separate skills with commas. Free text is stored as typed — no invented skill list.
-            </p>
+            <label
+              data-goal-card
+              class="group relative cursor-pointer overflow-hidden rounded-2xl bg-surface-container p-space-lg transition-all has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary has-[:checked]:bg-surface-container-low has-[:checked]:shadow-md has-[:checked]:ring-2 has-[:checked]:ring-primary-container has-[:checked]:[&_[data-goal-badge]]:inline-flex"
+            >
+              <input type="radio" name="goal" value="career_growth" class="sr-only" />
+              <div class="mb-space-md flex items-center justify-between">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-tertiary-container text-on-tertiary-container shadow-sm">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="m3 17 6-6 4 4 8-8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M14 7h7v7" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <span data-goal-badge class="hidden items-center gap-1 rounded-full bg-primary-container px-2.5 py-0.5 text-label-sm font-bold text-on-primary">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="m8.5 12.5 2.5 2.5 4.5-5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Active Choice
+                </span>
+              </div>
+              <span class="block text-headline-md font-semibold text-on-surface">Career Growth</span>
+              <p class="mt-space-xs text-body-md text-on-surface-variant">
+                Focus on skills, training, and progression. Recommendations lean toward learning actions.
+              </p>
+            </label>
+            <label
+              data-goal-card
+              class="group relative cursor-pointer overflow-hidden rounded-2xl bg-surface-container p-space-lg transition-all has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary has-[:checked]:bg-surface-container-low has-[:checked]:shadow-md has-[:checked]:ring-2 has-[:checked]:ring-primary-container has-[:checked]:[&_[data-goal-badge]]:inline-flex"
+            >
+              <input type="radio" name="goal" value="exploration" class="sr-only" />
+              <div class="mb-space-md flex items-center justify-between">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-container text-on-secondary-container shadow-sm">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="m15.5 8.5-2 5-5 2 2-5Z" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <span data-goal-badge class="hidden items-center gap-1 rounded-full bg-primary-container px-2.5 py-0.5 text-label-sm font-bold text-on-primary">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="m8.5 12.5 2.5 2.5 4.5-5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  Active Choice
+                </span>
+              </div>
+              <span class="block text-headline-md font-semibold text-on-surface">Exploration</span>
+              <p class="mt-space-xs text-body-md text-on-surface-variant">
+                Focus on discovering locations and options. Recommendations lean toward travel and
+                discovery actions.
+              </p>
+            </label>
           </div>
+
+          <p id="planner-step2-error" class="mt-space-md hidden rounded-xl bg-needs-verification-bg px-4 py-3 text-body-md font-semibold text-needs-verification" role="alert">
+            Select a goal to continue.
+          </p>
+
+          <div class="mt-space-lg flex items-center gap-space-sm">
+            <button
+              type="button"
+              id="planner-back-2"
+              class="inline-flex items-center justify-center rounded-full border border-outline px-6 py-3 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              id="planner-next-2"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-primary-container px-space-lg py-3 text-label-lg font-bold text-on-primary shadow-md transition-all hover:bg-primary hover:shadow-lg"
+            >
+              Review My Plan
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M5 12h14m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- STEP 3 — Review & Build Plan -->
+        <section
+          id="planner-panel-3"
+          data-panel
+          hidden
+          aria-labelledby="planner-panel-3-title"
+          class="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm transition-all"
+        >
+          <div class="flex items-center justify-between gap-space-sm pb-space-md">
+            <div>
+              <span class="text-label-sm font-bold uppercase text-primary">Synthesis</span>
+              <h2 id="planner-panel-3-title" class="mt-0.5 text-headline-lg font-bold tracking-tight text-on-surface">
+                03. Review &amp; Build Plan
+              </h2>
+            </div>
+            <div class="flex items-center gap-1.5 text-label-md text-tertiary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="4" y="10" width="16" height="11" rx="2" />
+                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+              </svg>
+              <span>All calculations local</span>
+            </div>
+          </div>
+          <p class="text-body-md text-on-surface-variant">
+            Check your inputs below. Missing information is shown as unknown — never as zero.
+          </p>
+
+          <!-- Structured snapshot grid -->
+          <dl class="mt-space-lg grid grid-cols-2 gap-space-sm rounded-2xl bg-surface-container-low p-space-md sm:grid-cols-3">
+            <div class="flex flex-col">
+              <dt class="text-label-sm text-outline">Current cash</dt>
+              <dd id="review-cash" class="text-headline-sm font-semibold text-on-surface">Unknown</dd>
+            </div>
+            <div class="flex flex-col">
+              <dt class="text-label-sm text-outline">Current job</dt>
+              <dd id="review-job" class="text-headline-sm font-semibold text-on-surface">Unknown</dd>
+            </div>
+            <div class="flex flex-col">
+              <dt class="text-label-sm text-outline">Housing cost</dt>
+              <dd id="review-housing" class="text-headline-sm font-semibold text-on-surface">Unknown</dd>
+            </div>
+            <div class="flex flex-col">
+              <dt class="text-label-sm text-outline">Recurring costs</dt>
+              <dd id="review-costs" class="text-headline-sm font-semibold text-on-surface">None added</dd>
+            </div>
+            <div class="flex flex-col">
+              <dt class="text-label-sm text-outline">Skills</dt>
+              <dd id="review-skills" class="text-headline-sm font-semibold text-on-surface">Unknown</dd>
+            </div>
+            <div class="flex flex-col">
+              <dt class="text-label-sm text-outline">Chosen Goal</dt>
+              <dd id="review-goal" class="text-headline-sm font-bold text-on-surface">Not selected</dd>
+            </div>
+          </dl>
+
+          <div class="mt-space-lg flex flex-wrap items-center gap-space-sm">
+            <button
+              type="button"
+              id="planner-build"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-primary-container px-space-xl py-3 text-label-lg font-bold text-on-primary shadow-md transition-all hover:bg-primary hover:shadow-lg"
+            >
+              Create My Plan
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M5 12h14m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              id="planner-back-3"
+              class="inline-flex items-center justify-center rounded-full border border-outline px-6 py-3 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+            >
+              Back
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right column: contextual guide & privacy (4 cols) -->
+      <aside class="flex flex-col gap-space-md lg:col-span-4 lg:sticky lg:top-20">
+        <div class="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm">
+          <div class="mb-space-sm flex items-center gap-space-xs text-primary">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.7 1 1.5 1 2.5h6c0-1 .2-1.8 1-2.5A6 6 0 0 0 12 3Z" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="text-label-lg font-bold text-on-surface">Why we ask for this</span>
+          </div>
+          <p class="text-body-md leading-relaxed text-on-surface-variant">
+            The planner only works with information you actually provide. Unknown fields are reported
+            as unknown in your plan — they are never treated as zero — so the recommendations stay
+            honest about what is and isn't verified.
+          </p>
         </div>
-
-        <p id="planner-step1-error" class="mt-space-md hidden rounded-xl bg-needs-verification-bg px-4 py-3 text-body-md font-semibold text-needs-verification" role="alert"></p>
-
-        <div class="mt-space-lg flex items-center gap-space-sm">
-          <button
-            type="button"
-            id="planner-next-1"
-            class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white shadow-md transition-colors hover:bg-brand-dark"
-          >
-            Continue to Your Goal
-          </button>
+        <div class="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm">
+          <div class="mb-space-sm flex items-center justify-between">
+            <span class="text-label-sm font-semibold uppercase tracking-wider text-outline">Privacy</span>
+            <span class="flex items-center gap-1 rounded-full bg-surface-container px-2 py-0.5 text-label-sm font-bold text-primary">
+              <span class="h-1.5 w-1.5 rounded-full bg-primary"></span> Local only
+            </span>
+          </div>
+          <p class="mt-1 text-body-sm leading-relaxed text-on-surface-variant">
+            Everything you enter is stored in your browser's local storage. Nothing is sent to a
+            server or shared anywhere.
+          </p>
         </div>
-      </section>
-
-      <!-- STEP 2 — Your Goal (UIUX §7.4): real radio inputs, green selected state -->
-      <section
-        id="planner-panel-2"
-        data-panel
-        hidden
-        aria-labelledby="planner-panel-2-title"
-        class="rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card"
-      >
-        <h2 id="planner-panel-2-title" class="text-headline-md font-bold tracking-tight text-on-surface">
-          Your Goal
-        </h2>
-        <p class="mt-space-xs text-body-md text-on-surface-variant">
-          These are planning preferences, not claims about official game systems.
-        </p>
-
-        <div class="mt-space-lg grid gap-space-md md:grid-cols-3" role="radiogroup" aria-label="Choose your goal">
-          <label
-            data-goal-card
-            class="block cursor-pointer rounded-card border-2 border-border bg-surface-container-low p-space-md transition-colors has-[:focus-visible]:border-focus has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
-          >
-            <input type="radio" name="goal" value="financial_stability" class="sr-only" />
-            <span class="text-headline-sm font-semibold text-on-surface">Financial Stability</span>
-            <p class="mt-space-xs text-body-md text-on-surface-variant">
-              Prioritize steady income and keeping known costs under control. Recommendations lean
-              toward work and earning actions.
-            </p>
-          </label>
-          <label
-            data-goal-card
-            class="block cursor-pointer rounded-card border-2 border-border bg-surface-container-low p-space-md transition-colors has-[:focus-visible]:border-focus has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
-          >
-            <input type="radio" name="goal" value="career_growth" class="sr-only" />
-            <span class="text-headline-sm font-semibold text-on-surface">Career Growth</span>
-            <p class="mt-space-xs text-body-md text-on-surface-variant">
-              Focus on skills, training, and progression. Recommendations lean toward learning actions.
-            </p>
-          </label>
-          <label
-            data-goal-card
-            class="block cursor-pointer rounded-card border-2 border-border bg-surface-container-low p-space-md transition-colors has-[:focus-visible]:border-focus has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
-          >
-            <input type="radio" name="goal" value="exploration" class="sr-only" />
-            <span class="text-headline-sm font-semibold text-on-surface">Exploration</span>
-            <p class="mt-space-xs text-body-md text-on-surface-variant">
-              Focus on discovering locations and options. Recommendations lean toward travel and
-              discovery actions.
-            </p>
-          </label>
-        </div>
-
-        <p id="planner-step2-error" class="mt-space-md hidden rounded-xl bg-needs-verification-bg px-4 py-3 text-body-md font-semibold text-needs-verification" role="alert">
-          Select a goal to continue.
-        </p>
-
-        <div class="mt-space-lg flex items-center gap-space-sm">
-          <button
-            type="button"
-            id="planner-back-2"
-            class="inline-flex items-center justify-center rounded-full border border-outline px-6 py-3 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
-          >
-            Back
-          </button>
-          <button
-            type="button"
-            id="planner-next-2"
-            class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white shadow-md transition-colors hover:bg-brand-dark"
-          >
-            Review My Plan
-          </button>
-        </div>
-      </section>
-
-      <!-- STEP 3 — Review (UIUX §7.5) -->
-      <section
-        id="planner-panel-3"
-        data-panel
-        hidden
-        aria-labelledby="planner-panel-3-title"
-        class="rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card"
-      >
-        <h2 id="planner-panel-3-title" class="text-headline-md font-bold tracking-tight text-on-surface">
-          Review &amp; Build
-        </h2>
-        <p class="mt-space-xs text-body-md text-on-surface-variant">
-          Check your inputs below. Missing information is shown as unknown — never as zero.
-        </p>
-
-        <dl class="mt-space-lg grid gap-space-sm rounded-card bg-surface-container-low p-space-md">
-          <div class="flex flex-wrap gap-x-space-sm">
-            <dt class="min-w-40 font-semibold text-on-surface">Current cash</dt>
-            <dd id="review-cash" class="text-on-surface-variant">Unknown</dd>
-          </div>
-          <div class="flex flex-wrap gap-x-space-sm">
-            <dt class="min-w-40 font-semibold text-on-surface">Current job</dt>
-            <dd id="review-job" class="text-on-surface-variant">Unknown</dd>
-          </div>
-          <div class="flex flex-wrap gap-x-space-sm">
-            <dt class="min-w-40 font-semibold text-on-surface">Housing cost</dt>
-            <dd id="review-housing" class="text-on-surface-variant">Unknown</dd>
-          </div>
-          <div class="flex flex-wrap gap-x-space-sm">
-            <dt class="min-w-40 font-semibold text-on-surface">Recurring costs</dt>
-            <dd id="review-costs" class="text-on-surface-variant">None added</dd>
-          </div>
-          <div class="flex flex-wrap gap-x-space-sm">
-            <dt class="min-w-40 font-semibold text-on-surface">Skills</dt>
-            <dd id="review-skills" class="text-on-surface-variant">Unknown</dd>
-          </div>
-          <div class="flex flex-wrap gap-x-space-sm">
-            <dt class="min-w-40 font-semibold text-on-surface">Goal</dt>
-            <dd id="review-goal" class="text-on-surface-variant">Not selected</dd>
-          </div>
-        </dl>
-
-        <div class="mt-space-lg flex flex-wrap items-center gap-space-sm">
-          <button
-            type="button"
-            id="planner-build"
-            class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white shadow-md transition-colors hover:bg-brand-dark"
-          >
-            Create My Plan
-          </button>
-          <button
-            type="button"
-            id="planner-back-3"
-            class="inline-flex items-center justify-center rounded-full border border-outline px-6 py-3 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
-          >
-            Back
-          </button>
-        </div>
-      </section>
+      </aside>
     </form>
 
-    <!-- RESULTS (UIUX §7.6) -->
+    <!-- RESULTS: generated strategy plans (Stitch verification-state treatment) -->
     <section
       id="planner-results"
       hidden
       aria-live="polite"
       aria-labelledby="planner-results-title"
-      class="mt-space-lg rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card"
+      class="mt-space-xl rounded-2xl bg-surface-container-low/40 p-space-lg shadow-sm md:p-space-xl"
     >
-      <h2 id="planner-results-title" class="text-headline-md font-bold tracking-tight text-on-surface">
-        Your Plan
-      </h2>
+      <div class="pb-space-lg">
+        <div
+          class="mb-space-xs inline-flex items-center gap-2 rounded-full bg-surface-container px-3 py-1 text-label-sm font-semibold text-on-surface"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Strategy Engines
+        </div>
+        <h2 id="planner-results-title" class="text-display-hero-mobile font-bold tracking-tight text-on-surface md:text-headline-lg">
+          Generated Strategy Plans (Verification States)
+        </h2>
+        <p class="mt-1 max-w-2xl text-body-lg text-on-surface-variant">
+          Depending on your inputs, the planner generates one of three validated outcome states.
+        </p>
+      </div>
 
       <!-- Status banner: text label always shown, never color alone (VerificationBadge semantics) -->
-      <div id="result-status" class="mt-space-md rounded-card p-space-md"></div>
+      <div id="result-status" class="rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm"></div>
 
       <!-- Budget: always labelled "remaining after known costs", never total balance (BD-003) -->
       <div id="result-budget" class="mt-space-md"></div>
 
       <div class="mt-space-md">
         <h3 class="text-headline-sm font-semibold text-on-surface">Recommendations</h3>
-        <div id="result-recommendations" class="mt-space-sm grid gap-space-sm"></div>
+        <div id="result-recommendations" class="mt-space-sm grid gap-space-md"></div>
       </div>
 
       <div class="mt-space-md">
         <h3 class="text-headline-sm font-semibold text-on-surface">What we don't know yet</h3>
-        <ul id="result-unknowns" class="mt-space-sm list-disc space-y-space-xs pl-6 text-body-md text-on-surface-variant"></ul>
+        <div id="result-unknowns-panel" class="mt-space-sm"></div>
       </div>
 
       <div class="mt-space-md">
         <h3 class="text-headline-sm font-semibold text-on-surface">Conflicts</h3>
-        <ul id="result-conflicts" class="mt-space-sm list-disc space-y-space-xs pl-6 text-body-md text-on-surface-variant"></ul>
+        <div id="result-conflicts-panel" class="mt-space-sm"></div>
       </div>
     </section>
-  </section>
+  </div>
 
   <script>
     import { buildPlan } from "../../../lib/planner/build-plan";
@@ -478,7 +636,7 @@ const jobOptions = jobs
       return { ok: true, value: n };
     }
 
-    /* ---------- Step navigation + indicator ---------- */
+    /* ---------- Step navigation + indicator (Stitch step-tab styling) ---------- */
 
     const panels = Array.from(document.querySelectorAll<HTMLElement>("[data-panel]"));
     const indicators = Array.from(
@@ -497,21 +655,26 @@ const jobOptions = jobs
         const active = liStep === step;
         const done = liStep < step;
         li.className =
-          "flex items-center gap-space-sm rounded-card border px-space-md py-space-sm " +
-          (active ? "border-brand bg-brand-soft" : "border-border bg-surface-container-lowest");
+          "flex items-center gap-space-sm rounded-2xl p-space-md text-left transition-all " +
+          (active
+            ? "bg-surface-container-lowest shadow-md ring-2 ring-primary-container"
+            : done
+              ? "bg-surface-container"
+              : "bg-surface-container opacity-80 hover:opacity-100");
         if (num) {
           num.className =
-            "flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-label-lg font-bold " +
+            "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-label-lg font-bold shadow-sm " +
             (active
-              ? "bg-brand text-white"
+              ? "bg-primary-container text-on-primary"
               : done
-                ? "bg-verified text-white"
-                : "bg-surface-container text-text-muted");
+                ? "bg-primary text-on-primary"
+                : "bg-surface-variant text-on-surface-variant");
+          num.textContent = done ? "✓" : String(liStep);
         }
         if (label) {
           label.className =
-            "text-label-lg font-semibold " +
-            (active ? "text-brand-dark" : done ? "text-verified" : "text-on-surface-variant");
+            "block text-headline-sm font-semibold " +
+            (active ? "text-on-surface" : done ? "text-primary" : "text-on-surface-variant");
         }
         if (active) li.setAttribute("aria-current", "step");
         else li.removeAttribute("aria-current");
@@ -536,12 +699,12 @@ const jobOptions = jobs
           type="number" inputmode="decimal" min="0" step="any" autocomplete="off"
           placeholder="Amount" aria-label="Recurring cost amount"
           data-cost-amount
-          class="w-36 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2 text-body-lg text-on-surface focus:border-focus"
+          class="w-36 rounded-xl border border-outline-variant bg-surface-container-low/60 px-4 py-2 text-body-lg text-on-surface transition-all hover:bg-surface-container-low focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-container"
           value="${cost ? cost.amount : ""}"
         />
         <label class="sr-only">Cost period</label>
         <select data-cost-period
-          class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2 text-body-lg text-on-surface focus:border-focus">
+          class="rounded-xl border border-outline-variant bg-surface-container-low/60 px-4 py-2 text-body-lg text-on-surface transition-all hover:bg-surface-container-low focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-container">
           <option value="week" ${cost?.period === "week" ? "selected" : ""}>per week</option>
           <option value="day" ${cost?.period === "day" ? "selected" : ""}>per day</option>
           <option value="hour" ${cost?.period === "hour" ? "selected" : ""}>per hour</option>
@@ -722,31 +885,34 @@ const jobOptions = jobs
     must<HTMLButtonElement>("planner-back-2").addEventListener("click", () => showStep(1));
     must<HTMLButtonElement>("planner-back-3").addEventListener("click", () => showStep(2));
 
-    /* ---------- Results rendering (UIUX §7.6) ---------- */
+    /* ---------- Results rendering (Stitch verification-state treatment) ---------- */
 
     const resultsSection = must<HTMLElement>("planner-results");
 
     const STATUS_META: Record<
       PlannerResult["status"],
-      { label: string; desc: string; cls: string; badge: string }
+      { label: string; desc: string; badge: string; pill: string; icon: string }
     > = {
       ready: {
         label: "Ready",
         desc: "Sufficient verified information exists for the intended recommendations.",
-        cls: "bg-verified-bg text-verified",
         badge: "Verified",
+        pill: "bg-primary/10 text-primary",
+        icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m12 2 2.4 2.4 3.4-.4.6 3.3 3 1.6-1.4 3.1 1.4 3.1-3 1.6-.6 3.3-3.4-.4L12 22l-2.4-2.4-3.4.4-.6-3.3-3-1.6L4 11.9 2.6 8.8l3-1.6.6-3.3 3.4.4Z" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       },
       partial: {
         label: "Partial",
         desc: "A useful recommendation is possible, but some details remain uncertain.",
-        cls: "bg-partial-bg text-partial",
-        badge: "Partially Verified",
+        badge: "Under Community Review",
+        pill: "bg-secondary-fixed text-on-secondary-fixed",
+        icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
       },
       blocked: {
         label: "Blocked",
         desc: "Essential information is unavailable, so no reliable recommendation can be generated.",
-        cls: "bg-needs-verification-bg text-needs-verification",
-        badge: "Needs Verification",
+        badge: "Essential Data Missing",
+        pill: "bg-error-container text-error",
+        icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 8 8 8M16 8l-8 8" stroke-linecap="round"/></svg>',
       },
     };
 
@@ -756,18 +922,26 @@ const jobOptions = jobs
       blocked: { label: "Blocked", cls: "bg-needs-verification-bg text-needs-verification" },
     };
 
+    const INFO_ICON =
+      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5" stroke-linecap="round"/></svg>';
+    const ERROR_ICON =
+      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5h.01" stroke-linecap="round"/></svg>';
+
     function renderResults(result: PlannerResult): void {
       const meta = STATUS_META[result.status];
       resultsSection.hidden = false;
 
+      // Status banner — Stitch pill treatment, text label always present.
       must<HTMLDivElement>("result-status").innerHTML = `
         <div class="flex flex-wrap items-center gap-space-sm">
-          <span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-label-md font-semibold ${meta.cls}">
+          <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-label-sm font-bold ${meta.pill}">
+            ${meta.icon}
             ${esc(meta.label)} — ${esc(meta.badge)}
           </span>
-          <p class="text-body-md font-semibold text-on-surface">${esc(result.summary)}</p>
+          <span class="text-label-md text-outline">Planner outcome state</span>
         </div>
-        <p class="mt-space-xs text-body-md text-on-surface-variant">${esc(meta.desc)}</p>
+        <h3 class="mt-space-sm text-headline-lg font-bold tracking-tight text-on-surface">${esc(result.summary)}</h3>
+        <p class="mt-1 text-body-md text-on-surface-variant">${esc(meta.desc)}</p>
       `;
 
       // Budget — always "remaining after known costs", never total balance (BD-003).
@@ -786,7 +960,7 @@ const jobOptions = jobs
           .map((u) => `<li>${esc(u)}</li>`)
           .join("");
         budgetHost.innerHTML = `
-          <div class="rounded-card bg-surface-container-low p-space-md">
+          <div class="rounded-2xl bg-surface-container-lowest p-space-md shadow-sm">
             <h3 class="text-headline-sm font-semibold text-on-surface">Budget</h3>
             <p class="mt-space-xs text-body-lg font-semibold text-on-surface">${esc(remainingText)}</p>
             <p class="mt-space-xs text-body-md text-on-surface-variant">
@@ -800,11 +974,11 @@ const jobOptions = jobs
         budgetHost.innerHTML = "";
       }
 
-      // Recommendations — each with reason, status chip, and evidence links.
+      // Recommendations — Stitch ordered plan cards with number chips and status pills.
       const recHost = must<HTMLDivElement>("result-recommendations");
       if (result.recommendations.length === 0) {
         recHost.innerHTML = `
-          <div class="rounded-card border border-dashed border-border bg-surface-container-lowest p-space-md text-center">
+          <div class="rounded-xl border border-dashed border-outline-variant bg-surface-container-lowest p-space-md text-center">
             <p class="text-body-md text-on-surface-variant">
               No recommendations can be generated yet. Verified skills/action data hasn't been
               published, so anything we suggested here would be invented.
@@ -813,7 +987,7 @@ const jobOptions = jobs
         `;
       } else {
         recHost.innerHTML = result.recommendations
-          .map((rec) => {
+          .map((rec, idx) => {
             const chip = REC_STATUS_META[rec.status] ?? REC_STATUS_META.conditional;
             const links = [...rec.sourceIds, ...rec.evidenceIds]
               .map(
@@ -822,28 +996,43 @@ const jobOptions = jobs
               )
               .join(" · ");
             return `
-              <article class="rounded-card border border-border bg-surface-container-low p-space-md">
-                <div class="flex flex-wrap items-center gap-space-sm">
-                  <h4 class="text-headline-sm font-semibold text-on-surface">${esc(rec.title)}</h4>
-                  <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-label-md font-semibold ${chip.cls}">${esc(chip.label)}</span>
+              <article class="flex items-start gap-space-md rounded-xl bg-surface-container-low p-space-md">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-label-lg font-bold text-on-primary">${idx + 1}</span>
+                <div class="min-w-0 flex-1">
+                  <div class="flex flex-wrap items-center gap-space-sm">
+                    <h4 class="text-headline-sm font-semibold text-on-surface">${esc(rec.title)}</h4>
+                    <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-label-md font-semibold ${chip.cls}">${esc(chip.label)}</span>
+                  </div>
+                  <p class="mt-1 text-body-md text-on-surface-variant">${esc(rec.reason)}</p>
+                  ${links ? `<p class="mt-1 text-body-md">Sources &amp; evidence: ${links}</p>` : ""}
                 </div>
-                <p class="mt-space-xs text-body-md text-on-surface-variant">${esc(rec.reason)}</p>
-                ${links ? `<p class="mt-space-xs text-body-md">Sources &amp; evidence: ${links}</p>` : ""}
               </article>
             `;
           })
           .join("");
       }
 
-      // Unknowns + conflicts panels.
-      must<HTMLUListElement>("result-unknowns").innerHTML =
+      // Unknowns + conflicts panels — Stitch alert-box treatment.
+      const unknownItems =
         result.unknowns.length === 0
           ? "<li>None — every known input is reflected above.</li>"
           : result.unknowns.map((u) => `<li>${esc(u)}</li>`).join("");
-      must<HTMLUListElement>("result-conflicts").innerHTML =
+      must<HTMLDivElement>("result-unknowns-panel").innerHTML = `
+        <div class="flex items-start gap-space-md rounded-xl bg-surface-container p-space-md">
+          <span class="mt-0.5 shrink-0 text-secondary">${INFO_ICON}</span>
+          <ul class="min-w-0 flex-1 list-disc space-y-space-xs pl-6 text-body-md text-on-surface-variant">${unknownItems}</ul>
+        </div>
+      `;
+      const conflictItems =
         result.conflicts.length === 0
           ? "<li>No conflicts recorded for the data used.</li>"
           : result.conflicts.map((c) => `<li>${esc(c)}</li>`).join("");
+      must<HTMLDivElement>("result-conflicts-panel").innerHTML = `
+        <div class="flex items-start gap-space-md rounded-xl bg-surface-container p-space-md">
+          <span class="mt-0.5 shrink-0 ${result.conflicts.length === 0 ? "text-outline" : "text-error"}">${result.conflicts.length === 0 ? INFO_ICON : ERROR_ICON}</span>
+          <ul class="min-w-0 flex-1 list-disc space-y-space-xs pl-6 text-body-md text-on-surface-variant">${conflictItems}</ul>
+        </div>
+      `;
     }
 
     /* ---------- Build plan ---------- */

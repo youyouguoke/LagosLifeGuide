@@ -41,7 +41,7 @@ const facts = [
     <div class="mt-space-lg grid grid-cols-1 gap-space-md md:grid-cols-2">
       {facts.map((f) => (
         <div class="rounded-card bg-surface-container-lowest p-space-md shadow-card">
-          <h2 class="text-headline-sm font-semibold text-on-surface">{f.title}</h2>
+          <h2 class="text-headline-sm font-semibold text-inverse-surface">{f.title}</h2>
           <p class="mt-space-sm text-body-md text-on-surface-variant">{f.body}</p>
         </div>
       ))}
@@ -52,7 +52,7 @@ const facts = [
         </p>
         <a
           href="/report-error/"
-          class="mt-space-md inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-label-lg font-semibold text-white transition-colors hover:bg-brand-dark"
+          class="mt-space-md inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-label-lg font-semibold text-on-primary transition-colors hover:bg-brand-dark"
         >
           Report an Error
         </a>

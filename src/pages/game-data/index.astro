@@ -1,156 +1,433 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
 import EmptyState from "../../components/EmptyState.astro";
 import DataRecordCard from "../../components/DataRecordCard.astro";
-import { allRecords, collections } from "../../lib/game-data";
+import {
+  allRecords,
+  cardFilterStatus,
+  collections,
+  sources,
+} from "../../lib/game-data";
 
 const nonEmptyCollections = collections.filter((c) => c.records.length > 0);
 const totalCount = allRecords.length;
 
+// Real audit metrics only — every number below is derived from the dataset.
+const totalFields = allRecords.reduce((n, r) => n + r.fields.length, 0);
+const verifiedFields = allRecords.reduce(
+  (n, r) => n + r.fields.filter((f) => f.field.status === "verified").length,
+  0,
+);
+const citedSources = sources.length;
+
 // Lowercased haystack per record: name + type + key field labels/values.
 const cards = allRecords.map((rec) => ({
   ...rec,
+  filterStatus: cardFilterStatus(rec.status),
   searchText: [
     rec.name,
     rec.typeLabel,
-    ...rec.keyFields.flatMap((kf) => [kf.label, kf.value]),
+    ...rec.keyFields.flatMap((kf) => [kf.label, kf.value ?? ""]),
   ]
     .join(" ")
     .toLowerCase(),
 }));
+
+const collectionLabel = (key: string) =>
+  collections.find((c) => c.key === key)?.chipLabel ?? key;
 ---
 
 <BaseLayout
   title="Game Data — LagosLifeGuide.app"
-  description="Verified Lagos Life game data: jobs, housing and living costs, skills and actions, and locations. Every field is verified individually against cited sources."
+  description="Structured, source-verified Lagos Life datasets: jobs, housing and living costs, skills and actions, and locations. Every field is verified individually against cited sources."
   canonicalPath="/game-data/"
 >
-  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
-    <SectionHeader
-      eyebrow="Game Data"
-      title="Game Data"
-      subtitle="Every field in this reference is verified individually against cited sources before it is published. Anything we could not confirm is shown as “Not yet verified” — never guessed, and never replaced with zero."
-    />
+  <!-- Top intro section (Stitch game_data_directory) -->
+  <section class="mx-auto w-full max-w-[1280px] px-4 pb-6 pt-8 sm:px-6 lg:px-10">
+    <div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest p-6 shadow-sm sm:p-10">
+      <div
+        class="pointer-events-none absolute -right-16 -top-16 h-80 w-80 rounded-full bg-gradient-to-br from-primary-fixed-dim/20 to-secondary-fixed/30 blur-3xl"
+        aria-hidden="true"
+      >
+      </div>
+      <div class="relative z-10 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+        <div class="max-w-3xl">
+          <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-surface-container-low px-3 py-1.5">
+            <span class="h-2.5 w-2.5 rounded-full bg-primary-container" aria-hidden="true"></span>
+            <span class="font-label-sm text-label-sm font-bold uppercase tracking-wider text-primary">
+              Verified Data Registry
+            </span>
+            <span class="font-body-sm text-body-sm text-outline" aria-hidden="true">•</span>
+            <span class="font-label-sm text-label-sm font-semibold text-on-surface-variant">
+              {totalCount} records
+            </span>
+          </div>
+          <h1 class="mb-3 font-display-hero text-display-hero tracking-tight text-on-surface">
+            Game Data <span class="font-extrabold text-primary">Reference Library</span>
+          </h1>
+          <p class="font-body-lg text-body-lg leading-relaxed text-on-surface-variant">
+            Structured, source-verified datasets across Lagos Life jobs, housing
+            and living costs, skills and actions, and locations. Every field is
+            audited individually before it is published.
+          </p>
+        </div>
+        <!-- Audit metric block: real counts only -->
+        <div class="w-full shrink-0 rounded-xl bg-surface-container-low p-5 lg:w-auto">
+          <div class="mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px] text-primary">verified_user</span>
+            <span class="font-label-md text-label-md font-bold uppercase tracking-wider text-primary">
+              Audit Status
+            </span>
+          </div>
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div class="rounded-lg bg-surface-container-lowest px-3 py-2.5 shadow-sm">
+              <span class="block font-headline-md text-headline-md font-extrabold text-on-surface">
+                {totalCount}
+              </span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant">Records</span>
+            </div>
+            <div class="rounded-lg bg-surface-container-lowest px-3 py-2.5 shadow-sm">
+              <span class="block font-headline-md text-headline-md font-extrabold text-secondary">
+                {verifiedFields}
+              </span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant">
+                Verified Fields
+              </span>
+            </div>
+            <div class="rounded-lg bg-surface-container-lowest px-3 py-2.5 shadow-sm">
+              <span class="block font-headline-md text-headline-md font-extrabold text-tertiary">
+                {citedSources}
+              </span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant">
+                Cited Sources
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Data integrity ticker -->
+      <div class="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-surface-container/50 px-4 py-2.5 pt-5">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px] text-secondary">info</span>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            <span class="font-semibold text-on-surface">Data Integrity Rule:</span>
+            unknown values are displayed as
+            <code class="rounded bg-surface-container px-1.5 py-0.5 font-semibold text-error">
+              Data Pending
+            </code>
+            — never estimated or defaulted to zero.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Controls: search + category & status filter chips -->
+  <section class="mx-auto w-full max-w-[1280px] px-4 py-4 sm:px-6 lg:px-10">
+    <div class="flex flex-col gap-5 rounded-2xl bg-surface-container-lowest p-6 shadow-sm">
+      <div class="relative flex-1">
+        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-[22px] text-outline">
+          search
+        </span>
+        <input
+          id="game-data-search"
+          type="search"
+          autocomplete="off"
+          placeholder="Search jobs, housing costs, skills, actions, locations…"
+          aria-label="Search game data records"
+          class="w-full rounded-full bg-surface-container-low py-3.5 pl-12 pr-10 font-body-md text-body-md text-on-surface transition-all placeholder:text-outline focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container"
+        />
+        <button
+          type="button"
+          id="clear-search-btn"
+          aria-label="Clear search"
+          class="absolute right-4 top-1/2 hidden -translate-y-1/2 text-outline transition-colors hover:text-on-surface"
+        >
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between gap-4 pt-1 lg:flex-row lg:items-center">
+        <!-- Category chips (honest counts; empty collections are omitted) -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0" role="group" aria-label="Filter by category">
+          <span class="mr-1 shrink-0 font-label-md text-label-md uppercase tracking-wider text-outline">
+            Topic:
+          </span>
+          <button
+            type="button"
+            data-collection-chip="all"
+            aria-pressed="true"
+            class="chip whitespace-nowrap rounded-full bg-primary px-4 py-2 font-label-md text-label-md font-bold text-on-primary shadow-sm transition-all"
+          >
+            All Data · {totalCount}
+          </button>
+          {
+            nonEmptyCollections.map((col) => (
+              <button
+                type="button"
+                data-collection-chip={col.key}
+                aria-pressed="false"
+                class="chip whitespace-nowrap rounded-full bg-surface-container-low px-4 py-2 font-label-md text-label-md text-on-surface transition-all hover:bg-surface-container"
+              >
+                {col.chipLabel} · {col.records.length}
+              </button>
+            ))
+          }
+        </div>
+
+        <!-- Status filter chips -->
+        <div
+          class="flex shrink-0 items-center gap-2 overflow-x-auto pb-1 sm:pb-0"
+          role="group"
+          aria-label="Filter by verification status"
+        >
+          <span class="mr-1 shrink-0 font-label-md text-label-md uppercase tracking-wider text-outline">
+            Status:
+          </span>
+          <button
+            type="button"
+            data-status-chip="all"
+            aria-pressed="true"
+            class="status-chip rounded-full bg-surface-container px-3 py-1.5 font-label-sm text-label-sm font-bold text-on-surface transition-all hover:opacity-80"
+          >
+            All Statuses
+          </button>
+          <button
+            type="button"
+            data-status-chip="verified"
+            aria-pressed="false"
+            class="status-chip flex items-center gap-1 rounded-full bg-surface-container-low px-3 py-1.5 font-label-sm text-label-sm font-bold text-verified transition-all hover:bg-surface-container"
+          >
+            <span aria-hidden="true">●</span> Verified
+          </button>
+          <button
+            type="button"
+            data-status-chip="partial"
+            aria-pressed="false"
+            class="status-chip flex items-center gap-1 rounded-full bg-surface-container-low px-3 py-1.5 font-label-sm text-label-sm font-bold text-partial transition-all hover:bg-surface-container"
+          >
+            <span aria-hidden="true">◐</span> Partially Verified
+          </button>
+          <button
+            type="button"
+            data-status-chip="pending"
+            aria-pressed="false"
+            class="status-chip flex items-center gap-1 rounded-full bg-surface-container-low px-3 py-1.5 font-label-sm text-label-sm font-bold text-needs-verification transition-all hover:bg-surface-container"
+          >
+            <span aria-hidden="true">○</span> Needs Verification
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Record grid -->
+  <section class="mx-auto w-full max-w-[1280px] px-4 py-6 sm:px-6 lg:px-10">
     {
       totalCount === 0 ? (
-        <div class="mt-space-xl">
-          <EmptyState
-            title="No verified records yet"
-            description="We publish game data only after each field has been checked against a cited source. No record has passed that bar yet — so instead of guessing, we show nothing. Read about the sources we are reviewing and how verification works."
-            actionHref="/sources/"
-            actionLabel="See our sources & method"
-          />
-        </div>
+        <EmptyState
+          title="No verified records yet"
+          description="We publish game data only after each field has been checked against a cited source. No record has passed that bar yet — so instead of guessing, we show nothing. Read about the sources we are reviewing and how verification works."
+          actionHref="/sources/"
+          actionLabel="See our sources & method"
+        />
       ) : (
         <>
-          <div class="mt-space-lg flex flex-col gap-space-md">
-            <div>
-              <label for="game-data-search" class="text-label-lg font-semibold text-on-surface">
-                Search records
-              </label>
-              <input
-                id="game-data-search"
-                type="search"
-                autocomplete="off"
-                placeholder="Search by name, type, or field value…"
-                class="mt-space-xs w-full rounded-xl border border-border bg-surface-container-lowest px-space-md py-3 text-body-lg text-on-surface shadow-sm outline-none placeholder:text-text-muted focus:border-focus focus:ring-2 focus:ring-focus/30"
-              />
-            </div>
-
-            {nonEmptyCollections.length > 0 && (
-              <div class="flex flex-wrap items-center gap-space-xs" role="group" aria-label="Filter by category">
-                <button
-                  type="button"
-                  data-collection-chip="all"
-                  aria-pressed="true"
-                  class="chip rounded-full bg-primary px-4 py-2 text-label-lg font-semibold text-on-primary transition-colors hover:bg-primary-container"
-                >
-                  All · {totalCount}
-                </button>
-                {nonEmptyCollections.map((col) => (
-                  <button
-                    type="button"
-                    data-collection-chip={col.key}
-                    aria-pressed="false"
-                    class="chip rounded-full bg-surface-container-lowest px-4 py-2 text-label-lg font-semibold text-on-surface-variant shadow-sm transition-colors hover:bg-surface-container"
-                  >
-                    {col.chipLabel} · {col.records.length}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <p class="mt-space-md text-body-md text-text-muted" aria-live="polite">
+          <p class="font-body-md text-body-md text-text-muted" aria-live="polite">
             Showing <span id="game-data-shown">{totalCount}</span> of {totalCount} records
+            {verifiedFields > 0 && (
+              <>
+                {" "}· {verifiedFields} of {totalFields} fields verified
+              </>
+            )}
           </p>
 
-          <div id="game-data-list" class="mt-space-sm grid gap-space-md lg:grid-cols-2">
+          <div id="game-data-list" class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
             {cards.map((rec) => (
               <DataRecordCard
                 href={`/game-data/${rec.slug}/`}
+                id={rec.slug}
                 name={rec.name}
                 typeLabel={rec.typeLabel}
+                chipLabel={collectionLabel(rec.collection)}
                 status={rec.status}
+                filterStatus={rec.filterStatus}
                 keyFields={rec.keyFields}
                 collection={rec.collection}
+                lastReviewedAt={rec.lastReviewedAt}
                 searchText={rec.searchText}
               />
             ))}
           </div>
 
-          <div id="game-data-no-results" class="mt-space-md hidden">
+          <div id="game-data-no-results" class="mt-6 hidden">
             <EmptyState
-              title="No matching records"
-              description="No verified record matches that search. Try a different term, or clear the category filter."
+              title="No matching records found"
+              description="No verified record matches that search and the active filters. Unknown topics are never filled in with guesses — try a different term or reset the filters."
+              actionHref="/game-data/"
+              actionLabel="Clear all filters"
             />
           </div>
         </>
       )
     }
   </section>
+
+  <!-- Verification standards & tier rules -->
+  <section class="mx-auto w-full max-w-[1280px] px-4 py-6 sm:px-6 lg:px-10">
+    <div class="rounded-2xl bg-surface-container-low p-6 sm:p-8">
+      <div class="mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-[22px] text-primary">policy</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface">
+          Verification Standards &amp; Tier Rules
+        </h2>
+      </div>
+      <p class="mb-6 max-w-3xl font-body-md text-body-md text-on-surface-variant">
+        Every entry in this library undergoes source-level validation before
+        publication, so high-stakes in-game decisions are never made on guessed
+        numbers.
+      </p>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div class="rounded-xl bg-surface-container-lowest p-5 shadow-sm">
+          <span class="inline-flex items-center gap-1 rounded-full bg-verified-bg px-2.5 py-0.5 font-label-sm text-label-sm font-bold text-verified">
+            ● Verified
+          </span>
+          <h3 class="mb-1 mt-2 font-headline-sm text-headline-sm text-on-surface">
+            Triple-Sourced Confirmation
+          </h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            The field's value is confirmed against cited sources and marked
+            verified individually. Values are authoritative for the listed
+            check date.
+          </p>
+        </div>
+        <div class="rounded-xl bg-surface-container-lowest p-5 shadow-sm">
+          <span class="inline-flex items-center gap-1 rounded-full bg-partial-bg px-2.5 py-0.5 font-label-sm text-label-sm font-bold text-partial">
+            ◐ Partially Verified
+          </span>
+          <h3 class="mb-1 mt-2 font-headline-sm text-headline-sm text-on-surface">
+            Reported, Not Yet Confirmed
+          </h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            The value comes from a player report or a single observation and is
+            awaiting independent re-check. Treat it as a strong hint, not a
+            fact.
+          </p>
+        </div>
+        <div class="rounded-xl bg-surface-container-lowest p-5 shadow-sm">
+          <span class="inline-flex items-center gap-1 rounded-full bg-needs-verification-bg px-2.5 py-0.5 font-label-sm text-label-sm font-bold text-needs-verification">
+            ○ Needs Verification
+          </span>
+          <h3 class="mb-1 mt-2 font-headline-sm text-headline-sm text-on-surface">
+            Unknown Boundary
+          </h3>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            No reliable observation exists yet. These fields are shown as
+            <strong class="text-on-surface">Data Pending</strong> — never as zero
+            and never estimated.
+          </p>
+        </div>
+      </div>
+      <div class="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-surface-container-lowest/60 px-5 py-4 pt-5">
+        <p class="font-body-sm text-body-sm text-on-surface-variant">
+          Notice: game values can change between builds. Each field carries its
+          own check date — report a discrepancy if live values differ.
+        </p>
+        <a
+          href="/sources/"
+          class="flex items-center gap-1 font-label-md text-label-md font-bold text-primary hover:underline"
+        >
+          <span>Read our sources &amp; method</span>
+          <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <script>
-  // Client-side search + category filter across all collections (UIUX §8.1).
+  // Client-side search + category/status filters (UIUX §8.1).
   const searchInput = document.getElementById("game-data-search") as HTMLInputElement | null;
+  const clearSearchBtn = document.getElementById("clear-search-btn");
   const chips = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-collection-chip]"));
+  const statusChips = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-status-chip]"),
+  );
   const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-record-card]"));
   const noResults = document.getElementById("game-data-no-results");
   const shownCount = document.getElementById("game-data-shown");
 
   let activeCollection = "all";
+  let activeStatus = "all";
+
+  const CHIP_ACTIVE = ["bg-primary", "text-on-primary", "font-bold", "shadow-sm"];
+  const CHIP_IDLE = ["bg-surface-container-low", "text-on-surface"];
+  const STATUS_ACTIVE = ["bg-surface-container", "text-on-surface"];
+  const STATUS_IDLE = ["bg-surface-container-low", "text-on-surface-variant"];
+
+  function styleButtons(buttons: HTMLButtonElement[], activeKey: string, active: string[], idle: string[]): void {
+    for (const btn of buttons) {
+      const isActive = btn.dataset.collectionChip === activeKey || btn.dataset.statusChip === activeKey;
+      btn.setAttribute("aria-pressed", String(isActive));
+      for (const cls of active) btn.classList.remove(cls);
+      for (const cls of idle) btn.classList.remove(cls);
+      // Re-apply the per-chip tone color for status chips (verified/partial/pending).
+      if (btn.dataset.statusChip && btn.dataset.statusChip !== "all" && !isActive) {
+        btn.classList.add(
+          btn.dataset.statusChip === "verified"
+            ? "text-verified"
+            : btn.dataset.statusChip === "partial"
+              ? "text-partial"
+              : "text-needs-verification",
+        );
+      }
+      if (btn.dataset.statusChip && btn.dataset.statusChip !== "all" && isActive) {
+        btn.classList.remove("text-verified", "text-partial", "text-needs-verification");
+      }
+      for (const cls of isActive ? active : idle) btn.classList.add(cls);
+    }
+  }
 
   function applyFilters(): void {
     const query = (searchInput?.value ?? "").trim().toLowerCase();
     let visible = 0;
     for (const card of cards) {
       const inCategory = activeCollection === "all" || card.dataset.collection === activeCollection;
+      const inStatus = activeStatus === "all" || card.dataset.status === activeStatus;
       const inSearch = query === "" || (card.dataset.search ?? "").includes(query);
-      const show = inCategory && inSearch;
+      const show = inCategory && inStatus && inSearch;
       card.classList.toggle("hidden", !show);
       if (show) visible += 1;
     }
     noResults?.classList.toggle("hidden", visible !== 0);
     if (shownCount) shownCount.textContent = String(visible);
+    clearSearchBtn?.classList.toggle("hidden", query.length === 0);
   }
 
   searchInput?.addEventListener("input", applyFilters);
+  clearSearchBtn?.addEventListener("click", () => {
+    if (searchInput) {
+      searchInput.value = "";
+      searchInput.focus();
+    }
+    applyFilters();
+  });
 
   for (const chip of chips) {
     chip.addEventListener("click", () => {
       activeCollection = chip.dataset.collectionChip ?? "all";
-      for (const other of chips) {
-        const active = other === chip;
-        other.setAttribute("aria-pressed", String(active));
-        other.classList.toggle("bg-primary", active);
-        other.classList.toggle("text-on-primary", active);
-        other.classList.toggle("bg-surface-container-lowest", !active);
-        other.classList.toggle("text-on-surface-variant", !active);
-      }
+      styleButtons(chips, activeCollection, CHIP_ACTIVE, CHIP_IDLE);
       applyFilters();
     });
   }
+
+  for (const chip of statusChips) {
+    chip.addEventListener("click", () => {
+      activeStatus = chip.dataset.statusChip ?? "all";
+      styleButtons(statusChips, activeStatus, STATUS_ACTIVE, STATUS_IDLE);
+      applyFilters();
+    });
+  }
+
+  applyFilters();
 </script>

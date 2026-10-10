@@ -112,23 +112,23 @@ const trustCards = [
           <p class="max-w-xl text-body-lg text-on-surface-variant">
             Explore Lagos Life guides, discover verified game information, and plan your next steps across every district and transit corridor.
           </p>
-          <div class="flex w-full flex-wrap items-center gap-space-sm pt-space-xs sm:w-auto">
+          <div class="flex w-full flex-col gap-space-sm pt-space-xs sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
             <a
               href="/tools/first-week-planner/"
-              class="inline-flex items-center justify-center gap-2 rounded-full bg-primary-container px-6 py-3.5 text-label-lg font-semibold text-surface-container-lowest shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary hover:shadow-lg active:translate-y-0"
+              class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary-container px-6 py-3.5 text-label-lg font-semibold text-surface-container-lowest shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary hover:shadow-lg active:translate-y-0 sm:h-auto sm:w-auto"
             >
               <span>Open the Planner</span>
               <span class="[&>svg]:h-[19px] [&>svg]:w-[19px]" set:html={i.arrow} />
             </a>
             <a
               href="/game-data/"
-              class="inline-flex items-center justify-center gap-2 rounded-full bg-surface-container-lowest px-6 py-3.5 text-label-lg font-semibold text-inverse-surface shadow-sm transition-colors hover:bg-surface-container-low"
+              class="inline-flex h-12 w-full items-center justify-center gap-2 rounded-full bg-surface-container-lowest px-6 py-3.5 text-label-lg font-semibold text-inverse-surface shadow-sm transition-colors hover:bg-surface-container-low sm:h-auto sm:w-auto"
             >
               <span class="text-secondary [&>svg]:h-5 [&>svg]:w-5" set:html={i.database} />
               <span>Explore Game Data</span>
             </a>
           </div>
-          <div class="grid w-full max-w-md grid-cols-1 gap-space-sm pt-space-sm min-[400px]:grid-cols-2">
+          <div class="hidden w-full max-w-md grid-cols-2 gap-space-sm pt-space-sm sm:grid">
             <div class="flex items-center gap-2 rounded-xl bg-surface-container-lowest px-3 py-2 shadow-sm">
               <span class="text-primary-container [&>svg]:h-5 [&>svg]:w-5" set:html={i.verified} />
               <span class="text-label-sm font-bold text-on-surface-variant">Independent Fan Project</span>
@@ -141,7 +141,7 @@ const trustCards = [
         </div>
 
         <!-- Right column: original SVG illustration (replaces hotlinked image) -->
-        <div class="lg:col-span-6">
+        <div class="order-first lg:order-none lg:col-span-6">
           <div class="relative overflow-hidden rounded-3xl bg-surface-container-lowest shadow-xl transition-shadow duration-300 hover:shadow-2xl">
             <svg viewBox="0 0 560 400" class="h-[300px] w-full object-cover sm:h-[410px]" role="img" aria-label="Abstract isometric illustration of a Lagos city district beside the lagoon, with towers, a ferry, and sun.">
               <defs>
@@ -287,7 +287,7 @@ const trustCards = [
           <span class="text-primary [&>svg]:h-[22px] [&>svg]:w-[22px]" set:html={i.sparkle} />
           <div>
             <div class="text-label-md font-semibold text-inverse-surface">Automatic Burnout Protection</div>
-            <div class="text-body-sm text-on-surface-variant">The planner flags schedules that would deplete recovery stats below your threshold.</div>
+            <div class="text-body-sm text-on-surface-variant">Planner alerts if daily commutes deplete recovery stats below threshold.</div>
           </div>
         </div>
         <div class="flex items-center gap-2">

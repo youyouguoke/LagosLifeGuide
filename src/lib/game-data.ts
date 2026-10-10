@@ -64,7 +64,11 @@ export interface FieldRow {
 
 export interface KeyField {
   label: string;
-  value: string;
+  /**
+   * Pre-formatted display value; `null` means UNKNOWN — the directory card
+   * must render this as "Data Pending" (Stitch kit), never as 0.
+   */
+  value: string | null;
 }
 
 export interface NormalizedRecord {
@@ -256,30 +260,34 @@ function fieldDisplay(
 function keyFieldsFor(collection: CollectionKey, record: Record<string, unknown>): KeyField[] {
   const get = (key: string): DataField<unknown> | null => fieldOrNull(record[key]);
   const out: KeyField[] = [];
+  // A key field that EXISTS on the record but has value null is unknown —
+  // keep it (cards render "Data Pending"); only skip keys absent entirely.
   const push = (label: string, display: string | null) => {
-    if (display) out.push({ label, value: display });
+    out.push({ label, value: display });
   };
 
   switch (collection) {
     case "jobs": {
       const pay = get("payAmount");
-      if (pay && pay.value !== null) {
+      if (pay) {
         const period = get("payPeriod");
         push(
           "Pay",
-          withCurrencyAndPeriod(
-            String(pay.value),
-            null,
-            period && period.value !== null ? formatScalar(period.value) : null,
-          ),
+          pay.value === null
+            ? null
+            : withCurrencyAndPeriod(
+                String(pay.value),
+                null,
+                period && period.value !== null ? formatScalar(period.value) : null,
+              ),
         );
       }
+      const shift = get("shiftDurationMinutes");
+      if (shift) push("Shift length", shift.value === null ? null : formatMinutes(shift.value as number));
       const workplace = get("workplace");
       if (workplace) push("Workplace", formatScalar(workplace.value));
       const group = get("careerGroup");
       if (group) push("Career group", formatScalar(group.value));
-      const shift = get("shiftDurationMinutes");
-      if (shift && shift.value !== null) push("Shift length", formatMinutes(shift.value as number));
       break;
     }
     case "housing-costs": {
@@ -304,13 +312,15 @@ function keyFieldsFor(collection: CollectionKey, record: Record<string, unknown>
     }
     case "skills-actions": {
       const duration = get("durationMinutes");
-      if (duration && duration.value !== null) push("Duration", formatMinutes(duration.value as number));
+      if (duration) push("Duration", duration.value === null ? null : formatMinutes(duration.value as number));
       const cost = get("costAmount");
-      if (cost && cost.value !== null) {
+      if (cost) {
         const currency = get("costCurrency");
         push(
           "Cost",
-          withCurrencyAndPeriod(String(cost.value), currency ? formatScalar(currency.value) : null, null),
+          cost.value === null
+            ? null
+            : withCurrencyAndPeriod(String(cost.value), currency ? formatScalar(currency.value) : null, null),
         );
       }
       const location = get("locationId");
@@ -391,6 +401,15 @@ export function normalizeRecord(
 }
 
 const idCountsGlobal = countIdOccurrences();
+
+/** Directory status filter bucket (Stitch status pills: verified / partial / pending). */
+export type CardFilterStatus = "verified" | "partial" | "pending";
+
+export function cardFilterStatus(status: BadgeStatus): CardFilterStatus {
+  if (status === "verified") return "verified";
+  if (status === "partial") return "partial";
+  return "pending";
+}
 
 /** All records across every collection, normalized, with collision-safe slugs. */
 export const allRecords: NormalizedRecord[] = collections.flatMap((col) =>

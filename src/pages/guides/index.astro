@@ -1,12 +1,23 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
-import EmptyState from "../../components/EmptyState.astro";
-import VerificationBadge from "../../components/VerificationBadge.astro";
 import guides from "../../data/guides.json";
 import type { GuidePost } from "../../lib/schema/guide";
 
 const typedGuides = guides as GuidePost[];
+
+const topics = [
+  { id: "all", label: "All Topics" },
+  { id: "getting-started", label: "Getting Started" },
+  { id: "transit", label: "Waterways & Transit" },
+  { id: "commercial", label: "Commercial & Real Estate" },
+  { id: "career", label: "Career & Economy" },
+];
+
+const statuses = [
+  { id: "all", label: "All Statuses" },
+  { id: "verified", label: "Verified" },
+  { id: "review", label: "Under Review" },
+];
 ---
 
 <BaseLayout
@@ -14,49 +25,303 @@ const typedGuides = guides as GuidePost[];
   description="Practical Lagos Life guides with verification status for every article. Independent and not affiliated with the game's developer."
   canonicalPath="/guides/"
 >
-  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
-    <SectionHeader
-      eyebrow="Guides"
-      title="Explore the Guides"
-      subtitle="Practical answers to player questions. Every guide shows its verification status and sources."
-    />
-
-    {typedGuides.length === 0 ? (
-      <div class="mt-space-lg">
-        <EmptyState
-          title="Our first guides are being verified before publication"
-          description="We do not publish unverified game information. The first Lagos Life guides will appear here once they pass our source and in-game verification checks. Meanwhile, you can explore the game data registry or report anything that looks wrong."
-          actionHref="/sources/"
-          actionLabel="See How We Verify Data"
-        />
+  <div class="mx-auto max-w-[1200px] px-margin py-space-lg md:px-margin-tablet lg:px-margin-desktop">
+    <!-- Top Intro Section -->
+    <section class="mb-space-xl flex flex-col justify-between gap-space-md border-b border-outline-variant/60 pb-space-lg md:flex-row md:items-end">
+      <div class="flex max-w-2xl flex-col gap-space-xs">
+        <div class="mb-1 flex items-center gap-space-sm">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-surface-container-low px-3 py-1 text-label-sm font-semibold tracking-wide text-primary">
+            <span class="h-2 w-2 animate-pulse rounded-full bg-primary" aria-hidden="true"></span>
+            Verified Guides
+          </span>
+          <span class="text-on-surface-variant/40 text-label-sm" aria-hidden="true">•</span>
+          <span class="text-on-surface-variant text-label-sm">Updated Weekly</span>
+        </div>
+        <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+          Guides
+        </h1>
+        <p class="text-body-lg text-on-surface-variant">
+          Practical guidance to help you make your next in-game decision across Mainland corridors and Island hubs.
+        </p>
       </div>
-    ) : (
-      <ul class="mt-space-lg grid gap-space-md sm:grid-cols-2 lg:grid-cols-3">
-        {typedGuides.map((guide) => (
-          <li>
-            <a
-              href={`/guides/${guide.slug}/`}
-              class="flex h-full flex-col rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover"
+    </section>
+
+    <!-- Filter & Search Controls -->
+    <section class="mb-space-xl flex flex-col gap-space-md">
+      <!-- Search Input -->
+      <div class="relative w-full">
+        <svg
+          class="pointer-events-none absolute left-4 top-1/2 h-[22px] w-[22px] -translate-y-1/2 text-on-surface-variant/70"
+          viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+        </svg>
+        <input
+          id="guide-search-input"
+          type="search"
+          placeholder="Search guides by topic, route, district, or objective..."
+          class="h-12 w-full rounded-full border border-outline-variant/70 bg-surface-container-lowest pl-12 pr-10 text-body-md text-on-surface shadow-sm transition-all placeholder:text-on-surface-variant/70 focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10"
+        />
+        <button
+          id="search-clear-btn"
+          type="button"
+          aria-label="Clear search"
+          class="absolute right-3.5 top-1/2 hidden h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-surface-variant text-on-surface-variant transition-colors hover:text-on-surface"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Verification Status Tabs -->
+      <div class="flex w-fit items-center gap-1.5 rounded-full bg-surface-container p-1 shadow-inner" role="group" aria-label="Filter by verification status">
+        {statuses.map((status, i) => (
+          <button
+            type="button"
+            class={`status-tab rounded-full px-3 py-1.5 text-label-md font-semibold transition-all ${
+              i === 0
+                ? "bg-surface-container-lowest text-on-surface shadow-xs"
+                : "text-on-surface-variant hover:text-on-surface"
+            }`}
+            data-status={status.id}
+          >
+            {status.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Topic Filter Pills -->
+      <div class="-mx-margin overflow-hidden px-margin md:mx-0 md:px-0">
+        <div class="flex items-center gap-space-xs overflow-x-auto pb-1 pt-1" role="group" aria-label="Filter by topic" id="topic-filter-chips">
+          {topics.map((topic, i) => (
+            <button
+              type="button"
+              class={`filter-pill shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-label-lg font-semibold transition-all ${
+                i === 0
+                  ? "bg-primary-container text-on-primary shadow-sm hover:opacity-95"
+                  : "border border-outline-variant/50 bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+              }`}
+              data-topic={topic.id}
             >
-              <div class="flex items-center justify-between gap-space-sm">
-                <span class="text-label-md font-semibold uppercase tracking-widest text-brand-dark">
+              {topic.label}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial Guide Cards Grid -->
+    {typedGuides.length > 0 ? (
+      <section class="mb-space-xl grid grid-cols-1 gap-space-lg md:grid-cols-2 lg:grid-cols-3" id="guides-grid">
+        {typedGuides.map((guide) => (
+          <article
+            class="guide-item group flex flex-col justify-between rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-space-lg transition-all hover:-translate-y-1 hover:shadow-md"
+            data-topic={guide.topic}
+            data-status={guide.verificationStatus}
+          >
+            <div class="flex flex-col gap-space-md">
+              <div class="flex flex-wrap items-center gap-space-xs">
+                <span class="inline-flex items-center gap-1 rounded-full bg-surface-container-low px-3 py-1 text-label-sm font-semibold text-primary">
                   {guide.topic}
                 </span>
-                <VerificationBadge status={guide.verificationStatus} />
+                <span class="inline-flex items-center gap-1 rounded-full bg-surface-container-low px-2.5 py-0.5 text-label-sm font-semibold text-primary">
+                  <svg class="h-[15px] w-[15px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8L12 2z" stroke-linejoin="round" />
+                  </svg>
+                  {guide.verificationStatus === "verified" ? "Verified" : guide.verificationStatus}
+                </span>
               </div>
-              <h3 class="mt-space-sm text-headline-sm font-semibold text-on-surface">
-                {guide.title}
-              </h3>
-              <p class="mt-space-xs flex-1 text-body-md text-on-surface-variant">
-                {guide.summary}
-              </p>
-              <p class="mt-space-sm text-body-sm text-text-muted">
-                Updated {guide.updatedAt}
-              </p>
-            </a>
-          </li>
+              <div>
+                <h2 class="text-headline-md font-bold tracking-tight text-on-surface transition-colors group-hover:text-primary">
+                  {guide.title}
+                </h2>
+                <p class="mt-2 text-body-md text-on-surface-variant">{guide.summary}</p>
+              </div>
+            </div>
+            <div class="mt-space-lg flex flex-wrap items-center justify-between gap-space-sm border-t border-outline-variant/40 pt-space-md">
+              <div class="flex items-center gap-2 text-body-sm text-on-surface-variant">
+                <span>Updated {guide.updatedAt}</span>
+              </div>
+              <a
+                href={`/guides/${guide.slug}/`}
+                class="inline-flex items-center gap-1 text-label-lg font-semibold text-primary transition-all hover:text-on-primary-fixed-variant group-hover:translate-x-1"
+              >
+                Read Guide
+                <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </article>
         ))}
-      </ul>
+      </section>
+    ) : (
+    <div
+      class="mb-space-xl flex flex-col items-center justify-center rounded-2xl border border-outline-variant/60 bg-surface-container-lowest p-12 text-center"
+      id="no-results"
+    >
+        <div class="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-surface-container-low text-primary" aria-hidden="true">
+          <svg class="h-[28px] w-[28px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.5-4.8 2.5.9-5.4L4.2 7.7l5.4-.8L12 2z" stroke-linejoin="round" />
+            <path d="M9 15l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="text-headline-md font-bold text-on-surface">Our first guides are being verified before publication</h3>
+        <p class="mx-auto mb-4 mt-1 max-w-md text-body-md text-on-surface-variant">
+          We do not publish unverified game information. Each guide is checked against in-game evidence and cited sources before it appears here. Check back soon, or see exactly how our verification process works.
+        </p>
+        <a
+          href="/sources/"
+          class="inline-flex items-center justify-center rounded-full bg-primary-container px-5 py-2.5 text-label-lg font-semibold text-on-primary transition-all hover:bg-primary"
+        >
+          See How We Verify Data
+        </a>
+      </div>
     )}
-  </section>
+
+    <!-- Bottom Editorial Support Banner -->
+    <section class="relative overflow-hidden rounded-3xl border border-outline-variant/50 bg-surface-container-low p-space-lg md:p-space-xl">
+      <div class="relative z-10 flex flex-col justify-between gap-space-lg md:flex-row md:items-center">
+        <div class="flex max-w-xl flex-col gap-space-xs">
+          <div class="flex items-center gap-2 text-primary">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="5" width="18" height="16" rx="2" />
+              <path d="M3 10h18M8 3v4M16 3v4" stroke-linecap="round" />
+            </svg>
+            <span class="text-label-sm font-bold uppercase tracking-wider">Custom Strategy Engine</span>
+          </div>
+          <h3 class="text-headline-lg font-bold tracking-tight text-on-surface">
+            Need personalized recommendations?
+          </h3>
+          <p class="text-body-lg text-on-surface-variant">
+            Use our interactive First Week Planner to calculate commute stamina and district budgets for your starting class.
+          </p>
+          <div class="mt-2 flex flex-wrap items-center gap-2">
+            <span class="text-on-surface-variant text-body-sm">Found an outdated mechanic or patch discrepancy?</span>
+            <a
+              href="/report-error/"
+              class="text-label-md font-semibold text-primary underline underline-offset-4 hover:text-on-primary-fixed-variant"
+            >
+              Report an Error
+            </a>
+          </div>
+        </div>
+        <div class="flex shrink-0 items-center gap-space-md">
+          <a
+            href="/tools/first-week-planner/"
+            class="inline-flex items-center justify-center gap-2 rounded-full bg-primary-container px-6 py-3.5 text-label-lg font-semibold text-on-primary shadow-[0_2px_8px_0_rgba(36,53,44,0.12)] transition-all hover:-translate-y-0.5 hover:bg-primary"
+          >
+            Open First Week Planner
+            <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Presentational filter controls: manage active states and search clear.
+    // (With zero published guides these only toggle UI state; the grid and
+    // no-results wiring activate automatically once guides.json is populated.)
+    (function initGuidesIndex() {
+      const searchInput = document.getElementById("guide-search-input") as HTMLInputElement | null;
+      const clearBtn = document.getElementById("search-clear-btn");
+      const topicChips = document.querySelectorAll<HTMLButtonElement>("#topic-filter-chips .filter-pill");
+      const statusTabs = document.querySelectorAll<HTMLButtonElement>(".status-tab");
+      const cards = document.querySelectorAll<HTMLElement>(".guide-item");
+      const noResults = document.getElementById("no-results");
+
+      if (!searchInput || !clearBtn) return;
+      const input = searchInput;
+      const clear = clearBtn;
+
+      let currentTopic = "all";
+      let currentStatus = "all";
+
+      function applyFilters() {
+        const query = (input.value || "").trim().toLowerCase();
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          const title = card.querySelector("h2")?.textContent?.toLowerCase() ?? "";
+          const text = card.textContent?.toLowerCase() ?? "";
+          const cardTopic = card.getAttribute("data-topic") ?? "";
+          const cardStatus = card.getAttribute("data-status") ?? "";
+
+          const matchesQuery = query === "" || title.includes(query) || text.includes(query);
+          const matchesTopic = currentTopic === "all" || cardTopic.includes(currentTopic);
+          const matchesStatus =
+            currentStatus === "all" ||
+            (currentStatus === "verified" && cardStatus === "verified") ||
+            (currentStatus === "review" && cardStatus !== "verified");
+
+          if (matchesQuery && matchesTopic && matchesStatus) {
+            card.classList.remove("hidden");
+            visibleCount++;
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+
+        if (cards.length > 0 && noResults) {
+          if (visibleCount === 0) {
+            noResults.classList.remove("hidden");
+            noResults.classList.add("flex");
+          } else {
+            noResults.classList.add("hidden");
+            noResults.classList.remove("flex");
+          }
+        }
+      }
+
+      searchInput.addEventListener("input", () => {
+        if (input.value.length > 0) {
+          clear.classList.remove("hidden");
+          clear.classList.add("flex");
+        } else {
+          clear.classList.add("hidden");
+          clear.classList.remove("flex");
+        }
+        applyFilters();
+      });
+
+      clear.addEventListener("click", () => {
+        input.value = "";
+        clear.classList.add("hidden");
+        clear.classList.remove("flex");
+        input.focus();
+        applyFilters();
+      });
+
+      topicChips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          topicChips.forEach((c) => {
+            c.classList.remove("bg-primary-container", "text-on-primary", "shadow-sm");
+            c.classList.add("bg-surface-container-lowest", "text-on-surface-variant", "border", "border-outline-variant/50");
+          });
+          chip.classList.add("bg-primary-container", "text-on-primary", "shadow-sm");
+          chip.classList.remove("bg-surface-container-lowest", "text-on-surface-variant", "border", "border-outline-variant/50");
+          currentTopic = chip.getAttribute("data-topic") ?? "all";
+          applyFilters();
+        });
+      });
+
+      statusTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          statusTabs.forEach((t) => {
+            t.classList.remove("bg-surface-container-lowest", "text-on-surface", "shadow-xs");
+            t.classList.add("text-on-surface-variant");
+          });
+          tab.classList.add("bg-surface-container-lowest", "text-on-surface", "shadow-xs");
+          tab.classList.remove("text-on-surface-variant");
+          currentStatus = tab.getAttribute("data-status") ?? "all";
+          applyFilters();
+        });
+      });
+    })();
+  </script>
 </BaseLayout>

@@ -1,8 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
 import VerificationBadge from "../../components/VerificationBadge.astro";
-import EmptyState from "../../components/EmptyState.astro";
 import sourcesData from "../../data/sources.json";
 import evidenceData from "../../data/evidence.json";
 import type { SourceRecord, EvidenceRecord, EvidenceType } from "../../lib/schema/common";
@@ -18,27 +16,84 @@ const evidenceTypeLabels: Record<EvidenceType, string> = {
   third_party_guide: "Third-party guide",
 };
 
-const statusExplanations: {
+const evidenceTypeFilters = (Object.keys(evidenceTypeLabels) as EvidenceType[]).filter((type) =>
+  sources.some((s) => s.evidenceType === type),
+);
+
+const typeIcons: Record<EvidenceType, string> = {
+  official: "M12 3l7 4v5c0 4.4-3 8.4-7 9-4-.6-7-4.6-7-9V7l7-4z",
+  in_game_test: "M5 12h14M5 12a7 7 0 0114 0M5 12v5a2 2 0 002 2h10a2 2 0 002-2v-5",
+  community_report: "M17 8a3 3 0 11-6 0 3 3 0 016 0zM5 20c0-3.3 2.7-6 6-6s6 2.7 6 6",
+  third_party_guide: "M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V2H6.5A2.5 2.5 0 004 4.5v15z",
+};
+
+const tierExplanations: {
   status: "verified" | "reported" | "unverified" | "conflicted";
-  meaning: string;
+  tierLabel: string;
+  title: string;
+  description: string;
+  criteriaTitle: string;
+  criteria: string[];
 }[] = [
   {
     status: "verified",
-    meaning: "Confirmed against our verification rules (document review or in-game test) as of the checked date.",
+    tierLabel: "Deterministic",
+    title: "Confirmed by review or test",
+    description:
+      "Checked against our verification rules as of the stated date: either a documented review of the official source, or an in-game test we recorded ourselves.",
+    criteriaTitle: "What it requires",
+    criteria: [
+      "Document review with access date, or a dated in-game observation",
+      "The value affects calculations only in this state",
+      "Re-checked on a schedule and when players report a change",
+    ],
   },
   {
     status: "reported",
-    meaning: "A traceable player report exists, but we have not finished verifying it. A report is not a confirmed fact.",
+    tierLabel: "Reported lead",
+    title: "Player report, not yet confirmed",
+    description:
+      "A traceable player report exists, but we have not finished verifying it. A report is treated as a lead, never as a confirmed fact.",
+    criteriaTitle: "What it requires",
+    criteria: [
+      "Report has a traceable origin we can follow up",
+      "Value stays out of deterministic calculations",
+      "Queued for maintainer review against the live game",
+    ],
   },
   {
     status: "unverified",
-    meaning: "Not enough evidence yet. The value is shown as unknown and never enters deterministic calculations.",
+    tierLabel: "Pending",
+    title: "Not enough evidence yet",
+    description:
+      "We have not collected enough evidence to say anything. The value is shown as unknown rather than estimated.",
+    criteriaTitle: "What it requires",
+    criteria: [
+      "Never substituted with speculative averages or 0 placeholders",
+      "Shown as unknown in every calculator and guide",
+      "Upgraded only after a real review or test is recorded",
+    ],
   },
   {
     status: "conflicted",
-    meaning: "Credible sources disagree and the conflict is unresolved. We say so openly instead of picking one silently.",
+    tierLabel: "Open conflict",
+    title: "Credible sources disagree",
+    description:
+      "Two credible sources state different things and the disagreement is unresolved. We say so openly instead of picking one silently.",
+    criteriaTitle: "What it requires",
+    criteria: [
+      "The disagreement is documented on this page",
+      "No arithmetic averaging and no silent guesses",
+      "Resolved only when new evidence settles the question",
+    ],
   },
 ];
+
+const methodLabels: Record<EvidenceRecord["method"], string> = {
+  document_review: "Document review",
+  in_game_test: "In-game test",
+  community_review: "Community review",
+};
 ---
 
 <BaseLayout
@@ -46,217 +101,477 @@ const statusExplanations: {
   description="How LagosLifeGuide.app sources, verifies, and updates its Lagos Life game data — including how we handle conflicts and errors."
   canonicalPath="/sources/"
 >
-  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
-    <SectionHeader
-      eyebrow="Transparency"
-      title="Sources & Verification"
-      subtitle={`How we collect, verify, and update Lagos Life data. Last checked: ${lastChecked}.`}
-    />
-
-    <div class="mt-space-lg flex flex-col gap-space-lg">
-      <!-- Data source types -->
-      <section class="rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card">
-        <h2 class="text-headline-md font-semibold text-on-surface">Data source types</h2>
-        <dl class="mt-space-md grid gap-space-md sm:grid-cols-2">
-          {
-            (Object.keys(evidenceTypeLabels) as EvidenceType[]).map((type) => (
-              <div>
-                <dt class="text-label-lg font-semibold text-on-surface">
-                  {evidenceTypeLabels[type]}
-                </dt>
-                <dd class="mt-space-xs text-body-md text-on-surface-variant">
-                  {type === "official" && "The game's own site, in-game UI text, or statements from the operator/publisher."}
-                  {type === "in_game_test" && "Something we measured ourselves by playing the current build of the game."}
-                  {type === "community_report" && "A player-reported observation with a traceable origin. Treated as a lead, never as confirmed fact."}
-                  {type === "third_party_guide" && "Guides, wikis, or videos made by others. We re-check before relying on them."}
-                </dd>
-              </div>
-            ))
-          }
-        </dl>
-      </section>
-
-      <!-- Verification statuses -->
-      <section class="rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card">
-        <h2 class="text-headline-md font-semibold text-on-surface">What the verification statuses mean</h2>
-        <ul class="mt-space-md flex flex-col gap-space-md">
-          {
-            statusExplanations.map(({ status, meaning }) => (
-              <li class="flex flex-col gap-space-xs sm:flex-row sm:items-start sm:gap-space-md">
-                <VerificationBadge {status} />
-                <p class="text-body-md text-on-surface-variant">{meaning}</p>
-              </li>
-            ))
-          }
-        </ul>
-        <p class="mt-space-md text-body-md text-on-surface-variant">
-          Guides additionally use <strong class="text-on-surface">Partially Verified</strong> when some
-          sections are confirmed but others still need in-game checking. A <em>verified</em> label does
-          not mean the data is valid forever — the game can change at any time.
-        </p>
-      </section>
-
-      <!-- Verification method -->
-      <section class="rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card">
-        <h2 class="text-headline-md font-semibold text-on-surface">How we verify</h2>
-        <ol class="mt-space-md flex flex-col gap-space-sm text-body-md text-on-surface-variant">
-          <li><strong class="text-on-surface">1. Document review.</strong> We read the official source and record exactly what it states, with the access date.</li>
-          <li><strong class="text-on-surface">2. In-game check.</strong> Where a value affects calculations (cash, rent, wages, travel time), we test it in the live game and keep a dated record of the observation.</li>
-          <li><strong class="text-on-surface">3. Field-level status.</strong> Every field that can affect a calculation carries its own status and source ids — page-level labels never override an unverified field.</li>
-          <li><strong class="text-on-surface">4. Re-verification.</strong> Verified data is re-checked on a schedule and whenever players report a change.</li>
-        </ol>
-      </section>
-
-      <!-- Updates & conflicts -->
-      <section class="rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card">
-        <h2 class="text-headline-md font-semibold text-on-surface">Updates and conflict handling</h2>
-        <div class="mt-space-md flex flex-col gap-space-sm text-body-md text-on-surface-variant">
-          <p>
-            When the game updates, affected fields are re-checked before the site is updated. Until
-            re-verified, the planner stops using stale values for deterministic conclusions — it will
-            ask you to re-run with current data instead of silently extending old results.
-          </p>
-          <p>
-            If two credible sources disagree, we mark the field <strong class="text-on-surface">conflicted</strong>,
-            explain the disagreement here, and do not average or guess. One real example: the game name
-            "Lagos Life" is shared by two <em>different</em> published instances —
-            <a href="https://lagoslife.app" class="font-semibold text-primary transition-colors hover:text-brand-dark" target="_blank" rel="noopener noreferrer">lagoslife.app</a> (our confirmed
-            target instance) and
-            <a href="https://lagoslife.com.ng" class="font-semibold text-primary transition-colors hover:text-brand-dark" target="_blank" rel="noopener noreferrer">lagoslife.com.ng</a> (a different
-            game by GreatCallie, on Google Play as com.greatcallie.lagoslife). Data from the two
-            instances must never be mixed, so the second one is recorded in the registry below
-            purely to document the conflict.
-          </p>
-          <p>Last checked: <strong class="text-on-surface">{lastChecked}</strong>.</p>
+  <div class="mx-auto w-full max-w-[1200px] px-margin py-space-lg md:px-margin-tablet lg:px-margin-desktop">
+    <!-- Top banner & breadcrumb row -->
+    <div class="flex flex-wrap items-center justify-between gap-space-sm rounded-2xl bg-surface-container-lowest p-space-md shadow-card">
+      <nav aria-label="Breadcrumb" class="flex items-center gap-space-xs text-label-md text-on-surface-variant">
+        <a href="/" class="flex items-center gap-1 transition-colors hover:text-primary">Home</a>
+        <span class="text-outline-variant">/</span>
+        <span class="text-label-lg text-on-surface">Sources &amp; Verification</span>
+      </nav>
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 rounded-full bg-surface-container-low px-3 py-1 text-label-sm text-primary">
+          <span class="h-2 w-2 animate-pulse rounded-full bg-primary-container"></span>
+          <span>Data integrity policy</span>
         </div>
-      </section>
+        <div class="hidden items-center gap-1 rounded-full bg-surface-container px-3 py-1 text-label-sm text-on-surface-variant sm:flex">
+          <span>Last checked: {lastChecked}</span>
+        </div>
+      </div>
+    </div>
 
-      <!-- Source registry -->
-      <section>
-        <h2 class="text-headline-md font-semibold text-on-surface">Source registry</h2>
-        {sources.length === 0 ? (
-          <div class="mt-space-md">
-            <EmptyState
-              title="No sources registered yet"
-              description="We do not list sources we have not actually reviewed."
-            />
+    <!-- Hero section -->
+    <section class="py-space-md">
+      <div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest p-space-xl shadow-card">
+        <div class="relative z-10 flex max-w-3xl flex-col gap-space-sm">
+          <div class="inline-flex w-fit items-center gap-2 rounded-full bg-surface-container-low px-3 py-1 text-label-md text-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M12 3l7 3v5c0 4.4-3 8.4-7 9-4-.6-7-4.6-7-9V6l7-3z" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Verification framework &amp; integrity policy</span>
           </div>
-        ) : (
-          <div class="mt-space-md overflow-x-auto rounded-card border border-border bg-surface-container-lowest shadow-card">
-            <table class="w-full min-w-[720px] text-left text-body-md">
-              <thead>
-                <tr class="border-b border-border bg-surface-container-low text-label-lg text-on-surface-variant">
-                  <th scope="col" class="px-space-md py-space-sm font-semibold">Title</th>
-                  <th scope="col" class="px-space-md py-space-sm font-semibold">URL</th>
-                  <th scope="col" class="px-space-md py-space-sm font-semibold">Type</th>
-                  <th scope="col" class="px-space-md py-space-sm font-semibold">Accessed</th>
-                  <th scope="col" class="px-space-md py-space-sm font-semibold">Applicable game</th>
-                  <th scope="col" class="px-space-md py-space-sm font-semibold">Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  sources.map((source) => (
-                    <tr class="border-b border-border last:border-0">
-                      <td class="px-space-md py-space-sm align-top font-semibold text-on-surface">
-                        {source.title ?? "—"}
-                        {source.publisher && (
-                          <span class="mt-space-xs block text-body-sm font-normal text-text-muted">
-                            Publisher: {source.publisher}
-                          </span>
-                        )}
-                      </td>
-                      <td class="px-space-md py-space-sm align-top">
+          <h1 class="text-display-hero font-bold tracking-tight text-on-surface">How we verify game information</h1>
+          <p class="text-body-lg leading-relaxed text-on-surface-variant">
+            Understand what is confirmed, what remains uncertain, and where our information comes from.
+            Every field that can affect a calculation carries its own status and source — page-level
+            labels never override an unverified field.
+          </p>
+        </div>
+
+        <!-- 3 core principles -->
+        <div class="relative z-10 mt-space-xl grid grid-cols-1 gap-space-md pt-space-lg md:grid-cols-3">
+          <div class="flex flex-col gap-2 rounded-xl bg-surface-container-low/70 p-space-md">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-container-lowest text-primary shadow-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 11l3 3 8-8M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h9" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h2 class="text-headline-sm font-semibold text-on-surface">Claim-Specific Evidence</h2>
+            <p class="text-body-sm text-on-surface-variant">
+              Every value is linked to a recorded source — the game's own site or client bundle, a dated
+              in-game observation, or a traceable player report — with the access date stated.
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 rounded-xl bg-surface-container-low/70 p-space-md">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-container-lowest text-primary shadow-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h2 class="text-headline-sm font-semibold text-on-surface">No Zero or Fabricated Data</h2>
+            <p class="text-body-sm text-on-surface-variant">
+              If a value has not been verified, we mark it as unverified instead of substituting
+              speculative averages or 0 placeholders. Unknown means unknown.
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 rounded-xl bg-surface-container-low/70 p-space-md">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-surface-container-lowest text-primary shadow-card">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h2 class="text-headline-sm font-semibold text-on-surface">Transparent Audit Trail</h2>
+            <p class="text-body-sm text-on-surface-variant">
+              Every verification is recorded as a dated, method-tagged entry in the audit log below,
+              including the artifact path when one exists. Nothing is verified silently.
+            </p>
+          </div>
+        </div>
+
+        <!-- Audit trail: real evidence entries -->
+        <div class="relative z-10 mt-space-lg">
+          <h2 class="text-label-sm font-bold uppercase tracking-wider text-primary">Audit log — recorded entries</h2>
+          {
+            evidence.length === 0 ? (
+              <p class="mt-space-sm text-body-md text-on-surface-variant">
+                No verification entries recorded yet.
+              </p>
+            ) : (
+              <ul class="mt-space-sm flex flex-col gap-space-sm">
+                {evidence.map((record) => (
+                  <li class="flex flex-col gap-space-xs rounded-xl bg-surface-container-lowest p-space-md shadow-card sm:flex-row sm:items-start sm:gap-space-md">
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-container-low text-primary">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M14 2v6h6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </div>
+                    <div class="min-w-0">
+                      <p class="text-label-lg font-semibold text-on-surface">
+                        {methodLabels[record.method] ?? record.method} · {record.observedAt}
+                      </p>
+                      <p class="mt-space-xs text-body-sm text-text-muted">
+                        Source: {record.sourceId} · Game: {record.gameUrl}
+                      </p>
+                      {record.observation && (
+                        <p class="mt-space-sm text-body-md text-on-surface-variant">{record.observation}</p>
+                      )}
+                      {record.artifactPath && (
+                        <p class="mt-space-sm text-body-sm text-text-muted">
+                          Artifact: <code class="rounded bg-surface-container px-1.5 py-0.5">{record.artifactPath}</code>
+                        </p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: verification statuses explained -->
+    <section class="py-space-lg">
+      <div class="mb-space-lg flex flex-col justify-between gap-space-sm md:flex-row md:items-end">
+        <div>
+          <span class="text-label-sm font-bold uppercase tracking-wider text-primary">Standardized rating system</span>
+          <h2 class="mt-1 text-headline-lg font-semibold text-on-surface">Our four field statuses</h2>
+        </div>
+        <p class="max-w-md text-body-md text-on-surface-variant">
+          Look for these badges across all game-data pages and calculators to assess data reliability
+          instantly. Every field that affects a calculation carries one of them.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 gap-space-md md:grid-cols-2 lg:grid-cols-4">
+        {
+          tierExplanations.map(({ status, tierLabel, title, description, criteriaTitle, criteria }) => (
+            <div class="flex flex-col justify-between rounded-2xl bg-surface-container-lowest p-space-lg shadow-card transition-all hover:-translate-y-1">
+              <div class="flex flex-col gap-space-sm">
+                <div class="flex items-center justify-between gap-2">
+                  <VerificationBadge {status} />
+                  <span class="text-label-sm text-on-surface-variant">{tierLabel}</span>
+                </div>
+                <h3 class="mt-2 text-headline-md font-semibold text-on-surface">{title}</h3>
+                <p class="text-body-md text-on-surface-variant">{description}</p>
+                <div class="mt-space-sm rounded-xl bg-surface-container-low p-space-sm">
+                  <div class="mb-1 text-label-sm font-bold uppercase tracking-wider text-on-surface-variant">
+                    {criteriaTitle}
+                  </div>
+                  <ul class="space-y-1.5 text-body-sm text-on-surface">
+                    {criteria.map((item) => (
+                      <li class="flex items-start gap-1.5">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.5"
+                          class="mt-0.5 shrink-0 text-primary"
+                          aria-hidden="true"
+                        >
+                          <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div class="mt-space-md flex items-center justify-between pt-space-sm text-label-sm text-on-surface-variant">
+                <span>Field-level, not page-level</span>
+                <span class="font-semibold text-primary">Shown on every data field</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-space-md text-body-md text-on-surface-variant">
+        A <strong class="text-on-surface">verified</strong> label does not mean the data is valid forever —
+        the game can change at any time, and affected fields are re-checked before the site is updated.
+      </p>
+    </section>
+
+    <!-- Section 3: handling conflicting evidence -->
+    <section class="py-space-md">
+      <div class="relative overflow-hidden rounded-2xl bg-surface-container-low p-space-xl shadow-card">
+        <div class="flex flex-col items-start justify-between gap-space-lg lg:flex-row lg:items-center">
+          <div class="flex max-w-2xl flex-col gap-space-xs">
+            <div class="flex items-center gap-2 text-label-md text-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 3v18M5 7l7-4 7 4M3 13l2-6 2 6a3 3 0 01-4 0zM17 13l2-6 2 6a3 3 0 01-4 0z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="font-bold">Protocol in detail</span>
+            </div>
+            <h2 class="text-headline-lg font-semibold text-on-surface">Handling Conflicting Evidence &amp; Integrity</h2>
+            <p class="leading-relaxed text-body-md text-on-surface-variant">
+              What happens when two credible sources disagree? Rather than taking a silent average that
+              misleads readers, we run a transparent conflict protocol. One real, unresolved example: the
+              name &ldquo;Lagos Life&rdquo; is shared by two <em>different</em> published game instances —
+              <a href="https://lagoslife.app" class="font-semibold text-primary transition-colors hover:text-brand-dark" target="_blank" rel="noopener noreferrer">lagoslife.app</a>
+              (our confirmed target instance) and
+              <a href="https://lagoslife.com.ng" class="font-semibold text-primary transition-colors hover:text-brand-dark" target="_blank" rel="noopener noreferrer">lagoslife.com.ng</a>
+              (a different game by GreatCallie, on Google Play as com.greatcallie.lagoslife). Data from
+              the two instances must never be mixed, so the second one stays in the source registry below
+              purely to document the conflict.
+            </p>
+            <div class="mt-space-sm grid grid-cols-1 gap-space-md sm:grid-cols-2">
+              <div class="flex gap-3 rounded-xl bg-surface-container-lowest p-space-md">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 shrink-0 text-primary" aria-hidden="true">
+                  <path d="M7 7h10v10H7zM3 3h4v4M17 3h4v4M3 17h4v4M17 17h4v4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div>
+                  <h3 class="text-headline-sm font-semibold text-on-surface">Explicit conflict tagging</h3>
+                  <p class="mt-0.5 text-body-sm text-on-surface-variant">
+                    The field is flagged <strong class="text-on-surface">Sources conflict</strong> and the
+                    disagreement is explained on this page, not averaged into a compromise number.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-3 rounded-xl bg-surface-container-lowest p-space-md">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 shrink-0 text-primary" aria-hidden="true">
+                  <path d="M12 8v4l2 2M12 21a9 9 0 100-18 9 9 0 000 18z" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div>
+                  <h3 class="text-headline-sm font-semibold text-on-surface">Kept out of calculations</h3>
+                  <p class="mt-0.5 text-body-sm text-on-surface-variant">
+                    Until the conflict is resolved, the value stays out of deterministic calculations —
+                    the planner asks you to re-run with current data instead of extending stale results.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Conflict resolution flow card -->
+          <div class="flex w-full shrink-0 flex-col gap-space-sm rounded-2xl bg-surface-container-lowest p-space-lg shadow-card lg:w-80">
+            <div class="flex items-center justify-between pb-space-xs">
+              <span class="text-label-md font-bold text-on-surface">Conflict resolution flow</span>
+              <span class="h-2 w-2 rounded-full bg-primary"></span>
+            </div>
+            <div class="space-y-3 text-body-sm">
+              <div class="flex items-center gap-2 rounded-lg bg-surface-container-low p-2.5 text-on-surface">
+                <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm text-on-primary">1</span>
+                <span>Disagreement found between credible sources</span>
+              </div>
+              <div class="flex justify-center text-outline-variant" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="flex items-center gap-2 rounded-lg bg-surface-container p-2.5 text-on-surface">
+                <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm text-on-primary">2</span>
+                <span>Field marked &ldquo;Sources conflict&rdquo; + explained here</span>
+              </div>
+              <div class="flex justify-center text-outline-variant" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="flex items-center gap-2 rounded-lg bg-surface-container-low p-2.5 text-on-surface">
+                <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-label-sm text-on-primary">3</span>
+                <span>Maintainers re-verify against the live game</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: reviewed source directory -->
+    <section class="py-space-xl">
+      <div class="mb-space-lg flex flex-col justify-between gap-space-md md:flex-row md:items-end">
+        <div>
+          <span class="text-label-sm font-bold uppercase tracking-wider text-primary">Audit database</span>
+          <h2 class="mt-1 text-headline-lg font-semibold text-on-surface">Reviewed Source Directory</h2>
+          <p class="mt-1 text-body-md text-on-surface-variant">
+            Direct citations powering our game data. We do not list sources we have not actually reviewed.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2" id="sourceFilters">
+          <button
+            type="button"
+            class="filter-btn rounded-full bg-primary px-3.5 py-1.5 text-label-md text-on-primary transition-all"
+            data-filter="all"
+          >
+            All sources ({sources.length})
+          </button>
+          {
+            evidenceTypeFilters.map((type) => (
+              <button
+                type="button"
+                class="filter-btn rounded-full bg-surface-container-lowest px-3.5 py-1.5 text-label-md text-on-surface transition-all hover:bg-surface-container-low"
+                data-filter={type}
+              >
+                {evidenceTypeLabels[type]} ({sources.filter((s) => s.evidenceType === type).length})
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-space-sm" id="sourcesContainer">
+        {
+          sources.map((source) => (
+            <div
+              class="source-card flex flex-col justify-between gap-space-md rounded-2xl bg-surface-container-lowest p-space-md transition-all hover:shadow-card-hover md:flex-row md:items-center"
+              data-category={source.evidenceType}
+            >
+              <div class="flex items-start gap-space-md">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-container-low text-primary">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d={typeIcons[source.evidenceType]} stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <div class="flex min-w-0 flex-col">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h3 class="text-headline-sm font-semibold text-on-surface">{source.title}</h3>
+                    <span class="inline-flex items-center gap-1 rounded-full bg-surface-container-low px-2.5 py-0.5 text-label-sm font-bold text-primary">
+                      <span class="h-1.5 w-1.5 rounded-full bg-primary" />
+                      {evidenceTypeLabels[source.evidenceType]}
+                    </span>
+                  </div>
+                  {source.publisher && (
+                    <p class="mt-1 text-body-sm text-text-muted">Publisher: {source.publisher}</p>
+                  )}
+                  <p class="mt-1 text-body-md text-on-surface-variant">{source.notes}</p>
+                  <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-body-sm text-outline">
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1 break-all font-mono text-[11px] font-semibold text-primary transition-colors hover:text-brand-dark"
+                    >
+                      {source.url}
+                    </a>
+                    <span>Accessed: {source.accessedAt}</span>
+                    <span>
+                      Applies to:
+                      {source.applicableGameUrl ? (
                         <a
-                          href={source.url}
+                          href={source.applicableGameUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="break-all font-semibold text-primary transition-colors hover:text-brand-dark"
+                          class="font-semibold text-primary transition-colors hover:text-brand-dark"
                         >
-                          {source.url}
+                          {source.applicableGameUrl}
                         </a>
-                      </td>
-                      <td class="px-space-md py-space-sm align-top text-on-surface-variant">
-                        {evidenceTypeLabels[source.evidenceType]}
-                      </td>
-                      <td class="px-space-md py-space-sm align-top whitespace-nowrap text-on-surface-variant">
-                        {source.accessedAt}
-                      </td>
-                      <td class="px-space-md py-space-sm align-top">
-                        {source.applicableGameUrl ? (
-                          <a
-                            href={source.applicableGameUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="break-all font-semibold text-primary transition-colors hover:text-brand-dark"
-                          >
-                            {source.applicableGameUrl}
-                          </a>
-                        ) : (
-                          "—"
-                        )}
-                      </td>
-                      <td class="px-space-md py-space-sm align-top text-on-surface-variant">
-                        {source.notes ?? "—"}
-                      </td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
+                      ) : (
+                        " —"
+                      )}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex shrink-0 items-center gap-space-sm self-end md:self-center">
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 rounded-full bg-surface-container-low px-3.5 py-2 text-label-md text-primary transition-all hover:bg-primary hover:text-on-primary"
+                >
+                  <span>Inspect reference</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
 
-      <!-- Evidence log -->
-      <section>
-        <h2 class="text-headline-md font-semibold text-on-surface">In-game evidence log</h2>
-        {evidence.length === 0 ? (
-          <div class="mt-space-md">
-            <EmptyState
-              title="No in-game evidence logged yet"
-              description="Dated test observations will be listed here as they are recorded."
-            />
+    <!-- Section 5: report an error -->
+    <section class="mb-12 py-space-xl">
+      <div class="rounded-2xl bg-surface-container-lowest p-space-xl shadow-card">
+        <div class="grid grid-cols-1 gap-space-xl lg:grid-cols-12">
+          <div class="flex flex-col justify-between lg:col-span-5">
+            <div>
+              <div class="mb-3 inline-flex w-fit items-center gap-2 rounded-full bg-surface-container-low px-3 py-1 text-label-md text-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M3 11l18-7-7 18-2.5-7.5L3 11z" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Player contributor network</span>
+              </div>
+              <h2 class="text-headline-lg font-semibold text-on-surface">Report an Error or Patch Discrepancy</h2>
+              <p class="mt-3 leading-relaxed text-body-md text-on-surface-variant">
+                Did a game update change a value we publish? Our guide improves through active player
+                audits — every report is checked against the live game before we change anything.
+              </p>
+              <div class="mt-space-lg flex flex-col gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-container-low text-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M12 3l7 3v5c0 4.4-3 8.4-7 9-4-.6-7-4.6-7-9V6l7-3z" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                  <p class="text-body-sm text-on-surface">
+                    <strong>Manual peer review:</strong> maintainers inspect all data submissions before statuses shift.
+                  </p>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-container-low text-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                      <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10l2 2M19 5l-2 2M7 17l-2 2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                  <p class="text-body-sm text-on-surface">
+                    <strong>Credit given:</strong> contributors are acknowledged in the public change log with their chosen handle.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-space-lg rounded-xl bg-surface-container-low p-space-md">
+              <span class="mb-1 block text-label-sm font-bold uppercase tracking-wider text-primary">What happens next</span>
+              <p class="text-body-sm text-on-surface-variant">
+                Reports are reproduced against the live game first; only then are statuses and values
+                updated, with the change recorded in the audit log on this page.
+              </p>
+            </div>
           </div>
-        ) : (
-          <ul class="mt-space-md flex flex-col gap-space-md">
-            {
-              evidence.map((record) => (
-                <li class="rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card">
-                  <p class="text-label-lg font-semibold text-on-surface">
-                    {record.method.replace(/_/g, " ")} · {record.observedAt}
-                  </p>
-                  <p class="mt-space-xs text-body-sm text-text-muted">
-                    Source: {record.sourceId} · Game: {record.gameUrl}
-                    {record.gameVersion && ` · Version: ${record.gameVersion}`}
-                  </p>
-                  {record.observation && (
-                    <p class="mt-space-sm text-body-md text-on-surface-variant">{record.observation}</p>
-                  )}
-                  {record.artifactPath && (
-                    <p class="mt-space-sm text-body-sm text-text-muted">
-                      Artifact: <code class="rounded bg-surface-container px-1.5 py-0.5">{record.artifactPath}</code>
-                    </p>
-                  )}
-                </li>
-              ))
-            }
-          </ul>
-        )}
-      </section>
+          <div class="flex flex-col justify-center rounded-2xl bg-surface-container-low/40 p-space-lg lg:col-span-7">
+            <p class="text-body-md leading-relaxed text-on-surface-variant">
+              Use the dedicated
+              <a href="/report-error/" class="font-semibold text-primary transition-colors hover:text-brand-dark">Report an Error</a>
+              page to tell us what changed and where you saw it. No account needed — you can link a
+              screenshot, clip, or written observation, and optional contact details if you want credit.
+            </p>
+            <div class="pt-space-md">
+              <a
+                href="/report-error/"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-primary-container px-8 py-3.5 text-label-lg font-bold text-on-primary shadow-card transition-all hover:-translate-y-0.5 hover:bg-primary"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Open the report form</span>
+              </a>
+            </div>
+            <p class="mt-space-sm flex items-center gap-1.5 text-body-sm text-on-surface-variant">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary" aria-hidden="true">
+                <path d="M12 8v4m0 4h.01M12 21a9 9 0 100-18 9 9 0 000 18z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Submissions undergo manual review by guide maintainers before any badge or value updates.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
-      <!-- Report errors -->
-      <section class="rounded-panel border border-border bg-surface-container-low p-space-lg">
-        <h2 class="text-headline-md font-semibold text-on-surface">Report an error</h2>
-        <p class="mt-space-sm text-body-md text-on-surface-variant">
-          If a value here looks wrong or out of date, please tell us. Use the
-          <a href="/report-error/" class="font-semibold text-primary transition-colors hover:text-brand-dark">
-            Report an Error
-          </a>
-          page — no account needed, and every report is checked against the live game before we
-          change anything.
-        </p>
-      </section>
-    </div>
-  </section>
+  <script>
+    // Filter tabs for the source directory (categories present in the data only)
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const sourceCards = document.querySelectorAll<HTMLElement>(".source-card");
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => {
+          b.classList.remove("bg-primary", "text-on-primary");
+          b.classList.add("bg-surface-container-lowest", "text-on-surface");
+        });
+        btn.classList.remove("bg-surface-container-lowest", "text-on-surface");
+        btn.classList.add("bg-primary", "text-on-primary");
+
+        const filter = btn.dataset.filter;
+        sourceCards.forEach((card) => {
+          const show = filter === "all" || card.dataset.category === filter;
+          card.style.display = show ? "flex" : "none";
+        });
+      });
+    });
+  </script>
 </BaseLayout>

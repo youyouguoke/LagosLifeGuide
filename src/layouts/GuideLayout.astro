@@ -2,16 +2,21 @@
 import BaseLayout from "./BaseLayout.astro";
 import VerificationBadge from "../components/VerificationBadge.astro";
 import type { GuidePost } from "../lib/schema/guide";
+import type { SourceRecord } from "../lib/schema/common";
 
 /**
- * GuideLayout (UIUX §9.2) — fixed content order for guide detail pages:
- * breadcrumbs → title → short answer → verification badge → TOC →
- * sections → limitations → sources → related tools → Report an Error.
+ * GuideLayout — guide detail template re-ported from the Stitch kit
+ * (lagoslifeguide_guide_detail_desktop/mobile). Fixed section order:
+ * breadcrumbs → title + verification badge → sticky TOC sidebar →
+ * numbered content sections (Executive Summary first) → Unverified
+ * Boundaries → Source References & Telemetry Log → Related Guides &
+ * Interactive Tools → Report an Error. All content renders from GuidePost /
+ * SourceRecord data only — the Stitch sample facts are prototype filler.
  */
 interface Props {
   guide: GuidePost;
-  /** Resolved source records linked from this guide. */
-  sources: { id: string; url: string; title?: string; notes?: string }[];
+  /** Source records resolved from guide.sourceIds (never invented). */
+  sources: SourceRecord[];
 }
 
 const { guide, sources } = Astro.props;
@@ -21,6 +26,47 @@ const tocId = (heading: string) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
+
+const evidenceLabels: Record<SourceRecord["evidenceType"], string> = {
+  official: "Official",
+  in_game_test: "In-game test",
+  community_report: "Community report",
+  third_party_guide: "Third-party guide",
+};
+
+/* Unverified Boundaries renders only from data: an explicit limitations
+   list, or the guide-level needs_verification status. Omitted when empty. */
+const limitations = guide.limitations ?? [];
+const unverifiedItems: string[] =
+  limitations.length > 0
+    ? limitations
+    : guide.verificationStatus === "needs_verification"
+      ? [
+          "This guide has not yet been independently field-verified. Treat every value, cost, and mechanic described here as provisional until community confirmation lands in the verification log.",
+        ]
+      : [];
+
+interface TocEntry {
+  id: string;
+  label: string;
+}
+
+const tocEntries: TocEntry[] = [
+  { id: "executive-summary", label: "Executive Summary & Core Benefit" },
+  ...guide.sections.map((section, i) => ({
+    id: tocId(section.heading) || `guide-section-${i + 2}`,
+    label: section.heading,
+  })),
+  ...(unverifiedItems.length > 0
+    ? [{ id: "unverified-boundaries", label: "Unverified Boundaries" }]
+    : []),
+  ...(sources.length > 0
+    ? [{ id: "sources", label: "Source References & Telemetry Log" }]
+    : []),
+  { id: "related-tools", label: "Related Guides & Interactive Tools" },
+];
+
+const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
 ---
 
 <BaseLayout
@@ -28,131 +74,504 @@ const tocId = (heading: string) =>
   description={guide.summary}
   canonicalPath={`/guides/${guide.slug}/`}
 >
-  <article class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
-    <div class="mx-auto max-w-3xl">
-      <!-- 1. Breadcrumbs -->
-      <nav aria-label="Breadcrumb" class="text-label-lg text-on-surface-variant">
-        <ol class="flex flex-wrap items-center gap-space-xs">
-          <li><a href="/" class="transition-colors hover:text-primary">Home</a></li>
-          <li aria-hidden="true">/</li>
-          <li><a href="/guides/" class="transition-colors hover:text-primary">Guides</a></li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page" class="font-semibold text-on-surface">{guide.title}</li>
-        </ol>
+  <article
+    class="mx-auto max-w-[1200px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"
+  >
+    <!-- Breadcrumbs & Meta Bar -->
+    <div
+      class="mb-space-lg flex flex-col justify-between gap-space-sm lg:flex-row lg:items-center"
+    >
+      <nav
+        aria-label="Breadcrumb"
+        class="flex flex-wrap items-center gap-space-xs text-label-md text-on-surface-variant"
+      >
+        <a href="/" class="transition-colors hover:text-primary">Home</a>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+          class="shrink-0"
+        >
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <a href="/guides/" class="transition-colors hover:text-primary">Guides</a>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+          class="shrink-0"
+        >
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span>{guide.topic}</span>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+          class="shrink-0"
+        >
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span
+          aria-current="page"
+          class="max-w-[280px] truncate text-on-surface sm:max-w-none"
+          >{guide.title}</span
+        >
       </nav>
+      <div class="flex shrink-0 flex-wrap items-center gap-space-sm">
+        <VerificationBadge status={guide.verificationStatus} />
+        <span
+          class="inline-flex items-center gap-1.5 rounded-full bg-surface-container-highest px-3 py-1 text-label-sm text-on-surface-variant"
+        >
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+            <path d="M8 3v4M16 3v4M3 10h18" stroke-linecap="round"></path>
+          </svg>
+          Reviewed: {guide.updatedAt}
+        </span>
+      </div>
+    </div>
 
-      <!-- 2. Title -->
-      <h1 class="mt-space-md text-headline-lg font-bold tracking-tight text-on-surface">
+    <!-- Article Headline -->
+    <header class="mb-space-lg max-w-[960px]">
+      <div
+        class="mb-space-sm inline-flex items-center gap-1.5 rounded-full bg-surface-container-high px-2.5 py-1 text-label-sm uppercase tracking-wider text-primary"
+      >
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+        >
+          <path
+            d="M4 19V5a2 2 0 012-2h9l5 5v11a2 2 0 01-2 2H6a2 2 0 01-2-2z"
+            stroke-linejoin="round"></path>
+          <path d="M14 3v5h5" stroke-linejoin="round"></path>
+        </svg>
+        {guide.topic}
+      </div>
+      <h1
+        class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero"
+      >
         {guide.title}
       </h1>
+    </header>
 
-      <!-- 3. Short answer -->
-      <p class="mt-space-sm text-body-lg font-semibold text-on-surface">{guide.summary}</p>
-
-      <!-- 4. Verification status -->
-      <div class="mt-space-md flex flex-wrap items-center gap-space-sm">
-        <VerificationBadge status={guide.verificationStatus} />
-        <span class="text-label-md uppercase tracking-widest text-brand-dark">{guide.topic}</span>
-        <span class="text-body-sm text-text-muted">Updated {guide.updatedAt}</span>
-      </div>
-
-      <!-- 5. Table of contents -->
-      {guide.sections.length > 1 && (
-        <nav aria-label="Table of contents" class="mt-space-lg rounded-card border border-border bg-surface-container-low p-space-md">
-          <p class="text-label-lg font-semibold uppercase tracking-widest text-brand-dark">
-            On this page
-          </p>
-          <ol class="mt-space-sm flex flex-col gap-space-xs">
-            {guide.sections.map((section) => (
-              <li>
-                <a href={`#${tocId(section.heading)}`} class="text-body-md text-on-surface-variant transition-colors hover:text-primary">
-                  {section.heading}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a href="#limitations" class="text-body-md text-on-surface-variant transition-colors hover:text-primary">
-                Limitations
-              </a>
-            </li>
-            {sources.length > 0 && (
-              <li>
-                <a href="#sources" class="text-body-md text-on-surface-variant transition-colors hover:text-primary">
-                  Sources
-                </a>
-              </li>
-            )}
-          </ol>
-        </nav>
-      )}
-
-      <!-- 6–7. Sections -->
-      <div class="mt-space-lg flex flex-col gap-space-lg">
-        {guide.sections.map((section) => (
-          <section id={tocId(section.heading)} class="scroll-mt-24">
-            <h2 class="text-headline-md font-semibold text-on-surface">{section.heading}</h2>
-            <p class="mt-space-sm text-body-lg text-on-surface-variant">{section.body}</p>
-          </section>
-        ))}
-      </div>
-
-      <!-- 7. Limitations note -->
-      <section id="limitations" class="mt-space-lg scroll-mt-24 rounded-card border border-border bg-surface-container-low p-space-md">
-        <h2 class="text-headline-sm font-semibold text-on-surface">Limitations</h2>
-        <p class="mt-space-sm text-body-md text-on-surface-variant">
-          This guide reflects the game state as verified on {guide.updatedAt}. Lagos Life is a
-          living game — values, mechanics, and availability may have changed since then. Field-level
-          verification states are shown on the <a href="/game-data/" class="font-semibold text-primary transition-colors hover:text-brand-dark">Game Data</a> pages.
-          Anything unconfirmed is marked as such; we never present community speculation as a
-          confirmed game mechanic.
-        </p>
-      </section>
-
-      <!-- 8. Sources -->
-      {sources.length > 0 && (
-        <section id="sources" class="mt-space-lg scroll-mt-24">
-          <h2 class="text-headline-sm font-semibold text-on-surface">Sources</h2>
-          <ul class="mt-space-sm flex flex-col gap-space-sm">
-            {sources.map((source) => (
-              <li class="rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card">
+    <!-- Sidebar + Main Content Grid -->
+    <div class="grid grid-cols-1 items-start gap-space-xl lg:grid-cols-12">
+      <!-- Sticky Sidebar: Table of Contents + Quick Actions -->
+      <aside class="space-y-space-md lg:top-24 lg:col-span-4 lg:sticky xl:col-span-3">
+        <!-- Table of Contents Card -->
+        <div class="rounded-2xl bg-surface-container-lowest p-space-md shadow-sm">
+          <div class="mb-space-sm flex items-center justify-between pb-space-sm">
+            <span
+              class="flex items-center gap-1.5 text-label-sm uppercase tracking-wider text-on-surface-variant"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+                class="text-primary"
+              >
+                <path d="M4 6h16M4 12h10M4 18h7" stroke-linecap="round"></path>
+              </svg>
+              Contents
+            </span>
+            <span
+              class="rounded-full bg-surface-container-low px-2 py-0.5 text-label-sm text-primary"
+            >
+              {tocEntries.length} Sections
+            </span>
+          </div>
+          <nav id="toc-nav" class="space-y-1 text-label-md" aria-label="Table of contents">
+            {
+              tocEntries.map((entry, i) => (
                 <a
-                  href={source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="font-semibold text-primary transition-colors hover:text-brand-dark"
+                  href={`#${entry.id}`}
+                  class="flex items-center gap-2 rounded-xl px-2.5 py-2 text-on-surface-variant transition-all hover:bg-surface-container-low hover:text-primary"
                 >
-                  {source.title ?? source.url}
+                  <span class="w-4 text-label-sm text-on-surface-variant">
+                    {i + 1}.
+                  </span>
+                  <span class="truncate">{entry.label}</span>
                 </a>
-                <p class="mt-space-xs text-body-sm text-text-muted">{source.url}</p>
-                {source.notes && <p class="mt-space-xs text-body-sm text-on-surface-variant">{source.notes}</p>}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+              ))
+            }
+          </nav>
+        </div>
 
-      <!-- 9. Related tools -->
-      <section class="mt-space-lg rounded-panel border border-border bg-surface-container-low p-space-md">
-        <h2 class="text-headline-sm font-semibold text-on-surface">Related tools</h2>
-        <p class="mt-space-sm text-body-md text-on-surface-variant">
-          Planning your first in-game week? Use the
-          <a href="/tools/first-week-planner/" class="font-semibold text-primary transition-colors hover:text-brand-dark">
-            First Week Planner
+        <!-- Quick Actions Card -->
+        <div class="space-y-space-sm rounded-2xl bg-surface-container-lowest p-space-md shadow-sm">
+          <span
+            class="mb-1 block text-label-sm uppercase tracking-wider text-on-surface-variant"
+          >
+            Quick Jump / Actions
+          </span>
+          <a
+            href={`/report-error/?page=${encodeURIComponent(`/guides/${guide.slug}/`)}`}
+            class="flex w-full items-center justify-between rounded-full bg-surface-container-low px-space-md py-2.5 text-label-md text-primary transition-all hover:bg-surface-container"
+          >
+            <span class="flex items-center gap-2">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="M4 21V4" stroke-linecap="round"></path>
+                <path
+                  d="M4 5h13l-2.5 4L17 13H4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+              Report an Error
+            </span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
           </a>
-          to budget cash, energy, and time against verified game data.
-        </p>
-      </section>
+        </div>
+      </aside>
 
-      <!-- 10. Report an Error -->
-      <p class="mt-space-lg text-body-md text-on-surface-variant">
-        Spotted something wrong or out of date?{" "}
-        <a
-          href={`/report-error/?page=${encodeURIComponent(`/guides/${guide.slug}/`)}`}
-          class="font-semibold text-primary transition-colors hover:text-brand-dark"
-        >
-          Report an Error
-        </a>
-      </p>
+      <!-- Main Content Area -->
+      <main class="max-w-[760px] space-y-space-xl lg:col-span-8 xl:col-span-9">
+        <!-- Section 1: Executive Summary & Core Benefit -->
+        <section id="executive-summary" class="scroll-mt-24 space-y-space-md">
+          <div class="flex items-center gap-space-sm pb-1">
+            <span
+              class="flex h-8 w-8 items-center justify-center rounded-xl bg-surface-container-high text-label-md text-primary"
+              >01</span
+            >
+            <h2 class="text-headline-lg tracking-tight text-on-surface">
+              Executive Summary &amp; Core Benefit
+            </h2>
+          </div>
+          <p class="text-body-lg leading-relaxed text-on-surface-variant">
+            {guide.summary}
+          </p>
+        </section>
+
+        <!-- Content Sections -->
+        {
+          guide.sections.map((section, i) => (
+            <section
+              id={tocId(section.heading) || `guide-section-${i + 2}`}
+              class="scroll-mt-24 space-y-space-md"
+            >
+              <div class="flex items-center gap-space-sm pb-1">
+                <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-surface-container-high text-label-md text-primary">
+                  {sectionNumber(i + 1)}
+                </span>
+                <h2 class="text-headline-lg tracking-tight text-on-surface">
+                  {section.heading}
+                </h2>
+              </div>
+              <p class="text-body-lg leading-relaxed text-on-surface-variant">
+                {section.body}
+              </p>
+            </section>
+          ))
+        }
+
+        <!-- Unverified Boundaries (rendered only from guide data) -->
+        {
+          unverifiedItems.length > 0 && (
+            <section id="unverified-boundaries" class="scroll-mt-24 space-y-space-md">
+              <div class="flex items-center gap-space-sm pb-1">
+                <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-surface-container-high text-label-md text-primary">
+                  {sectionNumber(guide.sections.length + 1)}
+                </span>
+                <h2 class="text-headline-lg tracking-tight text-on-surface">
+                  Unverified Boundaries
+                </h2>
+              </div>
+              <div class="rounded-2xl bg-error-container p-space-md text-on-error-container shadow-sm lg:p-space-lg">
+                <div class="flex items-start gap-space-md">
+                  <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-error text-on-error">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M5.5 5.5l13 13" stroke-linecap="round" />
+                    </svg>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="mb-1.5 flex flex-wrap items-center justify-between gap-space-sm">
+                      <span class="text-headline-sm text-on-error-container">
+                        Unverified &amp; High-Risk Content
+                      </span>
+                      <span class="rounded-full bg-surface-container-lowest px-2.5 py-0.5 text-label-sm text-error">
+                        {guide.verificationStatus === "needs_verification"
+                          ? "Needs Verification"
+                          : "Unverified"}
+                      </span>
+                    </div>
+                    <ul class="space-y-space-sm">
+                      {unverifiedItems.map((item) => (
+                        <li class="text-body-md leading-relaxed text-on-error-container">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <p class="mt-3 flex items-center gap-2 text-label-sm text-error">
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M12 8v5M12 16.5v.5"
+                          stroke-linecap="round"
+                        />
+                        <path
+                          d="M10.3 3.9L2.6 17a2 2 0 001.7 3h15.4a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                      Community speculation is never presented as a confirmed game mechanic.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )
+        }
+
+        <!-- Source References & Telemetry Log -->
+        {
+          sources.length > 0 && (
+            <section id="sources" class="scroll-mt-24 space-y-space-md">
+              <div class="flex items-center gap-space-sm pb-1">
+                <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-surface-container-high text-label-md text-primary">
+                  {sectionNumber(guide.sections.length + (unverifiedItems.length > 0 ? 2 : 1))}
+                </span>
+                <h2 class="text-headline-lg tracking-tight text-on-surface">
+                  Source References &amp; Telemetry Log
+                </h2>
+              </div>
+              <p class="text-body-lg leading-relaxed text-on-surface-variant">
+                Every assertion in this guide maps to the following reviewed sources.
+              </p>
+              <div class="overflow-hidden rounded-2xl bg-surface-container-lowest p-space-md shadow-sm">
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-body-md">
+                    <thead>
+                      <tr class="rounded-xl bg-surface-container-low text-label-md text-on-surface">
+                        <th class="rounded-l-xl px-4 py-3">Source / Reference ID</th>
+                        <th class="px-4 py-3">Notes</th>
+                        <th class="rounded-r-xl px-4 py-3">Evidence Type</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-outline-variant/30">
+                      {sources.map((source) => (
+                        <tr class="transition-colors hover:bg-surface-container">
+                          <td class="px-4 py-3.5">
+                            <span class="block text-label-md text-on-surface">
+                              {source.title ?? source.id}
+                            </span>
+                            <a
+                              href={source.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="text-body-sm text-primary hover:underline"
+                            >
+                              {source.url}
+                            </a>
+                          </td>
+                          <td class="px-4 py-3.5 text-body-sm text-on-surface-variant">
+                            {source.notes ?? "—"}
+                          </td>
+                          <td class="px-4 py-3.5">
+                            <span class="inline-flex items-center gap-1 rounded-full bg-surface-container-low px-2.5 py-0.5 text-label-sm text-primary">
+                              {evidenceLabels[source.evidenceType]}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          )
+        }
+
+        <!-- Related Guides & Interactive Tools -->
+        <section id="related-tools" class="scroll-mt-24 space-y-space-md">
+          <div class="flex items-center gap-space-sm pb-1">
+            <span
+              class="flex h-8 w-8 items-center justify-center rounded-xl bg-surface-container-high text-label-md text-primary"
+              >{
+                sectionNumber(
+                  guide.sections.length + (unverifiedItems.length > 0 ? 2 : 1) + (sources.length > 0 ? 1 : 0)
+                )
+              }</span
+            >
+            <h2 class="text-headline-lg tracking-tight text-on-surface">
+              Related Guides &amp; Interactive Tools
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 gap-space-md md:grid-cols-2">
+            <a
+              href="/tools/first-week-planner/"
+              class="group flex flex-col justify-between rounded-2xl bg-surface-container-lowest p-space-md shadow-sm transition-all hover:shadow-md"
+            >
+              <div>
+                <div
+                  class="mb-space-sm flex h-10 w-10 items-center justify-center rounded-xl bg-surface-container-low text-primary transition-colors group-hover:bg-primary group-hover:text-on-primary"
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                    <path d="M8 3v4M16 3v4M3 10h18" stroke-linecap="round"></path>
+                    <path d="M8 15h3" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <h3 class="text-headline-sm text-on-surface transition-colors group-hover:text-primary">
+                  First Week Planner
+                </h3>
+                <p class="mt-1 text-body-md text-on-surface-variant">
+                  Budget your first in-game week against verified game data: cash, energy, and time.
+                </p>
+              </div>
+              <div
+                class="mt-4 flex items-center gap-1 pt-3 text-label-md text-primary"
+              >
+                <span>Open Planner</span>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  aria-hidden="true"
+                  class="transition-transform group-hover:translate-x-1"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+            </a>
+          </div>
+
+          <!-- Correction / Feedback Banner -->
+          <div
+            class="mt-space-lg flex flex-col justify-between gap-space-md rounded-2xl bg-surface-container-low p-space-lg shadow-sm md:flex-row md:items-center"
+          >
+            <div class="space-y-1">
+              <h3 class="text-headline-sm text-on-surface">
+                Found a discrepancy in this guide?
+              </h3>
+              <p class="max-w-lg text-body-md text-on-surface-variant">
+                Submit a correction with your source or in-game observation to help keep the
+                community ledger accurate.
+              </p>
+            </div>
+            <a
+              href={`/report-error/?page=${encodeURIComponent(`/guides/${guide.slug}/`)}`}
+              class="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-space-lg py-3 text-label-lg text-on-primary shadow-sm transition-all hover:bg-on-primary-fixed-variant"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="M4 21V4" stroke-linecap="round"></path>
+                <path
+                  d="M4 5h13l-2.5 4L17 13H4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+              Report an Error
+            </a>
+          </div>
+        </section>
+      </main>
     </div>
   </article>
+
+  <script>
+    /* Scrollspy: highlight the active TOC entry while scrolling. */
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll("#toc-nav a");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = entry.target.getAttribute("id");
+          navLinks.forEach((link) => {
+            const href = link.getAttribute("href")?.replace("#", "");
+            const active = href === id;
+            link.classList.toggle("bg-surface-container-low", active);
+            link.classList.toggle("text-primary", active);
+            link.classList.toggle("font-semibold", active);
+            link.classList.toggle("text-on-surface-variant", !active);
+          });
+        });
+      },
+      { rootMargin: "-20% 0px -60% 0px" }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  </script>
 </BaseLayout>

@@ -1,53 +1,98 @@
 ---
 /**
- * DataRecordCard (UIUX §8.2) — one row in the Game Data directory.
- * Shows name, record type, verification status, and a few key fields.
- * Never fabricates values: only populated key fields are rendered.
+ * DataRecordCard (UIUX §8.2, Stitch game_data_directory kit) — one record in
+ * the Game Data directory. Category chip + verification pill + record id,
+ * name, a key-attribute pill grid, and a footer with review date + CTA.
+ * Never fabricates values: unknown key fields render as "Data Pending".
  */
 import VerificationBadge from "./VerificationBadge.astro";
-import type { BadgeStatus, KeyField } from "../lib/game-data";
+import type { BadgeStatus, CardFilterStatus, KeyField } from "../lib/game-data";
 
 interface Props {
   href: string;
+  /** Raw record id (schema), shown as `ID: …` like the Stitch kit. */
+  id: string;
   name: string;
   typeLabel: string;
+  /** Collection chip label shown in the category pill. */
+  chipLabel: string;
   status: BadgeStatus;
+  /** Normalized status bucket used by the directory's status filter. */
+  filterStatus: CardFilterStatus;
   keyFields: KeyField[];
   /** Collection key used by the directory's category-chip filter. */
   collection: string;
+  lastReviewedAt?: string;
   /** Lowercased haystack for the client-side search filter. */
   searchText: string;
 }
 
-const { href, name, typeLabel, status, keyFields, collection, searchText } = Astro.props;
+const { href, id, name, typeLabel, chipLabel, status, filterStatus, keyFields, collection, lastReviewedAt, searchText } =
+  Astro.props;
+
+const shownKeyFields = keyFields.slice(0, 3);
 ---
 
 <a
   href={href}
   data-record-card
   data-collection={collection}
+  data-status={filterStatus}
   data-search={searchText}
-  class="group block rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card transition-all hover:-translate-y-0.5 hover:border-primary-container/60 hover:shadow-lg"
+  class="group flex flex-col justify-between rounded-2xl bg-surface-container-lowest p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
 >
-  <div class="flex items-start justify-between gap-space-md">
-    <div class="min-w-0">
-      <p class="text-label-md font-semibold uppercase tracking-widest text-text-muted">{typeLabel}</p>
-      <h3 class="mt-space-xs truncate text-headline-sm font-semibold text-on-surface group-hover:text-primary">
-        {name}
-      </h3>
+  <div>
+    <!-- Header metadata: category chip + verification pill, record id right -->
+    <div class="mb-4 flex items-start justify-between gap-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="inline-flex items-center gap-1 rounded-full bg-surface-container-low px-3 py-1 font-label-sm text-label-sm font-semibold uppercase tracking-wider text-primary">
+          {chipLabel} • {typeLabel}
+        </span>
+        <VerificationBadge status={status} />
+      </div>
+      <span class="shrink-0 font-label-sm text-label-sm text-outline">ID: {id}</span>
     </div>
-    <VerificationBadge status={status} />
+
+    <h2 class="mb-3 font-headline-lg text-headline-lg text-on-surface transition-colors group-hover:text-primary">
+      {name}
+    </h2>
+
+    <!-- Core attribute pill grid; unknown values render as Data Pending -->
+    {
+      shownKeyFields.length > 0 && (
+        <div class="grid grid-cols-2 gap-2.5 rounded-xl bg-surface-container-low p-4 sm:grid-cols-3">
+          {shownKeyFields.map((kf) => (
+            <div class="min-w-0">
+              <span class="block font-label-sm text-label-sm font-semibold uppercase text-outline">{kf.label}</span>
+              {kf.value !== null ? (
+                <span class="font-headline-sm text-headline-sm font-extrabold text-on-surface">{kf.value}</span>
+              ) : (
+                <span class="inline-block rounded bg-surface-container-lowest px-1.5 py-0.5 font-label-md text-label-md font-bold text-error">
+                  Data Pending
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      )
+    }
   </div>
-  {
-    keyFields.length > 0 && (
-      <dl class="mt-space-md grid gap-space-xs sm:grid-cols-2">
-        {keyFields.map((kf) => (
-          <div class="min-w-0">
-            <dt class="text-label-md font-semibold text-text-muted">{kf.label}</dt>
-            <dd class="truncate text-body-md text-on-surface">{kf.value}</dd>
-          </div>
-        ))}
-      </dl>
-    )
-  }
+
+  <div class="-mx-6 -mb-6 mt-4 flex items-center justify-between rounded-b-2xl bg-surface-container/30 p-6 pt-4">
+    <div class="font-body-sm text-body-sm text-on-surface-variant">
+      {
+        lastReviewedAt ? (
+          <>
+            Reviewed <time datetime={lastReviewedAt}>{lastReviewedAt}</time>
+          </>
+        ) : (
+          "Review pending"
+        )
+      }
+    </div>
+    <span class="inline-flex items-center gap-1.5 font-label-lg text-label-lg font-bold text-primary transition-transform group-hover:translate-x-1">
+      <span>View Full Record</span>
+      <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+    </span>
+  </div>
 </a>

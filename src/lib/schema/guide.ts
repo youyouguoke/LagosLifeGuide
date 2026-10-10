@@ -25,6 +25,11 @@ export interface GuidePost {
   /** ISO date the guide content was last updated/verified. */
   updatedAt: string;
   sections: GuideSection[];
+  /**
+   * UIUX §9 — claims in this guide that are NOT yet field-verified.
+   * Drives the "Unverified Boundaries" block; omit the section when empty.
+   */
+  limitations?: string[];
   /** Ids into src/data/sources.json. Never invent ids. */
   sourceIds: string[];
 }

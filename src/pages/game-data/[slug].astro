@@ -1,10 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import EmptyState from "../../components/EmptyState.astro";
 import VerificationBadge from "../../components/VerificationBadge.astro";
 import {
   allRecords,
+  collections,
   findEvidence,
   findSource,
+  type FieldRow,
   type NormalizedRecord,
 } from "../../lib/game-data";
 
@@ -21,6 +24,25 @@ interface Props {
 
 const { record } = Astro.props;
 
+const collectionLabel =
+  collections.find((c) => c.key === record.collection)?.chipLabel ?? record.collection;
+
+// Stitch detail-view section order, mapped onto real field statuses:
+//   1. Confirmed            → status "verified"
+//   2. Partially Confirmed  → status "reported" (and "conflicted" — confirmed nowhere)
+//   3. Unknown & Boundaries → status "unverified" OR a null value (never rendered as 0)
+//   4. Source Logs & Audit Trail → real sourceIds → sources.json + evidence + checkedAt
+const confirmedFields = record.fields.filter((f) => f.field.status === "verified");
+const reportedFields = record.fields.filter(
+  (f) => f.field.status === "reported" || f.field.status === "conflicted",
+);
+const unknownFields = record.fields.filter(
+  (f) => f.field.status === "unverified" || f.display === null,
+);
+
+const verifiedCount = confirmedFields.length;
+const totalCount = record.fields.length;
+
 const linkedSources = record.sourceIds
   .map((id) => findSource(id))
   .filter((s): s is NonNullable<typeof s> => s !== undefined);
@@ -28,6 +50,23 @@ const linkedSources = record.sourceIds
 const linkedEvidence = record.evidenceIds
   .map((id) => findEvidence(id))
   .filter((e): e is NonNullable<typeof e> => e !== undefined);
+
+// Real check dates across all fields of this record (unique, sorted desc).
+const checkedDates = [
+  ...new Set(
+    record.fields
+      .map((f) => f.field.checkedAt)
+      .filter((d): d is string => typeof d === "string" && d.length > 0),
+  ),
+].sort().reverse();
+
+const lastReviewedAt =
+  record.lastReviewedAt ?? checkedDates[0];
+
+function fieldValue(row: FieldRow): string {
+  // NEVER render an unknown value as 0 — explicit Data Pending instead.
+  return row.display ?? "Data Pending";
+}
 ---
 
 <BaseLayout
@@ -35,179 +74,393 @@ const linkedEvidence = record.evidenceIds
   description={`Verified Lagos Life ${record.typeLabel.toLowerCase()} data for ${record.name}. Field-level verification status with cited sources.`}
   canonicalPath={`/game-data/${record.slug}/`}
 >
-  <article class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
-    <!-- Breadcrumbs (UIUX §8.3) -->
-    <nav aria-label="Breadcrumb">
-      <ol class="flex flex-wrap items-center gap-space-xs text-label-lg text-text-muted">
+  <div class="mx-auto w-full max-w-[1280px] px-4 py-8 sm:px-6 lg:px-10">
+    <!-- Breadcrumb bar (kept; Stitch kit treatment) -->
+    <nav aria-label="Breadcrumb" class="mb-6 flex flex-wrap items-center justify-between gap-2">
+      <ol class="flex flex-wrap items-center gap-1 font-label-md text-label-md">
         <li>
-          <a href="/" class="transition-colors hover:text-primary">Home</a>
+          <a href="/game-data/" class="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary">
+            <span class="material-symbols-outlined text-[16px]">database</span>
+            Game Data
+          </a>
         </li>
-        <li aria-hidden="true">/</li>
+        <li aria-hidden="true" class="font-bold text-outline-variant">/</li>
         <li>
-          <a href="/game-data/" class="transition-colors hover:text-primary">Game Data</a>
+          <a href="/game-data/" class="text-on-surface-variant transition-colors hover:text-primary">
+            {collectionLabel}
+          </a>
         </li>
-        <li aria-hidden="true">/</li>
-        <li aria-current="page" class="font-semibold text-on-surface">{record.name}</li>
+        <li aria-hidden="true" class="font-bold text-outline-variant">/</li>
+        <li aria-current="page">
+          <span class="rounded-full bg-surface-container-low px-2.5 py-0.5 font-bold text-primary">
+            {record.slug}
+          </span>
+        </li>
       </ol>
+      <span class="inline-flex items-center gap-1 rounded-full bg-surface-container px-3 py-1 font-label-sm text-label-sm text-on-surface-variant">
+        <span class="h-2 w-2 rounded-full bg-primary-container" aria-hidden="true"></span>
+        Field-Level Audit
+      </span>
     </nav>
 
-    <header class="mt-space-md">
-      <p class="text-label-lg font-semibold uppercase tracking-widest text-brand-dark">{record.typeLabel}</p>
-      <div class="mt-space-xs flex flex-wrap items-center gap-space-md">
-        <h1 class="text-headline-lg font-bold tracking-tight text-on-surface">{record.name}</h1>
-        <VerificationBadge status={record.status} />
+    <!-- Header record entity card -->
+    <header class="relative mb-10 overflow-hidden rounded-2xl bg-surface-container-lowest p-6 shadow-sm sm:p-8 md:p-10">
+      <div
+        class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-secondary-container/20 blur-3xl"
+        aria-hidden="true"
+      >
       </div>
-      {
-        record.lastReviewedAt && (
-          <p class="mt-space-sm text-body-md text-text-muted">
-            Last reviewed <time datetime={record.lastReviewedAt}>{record.lastReviewedAt}</time>
-          </p>
-        )
-      }
+      <div class="relative z-10">
+        <div class="mb-3 flex flex-wrap items-center gap-2">
+          <VerificationBadge status={record.status} />
+          <span class="inline-flex items-center gap-1 rounded-full bg-secondary-container/30 px-3 py-1 font-label-sm text-label-sm font-bold text-secondary">
+            {collectionLabel} • {record.typeLabel}
+          </span>
+          <span class="inline-flex items-center gap-1 rounded-full bg-surface-container px-2.5 py-1 font-label-sm text-label-sm text-on-surface-variant">
+            ID: {record.slug}
+          </span>
+        </div>
+        <h1 class="mb-3 font-display-hero text-display-hero tracking-tight text-on-surface">
+          {record.name}
+        </h1>
+        <p class="mb-5 max-w-3xl font-body-lg text-body-lg leading-relaxed text-on-surface-variant">
+          Every field below carries its own verification state. Confirmed values
+          are authoritative for their check date; anything unconfirmed is shown
+          as <strong class="text-on-surface">Data Pending</strong> — never zero,
+          never estimated.
+        </p>
+        <!-- Quick metadata bar: real values only -->
+        <div class="grid grid-cols-2 gap-3 rounded-xl bg-surface-container-low/70 p-3.5 sm:grid-cols-4">
+          <div>
+            <p class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Category</p>
+            <p class="flex items-center gap-1 font-label-lg text-label-lg font-bold text-on-surface">
+              <span class="material-symbols-outlined text-[16px] text-secondary">category</span>
+              {record.typeLabel}
+            </p>
+          </div>
+          <div>
+            <p class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Last Reviewed</p>
+            <p class="font-label-lg text-label-lg font-bold text-on-surface">
+              {
+                lastReviewedAt ? (
+                  <time datetime={lastReviewedAt}>{lastReviewedAt}</time>
+                ) : (
+                  "Pending"
+                )
+              }
+            </p>
+          </div>
+          <div>
+            <p class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Fields Verified</p>
+            <p class="font-label-lg text-label-lg font-bold text-on-surface">
+              {verifiedCount} / {totalCount}
+            </p>
+          </div>
+          <div>
+            <p class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Cited Sources</p>
+            <p class="flex items-center gap-1 font-label-lg text-label-lg font-bold text-primary">
+              <span class="material-symbols-outlined text-[16px]">check_circle</span>
+              {linkedSources.length}
+            </p>
+          </div>
+        </div>
+      </div>
     </header>
 
-    <!-- Fields: every populated field with its own verification badge (UIUX §8.3, §8.4) -->
-    <section class="mt-space-lg" aria-labelledby="fields-heading">
-      <h2 id="fields-heading" class="text-headline-md font-bold text-on-surface">Fields</h2>
-      <div class="mt-space-md overflow-hidden rounded-card border border-border bg-surface-container-lowest shadow-card">
-        {
-          record.fields.map((row) => (
-            <div class="border-b border-border last:border-b-0">
-              <div class="flex flex-wrap items-start justify-between gap-space-sm px-space-md py-space-md">
-                <div class="min-w-0">
-                  <dt class="text-label-lg font-semibold text-text-muted">{row.label}</dt>
-                  {row.display !== null ? (
-                    <dd class="mt-space-xs text-body-lg text-on-surface">{row.display}</dd>
-                  ) : (
-                    <dd class="mt-space-xs text-body-lg italic text-text-muted">Not yet verified</dd>
-                  )}
-                  {row.field.notes && (
-                    <p class="mt-space-xs text-body-md text-on-surface-variant">{row.field.notes}</p>
-                  )}
-                  {row.field.applicableVersion && (
-                    <p class="mt-space-xs text-body-sm text-text-muted">
-                      Applies to game version: {row.field.applicableVersion}
-                    </p>
-                  )}
-                  {row.field.checkedAt && (
-                    <p class="mt-space-xs text-body-sm text-text-muted">
-                      Checked <time datetime={row.field.checkedAt}>{row.field.checkedAt}</time>
-                    </p>
+    <!-- SECTION 1: Confirmed Information -->
+    <section class="mb-10" aria-labelledby="confirmed-heading">
+      <div class="mb-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="h-6 w-3 rounded-full bg-primary" aria-hidden="true"></span>
+          <h2 id="confirmed-heading" class="font-headline-lg text-headline-lg text-on-surface">
+            1. Confirmed Information
+          </h2>
+          <span class="ml-2 rounded-full bg-surface-container-low px-2.5 py-0.5 font-label-sm text-label-sm font-bold text-primary">
+            {confirmedFields.length} Verified
+          </span>
+        </div>
+      </div>
+      {
+        confirmedFields.length > 0 ? (
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {confirmedFields.map((row) => (
+              <article class="rounded-2xl bg-surface-container-lowest p-4 shadow-sm transition-all hover:shadow-md">
+                <div class="mb-2 flex items-start justify-between gap-2">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">{row.label}</h3>
+                  <VerificationBadge status={row.field.status} />
+                </div>
+                <div class="mb-2 flex items-baseline gap-2">
+                  <span class="font-headline-lg text-headline-lg font-extrabold text-primary">
+                    {fieldValue(row)}
+                  </span>
+                  {row.field.unit && (
+                    <span class="font-label-sm text-label-sm text-on-surface-variant">{row.field.unit}</span>
                   )}
                 </div>
-                <VerificationBadge status={row.field.status} />
-              </div>
-            </div>
-          ))
-        }
-      </div>
-      <p class="mt-space-sm text-body-md text-text-muted">
-        Fields marked “Not yet verified” are unknown — they are never treated as zero or estimated.
-      </p>
-    </section>
-
-    <!-- Sources: real linked SourceRecords with URLs (PRD §2.3, UIUX §9.3) -->
-    <section class="mt-space-xl" aria-labelledby="sources-heading">
-      <h2 id="sources-heading" class="text-headline-md font-bold text-on-surface">Sources</h2>
-      {
-        linkedSources.length > 0 ? (
-          <ul class="mt-space-md grid gap-space-md">
-            {linkedSources.map((source) => (
-              <li class="rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card">
-                <a
-                  href={source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-body-lg font-semibold text-primary underline-offset-2 hover:underline"
-                >
-                  {source.title ?? source.url}
-                </a>
-                <dl class="mt-space-xs grid gap-space-xs text-body-md">
-                  {source.publisher && (
-                    <div class="flex gap-space-xs">
-                      <dt class="font-semibold text-text-muted">Publisher</dt>
-                      <dd class="text-on-surface">{source.publisher}</dd>
-                    </div>
-                  )}
-                  <div class="flex gap-space-xs">
-                    <dt class="font-semibold text-text-muted">Type</dt>
-                    <dd class="text-on-surface">{source.evidenceType.replace(/_/g, " ")}</dd>
-                  </div>
-                  <div class="flex gap-space-xs">
-                    <dt class="font-semibold text-text-muted">Last accessed</dt>
-                    <dd class="text-on-surface">
-                      <time datetime={source.accessedAt}>{source.accessedAt}</time>
-                    </dd>
-                  </div>
-                  {source.applicableGameUrl && (
-                    <div class="flex gap-space-xs">
-                      <dt class="font-semibold text-text-muted">Applies to</dt>
-                      <dd class="text-on-surface break-all">{source.applicableGameUrl}</dd>
-                    </div>
-                  )}
-                  {source.applicableVersion && (
-                    <div class="flex gap-space-xs">
-                      <dt class="font-semibold text-text-muted">Game version</dt>
-                      <dd class="text-on-surface">{source.applicableVersion}</dd>
-                    </div>
-                  )}
-                </dl>
-                {source.notes && <p class="mt-space-sm text-body-md text-on-surface-variant">{source.notes}</p>}
-              </li>
+                {row.field.notes && (
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">{row.field.notes}</p>
+                )}
+                {row.field.applicableVersion && (
+                  <p class="mt-1 font-body-sm text-body-sm text-text-muted">
+                    Applies to game version: {row.field.applicableVersion}
+                  </p>
+                )}
+                {row.field.checkedAt && (
+                  <p class="mt-1 font-body-sm text-body-sm text-text-muted">
+                    Checked <time datetime={row.field.checkedAt}>{row.field.checkedAt}</time>
+                  </p>
+                )}
+              </article>
             ))}
-          </ul>
+          </div>
         ) : (
-          <p class="mt-space-md text-body-md text-text-muted">
-            No sources are linked to this record yet. Nothing here is presented as confirmed until a
-            source is cited.
-          </p>
+          <EmptyState
+            title="No fully confirmed fields yet"
+            description="None of this record's fields have passed source verification. See the sections below for what is reported or still unknown."
+          />
         )
       }
     </section>
 
-    <!-- Evidence notes -->
-    {
-      linkedEvidence.length > 0 && (
-        <section class="mt-space-xl" aria-labelledby="evidence-heading">
-          <h2 id="evidence-heading" class="text-headline-md font-bold text-on-surface">
-            Evidence notes
+    <!-- SECTION 2: Partially Confirmed Information -->
+    <section class="mb-10" aria-labelledby="reported-heading">
+      <div class="mb-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="h-6 w-3 rounded-full bg-secondary-fixed-dim" aria-hidden="true"></span>
+          <h2 id="reported-heading" class="font-headline-lg text-headline-lg text-on-surface">
+            2. Partially Confirmed Information
           </h2>
-          <ul class="mt-space-md grid gap-space-md">
+          <span class="ml-2 rounded-full bg-surface-container-highest px-2.5 py-0.5 font-label-sm text-label-sm font-bold text-on-surface">
+            {reportedFields.length} Reported
+          </span>
+        </div>
+      </div>
+      {
+        reportedFields.length > 0 ? (
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {reportedFields.map((row) => (
+              <article class="rounded-2xl bg-surface-container-lowest p-4 shadow-sm">
+                <div class="mb-2 flex items-start justify-between gap-2">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">{row.label}</h3>
+                  <VerificationBadge status={row.field.status} />
+                </div>
+                <p class="mb-3 font-body-md text-body-md text-on-surface-variant">
+                  <strong class="font-bold text-on-surface">{fieldValue(row)}</strong>
+                </p>
+                {row.field.notes && (
+                  <p class="mb-3 font-body-sm text-body-sm text-on-surface-variant">{row.field.notes}</p>
+                )}
+                <div class="flex items-center gap-2 rounded-xl bg-surface-container-low p-3 font-body-sm text-body-sm text-on-surface">
+                  <span class="material-symbols-outlined shrink-0 text-[18px] text-secondary">info</span>
+                  <span>
+                    Reported by the community and awaiting an independent
+                    re-check before promotion to confirmed.
+                    {row.field.checkedAt && (
+                      <>
+                        {" "}
+                        Reported <time datetime={row.field.checkedAt}>{row.field.checkedAt}</time>.
+                      </>
+                    )}
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="No partially confirmed fields"
+            description="Nothing on this record is sitting in the reported tier right now — each field is either confirmed above or unknown below."
+          />
+        )
+      }
+    </section>
+
+    <!-- SECTION 3: Unknown Information & Known Boundaries -->
+    <section class="mb-10" aria-labelledby="unknown-heading">
+      <div class="mb-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="h-6 w-3 rounded-full bg-outline" aria-hidden="true"></span>
+          <h2 id="unknown-heading" class="font-headline-lg text-headline-lg text-on-surface">
+            3. Unknown Information &amp; Known Boundaries
+          </h2>
+          <span class="ml-2 rounded-full bg-surface-container-high px-2.5 py-0.5 font-label-sm text-label-sm font-bold text-on-surface-variant">
+            {unknownFields.length} Pending
+          </span>
+        </div>
+        <span class="hidden font-label-md text-label-md text-on-surface-variant sm:inline-block">
+          Never assumed / never zeroed
+        </span>
+      </div>
+      {
+        unknownFields.length > 0 ? (
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {unknownFields.map((row) => (
+              <div class="rounded-2xl bg-surface-container-lowest p-4 shadow-sm">
+                <div class="mb-2 flex items-start justify-between gap-2">
+                  <div>
+                    <span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">
+                      Unverified Field
+                    </span>
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface">{row.label}</h3>
+                  </div>
+                  <span class="inline-flex items-center gap-1 rounded-full bg-surface-container-high px-2.5 py-0.5 font-label-sm text-label-sm font-bold text-on-surface">
+                    <span class="material-symbols-outlined text-[14px]">warning</span>
+                    Unknown / Data Pending
+                  </span>
+                </div>
+                {row.field.notes && (
+                  <p class="mb-3 font-body-md text-body-md text-on-surface-variant">{row.field.notes}</p>
+                )}
+                <div class="flex items-center justify-between rounded-xl bg-surface-container-low p-2.5 font-label-sm text-label-sm text-on-surface">
+                  <span>
+                    Status: <span class="font-bold text-error">Data Pending</span> — not zero, not estimated
+                  </span>
+                  <a href="/report-error/" class="font-bold text-primary hover:underline">
+                    Submit Evidence →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="No unknown fields on this record"
+            description={`All ${totalCount} recorded fields are currently verified or reported. If a live value ever disagrees, report it and the field returns to the unknown tier until re-checked — it is never silently defaulted to zero.`}
+          />
+        )
+      }
+    </section>
+
+    <!-- SECTION 4: Source Logs & Audit Trail -->
+    <section class="mb-10 rounded-2xl bg-surface-container-lowest p-6 shadow-sm sm:p-8" aria-labelledby="sources-heading">
+      <div class="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[24px] text-primary">history_edu</span>
+            <h2 id="sources-heading" class="font-headline-lg text-headline-lg text-on-surface">
+              4. Source Logs &amp; Audit Trail
+            </h2>
+          </div>
+          <p class="mt-1 font-body-sm text-body-sm text-on-surface-variant">
+            Cited sources and community evidence behind this record. Nothing here
+            is presented as confirmed without a source.
+          </p>
+        </div>
+      </div>
+
+      {
+        linkedSources.length > 0 ? (
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="rounded-xl bg-surface-container-low font-label-md text-label-md text-on-surface">
+                  <th class="rounded-l-xl p-3.5">Log Reference</th>
+                  <th class="p-3.5">Publisher / Source</th>
+                  <th class="p-3.5">Last Accessed</th>
+                  <th class="p-3.5">Evidence Type</th>
+                  <th class="rounded-r-xl p-3.5 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-container font-body-sm text-body-sm">
+                {linkedSources.map((source) => (
+                  <tr class="transition-colors hover:bg-surface-container-low/50">
+                    <td class="p-3.5 font-bold text-on-surface">
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="flex items-center gap-1.5 text-primary underline-offset-2 hover:underline"
+                      >
+                        <span class="material-symbols-outlined text-[16px]">receipt_long</span>
+                        {source.title ?? source.url}
+                      </a>
+                    </td>
+                    <td class="p-3.5 text-on-surface">{source.publisher ?? "—"}</td>
+                    <td class="p-3.5 text-on-surface-variant">
+                      <time datetime={source.accessedAt}>{source.accessedAt}</time>
+                    </td>
+                    <td class="p-3.5 text-on-surface">{source.evidenceType.replace(/_/g, " ")}</td>
+                    <td class="p-3.5 text-right">
+                      <span class="inline-flex items-center gap-1 rounded-full bg-surface-container-low px-2.5 py-0.5 font-label-sm text-label-sm font-bold text-primary">
+                        Cited
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <EmptyState
+            title="No sources cited yet"
+            description="No source is linked to this record yet, so nothing on this page is presented as confirmed until a source is cited."
+          />
+        )
+      }
+
+      <!-- Evidence notes (real evidence.json records) -->
+      {
+        linkedEvidence.length > 0 && (
+          <div class="mt-6 grid gap-4">
             {linkedEvidence.map((ev) => (
-              <li class="rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card">
-                <div class="flex flex-wrap items-center gap-space-sm">
-                  <span class="text-label-lg font-semibold uppercase tracking-wide text-text-muted">
+              <div class="rounded-xl border border-border bg-surface-container-low/50 p-4">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="font-label-lg font-semibold uppercase tracking-wide text-text-muted">
                     {ev.method.replace(/_/g, " ")}
                   </span>
-                  <span class="text-body-sm text-text-muted">
+                  <span class="font-body-sm text-body-sm text-text-muted">
                     observed <time datetime={ev.observedAt}>{ev.observedAt}</time>
                     {ev.gameVersion ? ` · game version ${ev.gameVersion}` : ""}
                   </span>
                 </div>
                 {ev.observation && (
-                  <p class="mt-space-sm text-body-md text-on-surface">{ev.observation}</p>
+                  <p class="mt-2 font-body-md text-body-md text-on-surface">{ev.observation}</p>
                 )}
                 {ev.artifactPath && (
-                  <p class="mt-space-xs text-body-sm text-text-muted">Artifact: {ev.artifactPath}</p>
+                  <p class="mt-1 font-body-sm text-body-sm text-text-muted">
+                    Artifact: <code>{ev.artifactPath}</code>
+                  </p>
                 )}
                 {ev.reviewer && (
-                  <p class="mt-space-xs text-body-sm text-text-muted">Reviewer: {ev.reviewer}</p>
+                  <p class="mt-1 font-body-sm text-body-sm text-text-muted">Reviewer: {ev.reviewer}</p>
                 )}
-              </li>
+              </div>
             ))}
-          </ul>
-        </section>
-      )
-    }
+          </div>
+        )
+      }
 
-    <p class="mt-space-xl text-body-md">
-      <a
-        href="/report-error/"
-        class="font-semibold text-primary underline-offset-2 hover:underline"
-      >
-        Report an Error
-      </a>
-      {" "}if any field on this page looks wrong — corrections are re-verified against sources before publishing.
-    </p>
-  </article>
+      {
+        checkedDates.length > 0 && (
+          <p class="mt-4 font-body-sm text-body-sm text-text-muted">
+            Field check dates on this record:{" "}
+            {checkedDates.map((d, i) => (
+              <>
+                {i > 0 && ", "}
+                <time datetime={d}>{d}</time>
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      <!-- Action bar -->
+      <div class="mt-8 flex flex-wrap items-center justify-between gap-4 pt-6">
+        <a
+          href="/report-error/"
+          class="inline-flex items-center justify-center rounded-full bg-surface-container-low px-5 py-2.5 font-label-lg text-label-lg text-primary transition-all hover:bg-surface-container"
+        >
+          <span class="material-symbols-outlined mr-1 text-[18px]">flag</span>
+          Report Conflicting Data
+        </a>
+        <a
+          href="/game-data/"
+          class="inline-flex items-center font-label-lg text-label-lg text-on-surface-variant transition-colors hover:text-primary"
+        >
+          <span class="material-symbols-outlined mr-1 text-[18px]">arrow_back</span>
+          Return to Game Data Directory
+        </a>
+      </div>
+    </section>
+  </div>
 </BaseLayout>
