@@ -1,5 +1,4 @@
 ---
-import HeroBackdrop from "../components/HeroBackdrop.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EmptyState from "../components/EmptyState.astro";
 import VerificationBadge from "../components/VerificationBadge.astro";
@@ -116,12 +115,6 @@ const trustCards = [
 
     <!-- 1. HERO -->
     <section class="relative mx-auto max-w-[1280px] overflow-hidden px-margin pt-8 pb-space-xl md:px-margin-tablet lg:px-margin-desktop">
-      <HeroBackdrop
-        src="/images/hero/home-skyline.jpg"
-        credit="Clara Sanchiz · CC BY-SA 2.0"
-        creditUrl="https://commons.wikimedia.org/wiki/File:Lagos_skyline.jpg"
-        alt="Lagos skyline"
-      >
       <div class="grid grid-cols-1 items-center gap-space-lg lg:grid-cols-12 lg:gap-gutter-desktop">
         <div class="flex flex-col items-start space-y-space-md lg:col-span-6">
           <div class="inline-flex items-center gap-space-xs rounded-full bg-surface-container-low px-3.5 py-1.5 text-label-sm font-bold text-primary shadow-sm">
@@ -263,7 +256,6 @@ const trustCards = [
           </div>
         </div>
       </div>
-      </HeroBackdrop>
     </section>
   </div>
 

@@ -1,44 +1,9 @@
 [
  {
-  "file": "home-skyline.jpg",
-  "title": "File:Lagos skyline.jpg",
-  "artist": "Clara Sanchiz",
-  "license": "CC BY-SA 2.0",
-  "source": "https://commons.wikimedia.org/wiki/File%3ALagos_skyline.jpg"
- },
- {
-  "file": "tools-danfo-conductors.jpg",
-  "title": "File:Conductors commuting on the popular Yellow of Lagos - Danfo.jpg",
-  "artist": "Eromonsele Emmanuel Oigiagbe (ericotrips)",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File%3AConductors_commuting_on_the_popular_Yellow_of_Lagos_-_Danfo.jpg"
- },
- {
-  "file": "guides-unilag.jpg",
-  "title": "File:University of Lagos2.jpg",
-  "artist": "Contimm at English Wikipedia",
-  "license": "Public domain",
-  "source": "https://commons.wikimedia.org/wiki/File%3AUniversity_of_Lagos2.jpg"
- },
- {
   "file": "game-data-marina.jpg",
   "title": "File:Lagos skyline with marina.jpg",
   "artist": "kopee15",
   "license": "Public domain",
   "source": "https://commons.wikimedia.org/wiki/File%3ALagos_skyline_with_marina.jpg"
- },
- {
-  "file": "about-danfo-street.jpg",
-  "title": "File:Danfo buses on the street of Lagos 11 38 39 243000.jpeg",
-  "artist": "Kaizenify",
-  "license": "CC BY-SA 4.0",
-  "source": "https://commons.wikimedia.org/wiki/File%3ADanfo_buses_on_the_street_of_Lagos_11_38_39_243000.jpeg"
- },
- {
-  "file": "official-og.png",
-  "title": "Official game artwork (Open Graph image)",
-  "artist": "Lagos Life developer (lagoslife.app)",
-  "license": "Used as reference with attribution; all rights reserved by the game developer",
-  "source": "https://lagoslife.app"
  }
 ]

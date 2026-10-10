@@ -1,5 +1,4 @@
 ---
-import HeroBackdrop from "../../components/HeroBackdrop.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const officialUrl = "https://lagoslife.app";
@@ -41,12 +40,6 @@ const faqs = [
   canonicalPath="/play/"
 >
   <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
-    <HeroBackdrop
-      src="/images/hero/official-og.png"
-      credit="Official game artwork · lagoslife.app"
-      creditUrl="https://lagoslife.app"
-      alt="Lagos Life official artwork"
-    >
     <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
       Official Access
     </div>
@@ -57,7 +50,6 @@ const faqs = [
       One official address, a few safety habits, and honest troubleshooting. Everything below was
       checked against the game's own site files on 2026-10-10.
     </p>
-    </HeroBackdrop>
 
     <!-- Official link card -->
     <div class="mt-space-lg rounded-3xl bg-surface-container-low p-space-md sm:p-space-lg">

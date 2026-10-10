@@ -1,5 +1,4 @@
 ---
-import HeroBackdrop from "../../components/HeroBackdrop.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import guides from "../../data/guides.json";
 import type { GuidePost } from "../../lib/schema/guide";
@@ -29,12 +28,6 @@ const statuses = [
   <div class="mx-auto max-w-[1200px] px-margin py-space-lg md:px-margin-tablet lg:px-margin-desktop">
     <!-- Top Intro Section -->
     <section class="mb-space-xl border-b border-outline-variant/60 pb-space-lg">
-      <HeroBackdrop
-        src="/images/hero/guides-unilag.jpg"
-        credit="Contimm · Public domain"
-        creditUrl="https://commons.wikimedia.org/wiki/File:University_of_Lagos2.jpg"
-        alt="University of Lagos campus"
-      >
       <div class="flex max-w-2xl flex-col gap-space-xs">
         <div class="mb-1 flex items-center gap-space-sm">
           <span class="inline-flex items-center gap-1.5 rounded-full bg-surface-container-low px-3 py-1 text-label-sm font-semibold tracking-wide text-primary">
@@ -51,7 +44,6 @@ const statuses = [
           Practical guidance to help you make your next in-game decision across Mainland corridors and Island hubs.
         </p>
       </div>
-      </HeroBackdrop>
     </section>
 
     <!-- Filter & Search Controls -->
