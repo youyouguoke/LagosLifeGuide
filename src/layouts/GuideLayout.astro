@@ -234,9 +234,8 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
           >
             Quick Jump / Actions
           </span>
-          <a
-            href={`/report-error/?page=${encodeURIComponent(`/guides/${guide.slug}/`)}`}
-            class="flex w-full items-center justify-between rounded-full bg-surface-container-low px-space-md py-2.5 text-label-md text-primary transition-all hover:bg-surface-container"
+          <span
+            class="flex w-full cursor-default items-center justify-between rounded-full bg-surface-container-low px-space-md py-2.5 text-label-md text-primary"
           >
             <span class="flex items-center gap-2">
               <svg
@@ -254,7 +253,7 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
                   stroke-linecap="round"
                   stroke-linejoin="round"></path>
               </svg>
-              Report an Error
+              Feedback &amp; Corrections
             </span>
             <svg
               width="16"
@@ -267,7 +266,7 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
             >
               <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
-          </a>
+          </span>
         </div>
       </aside>
 
@@ -526,9 +525,8 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
                 community ledger accurate.
               </p>
             </div>
-            <a
-              href={`/report-error/?page=${encodeURIComponent(`/guides/${guide.slug}/`)}`}
-              class="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-space-lg py-3 text-label-lg text-on-primary shadow-sm transition-all hover:bg-on-primary-fixed-variant"
+            <span
+              class="inline-flex shrink-0 cursor-default items-center justify-center gap-2 rounded-full bg-primary px-space-lg py-3 text-label-lg text-on-primary shadow-sm"
             >
               <svg
                 width="18"
@@ -545,8 +543,8 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
                   stroke-linecap="round"
                   stroke-linejoin="round"></path>
               </svg>
-              Report an Error
-            </a>
+              Use the feedback button (bottom-right) — pick "Correction"
+            </span>
           </div>
         </section>
       </main>

@@ -315,9 +315,9 @@ function fieldValue(row: FieldRow): string {
                   <span>
                     Status: <span class="font-bold text-error">Data Pending</span> — not zero, not estimated
                   </span>
-                  <a href="/report-error/" class="font-bold text-primary hover:underline">
-                    Submit Evidence →
-                  </a>
+                  <span class="font-bold text-primary">
+                    Submit evidence via the feedback button (bottom-right)
+                  </span>
                 </div>
               </div>
             ))}
@@ -446,13 +446,12 @@ function fieldValue(row: FieldRow): string {
 
       <!-- Action bar -->
       <div class="mt-8 flex flex-wrap items-center justify-between gap-4 pt-6">
-        <a
-          href="/report-error/"
-          class="inline-flex items-center justify-center rounded-full bg-surface-container-low px-5 py-2.5 font-label-lg text-label-lg text-primary transition-all hover:bg-surface-container"
+        <span
+          class="inline-flex cursor-default items-center justify-center rounded-full bg-surface-container-low px-5 py-2.5 font-label-lg text-label-lg text-primary"
         >
           <span class="material-symbols-outlined mr-1 text-[18px]">flag</span>
-          Report Conflicting Data
-        </a>
+          Report conflicting data via the feedback button
+        </span>
         <a
           href="/game-data/"
           class="inline-flex items-center font-label-lg text-label-lg text-on-surface-variant transition-colors hover:text-primary"
