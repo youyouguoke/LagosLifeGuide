@@ -1,0 +1,233 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+
+const OPERATOR_EMAIL = "lagoslifeguide.app@gmail.com";
+---
+
+<BaseLayout
+  title="Report an Error — LagosLifeGuide.app"
+  description="Report incorrect or outdated Lagos Life data on LagosLifeGuide.app. No account needed."
+  canonicalPath="/report-error/"
+  noindex={true}
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="mx-auto max-w-2xl">
+      <SectionHeader
+        eyebrow="Help us stay accurate"
+        title="Report an Error"
+        subtitle="Found a wrong value, a broken page, or data that no longer matches the game? Tell us what and where."
+      />
+
+      <form id="report-form" class="mt-space-lg flex flex-col gap-space-md rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card" novalidate>
+        <div class="flex flex-col gap-space-xs">
+          <label for="page-url" class="text-label-lg font-semibold text-on-surface">
+            Page URL <span class="text-needs-verification">*</span>
+          </label>
+          <input
+            id="page-url"
+            name="page-url"
+            type="url"
+            required
+            placeholder="https://lagoslifeguide.app/game-data/"
+            class="w-full rounded-xl border border-border bg-surface-container-lowest px-space-md py-3 text-body-md text-on-surface outline-none transition-colors focus:border-primary"
+          />
+          <p id="page-url-error" class="hidden text-body-sm text-needs-verification" role="alert"></p>
+        </div>
+
+        <div class="flex flex-col gap-space-xs">
+          <label for="data-item" class="text-label-lg font-semibold text-on-surface">
+            Data item or content <span class="text-needs-verification">*</span>
+          </label>
+          <input
+            id="data-item"
+            name="data-item"
+            type="text"
+            required
+            placeholder='e.g. "Shared apartment rent in Yaba" or "First Week Planner result"'
+            class="w-full rounded-xl border border-border bg-surface-container-lowest px-space-md py-3 text-body-md text-on-surface outline-none transition-colors focus:border-primary"
+          />
+          <p id="data-item-error" class="hidden text-body-sm text-needs-verification" role="alert"></p>
+        </div>
+
+        <div class="flex flex-col gap-space-xs">
+          <label for="description" class="text-label-lg font-semibold text-on-surface">
+            What is wrong? <span class="text-needs-verification">*</span>
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            required
+            rows="5"
+            placeholder="Describe the problem — what the page says, what the game actually shows, and when you saw it."
+            class="w-full rounded-xl border border-border bg-surface-container-lowest px-space-md py-3 text-body-md text-on-surface outline-none transition-colors focus:border-primary"
+          ></textarea>
+          <p id="description-error" class="hidden text-body-sm text-needs-verification" role="alert"></p>
+        </div>
+
+        <div class="flex flex-col gap-space-xs">
+          <label for="source-link" class="text-label-lg font-semibold text-on-surface">
+            Source link (optional)
+          </label>
+          <input
+            id="source-link"
+            name="source-link"
+            type="url"
+            placeholder="A link that supports your report — the game page, a screenshot host, etc."
+            class="w-full rounded-xl border border-border bg-surface-container-lowest px-space-md py-3 text-body-md text-on-surface outline-none transition-colors focus:border-primary"
+          />
+          <p id="source-link-error" class="hidden text-body-sm text-needs-verification" role="alert"></p>
+        </div>
+
+        <div class="flex flex-col gap-space-xs">
+          <label for="email" class="text-label-lg font-semibold text-on-surface">
+            Your email (optional)
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Only if you want a reply."
+            class="w-full rounded-xl border border-border bg-surface-container-lowest px-space-md py-3 text-body-md text-on-surface outline-none transition-colors focus:border-primary"
+          />
+          <p id="email-error" class="hidden text-body-sm text-needs-verification" role="alert"></p>
+        </div>
+
+        <button
+          type="submit"
+          class="mt-space-sm inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white transition-colors hover:bg-brand-dark"
+        >
+          Prepare Report
+        </button>
+      </form>
+
+      <!-- Honest no-backend state: mailto draft, never a fake success message. -->
+      <div id="report-result" class="mt-space-md hidden rounded-card border border-border bg-surface-container-low p-space-lg" role="status" aria-live="polite">
+        <h2 class="text-headline-sm font-semibold text-on-surface">Your report is ready to send</h2>
+        <p class="mt-space-sm text-body-md text-on-surface-variant">
+          <strong class="text-on-surface">Feedback is not stored on a server — your email client will
+          open with this report pre-filled.</strong>{" "}
+          There is no backend on this site; the button below opens a draft email to the site
+          operator so your report goes straight to a real inbox.
+        </p>
+        <p class="mt-space-sm text-body-sm text-text-muted">
+          Operator contact (provisional address): <code class="rounded bg-surface-container px-1.5 py-0.5">{OPERATOR_EMAIL}</code>
+        </p>
+        <a
+          id="mailto-link"
+          href="#"
+          class="mt-space-md inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white transition-colors hover:bg-brand-dark"
+        >
+          Open Email Draft
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ OPERATOR_EMAIL }}>
+  const form = document.getElementById("report-form");
+  const result = document.getElementById("report-result");
+  const mailtoLink = document.getElementById("mailto-link");
+
+  // Prefill page URL from ?page= query param when present.
+  const params = new URLSearchParams(window.location.search);
+  const pageParam = params.get("page");
+  if (pageParam) {
+    const pageInput = document.getElementById("page-url");
+    if (pageInput) pageInput.value = pageParam;
+  }
+
+  function setError(id, message) {
+    const el = document.getElementById(id + "-error");
+    const input = document.getElementById(id);
+    if (!el || !input) return;
+    if (message) {
+      el.textContent = message;
+      el.classList.remove("hidden");
+      input.setAttribute("aria-invalid", "true");
+    } else {
+      el.classList.add("hidden");
+      input.removeAttribute("aria-invalid");
+    }
+  }
+
+  function validUrl(value) {
+    try {
+      new URL(value);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const pageUrl = document.getElementById("page-url").value.trim();
+    const dataItem = document.getElementById("data-item").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const sourceLink = document.getElementById("source-link").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    let ok = true;
+
+    if (!pageUrl) {
+      setError("page-url", "Please enter the page URL the error is on.");
+      ok = false;
+    } else if (!validUrl(pageUrl)) {
+      setError("page-url", "That does not look like a valid URL (include https://).");
+      ok = false;
+    } else {
+      setError("page-url", "");
+    }
+
+    if (!dataItem) {
+      setError("data-item", "Please name the data item or content that is wrong.");
+      ok = false;
+    } else {
+      setError("data-item", "");
+    }
+
+    if (!description) {
+      setError("description", "Please describe the problem.");
+      ok = false;
+    } else if (description.length < 20) {
+      setError("description", "Please give a little more detail (at least 20 characters).");
+      ok = false;
+    } else {
+      setError("description", "");
+    }
+
+    if (sourceLink && !validUrl(sourceLink)) {
+      setError("source-link", "That does not look like a valid URL.");
+      ok = false;
+    } else {
+      setError("source-link", "");
+    }
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("email", "That does not look like a valid email address.");
+      ok = false;
+    } else {
+      setError("email", "");
+    }
+
+    if (!ok) return;
+
+    const subject = `Error report: ${dataItem}`;
+    const body = [
+      `Page URL: ${pageUrl}`,
+      `Data item / content: ${dataItem}`,
+      "",
+      "Description:",
+      description,
+      sourceLink ? `Source link: ${sourceLink}` : "Source link: (none provided)",
+      email ? `Reporter email: ${email}` : "Reporter email: (not provided)",
+    ].join("\n");
+
+    mailtoLink.href = `mailto:${OPERATOR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    result.classList.remove("hidden");
+    result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+</script>

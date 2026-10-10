@@ -1,0 +1,947 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import jobsJson from "../../../data/jobs.json";
+import type { GameJob } from "../../../lib/schema/job";
+
+const jobs = jobsJson as GameJob[];
+// PRD §3.5: only jobs with a recorded, non-null name may feed the dropdown.
+const jobOptions = jobs
+  .filter((j) => typeof j.name?.value === "string" && j.name.value.trim() !== "")
+  .map((j) => ({ id: j.id, name: j.name.value as string }));
+---
+
+<BaseLayout
+  title="Plan Your First Week — LagosLifeGuide.app"
+  description="Build a practical plan around your current situation and what you want to achieve."
+>
+  <section
+    class="mx-auto max-w-[960px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"
+  >
+    <header class="max-w-3xl">
+      <p class="text-label-lg font-semibold uppercase tracking-widest text-brand-dark">Tools</p>
+      <h1 class="mt-space-xs text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+        Plan Your First Week
+      </h1>
+      <p class="mt-space-sm text-body-lg text-on-surface-variant">
+        Build a practical plan around your current situation and what you want to achieve.
+      </p>
+    </header>
+
+    <!-- Persistence notice (UIUX §7.7) -->
+    <div
+      class="mt-space-md flex flex-wrap items-center gap-space-sm rounded-card border border-border bg-surface-container-low p-space-md"
+    >
+      <p class="text-body-md text-on-surface-variant">
+        Your plan is saved only in this browser.
+      </p>
+      <button
+        type="button"
+        id="planner-clear"
+        class="rounded-full border border-outline px-4 py-1.5 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+      >
+        Clear Saved Plan
+      </button>
+      <p id="planner-save-error" class="hidden text-body-md font-semibold text-needs-verification" role="status">
+        Saving unavailable in this browser — you can keep planning, but progress won't persist.
+      </p>
+      <p id="planner-cleared-note" class="hidden text-body-md font-semibold text-verified" role="status">
+        Saved plan cleared.
+      </p>
+    </div>
+
+    <!-- Step indicator (UIUX §7.2): green active state -->
+    <ol
+      id="planner-steps"
+      class="mt-space-lg grid grid-cols-1 gap-space-sm sm:grid-cols-3"
+      aria-label="Planner progress"
+    >
+      <li
+        data-step-indicator="1"
+        aria-current="step"
+        class="flex items-center gap-space-sm rounded-card border border-border bg-surface-container-lowest px-space-md py-space-sm"
+      >
+        <span
+          data-step-num
+          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-lg font-bold text-text-muted"
+          >1</span
+        >
+        <span data-step-label class="text-label-lg font-semibold text-on-surface-variant">Your Situation</span>
+      </li>
+      <li
+        data-step-indicator="2"
+        class="flex items-center gap-space-sm rounded-card border border-border bg-surface-container-lowest px-space-md py-space-sm"
+      >
+        <span
+          data-step-num
+          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-lg font-bold text-text-muted"
+          >2</span
+        >
+        <span data-step-label class="text-label-lg font-semibold text-on-surface-variant">Your Goal</span>
+      </li>
+      <li
+        data-step-indicator="3"
+        class="flex items-center gap-space-sm rounded-card border border-border bg-surface-container-lowest px-space-md py-space-sm"
+      >
+        <span
+          data-step-num
+          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-surface-container text-label-lg font-bold text-text-muted"
+          >3</span
+        >
+        <span data-step-label class="text-label-lg font-semibold text-on-surface-variant">Your Plan</span>
+      </li>
+    </ol>
+
+    <form id="planner-form" novalidate class="mt-space-lg">
+      <!-- STEP 1 — Your Situation (UIUX §7.3) -->
+      <section
+        id="planner-panel-1"
+        data-panel
+        aria-labelledby="planner-panel-1-title"
+        class="rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card"
+      >
+        <h2 id="planner-panel-1-title" class="text-headline-md font-bold tracking-tight text-on-surface">
+          Your Situation
+        </h2>
+        <p class="mt-space-xs text-body-md text-on-surface-variant">
+          Everything here is optional. Unknown stays unknown — it is never treated as zero.
+        </p>
+
+        <div class="mt-space-lg grid gap-space-md">
+          <div>
+            <label for="planner-cash" class="text-label-lg font-semibold text-on-surface">
+              Current cash
+              <span class="ml-1 font-normal text-text-muted">(optional)</span>
+            </label>
+            <input
+              id="planner-cash"
+              name="cash"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="any"
+              autocomplete="off"
+              class="mt-space-xs w-full max-w-xs rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
+            />
+            <p class="mt-space-xs text-body-md text-text-muted">
+              Leave blank if unknown — we never treat unknown as zero.
+            </p>
+            <p id="planner-cash-error" class="mt-space-xs hidden text-body-md font-semibold text-needs-verification" role="alert"></p>
+          </div>
+
+          <div>
+            <span class="text-label-lg font-semibold text-on-surface">
+              Current job
+              <span class="ml-1 font-normal text-text-muted">(optional)</span>
+            </span>
+            {jobOptions.length > 0 ? (
+              <select
+                id="planner-job"
+                name="job"
+                class="mt-space-xs block w-full max-w-xs rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
+              >
+                <option value="">Not selected / no job</option>
+                {jobOptions.map((j) => (
+                  <option value={j.id}>{j.name}</option>
+                ))}
+              </select>
+            ) : (
+              <p class="mt-space-xs rounded-xl bg-surface-container-low px-4 py-3 text-body-md text-on-surface-variant">
+                No verified job list is published yet, so there's no dropdown to pick from.
+                This field stays empty until verified job data exists.
+              </p>
+            )}
+          </div>
+
+          <fieldset>
+            <legend class="text-label-lg font-semibold text-on-surface">Housing cost</legend>
+            <div class="mt-space-xs flex flex-wrap items-center gap-space-sm">
+              <input
+                id="planner-housing"
+                name="housingCost"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                step="any"
+                autocomplete="off"
+                placeholder="Amount"
+                aria-label="Housing cost amount"
+                class="w-40 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
+              />
+              <label class="sr-only" for="planner-housing-period">Housing cost period</label>
+              <select
+                id="planner-housing-period"
+                name="housingCostPeriod"
+                class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
+              >
+                <option value="week">per week</option>
+                <option value="day">per day</option>
+              </select>
+            </div>
+            <p class="mt-space-xs text-body-md text-text-muted">
+              Mixed periods (day/week) are never added together.
+            </p>
+            <p id="planner-housing-error" class="mt-space-xs hidden text-body-md font-semibold text-needs-verification" role="alert"></p>
+          </fieldset>
+
+          <fieldset>
+            <legend class="text-label-lg font-semibold text-on-surface">
+              Known recurring costs
+              <span class="ml-1 font-normal text-text-muted">(optional)</span>
+            </legend>
+            <div id="planner-recurring" class="mt-space-xs grid gap-space-sm"></div>
+            <button
+              type="button"
+              id="planner-add-cost"
+              class="mt-space-sm inline-flex items-center gap-1 rounded-full border border-outline px-4 py-2 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke-linecap="round" />
+              </svg>
+              Add a recurring cost
+            </button>
+          </fieldset>
+
+          <div>
+            <label for="planner-skills" class="text-label-lg font-semibold text-on-surface">
+              Current skills
+              <span class="ml-1 font-normal text-text-muted">(optional)</span>
+            </label>
+            <input
+              id="planner-skills"
+              name="skills"
+              type="text"
+              autocomplete="off"
+              placeholder="e.g. typing, driving, trading"
+              class="mt-space-xs w-full rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-body-lg text-on-surface focus:border-focus"
+            />
+            <p class="mt-space-xs text-body-md text-text-muted">
+              Separate skills with commas. Free text is stored as typed — no invented skill list.
+            </p>
+          </div>
+        </div>
+
+        <p id="planner-step1-error" class="mt-space-md hidden rounded-xl bg-needs-verification-bg px-4 py-3 text-body-md font-semibold text-needs-verification" role="alert"></p>
+
+        <div class="mt-space-lg flex items-center gap-space-sm">
+          <button
+            type="button"
+            id="planner-next-1"
+            class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white shadow-md transition-colors hover:bg-brand-dark"
+          >
+            Continue to Your Goal
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 2 — Your Goal (UIUX §7.4): real radio inputs, green selected state -->
+      <section
+        id="planner-panel-2"
+        data-panel
+        hidden
+        aria-labelledby="planner-panel-2-title"
+        class="rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card"
+      >
+        <h2 id="planner-panel-2-title" class="text-headline-md font-bold tracking-tight text-on-surface">
+          Your Goal
+        </h2>
+        <p class="mt-space-xs text-body-md text-on-surface-variant">
+          These are planning preferences, not claims about official game systems.
+        </p>
+
+        <div class="mt-space-lg grid gap-space-md md:grid-cols-3" role="radiogroup" aria-label="Choose your goal">
+          <label
+            data-goal-card
+            class="block cursor-pointer rounded-card border-2 border-border bg-surface-container-low p-space-md transition-colors has-[:focus-visible]:border-focus has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
+          >
+            <input type="radio" name="goal" value="financial_stability" class="sr-only" />
+            <span class="text-headline-sm font-semibold text-on-surface">Financial Stability</span>
+            <p class="mt-space-xs text-body-md text-on-surface-variant">
+              Prioritize steady income and keeping known costs under control. Recommendations lean
+              toward work and earning actions.
+            </p>
+          </label>
+          <label
+            data-goal-card
+            class="block cursor-pointer rounded-card border-2 border-border bg-surface-container-low p-space-md transition-colors has-[:focus-visible]:border-focus has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
+          >
+            <input type="radio" name="goal" value="career_growth" class="sr-only" />
+            <span class="text-headline-sm font-semibold text-on-surface">Career Growth</span>
+            <p class="mt-space-xs text-body-md text-on-surface-variant">
+              Focus on skills, training, and progression. Recommendations lean toward learning actions.
+            </p>
+          </label>
+          <label
+            data-goal-card
+            class="block cursor-pointer rounded-card border-2 border-border bg-surface-container-low p-space-md transition-colors has-[:focus-visible]:border-focus has-[:checked]:border-brand has-[:checked]:bg-brand-soft"
+          >
+            <input type="radio" name="goal" value="exploration" class="sr-only" />
+            <span class="text-headline-sm font-semibold text-on-surface">Exploration</span>
+            <p class="mt-space-xs text-body-md text-on-surface-variant">
+              Focus on discovering locations and options. Recommendations lean toward travel and
+              discovery actions.
+            </p>
+          </label>
+        </div>
+
+        <p id="planner-step2-error" class="mt-space-md hidden rounded-xl bg-needs-verification-bg px-4 py-3 text-body-md font-semibold text-needs-verification" role="alert">
+          Select a goal to continue.
+        </p>
+
+        <div class="mt-space-lg flex items-center gap-space-sm">
+          <button
+            type="button"
+            id="planner-back-2"
+            class="inline-flex items-center justify-center rounded-full border border-outline px-6 py-3 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            id="planner-next-2"
+            class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white shadow-md transition-colors hover:bg-brand-dark"
+          >
+            Review My Plan
+          </button>
+        </div>
+      </section>
+
+      <!-- STEP 3 — Review (UIUX §7.5) -->
+      <section
+        id="planner-panel-3"
+        data-panel
+        hidden
+        aria-labelledby="planner-panel-3-title"
+        class="rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card"
+      >
+        <h2 id="planner-panel-3-title" class="text-headline-md font-bold tracking-tight text-on-surface">
+          Review &amp; Build
+        </h2>
+        <p class="mt-space-xs text-body-md text-on-surface-variant">
+          Check your inputs below. Missing information is shown as unknown — never as zero.
+        </p>
+
+        <dl class="mt-space-lg grid gap-space-sm rounded-card bg-surface-container-low p-space-md">
+          <div class="flex flex-wrap gap-x-space-sm">
+            <dt class="min-w-40 font-semibold text-on-surface">Current cash</dt>
+            <dd id="review-cash" class="text-on-surface-variant">Unknown</dd>
+          </div>
+          <div class="flex flex-wrap gap-x-space-sm">
+            <dt class="min-w-40 font-semibold text-on-surface">Current job</dt>
+            <dd id="review-job" class="text-on-surface-variant">Unknown</dd>
+          </div>
+          <div class="flex flex-wrap gap-x-space-sm">
+            <dt class="min-w-40 font-semibold text-on-surface">Housing cost</dt>
+            <dd id="review-housing" class="text-on-surface-variant">Unknown</dd>
+          </div>
+          <div class="flex flex-wrap gap-x-space-sm">
+            <dt class="min-w-40 font-semibold text-on-surface">Recurring costs</dt>
+            <dd id="review-costs" class="text-on-surface-variant">None added</dd>
+          </div>
+          <div class="flex flex-wrap gap-x-space-sm">
+            <dt class="min-w-40 font-semibold text-on-surface">Skills</dt>
+            <dd id="review-skills" class="text-on-surface-variant">Unknown</dd>
+          </div>
+          <div class="flex flex-wrap gap-x-space-sm">
+            <dt class="min-w-40 font-semibold text-on-surface">Goal</dt>
+            <dd id="review-goal" class="text-on-surface-variant">Not selected</dd>
+          </div>
+        </dl>
+
+        <div class="mt-space-lg flex flex-wrap items-center gap-space-sm">
+          <button
+            type="button"
+            id="planner-build"
+            class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3 text-label-lg font-semibold text-white shadow-md transition-colors hover:bg-brand-dark"
+          >
+            Create My Plan
+          </button>
+          <button
+            type="button"
+            id="planner-back-3"
+            class="inline-flex items-center justify-center rounded-full border border-outline px-6 py-3 text-label-lg font-semibold text-on-surface-variant transition-colors hover:bg-surface-container"
+          >
+            Back
+          </button>
+        </div>
+      </section>
+    </form>
+
+    <!-- RESULTS (UIUX §7.6) -->
+    <section
+      id="planner-results"
+      hidden
+      aria-live="polite"
+      aria-labelledby="planner-results-title"
+      class="mt-space-lg rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card"
+    >
+      <h2 id="planner-results-title" class="text-headline-md font-bold tracking-tight text-on-surface">
+        Your Plan
+      </h2>
+
+      <!-- Status banner: text label always shown, never color alone (VerificationBadge semantics) -->
+      <div id="result-status" class="mt-space-md rounded-card p-space-md"></div>
+
+      <!-- Budget: always labelled "remaining after known costs", never total balance (BD-003) -->
+      <div id="result-budget" class="mt-space-md"></div>
+
+      <div class="mt-space-md">
+        <h3 class="text-headline-sm font-semibold text-on-surface">Recommendations</h3>
+        <div id="result-recommendations" class="mt-space-sm grid gap-space-sm"></div>
+      </div>
+
+      <div class="mt-space-md">
+        <h3 class="text-headline-sm font-semibold text-on-surface">What we don't know yet</h3>
+        <ul id="result-unknowns" class="mt-space-sm list-disc space-y-space-xs pl-6 text-body-md text-on-surface-variant"></ul>
+      </div>
+
+      <div class="mt-space-md">
+        <h3 class="text-headline-sm font-semibold text-on-surface">Conflicts</h3>
+        <ul id="result-conflicts" class="mt-space-sm list-disc space-y-space-xs pl-6 text-body-md text-on-surface-variant"></ul>
+      </div>
+    </section>
+  </section>
+
+  <script>
+    import { buildPlan } from "../../../lib/planner/build-plan";
+    import {
+      clearPlannerState,
+      emptyPlannerInput,
+      loadPlannerState,
+      savePlannerState,
+    } from "../../../lib/storage/planner-storage";
+    import type {
+      PlannerGoal,
+      PlannerInput,
+      PlannerResult,
+      RecurringCostInput,
+    } from "../../../lib/schema/planner";
+    import type { GameSkillAction } from "../../../lib/schema/action";
+    import type { EvidenceRecord } from "../../../lib/schema/common";
+    import actionsJson from "../../../data/skills-actions.json";
+    import evidenceJson from "../../../data/evidence.json";
+
+    /* ---------- DOM helpers ---------- */
+
+    function must<T extends HTMLElement>(id: string): T {
+      const node = document.getElementById(id);
+      if (!node) throw new Error(`Missing element #${id}`);
+      return node as T;
+    }
+
+    function esc(text: string): string {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    /* ---------- Analytics (PRD §10): never send personal/game-value params ---------- */
+
+    function pushEvent(event: string, params: Record<string, string | number> = {}): void {
+      if (typeof window === "undefined") return;
+      const w = window as unknown as { dataLayer?: unknown[] };
+      if (!Array.isArray(w.dataLayer)) w.dataLayer = [];
+      w.dataLayer.push({ event, ...params });
+    }
+
+    /* ---------- State ---------- */
+
+    let input: PlannerInput = {
+      ...emptyPlannerInput,
+      knownRecurringCosts: [],
+      currentSkillIds: [],
+    };
+    let started = false;
+
+    const actions: GameSkillAction[] = actionsJson as unknown as GameSkillAction[];
+    const evidence: EvidenceRecord[] = evidenceJson as unknown as EvidenceRecord[];
+
+    // Confirmed target game instance (PRD P0). Fall back to the known target URL.
+    const TARGET_GAME_URL = "https://lagoslife.app";
+
+    const GOAL_LABELS: Record<PlannerGoal, string> = {
+      financial_stability: "Financial Stability",
+      career_growth: "Career Growth",
+      exploration: "Exploration",
+    };
+
+    /* ---------- Amount parsing (PRD §4.2) ---------- */
+
+    function parseAmount(
+      raw: string,
+    ): { ok: true; value: number | null } | { ok: false; message: string } {
+      const trimmed = raw.trim();
+      if (trimmed === "") return { ok: true, value: null }; // unknown stays unknown
+      const n = Number(trimmed);
+      if (Number.isNaN(n)) return { ok: false, message: "Enter a valid number, or leave blank if unknown." };
+      if (!Number.isFinite(n)) return { ok: false, message: "Must be a finite number." };
+      if (n < 0) return { ok: false, message: "Cannot be negative." };
+      return { ok: true, value: n };
+    }
+
+    /* ---------- Step navigation + indicator ---------- */
+
+    const panels = Array.from(document.querySelectorAll<HTMLElement>("[data-panel]"));
+    const indicators = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-step-indicator]"),
+    );
+
+    function showStep(step: number): void {
+      panels.forEach((panel) => {
+        const panelStep = Number(panel.id.replace("planner-panel-", ""));
+        panel.hidden = panelStep !== step;
+      });
+      indicators.forEach((li) => {
+        const liStep = Number(li.dataset.stepIndicator);
+        const num = li.querySelector<HTMLElement>("[data-step-num]");
+        const label = li.querySelector<HTMLElement>("[data-step-label]");
+        const active = liStep === step;
+        const done = liStep < step;
+        li.className =
+          "flex items-center gap-space-sm rounded-card border px-space-md py-space-sm " +
+          (active ? "border-brand bg-brand-soft" : "border-border bg-surface-container-lowest");
+        if (num) {
+          num.className =
+            "flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-label-lg font-bold " +
+            (active
+              ? "bg-brand text-white"
+              : done
+                ? "bg-verified text-white"
+                : "bg-surface-container text-text-muted");
+        }
+        if (label) {
+          label.className =
+            "text-label-lg font-semibold " +
+            (active ? "text-brand-dark" : done ? "text-verified" : "text-on-surface-variant");
+        }
+        if (active) li.setAttribute("aria-current", "step");
+        else li.removeAttribute("aria-current");
+      });
+      const visible = panels.find((p) => !p.hidden);
+      visible?.querySelector<HTMLElement>("button, input, select")?.focus();
+    }
+
+    /* ---------- Recurring cost rows ---------- */
+
+    const recurringHost = must<HTMLDivElement>("planner-recurring");
+    let costSeq = 0;
+
+    function addCostRow(cost?: RecurringCostInput): void {
+      costSeq += 1;
+      const id = cost?.id ?? `cost-${Date.now()}-${costSeq}`;
+      const row = document.createElement("div");
+      row.className = "flex flex-wrap items-center gap-space-sm";
+      row.dataset.costId = id;
+      row.innerHTML = `
+        <input
+          type="number" inputmode="decimal" min="0" step="any" autocomplete="off"
+          placeholder="Amount" aria-label="Recurring cost amount"
+          data-cost-amount
+          class="w-36 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2 text-body-lg text-on-surface focus:border-focus"
+          value="${cost ? cost.amount : ""}"
+        />
+        <label class="sr-only">Cost period</label>
+        <select data-cost-period
+          class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2 text-body-lg text-on-surface focus:border-focus">
+          <option value="week" ${cost?.period === "week" ? "selected" : ""}>per week</option>
+          <option value="day" ${cost?.period === "day" ? "selected" : ""}>per day</option>
+          <option value="hour" ${cost?.period === "hour" ? "selected" : ""}>per hour</option>
+        </select>
+        <button type="button" data-cost-remove
+          class="rounded-full border border-outline px-3 py-1.5 text-label-lg font-semibold text-needs-verification transition-colors hover:bg-needs-verification-bg">
+          Remove
+        </button>
+      `;
+      row.querySelector("[data-cost-remove]")?.addEventListener("click", () => {
+        row.remove();
+        syncFromDom();
+      });
+      recurringHost.appendChild(row);
+    }
+
+    must<HTMLButtonElement>("planner-add-cost").addEventListener("click", () => {
+      addCostRow();
+      recurringHost.lastElementChild?.querySelector<HTMLElement>("input")?.focus();
+    });
+
+    /* ---------- Sync DOM -> state + autosave (PRD §4.7) ---------- */
+
+    const cashError = must<HTMLParagraphElement>("planner-cash-error");
+    const housingError = must<HTMLParagraphElement>("planner-housing-error");
+
+    function setFieldError(el: HTMLElement, message: string | null): void {
+      if (message) {
+        el.textContent = message;
+        el.classList.remove("hidden");
+      } else {
+        el.textContent = "";
+        el.classList.add("hidden");
+      }
+    }
+
+    function syncFromDom(): { errors: string[] } {
+      const errors: string[] = [];
+
+      const cashParsed = parseAmount(
+        (document.getElementById("planner-cash") as HTMLInputElement | null)?.value ?? "",
+      );
+      if (cashParsed.ok) input.cash = cashParsed.value;
+      else errors.push(`Current cash: ${cashParsed.message}`);
+      setFieldError(cashError, cashParsed.ok ? null : cashParsed.message);
+
+      const housingParsed = parseAmount(
+        (document.getElementById("planner-housing") as HTMLInputElement | null)?.value ?? "",
+      );
+      if (housingParsed.ok) input.housingCost = housingParsed.value;
+      else errors.push(`Housing cost: ${housingParsed.message}`);
+      setFieldError(housingError, housingParsed.ok ? null : housingParsed.message);
+
+      const housingPeriodEl = document.getElementById(
+        "planner-housing-period",
+      ) as HTMLSelectElement | null;
+      input.housingCostPeriod =
+        input.housingCost === null
+          ? null
+          : ((housingPeriodEl?.value ?? "week") as PlannerInput["housingCostPeriod"]);
+
+      const costs: RecurringCostInput[] = [];
+      recurringHost.querySelectorAll<HTMLElement>("[data-cost-id]").forEach((row) => {
+        const amountRaw = row.querySelector<HTMLInputElement>("[data-cost-amount]")?.value ?? "";
+        const period =
+          (row.querySelector<HTMLSelectElement>("[data-cost-period]")?.value ??
+            "week") as RecurringCostInput["period"];
+        const parsed = parseAmount(amountRaw);
+        if (!parsed.ok) {
+          errors.push(`Recurring cost: ${parsed.message}`);
+          return;
+        }
+        if (parsed.value === null) return; // blank row is ignored, not zero
+        costs.push({ id: row.dataset.costId ?? `cost-${costs.length}`, amount: parsed.value, period });
+      });
+      input.knownRecurringCosts = costs;
+
+      const skillsRaw =
+        (document.getElementById("planner-skills") as HTMLInputElement | null)?.value ?? "";
+      input.currentSkillIds = skillsRaw
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s !== "");
+
+      const jobEl = document.getElementById("planner-job") as HTMLSelectElement | null;
+      input.currentJobId = jobEl && jobEl.value !== "" ? jobEl.value : null;
+
+      const goalEl = document.querySelector<HTMLInputElement>('input[name="goal"]:checked');
+      input.goal = (goalEl?.value ?? null) as PlannerGoal | null;
+
+      persist();
+      return { errors };
+    }
+
+    const saveErrorNote = must<HTMLParagraphElement>("planner-save-error");
+
+    function persist(): void {
+      const ok = savePlannerState(input);
+      saveErrorNote.classList.toggle("hidden", ok);
+    }
+
+    /* ---------- First interaction + step events ---------- */
+
+    function markStarted(): void {
+      if (started) return;
+      started = true;
+      pushEvent("planner_start");
+    }
+
+    const form = must<HTMLFormElement>("planner-form");
+    form.addEventListener("input", markStarted, { once: true });
+    form.addEventListener("change", markStarted, { once: true });
+
+    /* ---------- Review rendering ---------- */
+
+    function renderReview(): void {
+      must<HTMLElement>("review-cash").textContent =
+        input.cash === null ? "Unknown" : String(input.cash);
+      const jobEl = document.getElementById("planner-job") as HTMLSelectElement | null;
+      must<HTMLElement>("review-job").textContent =
+        jobEl && input.currentJobId
+          ? (jobEl.options[jobEl.selectedIndex]?.text ?? input.currentJobId)
+          : "Unknown";
+      must<HTMLElement>("review-housing").textContent =
+        input.housingCost === null
+          ? "Unknown"
+          : `${input.housingCost} per ${input.housingCostPeriod ?? "unknown period"}`;
+      must<HTMLElement>("review-costs").textContent =
+        input.knownRecurringCosts.length === 0
+          ? "None added"
+          : input.knownRecurringCosts
+              .map((c) => `${c.amount} per ${c.period}`)
+              .join(", ");
+      must<HTMLElement>("review-skills").textContent =
+        input.currentSkillIds.length === 0 ? "Unknown" : input.currentSkillIds.join(", ");
+      must<HTMLElement>("review-goal").textContent =
+        input.goal === null ? "Not selected" : GOAL_LABELS[input.goal];
+    }
+
+    /* ---------- Step 1 → 2 ---------- */
+
+    const step1Error = must<HTMLParagraphElement>("planner-step1-error");
+
+    must<HTMLButtonElement>("planner-next-1").addEventListener("click", () => {
+      const { errors } = syncFromDom();
+      if (errors.length > 0) {
+        step1Error.textContent = errors.join(" ");
+        step1Error.classList.remove("hidden");
+        return;
+      }
+      step1Error.classList.add("hidden");
+      pushEvent("planner_step_complete", { step: 1 });
+      showStep(2);
+    });
+
+    /* ---------- Step 2 → 3 ---------- */
+
+    const step2Error = must<HTMLParagraphElement>("planner-step2-error");
+
+    must<HTMLButtonElement>("planner-next-2").addEventListener("click", () => {
+      const { errors } = syncFromDom();
+      if (errors.length > 0) {
+        step2Error.textContent = errors.join(" ");
+        step2Error.classList.remove("hidden");
+        return;
+      }
+      if (input.goal === null) {
+        step2Error.textContent = "Select a goal to continue.";
+        step2Error.classList.remove("hidden");
+        return;
+      }
+      step2Error.classList.add("hidden");
+      pushEvent("planner_step_complete", { step: 2 });
+      renderReview();
+      showStep(3);
+    });
+
+    must<HTMLButtonElement>("planner-back-2").addEventListener("click", () => showStep(1));
+    must<HTMLButtonElement>("planner-back-3").addEventListener("click", () => showStep(2));
+
+    /* ---------- Results rendering (UIUX §7.6) ---------- */
+
+    const resultsSection = must<HTMLElement>("planner-results");
+
+    const STATUS_META: Record<
+      PlannerResult["status"],
+      { label: string; desc: string; cls: string; badge: string }
+    > = {
+      ready: {
+        label: "Ready",
+        desc: "Sufficient verified information exists for the intended recommendations.",
+        cls: "bg-verified-bg text-verified",
+        badge: "Verified",
+      },
+      partial: {
+        label: "Partial",
+        desc: "A useful recommendation is possible, but some details remain uncertain.",
+        cls: "bg-partial-bg text-partial",
+        badge: "Partially Verified",
+      },
+      blocked: {
+        label: "Blocked",
+        desc: "Essential information is unavailable, so no reliable recommendation can be generated.",
+        cls: "bg-needs-verification-bg text-needs-verification",
+        badge: "Needs Verification",
+      },
+    };
+
+    const REC_STATUS_META: Record<string, { label: string; cls: string }> = {
+      supported: { label: "Supported", cls: "bg-verified-bg text-verified" },
+      conditional: { label: "Conditional", cls: "bg-partial-bg text-partial" },
+      blocked: { label: "Blocked", cls: "bg-needs-verification-bg text-needs-verification" },
+    };
+
+    function renderResults(result: PlannerResult): void {
+      const meta = STATUS_META[result.status];
+      resultsSection.hidden = false;
+
+      must<HTMLDivElement>("result-status").innerHTML = `
+        <div class="flex flex-wrap items-center gap-space-sm">
+          <span class="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-label-md font-semibold ${meta.cls}">
+            ${esc(meta.label)} — ${esc(meta.badge)}
+          </span>
+          <p class="text-body-md font-semibold text-on-surface">${esc(result.summary)}</p>
+        </div>
+        <p class="mt-space-xs text-body-md text-on-surface-variant">${esc(meta.desc)}</p>
+      `;
+
+      // Budget — always "remaining after known costs", never total balance (BD-003).
+      const budgetHost = must<HTMLDivElement>("result-budget");
+      if (result.budget) {
+        const b = result.budget;
+        const remainingText =
+          b.remainingAmount === null
+            ? "Remaining after known costs: unknown (cash or compatible period data missing)."
+            : `Remaining after known costs: ${b.remainingAmount}${b.remainingPeriod ? ` per ${b.remainingPeriod}` : ""} (not your total balance).`;
+        const costItems = b.knownCosts
+          .map((c) => `<li>${esc(c.id)} — ${c.amount} per ${esc(c.period)}</li>`)
+          .join("");
+        const reasonItems = result.unknowns
+          .filter((u) => u.includes("period") || u.includes("cash") || u.includes("mixed"))
+          .map((u) => `<li>${esc(u)}</li>`)
+          .join("");
+        budgetHost.innerHTML = `
+          <div class="rounded-card bg-surface-container-low p-space-md">
+            <h3 class="text-headline-sm font-semibold text-on-surface">Budget</h3>
+            <p class="mt-space-xs text-body-lg font-semibold text-on-surface">${esc(remainingText)}</p>
+            <p class="mt-space-xs text-body-md text-on-surface-variant">
+              Cash on hand: ${b.availableCash === null ? "unknown" : b.availableCash}
+            </p>
+            ${costItems ? `<ul class="mt-space-xs list-disc pl-6 text-body-md text-on-surface-variant">${costItems}</ul>` : ""}
+            ${reasonItems ? `<p class="mt-space-xs text-body-md font-semibold text-partial">Why nothing more could be summed:</p><ul class="mt-space-xs list-disc pl-6 text-body-md text-on-surface-variant">${reasonItems}</ul>` : ""}
+          </div>
+        `;
+      } else {
+        budgetHost.innerHTML = "";
+      }
+
+      // Recommendations — each with reason, status chip, and evidence links.
+      const recHost = must<HTMLDivElement>("result-recommendations");
+      if (result.recommendations.length === 0) {
+        recHost.innerHTML = `
+          <div class="rounded-card border border-dashed border-border bg-surface-container-lowest p-space-md text-center">
+            <p class="text-body-md text-on-surface-variant">
+              No recommendations can be generated yet. Verified skills/action data hasn't been
+              published, so anything we suggested here would be invented.
+            </p>
+          </div>
+        `;
+      } else {
+        recHost.innerHTML = result.recommendations
+          .map((rec) => {
+            const chip = REC_STATUS_META[rec.status] ?? REC_STATUS_META.conditional;
+            const links = [...rec.sourceIds, ...rec.evidenceIds]
+              .map(
+                (refId) =>
+                  `<a href="/sources/" data-rec-id="${esc(rec.id)}" class="text-label-lg font-semibold text-primary underline hover:text-primary-container">${esc(refId)}</a>`,
+              )
+              .join(" · ");
+            return `
+              <article class="rounded-card border border-border bg-surface-container-low p-space-md">
+                <div class="flex flex-wrap items-center gap-space-sm">
+                  <h4 class="text-headline-sm font-semibold text-on-surface">${esc(rec.title)}</h4>
+                  <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-label-md font-semibold ${chip.cls}">${esc(chip.label)}</span>
+                </div>
+                <p class="mt-space-xs text-body-md text-on-surface-variant">${esc(rec.reason)}</p>
+                ${links ? `<p class="mt-space-xs text-body-md">Sources &amp; evidence: ${links}</p>` : ""}
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      // Unknowns + conflicts panels.
+      must<HTMLUListElement>("result-unknowns").innerHTML =
+        result.unknowns.length === 0
+          ? "<li>None — every known input is reflected above.</li>"
+          : result.unknowns.map((u) => `<li>${esc(u)}</li>`).join("");
+      must<HTMLUListElement>("result-conflicts").innerHTML =
+        result.conflicts.length === 0
+          ? "<li>No conflicts recorded for the data used.</li>"
+          : result.conflicts.map((c) => `<li>${esc(c)}</li>`).join("");
+    }
+
+    /* ---------- Build plan ---------- */
+
+    must<HTMLButtonElement>("planner-build").addEventListener("click", () => {
+      const { errors } = syncFromDom();
+      if (errors.length > 0) {
+        step2Error.textContent = errors.join(" ");
+        showStep(2);
+        return;
+      }
+      pushEvent("planner_step_complete", { step: 3 });
+      const result = buildPlan(
+        input,
+        { actions },
+        { targetGameUrl: TARGET_GAME_URL },
+        evidence,
+      );
+      renderResults(result);
+      pushEvent("planner_complete", { status: result.status });
+      resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    /* ---------- Recommendation click events (delegated) ---------- */
+
+    resultsSection.addEventListener("click", (e) => {
+      const link = (e.target as HTMLElement).closest<HTMLAnchorElement>("a[data-rec-id]");
+      if (link) {
+        pushEvent("planner_recommendation_click", { recommendation_id: link.dataset.recId ?? "" });
+      }
+    });
+
+    /* ---------- Clear saved plan ---------- */
+
+    must<HTMLButtonElement>("planner-clear").addEventListener("click", () => {
+      clearPlannerState();
+      input = {
+        ...emptyPlannerInput,
+        knownRecurringCosts: [],
+        currentSkillIds: [],
+      };
+      (document.getElementById("planner-cash") as HTMLInputElement | null)?.setAttribute("value", "");
+      const cash = document.getElementById("planner-cash") as HTMLInputElement | null;
+      if (cash) cash.value = "";
+      const housing = document.getElementById("planner-housing") as HTMLInputElement | null;
+      if (housing) housing.value = "";
+      const skills = document.getElementById("planner-skills") as HTMLInputElement | null;
+      if (skills) skills.value = "";
+      const job = document.getElementById("planner-job") as HTMLSelectElement | null;
+      if (job) job.selectedIndex = 0;
+      document.querySelectorAll<HTMLInputElement>('input[name="goal"]').forEach((r) => {
+        r.checked = false;
+      });
+      recurringHost.innerHTML = "";
+      setFieldError(cashError, null);
+      setFieldError(housingError, null);
+      step1Error.classList.add("hidden");
+      step2Error.classList.add("hidden");
+      resultsSection.hidden = true;
+      must<HTMLParagraphElement>("planner-cleared-note").classList.remove("hidden");
+      window.setTimeout(() => {
+        must<HTMLParagraphElement>("planner-cleared-note").classList.add("hidden");
+      }, 4000);
+      showStep(1);
+    });
+
+    /* ---------- Restore saved state on load ---------- */
+
+    (function restore(): void {
+      const saved = loadPlannerState();
+      if (!saved) return;
+      input = saved.input;
+      const cash = document.getElementById("planner-cash") as HTMLInputElement | null;
+      if (cash) cash.value = input.cash === null ? "" : String(input.cash);
+      const housing = document.getElementById("planner-housing") as HTMLInputElement | null;
+      if (housing) housing.value = input.housingCost === null ? "" : String(input.housingCost);
+      const housingPeriod = document.getElementById(
+        "planner-housing-period",
+      ) as HTMLSelectElement | null;
+      if (housingPeriod && input.housingCostPeriod) {
+        housingPeriod.value = input.housingCostPeriod;
+      }
+      const job = document.getElementById("planner-job") as HTMLSelectElement | null;
+      if (job && input.currentJobId) job.value = input.currentJobId;
+      const skills = document.getElementById("planner-skills") as HTMLInputElement | null;
+      if (skills) skills.value = input.currentSkillIds.join(", ");
+      recurringHost.innerHTML = "";
+      input.knownRecurringCosts.forEach((c) => addCostRow(c));
+      if (input.goal) {
+        const radio = document.querySelector<HTMLInputElement>(
+          `input[name="goal"][value="${input.goal}"]`,
+        );
+        if (radio) radio.checked = true;
+      }
+      if (input.goal !== null) {
+        renderReview();
+        showStep(3);
+      }
+    })();
+  </script>
+</BaseLayout>

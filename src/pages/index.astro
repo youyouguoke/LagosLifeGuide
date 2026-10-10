@@ -1,35 +1,387 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import EmptyState from "../components/EmptyState.astro";
+import VerificationBadge from "../components/VerificationBadge.astro";
+
+/** Inline SVG icons (stroke style) — no external icon font dependency. */
+const icon = (paths: string, filled = false) =>
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="${filled ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">${paths}</svg>`;
+
+const i = {
+  arrow: icon('<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>'),
+  database: icon('<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>'),
+  verified: icon('<path d="M12 2l7 3v6c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V5z"/><path d="M9 12l2 2 4-4"/>', true),
+  users: icon('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.2 3.4-5 6.5-5s5.7 1.8 6.5 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.6c2.6.4 4.4 1.9 5 4.4"/>'),
+  calendar: icon('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+  sliders: icon('<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>'),
+  flag: icon('<path d="M5 21V4"/><path d="M5 4h13l-2.5 4L18 12H5"/>'),
+  route: icon('<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/>'),
+  sparkle: icon('<path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/>'),
+  book: icon('<path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 0 2 2h13"/>'),
+  map: icon('<path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/>'),
+  bus: icon('<rect x="4" y="3" width="16" height="15" rx="2"/><path d="M4 10h16M8 21v-3M16 21v-3"/><circle cx="8" cy="14" r="1"/><circle cx="16" cy="14" r="1"/>'),
+  work: icon('<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>'),
+  apartment: icon('<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3"/>'),
+  shield: icon('<path d="M12 2l7 3v6c0 4.4-3 8.4-7 10-4-1.6-7-5.6-7-10V5z"/><path d="M9 12l2 2 4-4"/>', true),
+  megaphone: icon('<path d="M3 11v3a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M14 8a4 4 0 0 1 0 8M17 5a8 8 0 0 1 0 14"/>'),
+  sailing: icon('<path d="M12 3v13"/><path d="M12 3l7 13H12z"/><path d="M12 3L5 16h7z"/><path d="M3 20c2 1.2 4 1.2 6 0s4-1.2 6 0 4 1.2 6 0"/>'),
+  sun: icon('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
+};
+
+const plannerStages = [
+  {
+    step: "Step 01",
+    chip: "bg-primary-container text-surface-container-lowest",
+    iconKey: "sliders",
+    iconCls: "text-primary",
+    title: "Your Situation",
+    body: "Baseline assets, starting wallet balance, current district flat, and daily shift tier.",
+    surface: "bg-surface-container-low",
+    rows: [
+      { k: "District", v: "Sample input" },
+      { k: "Cash Reserve", v: "Sample input" },
+    ],
+  },
+  {
+    step: "Step 02",
+    chip: "bg-secondary text-surface-container-lowest",
+    iconKey: "flag",
+    iconCls: "text-secondary",
+    title: "Your Goal",
+    body: "Target promotion, acquiring a commercial water ferry license, or upgrading residency.",
+    rows: [
+      { k: "Milestone", v: "Sample input" },
+      { k: "Req. Skill Tier", v: "Sample input" },
+    ],
+    surface: "bg-surface-container",
+  },
+  {
+    step: "Step 03",
+    chip: "bg-primary text-surface-container-lowest",
+    iconKey: "route",
+    iconCls: "text-primary",
+    title: "Your Plan",
+    body: "Optimized 7-day schedule with allocated daily stamina, commute routes, and cash surplus.",
+    surface: "bg-surface-container-low",
+    rows: [
+      { k: "Duration", v: "Sample input" },
+      { k: "Stamina Budget", v: "Sample input" },
+    ],
+  },
+] as const;
+
+const trustCards = [
+  {
+    status: "verified" as const,
+    title: "Confirmed Accuracy",
+    body: "Directly tested and confirmed across multiple simulation runs and save game files. You can plan budgets and progression around this information with high confidence.",
+  },
+  {
+    status: "partial" as const,
+    title: "Replication in Progress",
+    body: "Reported by active players; currently undergoing multi-case replication to confirm whether values shift dynamically based on weather or economy states.",
+  },
+  {
+    status: "needs_verification" as const,
+    title: "Preliminary Data",
+    body: "Preliminary player submission pending simulation log cross-referencing. Read with discretion until our editorial contributors validate the conditions.",
+  },
+];
 ---
 
 <BaseLayout
   title="LagosLifeGuide.app — Independent Lagos Life Companion"
   description="Independent Lagos Life guides, verified game data, and a first-week planner. Not affiliated with the game's developer."
 >
-  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
-    <div class="rounded-panel border border-border bg-surface-container-lowest p-space-lg shadow-card">
-      <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
-        Make Your Next Move Count.
-      </h1>
-      <p class="mt-space-md max-w-xl text-body-lg text-on-surface-variant">
-        Explore Lagos Life guides, verified game information, and plan your next steps.
-      </p>
-      <p class="mt-space-md inline-flex items-center gap-2 rounded-full bg-brand-soft px-3.5 py-1.5 text-label-md text-verified">
-        <span class="h-2 w-2 rounded-full bg-verified" aria-hidden="true"></span>
-        Independent third-party guide — not affiliated with the game's developer
-      </p>
-      <div class="mt-space-lg flex flex-wrap gap-space-sm">
+  <!-- Top ambient lagoon aura -->
+  <div class="relative w-full overflow-hidden">
+    <div class="pointer-events-none absolute -top-32 right-1/4 -z-10 h-[540px] w-[540px] rounded-full bg-secondary-container/25 blur-3xl"></div>
+    <div class="pointer-events-none absolute top-48 left-10 -z-10 h-[420px] w-[420px] rounded-full bg-primary-container/15 blur-3xl"></div>
+
+    <!-- 1. HERO -->
+    <section class="mx-auto max-w-[1280px] px-margin pt-8 pb-space-xl md:px-margin-tablet lg:px-margin-desktop">
+      <div class="grid grid-cols-1 items-center gap-space-lg lg:grid-cols-12 lg:gap-gutter-desktop">
+        <div class="flex flex-col items-start space-y-space-md lg:col-span-6">
+          <div class="inline-flex items-center gap-space-xs rounded-full bg-surface-container-low px-3.5 py-1.5 text-label-sm font-bold text-primary shadow-sm">
+            <span class="h-2 w-2 animate-pulse rounded-full bg-primary-container"></span>
+            <span>Independent Lagos Life Companion — not affiliated with the developer</span>
+          </div>
+          <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-inverse-surface md:text-display-hero">
+            Make Your Next Move <span class="text-primary-container underline decoration-secondary-container/60 decoration-wavy decoration-2 underline-offset-8">Count</span>.
+          </h1>
+          <p class="max-w-xl text-body-lg text-on-surface-variant">
+            Explore Lagos Life guides, discover verified game information, and plan your next steps across every district and transit corridor.
+          </p>
+          <div class="flex w-full flex-wrap items-center gap-space-sm pt-space-xs sm:w-auto">
+            <a
+              href="/tools/first-week-planner/"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-primary-container px-6 py-3.5 text-label-lg font-semibold text-surface-container-lowest shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary hover:shadow-lg active:translate-y-0"
+            >
+              <span>Open the Planner</span>
+              <span class="[&>svg]:h-[19px] [&>svg]:w-[19px]" set:html={i.arrow} />
+            </a>
+            <a
+              href="/game-data/"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-surface-container-lowest px-6 py-3.5 text-label-lg font-semibold text-inverse-surface shadow-sm transition-colors hover:bg-surface-container-low"
+            >
+              <span class="text-secondary [&>svg]:h-5 [&>svg]:w-5" set:html={i.database} />
+              <span>Explore Game Data</span>
+            </a>
+          </div>
+          <div class="grid w-full max-w-md grid-cols-1 gap-space-sm pt-space-sm min-[400px]:grid-cols-2">
+            <div class="flex items-center gap-2 rounded-xl bg-surface-container-lowest px-3 py-2 shadow-sm">
+              <span class="text-primary-container [&>svg]:h-5 [&>svg]:w-5" set:html={i.verified} />
+              <span class="text-label-sm font-bold text-on-surface-variant">Independent Fan Project</span>
+            </div>
+            <div class="flex items-center gap-2 rounded-xl bg-surface-container-lowest px-3 py-2 shadow-sm">
+              <span class="text-secondary [&>svg]:h-5 [&>svg]:w-5" set:html={i.users} />
+              <span class="text-label-sm font-bold text-on-surface-variant">Community Documented</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column: original SVG illustration (replaces hotlinked image) -->
+        <div class="lg:col-span-6">
+          <div class="relative overflow-hidden rounded-3xl bg-surface-container-lowest shadow-xl transition-shadow duration-300 hover:shadow-2xl">
+            <svg viewBox="0 0 560 400" class="h-[300px] w-full object-cover sm:h-[410px]" role="img" aria-label="Abstract isometric illustration of a Lagos city district beside the lagoon, with towers, a ferry, and sun.">
+              <defs>
+                <linearGradient id="lgSky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#eafef1" />
+                  <stop offset="1" stop-color="#dff3e5" />
+                </linearGradient>
+                <linearGradient id="lgWater" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#86ddfe" />
+                  <stop offset="1" stop-color="#4fa9c8" />
+                </linearGradient>
+              </defs>
+              <rect width="560" height="400" fill="url(#lgSky)" />
+              <!-- sun -->
+              <circle cx="452" cy="76" r="34" fill="#73fbb7" opacity="0.9" />
+              <circle cx="452" cy="76" r="48" fill="#73fbb7" opacity="0.25" />
+              <!-- distant skyline -->
+              <g fill="#d9ede0">
+                <rect x="20" y="120" width="34" height="120" />
+                <rect x="62" y="150" width="26" height="90" />
+                <rect x="400" y="130" width="30" height="110" />
+                <rect x="438" y="160" width="24" height="80" />
+                <rect x="500" y="140" width="32" height="100" />
+              </g>
+              <!-- isometric ground plane -->
+              <polygon points="280,180 560,270 280,360 0,270" fill="#e4f9eb" />
+              <!-- lagoon -->
+              <polygon points="280,268 560,330 560,400 0,400 0,330" fill="url(#lgWater)" />
+              <g stroke="#eafef1" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round">
+                <path d="M60 350 q14 -8 28 0 t28 0" />
+                <path d="M180 372 q14 -8 28 0 t28 0" />
+                <path d="M330 358 q14 -8 28 0 t28 0" />
+                <path d="M440 380 q14 -8 28 0 t28 0" />
+              </g>
+              <!-- isometric towers: top / left / right faces -->
+              <g>
+                <polygon points="210,196 250,184 290,196 250,208" fill="#53de9c" />
+                <polygon points="210,196 250,208 250,268 210,256" fill="#12845a" />
+                <polygon points="290,196 250,208 250,268 290,256" fill="#19b779" />
+              </g>
+              <g>
+                <polygon points="290,220 322,210 354,220 322,230" fill="#7bd2f2" />
+                <polygon points="290,220 322,230 322,282 290,272" fill="#006780" />
+                <polygon points="354,220 322,230 322,282 354,272" fill="#4fa9c8" />
+              </g>
+              <g>
+                <polygon points="150,224 178,215 206,224 178,233" fill="#93f6c3" />
+                <polygon points="150,224 178,233 178,279 150,270" fill="#0e5c40" />
+                <polygon points="206,224 178,233 178,279 206,270" fill="#19b779" />
+              </g>
+              <g>
+                <polygon points="360,240 382,233 404,240 382,247" fill="#53de9c" />
+                <polygon points="360,240 382,247 382,283 360,276" fill="#12845a" />
+                <polygon points="404,240 382,247 382,283 404,276" fill="#4fb385" />
+              </g>
+              <!-- windows -->
+              <g fill="#eafef1" opacity="0.85">
+                <rect x="220" y="216" width="8" height="10" /><rect x="236" y="221" width="8" height="10" />
+                <rect x="260" y="216" width="8" height="10" /><rect x="274" y="212" width="8" height="10" />
+                <rect x="298" y="236" width="7" height="9" /><rect x="312" y="241" width="7" height="9" />
+                <rect x="330" y="236" width="7" height="9" /><rect x="342" y="232" width="7" height="9" />
+                <rect x="158" y="240" width="7" height="9" /><rect x="170" y="244" width="7" height="9" />
+                <rect x="186" y="240" width="7" height="9" /><rect x="196" y="237" width="7" height="9" />
+              </g>
+              <!-- ferry -->
+              <g>
+                <polygon points="120,320 200,320 186,340 134,340" fill="#006c48" />
+                <rect x="140" y="304" width="40" height="16" rx="3" fill="#eafef1" />
+                <rect x="146" y="308" width="8" height="6" fill="#4fa9c8" />
+                <rect x="158" y="308" width="8" height="6" fill="#4fa9c8" />
+                <line x1="128" y1="344" x2="196" y2="344" stroke="#eafef1" stroke-width="2" stroke-dasharray="6 6" opacity="0.8" />
+              </g>
+              <!-- small sail boat -->
+              <g>
+                <polygon points="420,330 460,330 452,342 428,342" fill="#12845a" />
+                <line x1="440" y1="330" x2="440" y2="300" stroke="#24352c" stroke-width="2.5" />
+                <polygon points="440,300 440,326 418,326" fill="#eafef1" />
+              </g>
+            </svg>
+            <!-- Floating caption overlay -->
+            <div class="absolute bottom-4 left-4 flex items-center gap-2.5 rounded-2xl bg-surface-container-lowest/90 p-3 shadow-md backdrop-blur-md">
+              <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-secondary text-surface-container-lowest">
+                <span class="[&>svg]:h-5 [&>svg]:w-5" set:html={i.sailing} />
+              </div>
+              <div>
+                <div class="text-label-md font-semibold text-on-surface">Illustration — Lagos skyline &amp; lagoon</div>
+                <div class="text-body-sm text-on-surface-variant">Original artwork created for this site</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 2. PLANNER PREVIEW -->
+  <section id="planner-preview" class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="relative overflow-hidden rounded-3xl bg-surface-container-lowest p-space-md shadow-md sm:p-space-lg lg:p-space-xl">
+      <div class="absolute top-0 right-0 -z-0 h-72 w-72 rounded-full bg-surface-container-low/60 blur-2xl"></div>
+      <div class="relative z-10 mb-space-lg flex flex-col justify-between gap-space-sm md:flex-row md:items-end">
+        <div>
+          <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
+            <span class="[&>svg]:h-[15px] [&>svg]:w-[15px]" set:html={i.calendar} />
+            <span>Simulation Tooling</span>
+          </div>
+          <h2 class="text-headline-lg-mobile font-bold text-inverse-surface md:text-headline-lg">Your Next Steps, Made Clear.</h2>
+          <p class="mt-1 max-w-2xl text-body-md text-on-surface-variant">
+            A preview of our independent week planner tool. Structure your simulation progression without guesswork.
+          </p>
+        </div>
         <a
           href="/tools/first-week-planner/"
-          class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-label-lg font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-brand-dark"
+          class="group inline-flex items-center gap-1.5 self-start text-label-lg font-semibold text-primary transition-colors hover:text-on-primary-container md:self-auto"
         >
-          Plan My First Week
+          <span>Launch Interactive Planner</span>
+          <span class="transition-transform group-hover:translate-x-1 [&>svg]:h-[18px] [&>svg]:w-[18px]" set:html={i.arrow} />
         </a>
+      </div>
+      <div class="relative z-10 grid grid-cols-1 gap-space-md md:grid-cols-3">
+        {plannerStages.map((s) => (
+          <div class={`flex flex-col justify-between rounded-2xl p-space-md transition-shadow hover:shadow-sm ${s.surface ?? "bg-surface-container-low"}`}>
+            <div>
+              <div class="mb-space-sm flex items-center justify-between">
+                <span class={`rounded-full px-2.5 py-1 text-label-sm font-bold ${s.chip}`}>{s.step}</span>
+                <span class={s.iconCls} set:html={i[s.iconKey]} />
+              </div>
+              <h3 class="mb-1 text-headline-sm font-semibold text-inverse-surface">{s.title}</h3>
+              <p class="mb-space-md text-body-sm text-on-surface-variant">{s.body}</p>
+            </div>
+            <div class="space-y-2 pt-space-xs">
+              {s.rows.map((r) => (
+                <div class="flex items-center justify-between rounded-xl bg-surface-container-lowest px-3 py-2 text-label-sm shadow-sm">
+                  <span class="text-on-surface-variant">{r.k}:</span>
+                  <span class="font-bold text-inverse-surface">{r.v}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="relative z-10 mt-space-md flex flex-wrap items-center justify-between gap-space-sm rounded-2xl bg-surface p-space-md">
+        <div class="flex items-center gap-space-sm">
+          <span class="text-primary [&>svg]:h-[22px] [&>svg]:w-[22px]" set:html={i.sparkle} />
+          <div>
+            <div class="text-label-md font-semibold text-inverse-surface">Automatic Burnout Protection</div>
+            <div class="text-body-sm text-on-surface-variant">The planner flags schedules that would deplete recovery stats below your threshold.</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-label-sm font-bold text-on-surface-variant">Runs entirely in your browser:</span>
+          <span class="rounded-full bg-surface-container-lowest px-3 py-1 text-label-md font-semibold text-primary shadow-sm">No sign-up needed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. GUIDES (honest empty state) -->
+  <section id="guides" class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="mb-space-lg flex flex-col justify-between gap-space-md md:flex-row md:items-end">
+      <div>
+        <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
+          <span class="[&>svg]:h-[15px] [&>svg]:w-[15px]" set:html={i.book} />
+          <span>Field Handbooks</span>
+        </div>
+        <h2 class="text-headline-lg-mobile font-bold text-inverse-surface md:text-headline-lg">Explore the Guides</h2>
+        <p class="mt-1 text-body-md text-on-surface-variant">Practical step-by-step strategies documented by dedicated players.</p>
+      </div>
+    </div>
+    <EmptyState
+      title="No guides published yet"
+      description="Our first field handbooks are being researched and verified. Check back soon — every guide will carry a clear verification status before it ships."
+    />
+  </section>
+
+  <!-- 4. GAME DATA (honest empty state) -->
+  <section id="game-data" class="w-full bg-surface-container-lowest/60 py-space-xl">
+    <div class="mx-auto max-w-[1280px] px-margin md:px-margin-tablet lg:px-margin-desktop">
+      <div class="mb-space-lg flex flex-col justify-between gap-space-sm md:flex-row md:items-end">
+        <div>
+          <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-secondary">
+            <span class="[&>svg]:h-[15px] [&>svg]:w-[15px]" set:html={i.database} />
+            <span>Data Vault</span>
+          </div>
+          <h2 class="text-headline-lg-mobile font-bold text-inverse-surface md:text-headline-lg">Explore Game Data</h2>
+          <p class="mt-1 max-w-2xl text-body-md text-on-surface-variant">Structured, community-verified datasets across the simulation map.</p>
+        </div>
+        <div class="inline-flex items-center gap-2 rounded-xl bg-surface-container px-3.5 py-2 text-body-sm text-on-surface-variant">
+          <span class="text-secondary [&>svg]:h-[18px] [&>svg]:w-[18px]" set:html={i.database} />
+          <span>Unknown values are marked <strong class="font-semibold text-inverse-surface">"Data Pending"</strong> — never estimated.</span>
+        </div>
+      </div>
+      <EmptyState
+        title="Datasets are on the way"
+        description="Verified districts, transport schedules, businesses, and housing data will be published here with source and verification status attached to every entry."
+        actionHref="/game-data/"
+        actionLabel="Open the Game Data directory"
+      />
+    </div>
+  </section>
+
+  <!-- 5. TRUST & VERIFICATION -->
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="rounded-3xl bg-surface-container-low p-space-md sm:p-space-lg lg:p-space-xl">
+      <div class="mb-space-lg max-w-3xl">
+        <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container-lowest px-3 py-1 text-label-sm font-bold text-primary shadow-sm">
+          <span class="[&>svg]:h-[15px] [&>svg]:w-[15px]" set:html={i.shield} />
+          <span>Source Integrity</span>
+        </div>
+        <h2 class="text-headline-lg-mobile font-bold text-inverse-surface md:text-headline-lg">Useful Information. Clear Sources.</h2>
+        <p class="mt-2 text-body-lg text-on-surface-variant">
+          We distinguish verified information from details that still need confirmation. Every data point on LagosLifeGuide adheres to our transparent multi-tier audit status.
+        </p>
+      </div>
+      <div class="mb-space-lg grid grid-cols-1 gap-space-md md:grid-cols-3">
+        {trustCards.map((c) => (
+          <div class="rounded-2xl bg-surface-container-lowest p-space-md shadow-sm">
+            <div class="mb-space-sm flex items-center gap-2">
+              <VerificationBadge status={c.status} />
+            </div>
+            <p class="mb-1 text-body-md font-semibold text-inverse-surface">{c.title}</p>
+            <p class="text-body-sm text-on-surface-variant">{c.body}</p>
+          </div>
+        ))}
+      </div>
+      <div class="flex flex-col items-start justify-between gap-space-md rounded-2xl bg-surface-container-lowest p-space-md shadow-sm sm:flex-row sm:items-center">
+        <div class="flex items-center gap-3">
+          <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-container text-primary">
+            <span class="[&>svg]:h-5 [&>svg]:w-5" set:html={i.megaphone} />
+          </div>
+          <div>
+            <div class="text-label-lg font-semibold text-inverse-surface">Noticed outdated information or a patched rate?</div>
+            <div class="text-body-sm text-on-surface-variant">Help keep the Lagos Life player community informed with direct updates.</div>
+          </div>
+        </div>
         <a
-          href="/game-data/"
-          class="inline-flex items-center justify-center rounded-full bg-surface-container-lowest px-6 py-3.5 text-label-lg font-semibold text-on-surface shadow-sm transition-colors hover:bg-surface-container-low"
+          href="/report-error/"
+          class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-surface-container px-4 py-2 text-label-md font-semibold text-primary transition-colors hover:bg-primary-container hover:text-surface-container-lowest"
         >
-          Explore Game Data
+          <span>Report an Error</span>
+          <span class="[&>svg]:h-4 [&>svg]:w-4" set:html={i.arrow} />
         </a>
       </div>
     </div>

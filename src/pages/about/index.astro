@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+
+const facts = [
+  {
+    title: "An independent third-party project",
+    body: "LagosLifeGuide.app is built and maintained by players, for players. It is a fan-made companion resource with no connection to the company that makes or operates the game.",
+  },
+  {
+    title: "Not representing the game operator",
+    body: "Nothing on this site is official. We do not speak for, represent, or impersonate the game's developer or publisher, and no endorsement by them is implied.",
+  },
+  {
+    title: "Trademarks belong to their owners",
+    body: "All game names, marks, artwork, and related intellectual property referenced here belong to their respective rights holders. References are made for identification and commentary only.",
+  },
+  {
+    title: "Content is for reference",
+    body: "Guides, datasets, and planner output are compiled from community testing and research. They are provided as a helpful reference, not as authoritative documentation.",
+  },
+  {
+    title: "Defer to the current state of the game",
+    body: "Games change with patches and updates. If anything here disagrees with what you see in-game, the game is right. Please report the discrepancy so we can re-verify it.",
+  },
+];
+---
+
+<BaseLayout
+  title="About — LagosLifeGuide.app"
+  description="LagosLifeGuide.app is an independent, fan-made Lagos Life companion. Not affiliated with or endorsed by the game's developer. Trademarks belong to their owners."
+  canonicalPath="/about/"
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <SectionHeader
+      eyebrow="About"
+      title="An independent companion for Lagos Life players"
+      subtitle="Who runs this site, what it is, and what it is not."
+    />
+
+    <div class="mt-space-lg grid grid-cols-1 gap-space-md md:grid-cols-2">
+      {facts.map((f) => (
+        <div class="rounded-card bg-surface-container-lowest p-space-md shadow-card">
+          <h2 class="text-headline-sm font-semibold text-on-surface">{f.title}</h2>
+          <p class="mt-space-sm text-body-md text-on-surface-variant">{f.body}</p>
+        </div>
+      ))}
+      <div class="rounded-card bg-brand-soft p-space-md md:col-span-2">
+        <h2 class="text-headline-sm font-semibold text-brand-dark">See something wrong?</h2>
+        <p class="mt-space-sm text-body-md text-on-surface-variant">
+          Verification is a community effort. If you find outdated or incorrect information, let us know and we will re-test it.
+        </p>
+        <a
+          href="/report-error/"
+          class="mt-space-md inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-label-lg font-semibold text-white transition-colors hover:bg-brand-dark"
+        >
+          Report an Error
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+import GuideLayout from "../../layouts/GuideLayout.astro";
+import guidesData from "../../data/guides.json";
+import sourcesData from "../../data/sources.json";
+import type { GuidePost } from "../../lib/schema/guide";
+import type { SourceRecord } from "../../lib/schema/common";
+
+export function getStaticPaths() {
+  const guides = guidesData as GuidePost[];
+  const sources = sourcesData as SourceRecord[];
+  return guides.map((guide) => ({
+    params: { slug: guide.slug },
+    props: {
+      guide,
+      sources: sources.filter((source) => guide.sourceIds.includes(source.id)),
+    },
+  }));
+}
+
+interface Props {
+  guide: GuidePost;
+  sources: SourceRecord[];
+}
+
+const { guide, sources } = Astro.props;
+---
+
+<GuideLayout guide={guide} sources={sources} />

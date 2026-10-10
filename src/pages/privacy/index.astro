@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+
+const updatedAt = "2026-10-09";
+---
+
+<BaseLayout
+  title="Privacy Policy — LagosLifeGuide.app"
+  description="How LagosLifeGuide.app handles data: no accounts, planner data stays in your browser, and what our analytics tools collect."
+  canonicalPath="/privacy/"
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="mx-auto max-w-3xl">
+      <SectionHeader
+        eyebrow="Legal"
+        title="Privacy Policy"
+        subtitle={`Last updated: ${updatedAt}.`}
+      />
+
+      <div class="mt-space-lg flex flex-col gap-space-lg text-body-lg text-on-surface-variant">
+        <section>
+          <h2 class="text-headline-md font-semibold text-on-surface">The short version</h2>
+          <p class="mt-space-sm">
+            LagosLifeGuide.app is a small, independent, read-mostly website. We do not run user
+            accounts, we do not ask you to log in, and the planning tool stores its data in your
+            own browser — not on our servers. The only data we receive is basic, aggregate
+            analytics described below.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-headline-md font-semibold text-on-surface">No accounts, no server-side personal data</h2>
+          <p class="mt-space-sm">
+            Nothing on this site requires registration. We do not collect names, emails (unless you
+            choose to email us via the Report an Error page), passwords, or any other account data,
+            and we have no database of users.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-headline-md font-semibold text-on-surface">Planner data stays in your browser</h2>
+          <p class="mt-space-sm">
+            The First Week Planner saves your inputs and plans using your browser's localStorage.
+            That data never leaves your device, is not transmitted to us, and you can delete it at
+            any time by clearing your browser's site data. Uninstalling or clearing site data
+            removes it permanently — we cannot recover it because we never had it.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-headline-md font-semibold text-on-surface">Analytics</h2>
+          <p class="mt-space-sm">
+            We plan to add privacy-respecting analytics (Google Analytics 4 and/or Plausible) to
+            understand which pages are useful. In general terms, these tools collect:
+          </p>
+          <ul class="mt-space-sm flex list-disc flex-col gap-space-xs pl-space-md">
+            <li>Pages visited and approximate time on page.</li>
+            <li>Approximate geographic region (country/city level) and language.</li>
+            <li>Device, browser, and screen-size category.</li>
+            <li>Referring site or search terms that brought you here.</li>
+          </ul>
+          <p class="mt-space-sm">
+            Plausible is configured to be cookieless and does not track you across websites.
+            Google Analytics 4 may use cookies and process data on Google's servers; see Google's
+            privacy documentation for details. Neither tool receives anything you type into the
+            planner, because that data never reaches us at all.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-headline-md font-semibold text-on-surface">Error reports</h2>
+          <p class="mt-space-sm">
+            If you use the Report an Error page, your email client opens with a pre-filled message
+            to us. Whatever you choose to send by email is kept only as long as needed to verify
+            and fix the issue, and is never sold or shared.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-headline-md font-semibold text-on-surface">Third-party content</h2>
+          <p class="mt-space-sm">
+            Pages may link to external game sites and sources (for example, the official game
+            instance). Those sites have their own privacy practices, which we do not control.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-headline-md font-semibold text-on-surface">Changes and contact</h2>
+          <p class="mt-space-sm">
+            If this policy changes, the updated date above will change. Questions about privacy can
+            be sent to the site operator at{" "}
+            <a href="mailto:lagoslifeguide.app@gmail.com" class="font-semibold text-primary transition-colors hover:text-brand-dark">
+              lagoslifeguide.app@gmail.com
+            </a>{" "}
+            (provisional address).
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

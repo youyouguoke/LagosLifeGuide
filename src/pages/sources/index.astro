@@ -1,0 +1,262 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import VerificationBadge from "../../components/VerificationBadge.astro";
+import EmptyState from "../../components/EmptyState.astro";
+import sourcesData from "../../data/sources.json";
+import evidenceData from "../../data/evidence.json";
+import type { SourceRecord, EvidenceRecord, EvidenceType } from "../../lib/schema/common";
+
+const sources = sourcesData as SourceRecord[];
+const evidence = evidenceData as EvidenceRecord[];
+const lastChecked = "2026-10-09";
+
+const evidenceTypeLabels: Record<EvidenceType, string> = {
+  official: "Official",
+  in_game_test: "In-game test",
+  community_report: "Community report",
+  third_party_guide: "Third-party guide",
+};
+
+const statusExplanations: {
+  status: "verified" | "reported" | "unverified" | "conflicted";
+  meaning: string;
+}[] = [
+  {
+    status: "verified",
+    meaning: "Confirmed against our verification rules (document review or in-game test) as of the checked date.",
+  },
+  {
+    status: "reported",
+    meaning: "A traceable player report exists, but we have not finished verifying it. A report is not a confirmed fact.",
+  },
+  {
+    status: "unverified",
+    meaning: "Not enough evidence yet. The value is shown as unknown and never enters deterministic calculations.",
+  },
+  {
+    status: "conflicted",
+    meaning: "Credible sources disagree and the conflict is unresolved. We say so openly instead of picking one silently.",
+  },
+];
+---
+
+<BaseLayout
+  title="Sources & Verification — LagosLifeGuide.app"
+  description="How LagosLifeGuide.app sources, verifies, and updates its Lagos Life game data — including how we handle conflicts and errors."
+  canonicalPath="/sources/"
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <SectionHeader
+      eyebrow="Transparency"
+      title="Sources & Verification"
+      subtitle={`How we collect, verify, and update Lagos Life data. Last checked: ${lastChecked}.`}
+    />
+
+    <div class="mt-space-lg flex flex-col gap-space-lg">
+      <!-- Data source types -->
+      <section class="rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card">
+        <h2 class="text-headline-md font-semibold text-on-surface">Data source types</h2>
+        <dl class="mt-space-md grid gap-space-md sm:grid-cols-2">
+          {
+            (Object.keys(evidenceTypeLabels) as EvidenceType[]).map((type) => (
+              <div>
+                <dt class="text-label-lg font-semibold text-on-surface">
+                  {evidenceTypeLabels[type]}
+                </dt>
+                <dd class="mt-space-xs text-body-md text-on-surface-variant">
+                  {type === "official" && "The game's own site, in-game UI text, or statements from the operator/publisher."}
+                  {type === "in_game_test" && "Something we measured ourselves by playing the current build of the game."}
+                  {type === "community_report" && "A player-reported observation with a traceable origin. Treated as a lead, never as confirmed fact."}
+                  {type === "third_party_guide" && "Guides, wikis, or videos made by others. We re-check before relying on them."}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
+      <!-- Verification statuses -->
+      <section class="rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card">
+        <h2 class="text-headline-md font-semibold text-on-surface">What the verification statuses mean</h2>
+        <ul class="mt-space-md flex flex-col gap-space-md">
+          {
+            statusExplanations.map(({ status, meaning }) => (
+              <li class="flex flex-col gap-space-xs sm:flex-row sm:items-start sm:gap-space-md">
+                <VerificationBadge {status} />
+                <p class="text-body-md text-on-surface-variant">{meaning}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-space-md text-body-md text-on-surface-variant">
+          Guides additionally use <strong class="text-on-surface">Partially Verified</strong> when some
+          sections are confirmed but others still need in-game checking. A <em>verified</em> label does
+          not mean the data is valid forever — the game can change at any time.
+        </p>
+      </section>
+
+      <!-- Verification method -->
+      <section class="rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card">
+        <h2 class="text-headline-md font-semibold text-on-surface">How we verify</h2>
+        <ol class="mt-space-md flex flex-col gap-space-sm text-body-md text-on-surface-variant">
+          <li><strong class="text-on-surface">1. Document review.</strong> We read the official source and record exactly what it states, with the access date.</li>
+          <li><strong class="text-on-surface">2. In-game check.</strong> Where a value affects calculations (cash, rent, wages, travel time), we test it in the live game and keep a dated record of the observation.</li>
+          <li><strong class="text-on-surface">3. Field-level status.</strong> Every field that can affect a calculation carries its own status and source ids — page-level labels never override an unverified field.</li>
+          <li><strong class="text-on-surface">4. Re-verification.</strong> Verified data is re-checked on a schedule and whenever players report a change.</li>
+        </ol>
+      </section>
+
+      <!-- Updates & conflicts -->
+      <section class="rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card">
+        <h2 class="text-headline-md font-semibold text-on-surface">Updates and conflict handling</h2>
+        <div class="mt-space-md flex flex-col gap-space-sm text-body-md text-on-surface-variant">
+          <p>
+            When the game updates, affected fields are re-checked before the site is updated. Until
+            re-verified, the planner stops using stale values for deterministic conclusions — it will
+            ask you to re-run with current data instead of silently extending old results.
+          </p>
+          <p>
+            If two credible sources disagree, we mark the field <strong class="text-on-surface">conflicted</strong>,
+            explain the disagreement here, and do not average or guess. One real example: the game name
+            "Lagos Life" is shared by two <em>different</em> published instances —
+            <a href="https://lagoslife.app" class="font-semibold text-primary transition-colors hover:text-brand-dark" target="_blank" rel="noopener noreferrer">lagoslife.app</a> (our confirmed
+            target instance) and
+            <a href="https://lagoslife.com.ng" class="font-semibold text-primary transition-colors hover:text-brand-dark" target="_blank" rel="noopener noreferrer">lagoslife.com.ng</a> (a different
+            game by GreatCallie, on Google Play as com.greatcallie.lagoslife). Data from the two
+            instances must never be mixed, so the second one is recorded in the registry below
+            purely to document the conflict.
+          </p>
+          <p>Last checked: <strong class="text-on-surface">{lastChecked}</strong>.</p>
+        </div>
+      </section>
+
+      <!-- Source registry -->
+      <section>
+        <h2 class="text-headline-md font-semibold text-on-surface">Source registry</h2>
+        {sources.length === 0 ? (
+          <div class="mt-space-md">
+            <EmptyState
+              title="No sources registered yet"
+              description="We do not list sources we have not actually reviewed."
+            />
+          </div>
+        ) : (
+          <div class="mt-space-md overflow-x-auto rounded-card border border-border bg-surface-container-lowest shadow-card">
+            <table class="w-full min-w-[720px] text-left text-body-md">
+              <thead>
+                <tr class="border-b border-border bg-surface-container-low text-label-lg text-on-surface-variant">
+                  <th scope="col" class="px-space-md py-space-sm font-semibold">Title</th>
+                  <th scope="col" class="px-space-md py-space-sm font-semibold">URL</th>
+                  <th scope="col" class="px-space-md py-space-sm font-semibold">Type</th>
+                  <th scope="col" class="px-space-md py-space-sm font-semibold">Accessed</th>
+                  <th scope="col" class="px-space-md py-space-sm font-semibold">Applicable game</th>
+                  <th scope="col" class="px-space-md py-space-sm font-semibold">Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  sources.map((source) => (
+                    <tr class="border-b border-border last:border-0">
+                      <td class="px-space-md py-space-sm align-top font-semibold text-on-surface">
+                        {source.title ?? "—"}
+                        {source.publisher && (
+                          <span class="mt-space-xs block text-body-sm font-normal text-text-muted">
+                            Publisher: {source.publisher}
+                          </span>
+                        )}
+                      </td>
+                      <td class="px-space-md py-space-sm align-top">
+                        <a
+                          href={source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="break-all font-semibold text-primary transition-colors hover:text-brand-dark"
+                        >
+                          {source.url}
+                        </a>
+                      </td>
+                      <td class="px-space-md py-space-sm align-top text-on-surface-variant">
+                        {evidenceTypeLabels[source.evidenceType]}
+                      </td>
+                      <td class="px-space-md py-space-sm align-top whitespace-nowrap text-on-surface-variant">
+                        {source.accessedAt}
+                      </td>
+                      <td class="px-space-md py-space-sm align-top">
+                        {source.applicableGameUrl ? (
+                          <a
+                            href={source.applicableGameUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="break-all font-semibold text-primary transition-colors hover:text-brand-dark"
+                          >
+                            {source.applicableGameUrl}
+                          </a>
+                        ) : (
+                          "—"
+                        )}
+                      </td>
+                      <td class="px-space-md py-space-sm align-top text-on-surface-variant">
+                        {source.notes ?? "—"}
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <!-- Evidence log -->
+      <section>
+        <h2 class="text-headline-md font-semibold text-on-surface">In-game evidence log</h2>
+        {evidence.length === 0 ? (
+          <div class="mt-space-md">
+            <EmptyState
+              title="No in-game evidence logged yet"
+              description="Dated test observations will be listed here as they are recorded."
+            />
+          </div>
+        ) : (
+          <ul class="mt-space-md flex flex-col gap-space-md">
+            {
+              evidence.map((record) => (
+                <li class="rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card">
+                  <p class="text-label-lg font-semibold text-on-surface">
+                    {record.method.replace(/_/g, " ")} · {record.observedAt}
+                  </p>
+                  <p class="mt-space-xs text-body-sm text-text-muted">
+                    Source: {record.sourceId} · Game: {record.gameUrl}
+                    {record.gameVersion && ` · Version: ${record.gameVersion}`}
+                  </p>
+                  {record.observation && (
+                    <p class="mt-space-sm text-body-md text-on-surface-variant">{record.observation}</p>
+                  )}
+                  {record.artifactPath && (
+                    <p class="mt-space-sm text-body-sm text-text-muted">
+                      Artifact: <code class="rounded bg-surface-container px-1.5 py-0.5">{record.artifactPath}</code>
+                    </p>
+                  )}
+                </li>
+              ))
+            }
+          </ul>
+        )}
+      </section>
+
+      <!-- Report errors -->
+      <section class="rounded-panel border border-border bg-surface-container-low p-space-lg">
+        <h2 class="text-headline-md font-semibold text-on-surface">Report an error</h2>
+        <p class="mt-space-sm text-body-md text-on-surface-variant">
+          If a value here looks wrong or out of date, please tell us. Use the
+          <a href="/report-error/" class="font-semibold text-primary transition-colors hover:text-brand-dark">
+            Report an Error
+          </a>
+          page — no account needed, and every report is checked against the live game before we
+          change anything.
+        </p>
+      </section>
+    </div>
+  </section>
+</BaseLayout>

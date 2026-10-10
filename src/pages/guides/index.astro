@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import EmptyState from "../../components/EmptyState.astro";
+import VerificationBadge from "../../components/VerificationBadge.astro";
+import guides from "../../data/guides.json";
+import type { GuidePost } from "../../lib/schema/guide";
+
+const typedGuides = guides as GuidePost[];
+---
+
+<BaseLayout
+  title="Guides — LagosLifeGuide.app"
+  description="Practical Lagos Life guides with verification status for every article. Independent and not affiliated with the game's developer."
+  canonicalPath="/guides/"
+>
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <SectionHeader
+      eyebrow="Guides"
+      title="Explore the Guides"
+      subtitle="Practical answers to player questions. Every guide shows its verification status and sources."
+    />
+
+    {typedGuides.length === 0 ? (
+      <div class="mt-space-lg">
+        <EmptyState
+          title="Our first guides are being verified before publication"
+          description="We do not publish unverified game information. The first Lagos Life guides will appear here once they pass our source and in-game verification checks. Meanwhile, you can explore the game data registry or report anything that looks wrong."
+          actionHref="/sources/"
+          actionLabel="See How We Verify Data"
+        />
+      </div>
+    ) : (
+      <ul class="mt-space-lg grid gap-space-md sm:grid-cols-2 lg:grid-cols-3">
+        {typedGuides.map((guide) => (
+          <li>
+            <a
+              href={`/guides/${guide.slug}/`}
+              class="flex h-full flex-col rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover"
+            >
+              <div class="flex items-center justify-between gap-space-sm">
+                <span class="text-label-md font-semibold uppercase tracking-widest text-brand-dark">
+                  {guide.topic}
+                </span>
+                <VerificationBadge status={guide.verificationStatus} />
+              </div>
+              <h3 class="mt-space-sm text-headline-sm font-semibold text-on-surface">
+                {guide.title}
+              </h3>
+              <p class="mt-space-xs flex-1 text-body-md text-on-surface-variant">
+                {guide.summary}
+              </p>
+              <p class="mt-space-sm text-body-sm text-text-muted">
+                Updated {guide.updatedAt}
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>

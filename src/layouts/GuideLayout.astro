@@ -1,0 +1,158 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import VerificationBadge from "../components/VerificationBadge.astro";
+import type { GuidePost } from "../lib/schema/guide";
+
+/**
+ * GuideLayout (UIUX §9.2) — fixed content order for guide detail pages:
+ * breadcrumbs → title → short answer → verification badge → TOC →
+ * sections → limitations → sources → related tools → Report an Error.
+ */
+interface Props {
+  guide: GuidePost;
+  /** Resolved source records linked from this guide. */
+  sources: { id: string; url: string; title?: string; notes?: string }[];
+}
+
+const { guide, sources } = Astro.props;
+
+const tocId = (heading: string) =>
+  heading
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+---
+
+<BaseLayout
+  title={`${guide.title} — LagosLifeGuide.app`}
+  description={guide.summary}
+  canonicalPath={`/guides/${guide.slug}/`}
+>
+  <article class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="mx-auto max-w-3xl">
+      <!-- 1. Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="text-label-lg text-on-surface-variant">
+        <ol class="flex flex-wrap items-center gap-space-xs">
+          <li><a href="/" class="transition-colors hover:text-primary">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/guides/" class="transition-colors hover:text-primary">Guides</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="font-semibold text-on-surface">{guide.title}</li>
+        </ol>
+      </nav>
+
+      <!-- 2. Title -->
+      <h1 class="mt-space-md text-headline-lg font-bold tracking-tight text-on-surface">
+        {guide.title}
+      </h1>
+
+      <!-- 3. Short answer -->
+      <p class="mt-space-sm text-body-lg font-semibold text-on-surface">{guide.summary}</p>
+
+      <!-- 4. Verification status -->
+      <div class="mt-space-md flex flex-wrap items-center gap-space-sm">
+        <VerificationBadge status={guide.verificationStatus} />
+        <span class="text-label-md uppercase tracking-widest text-brand-dark">{guide.topic}</span>
+        <span class="text-body-sm text-text-muted">Updated {guide.updatedAt}</span>
+      </div>
+
+      <!-- 5. Table of contents -->
+      {guide.sections.length > 1 && (
+        <nav aria-label="Table of contents" class="mt-space-lg rounded-card border border-border bg-surface-container-low p-space-md">
+          <p class="text-label-lg font-semibold uppercase tracking-widest text-brand-dark">
+            On this page
+          </p>
+          <ol class="mt-space-sm flex flex-col gap-space-xs">
+            {guide.sections.map((section) => (
+              <li>
+                <a href={`#${tocId(section.heading)}`} class="text-body-md text-on-surface-variant transition-colors hover:text-primary">
+                  {section.heading}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href="#limitations" class="text-body-md text-on-surface-variant transition-colors hover:text-primary">
+                Limitations
+              </a>
+            </li>
+            {sources.length > 0 && (
+              <li>
+                <a href="#sources" class="text-body-md text-on-surface-variant transition-colors hover:text-primary">
+                  Sources
+                </a>
+              </li>
+            )}
+          </ol>
+        </nav>
+      )}
+
+      <!-- 6–7. Sections -->
+      <div class="mt-space-lg flex flex-col gap-space-lg">
+        {guide.sections.map((section) => (
+          <section id={tocId(section.heading)} class="scroll-mt-24">
+            <h2 class="text-headline-md font-semibold text-on-surface">{section.heading}</h2>
+            <p class="mt-space-sm text-body-lg text-on-surface-variant">{section.body}</p>
+          </section>
+        ))}
+      </div>
+
+      <!-- 7. Limitations note -->
+      <section id="limitations" class="mt-space-lg scroll-mt-24 rounded-card border border-border bg-surface-container-low p-space-md">
+        <h2 class="text-headline-sm font-semibold text-on-surface">Limitations</h2>
+        <p class="mt-space-sm text-body-md text-on-surface-variant">
+          This guide reflects the game state as verified on {guide.updatedAt}. Lagos Life is a
+          living game — values, mechanics, and availability may have changed since then. Field-level
+          verification states are shown on the <a href="/game-data/" class="font-semibold text-primary transition-colors hover:text-brand-dark">Game Data</a> pages.
+          Anything unconfirmed is marked as such; we never present community speculation as a
+          confirmed game mechanic.
+        </p>
+      </section>
+
+      <!-- 8. Sources -->
+      {sources.length > 0 && (
+        <section id="sources" class="mt-space-lg scroll-mt-24">
+          <h2 class="text-headline-sm font-semibold text-on-surface">Sources</h2>
+          <ul class="mt-space-sm flex flex-col gap-space-sm">
+            {sources.map((source) => (
+              <li class="rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card">
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="font-semibold text-primary transition-colors hover:text-brand-dark"
+                >
+                  {source.title ?? source.url}
+                </a>
+                <p class="mt-space-xs text-body-sm text-text-muted">{source.url}</p>
+                {source.notes && <p class="mt-space-xs text-body-sm text-on-surface-variant">{source.notes}</p>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- 9. Related tools -->
+      <section class="mt-space-lg rounded-panel border border-border bg-surface-container-low p-space-md">
+        <h2 class="text-headline-sm font-semibold text-on-surface">Related tools</h2>
+        <p class="mt-space-sm text-body-md text-on-surface-variant">
+          Planning your first in-game week? Use the
+          <a href="/tools/first-week-planner/" class="font-semibold text-primary transition-colors hover:text-brand-dark">
+            First Week Planner
+          </a>
+          to budget cash, energy, and time against verified game data.
+        </p>
+      </section>
+
+      <!-- 10. Report an Error -->
+      <p class="mt-space-lg text-body-md text-on-surface-variant">
+        Spotted something wrong or out of date?{" "}
+        <a
+          href={`/report-error/?page=${encodeURIComponent(`/guides/${guide.slug}/`)}`}
+          class="font-semibold text-primary transition-colors hover:text-brand-dark"
+        >
+          Report an Error
+        </a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>

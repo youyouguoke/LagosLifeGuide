@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "id": "ev-client-bundle-2026-10-09",
+    "sourceId": "src-game-target",
+    "method": "document_review",
+    "observedAt": "2026-10-09",
+    "gameUrl": "https://lagoslife.app",
+    "observation": "Static data tables extracted from the game's own client bundle (sha256 1603ebce...b40f). Client-displayed values; in-game spot-check pending.",
+    "artifactPath": "data/artifacts/game-client-data-2026-10-09.js"
+  }
+]

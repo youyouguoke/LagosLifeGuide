@@ -1,0 +1,53 @@
+---
+/**
+ * DataRecordCard (UIUX §8.2) — one row in the Game Data directory.
+ * Shows name, record type, verification status, and a few key fields.
+ * Never fabricates values: only populated key fields are rendered.
+ */
+import VerificationBadge from "./VerificationBadge.astro";
+import type { BadgeStatus, KeyField } from "../lib/game-data";
+
+interface Props {
+  href: string;
+  name: string;
+  typeLabel: string;
+  status: BadgeStatus;
+  keyFields: KeyField[];
+  /** Collection key used by the directory's category-chip filter. */
+  collection: string;
+  /** Lowercased haystack for the client-side search filter. */
+  searchText: string;
+}
+
+const { href, name, typeLabel, status, keyFields, collection, searchText } = Astro.props;
+---
+
+<a
+  href={href}
+  data-record-card
+  data-collection={collection}
+  data-search={searchText}
+  class="group block rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card transition-all hover:-translate-y-0.5 hover:border-primary-container/60 hover:shadow-lg"
+>
+  <div class="flex items-start justify-between gap-space-md">
+    <div class="min-w-0">
+      <p class="text-label-md font-semibold uppercase tracking-widest text-text-muted">{typeLabel}</p>
+      <h3 class="mt-space-xs truncate text-headline-sm font-semibold text-on-surface group-hover:text-primary">
+        {name}
+      </h3>
+    </div>
+    <VerificationBadge status={status} />
+  </div>
+  {
+    keyFields.length > 0 && (
+      <dl class="mt-space-md grid gap-space-xs sm:grid-cols-2">
+        {keyFields.map((kf) => (
+          <div class="min-w-0">
+            <dt class="text-label-md font-semibold text-text-muted">{kf.label}</dt>
+            <dd class="truncate text-body-md text-on-surface">{kf.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )
+  }
+</a>

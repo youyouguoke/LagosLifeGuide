@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import EmptyState from "../../components/EmptyState.astro";
+---
+
+<BaseLayout
+  title="Tools — LagosLifeGuide.app"
+  description="Practical tools for Lagos Life players. Every tool is backed only by verified, cited game information — nothing invented."
+>
+  <section
+    class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"
+  >
+    <SectionHeader
+      eyebrow="Tools"
+      title="Tools"
+      subtitle="Practical tools built on verified game data. We ship a tool only when it can be honest end to end."
+    />
+
+    <div class="mt-space-lg grid gap-space-md md:grid-cols-2">
+      <!-- Featured tool: the only tool currently available -->
+      <a
+        href="/tools/first-week-planner/"
+        class="group rounded-card border border-border bg-surface-container-lowest p-space-lg shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover"
+      >
+        <p
+          class="inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3 py-1 text-label-md font-semibold text-verified"
+        >
+          <span class="h-2 w-2 rounded-full bg-verified" aria-hidden="true"></span>
+          Available now
+        </p>
+        <h2 class="mt-space-md text-headline-md font-bold tracking-tight text-on-surface">
+          First Week Planner
+        </h2>
+        <p class="mt-space-sm text-body-md text-on-surface-variant">
+          Build a practical plan around your current situation and what you want to achieve.
+          Uses only verified game data — and tells you clearly when data is missing.
+        </p>
+        <span
+          class="mt-space-md inline-flex items-center gap-1 text-label-lg font-semibold text-primary transition-colors group-hover:text-primary-container"
+        >
+          Open the planner
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="mt-space-lg">
+      <EmptyState
+        title="More tools are added only when they can be honest"
+        description="We don't list placeholder tools. New tools appear here once they are backed by verified game data with cited sources."
+      />
+    </div>
+  </section>
+</BaseLayout>

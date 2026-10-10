@@ -1,1 +1,3921 @@
-[]
+[
+  {
+    "id": "tech",
+    "name": {
+      "value": "Tech",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 💻"
+    },
+    "payAmount": {
+      "value": 9900,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Intern). Full verified ladder: L1 Intern — N9,900; L2 Junior Dev — N19,500; L3 Senior Dev — N32,800; L4 Tech Lead — N47,300; L5 CTO — N76,500"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5] mapped via DAY_NAMES export; shift starts at hour 9."
+    },
+    "requiredSkills": {
+      "value": [
+        "coding"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Intern",
+        "Junior Dev",
+        "Senior Dev",
+        "Tech Lead",
+        "CTO"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Intern — N9,900; L2 Junior Dev — N19,500; L3 Senior Dev — N32,800; L4 Tech Lead — N47,300; L5 CTO — N76,500"
+    },
+    "workplace": {
+      "value": "yabaHub",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "banking",
+    "name": {
+      "value": "Banking",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🏦"
+    },
+    "payAmount": {
+      "value": 11600,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Marketer). Full verified ladder: L1 Marketer — N11,600; L2 Relationship Officer — N21,000; L3 Branch Manager — N31,500; L4 Executive Director — N44,600; L5 MD/CEO — N72,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5] mapped via DAY_NAMES export; shift starts at hour 8."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Marketer",
+        "Relationship Officer",
+        "Branch Manager",
+        "Executive Director",
+        "MD/CEO"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Marketer — N11,600; L2 Relationship Officer — N21,000; L3 Branch Manager — N31,500; L4 Executive Director — N44,600; L5 MD/CEO — N72,000"
+    },
+    "workplace": {
+      "value": "office",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "music",
+    "name": {
+      "value": "Music",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🎤"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Backup Singer). Full verified ladder: L1 Backup Singer — N7,400; L2 Studio Rat — N15,000; L3 Opening Act — N28,400; L4 Headliner — N49,900; L5 Afrobeats Giant — N99,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 6 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 360,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Sunday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [0, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 18."
+    },
+    "requiredSkills": {
+      "value": [
+        "music"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Backup Singer",
+        "Studio Rat",
+        "Opening Act",
+        "Headliner",
+        "Afrobeats Giant"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Backup Singer — N7,400; L2 Studio Rat — N15,000; L3 Opening Act — N28,400; L4 Headliner — N49,900; L5 Afrobeats Giant — N99,000"
+    },
+    "workplace": {
+      "value": "shrine",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "trader",
+    "name": {
+      "value": "Trading",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🧺"
+    },
+    "payAmount": {
+      "value": 8300,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Shop Assistant). Full verified ladder: L1 Shop Assistant — N8,300; L2 Stall Owner — N16,500; L3 Wholesaler — N26,500; L4 Importer — N39,400; L5 Market Oga — N63,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 7."
+    },
+    "requiredSkills": {
+      "value": [
+        "hustle"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Shop Assistant",
+        "Stall Owner",
+        "Wholesaler",
+        "Importer",
+        "Market Oga"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Shop Assistant — N8,300; L2 Stall Owner — N16,500; L3 Wholesaler — N26,500; L4 Importer — N39,400; L5 Market Oga — N63,000"
+    },
+    "workplace": {
+      "value": "balogun",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "nurse",
+    "name": {
+      "value": "Nursing",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🩺"
+    },
+    "payAmount": {
+      "value": 9100,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Student Nurse). Full verified ladder: L1 Student Nurse — N9,100; L2 Staff Nurse — N18,000; L3 Senior Nurse — N30,200; L4 Matron — N45,500; L5 Chief Nursing Officer — N75,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 10 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 600,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 7."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Student Nurse",
+        "Staff Nurse",
+        "Senior Nurse",
+        "Matron",
+        "Chief Nursing Officer"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Student Nurse — N9,100; L2 Staff Nurse — N18,000; L3 Senior Nurse — N30,200; L4 Matron — N45,500; L5 Chief Nursing Officer — N75,000"
+    },
+    "workplace": {
+      "value": "hospital",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "stylist",
+    "name": {
+      "value": "Hairstyling",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 💇🏾‍♀️"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Salon Assistant). Full verified ladder: L1 Salon Assistant — N7,400; L2 Junior Stylist — N15,000; L3 Braiding Pro — N26,500; L4 Salon Manager — N40,300; L5 Salon Boss — N67,500"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 9."
+    },
+    "requiredSkills": {
+      "value": [
+        "hustle"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Salon Assistant",
+        "Junior Stylist",
+        "Braiding Pro",
+        "Salon Manager",
+        "Salon Boss"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Salon Assistant — N7,400; L2 Junior Stylist — N15,000; L3 Braiding Pro — N26,500; L4 Salon Manager — N40,300; L5 Salon Boss — N67,500"
+    },
+    "workplace": {
+      "value": "salon",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "chef",
+    "name": {
+      "value": "Chef",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🍳"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Dishwasher). Full verified ladder: L1 Dishwasher — N7,400; L2 Line Cook — N15,000; L3 Sous Chef — N26,500; L4 Head Chef — N42,000; L5 Celebrity Chef — N70,500"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 8."
+    },
+    "requiredSkills": {
+      "value": [
+        "cooking"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Dishwasher",
+        "Line Cook",
+        "Sous Chef",
+        "Head Chef",
+        "Celebrity Chef"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Dishwasher — N7,400; L2 Line Cook — N15,000; L3 Sous Chef — N26,500; L4 Head Chef — N42,000; L5 Celebrity Chef — N70,500"
+    },
+    "workplace": {
+      "value": "mamaPut",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "dj",
+    "name": {
+      "value": "DJ",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🎧"
+    },
+    "payAmount": {
+      "value": 8300,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Hype Man). Full verified ladder: L1 Hype Man — N8,300; L2 Resident DJ — N16,500; L3 Club Headliner — N30,200; L4 Festival DJ — N50,800; L5 Global DJ — N93,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 5 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 300,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Sunday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [0, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 20."
+    },
+    "requiredSkills": {
+      "value": [
+        "music"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Hype Man",
+        "Resident DJ",
+        "Club Headliner",
+        "Festival DJ",
+        "Global DJ"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Hype Man — N8,300; L2 Resident DJ — N16,500; L3 Club Headliner — N30,200; L4 Festival DJ — N50,800; L5 Global DJ — N93,000"
+    },
+    "workplace": {
+      "value": "clubEko",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "trainer",
+    "name": {
+      "value": "Fitness Coach",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🏋🏾"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Gym Floor Assistant). Full verified ladder: L1 Gym Floor Assistant — N7,400; L2 Personal Trainer — N15,800; L3 Head Coach — N27,300; L4 Gym Manager — N42,000; L5 Fitness Mogul — N69,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 7 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 420,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 6."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Gym Floor Assistant",
+        "Personal Trainer",
+        "Head Coach",
+        "Gym Manager",
+        "Fitness Mogul"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Gym Floor Assistant — N7,400; L2 Personal Trainer — N15,800; L3 Head Coach — N27,300; L4 Gym Manager — N42,000; L5 Fitness Mogul — N69,000"
+    },
+    "workplace": {
+      "value": "ikoyiGym",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "creator",
+    "name": {
+      "value": "Content Creator",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 📱"
+    },
+    "payAmount": {
+      "value": 6600,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Aspiring Creator). Full verified ladder: L1 Aspiring Creator — N6,600; L2 Micro-Influencer — N15,000; L3 Brand Ambassador — N28,400; L4 Content Mogul — N49,000; L5 Celebrity Influencer — N90,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 6 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 360,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Sunday",
+        "Monday",
+        "Wednesday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [0, 1, 3, 5, 6] mapped via DAY_NAMES export; shift starts at hour 10."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Aspiring Creator",
+        "Micro-Influencer",
+        "Brand Ambassador",
+        "Content Mogul",
+        "Celebrity Influencer"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Aspiring Creator — N6,600; L2 Micro-Influencer — N15,000; L3 Brand Ambassador — N28,400; L4 Content Mogul — N49,000; L5 Celebrity Influencer — N90,000"
+    },
+    "workplace": {
+      "value": "lcc",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "teacher",
+    "name": {
+      "value": "Teaching",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 📚"
+    },
+    "payAmount": {
+      "value": 8300,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Lesson Teacher). Full verified ladder: L1 Lesson Teacher — N8,300; L2 Class Teacher — N15,800; L3 Head of Department — N25,200; L4 Vice Principal — N36,800; L5 School Proprietor — N63,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 7 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 420,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5] mapped via DAY_NAMES export; shift starts at hour 8."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Lesson Teacher",
+        "Class Teacher",
+        "Head of Department",
+        "Vice Principal",
+        "School Proprietor"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Lesson Teacher — N8,300; L2 Class Teacher — N15,800; L3 Head of Department — N25,200; L4 Vice Principal — N36,800; L5 School Proprietor — N63,000"
+    },
+    "workplace": {
+      "value": "library",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "planner",
+    "name": {
+      "value": "Event Planning",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🎉"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Canopy Boy/Girl). Full verified ladder: L1 Canopy Boy/Girl — N7,400; L2 Event Assistant — N15,000; L3 Event Planner — N27,300; L4 Owambe Specialist — N43,800; L5 Events Mogul — N75,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 10."
+    },
+    "requiredSkills": {
+      "value": [
+        "hustle"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Canopy Boy/Girl",
+        "Event Assistant",
+        "Event Planner",
+        "Owambe Specialist",
+        "Events Mogul"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Canopy Boy/Girl — N7,400; L2 Event Assistant — N15,000; L3 Event Planner — N27,300; L4 Owambe Specialist — N43,800; L5 Events Mogul — N75,000"
+    },
+    "workplace": {
+      "value": "freedomPark",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "pundit",
+    "name": {
+      "value": "Football",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: ⚽"
+    },
+    "payAmount": {
+      "value": 6600,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Viewing Centre Attendant). Full verified ladder: L1 Viewing Centre Attendant — N6,600; L2 Match Commentator — N14,300; L3 Radio Pundit — N25,200; L4 TV Pundit — N40,300; L5 Football Agent — N72,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 6 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 360,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Sunday",
+        "Tuesday",
+        "Wednesday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [0, 2, 3, 6] mapped via DAY_NAMES export; shift starts at hour 16."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Viewing Centre Attendant",
+        "Match Commentator",
+        "Radio Pundit",
+        "TV Pundit",
+        "Football Agent"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Viewing Centre Attendant — N6,600; L2 Match Commentator — N14,300; L3 Radio Pundit — N25,200; L4 TV Pundit — N40,300; L5 Football Agent — N72,000"
+    },
+    "workplace": {
+      "value": "viewingCentre",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "retail",
+    "name": {
+      "value": "Retail",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🛍️"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Sales Rep). Full verified ladder: L1 Sales Rep — N7,400; L2 Floor Supervisor — N15,000; L3 Store Manager — N25,200; L4 Area Manager — N36,800; L5 Retail Boss — N60,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 9."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Sales Rep",
+        "Floor Supervisor",
+        "Store Manager",
+        "Area Manager",
+        "Retail Boss"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Sales Rep — N7,400; L2 Floor Supervisor — N15,000; L3 Store Manager — N25,200; L4 Area Manager — N36,800; L5 Retail Boss — N60,000"
+    },
+    "workplace": {
+      "value": "mall",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "lawyer",
+    "name": {
+      "value": "Law",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: ⚖️"
+    },
+    "payAmount": {
+      "value": 9100,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Law Clerk). Full verified ladder: L1 Law Clerk — N9,100; L2 Associate — N18,000; L3 Senior Associate — N30,200; L4 Partner — N45,500; L5 Senior Advocate (SAN) — N75,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5] mapped via DAY_NAMES export; shift starts at hour 9."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Law Clerk",
+        "Associate",
+        "Senior Associate",
+        "Partner",
+        "Senior Advocate (SAN)"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Law Clerk — N9,100; L2 Associate — N18,000; L3 Senior Associate — N30,200; L4 Partner — N45,500; L5 Senior Advocate (SAN) — N75,000"
+    },
+    "workplace": {
+      "value": "courthouse",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "doctor",
+    "name": {
+      "value": "Medicine",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🧑🏾‍⚕️"
+    },
+    "entryRequirements": {
+      "value": [
+        "fitness level 3"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "From career 'req' object in CAREERS table."
+    },
+    "payAmount": {
+      "value": 21000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (House Officer). Full verified ladder: L1 House Officer — N21,000; L2 Resident Doctor — N31,000; L3 Registrar — N44,000; L4 Consultant — N60,000; L5 Chief Medical Director — N90,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 10 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 600,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 5, 6] mapped via DAY_NAMES export; shift starts at hour 8."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "House Officer",
+        "Resident Doctor",
+        "Registrar",
+        "Consultant",
+        "Chief Medical Director"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 House Officer — N21,000; L2 Resident Doctor — N31,000; L3 Registrar — N44,000; L4 Consultant — N60,000; L5 Chief Medical Director — N90,000. promo thresholds: [4, 5, 7, 9]"
+    },
+    "workplace": {
+      "value": "hospital",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "civil",
+    "name": {
+      "value": "Civil Service",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🗂️"
+    },
+    "entryRequirements": {
+      "value": [
+        "hustle level 3"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "From career 'req' object in CAREERS table."
+    },
+    "payAmount": {
+      "value": 17000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Administrative Officer). Full verified ladder: L1 Administrative Officer — N17,000; L2 Senior Admin Officer — N26,000; L3 Assistant Director — N37,000; L4 Director — N52,000; L5 Permanent Secretary — N76,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5] mapped via DAY_NAMES export; shift starts at hour 8."
+    },
+    "requiredSkills": {
+      "value": [
+        "hustle"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Administrative Officer",
+        "Senior Admin Officer",
+        "Assistant Director",
+        "Director",
+        "Permanent Secretary"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Administrative Officer — N17,000; L2 Senior Admin Officer — N26,000; L3 Assistant Director — N37,000; L4 Director — N52,000; L5 Permanent Secretary — N76,000. promo thresholds: [4, 5, 7, 9]"
+    },
+    "workplace": {
+      "value": "office",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "broadcast",
+    "name": {
+      "value": "Broadcasting",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 📻"
+    },
+    "entryRequirements": {
+      "value": [
+        "comedy level 3"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "From career 'req' object in CAREERS table."
+    },
+    "payAmount": {
+      "value": 18000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Newsroom Reporter). Full verified ladder: L1 Newsroom Reporter — N18,000; L2 On-Air Personality — N28,000; L3 Senior Producer — N40,000; L4 Programme Director — N56,000; L5 Station Manager — N84,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 6 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 360,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 6."
+    },
+    "requiredSkills": {
+      "value": [
+        "comedy"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Newsroom Reporter",
+        "On-Air Personality",
+        "Senior Producer",
+        "Programme Director",
+        "Station Manager"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Newsroom Reporter — N18,000; L2 On-Air Personality — N28,000; L3 Senior Producer — N40,000; L4 Programme Director — N56,000; L5 Station Manager — N84,000. promo thresholds: [4, 5, 7, 9]"
+    },
+    "workplace": {
+      "value": "naijaRadio",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "realtor",
+    "name": {
+      "value": "Real Estate",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🏘️"
+    },
+    "entryRequirements": {
+      "value": [
+        "charisma level 3"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "From career 'req' object in CAREERS table."
+    },
+    "payAmount": {
+      "value": 18000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Estate Agent). Full verified ladder: L1 Estate Agent — N18,000; L2 Senior Agent — N28,000; L3 Property Manager — N41,000; L4 Estate Developer — N58,000; L5 Property Mogul — N88,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 10."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Estate Agent",
+        "Senior Agent",
+        "Property Manager",
+        "Estate Developer",
+        "Property Mogul"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Estate Agent — N18,000; L2 Senior Agent — N28,000; L3 Property Manager — N41,000; L4 Estate Developer — N58,000; L5 Property Mogul — N88,000. promo thresholds: [4, 5, 7, 9]"
+    },
+    "workplace": {
+      "value": "golfClub",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "aviation",
+    "name": {
+      "value": "Aviation",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: ✈️"
+    },
+    "entryRequirements": {
+      "value": [
+        "fitness level 3"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "From career 'req' object in CAREERS table."
+    },
+    "payAmount": {
+      "value": 19000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Cabin Crew). Full verified ladder: L1 Cabin Crew — N19,000; L2 Senior Purser — N30,000; L3 First Officer — N44,000; L4 Captain — N62,000; L5 Chief Pilot — N95,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Sunday",
+        "Monday",
+        "Wednesday",
+        "Thursday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [0, 1, 3, 4, 6] mapped via DAY_NAMES export; shift starts at hour 5."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Cabin Crew",
+        "Senior Purser",
+        "First Officer",
+        "Captain",
+        "Chief Pilot"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Cabin Crew — N19,000; L2 Senior Purser — N30,000; L3 First Officer — N44,000; L4 Captain — N62,000; L5 Chief Pilot — N95,000. promo thresholds: [4, 5, 7, 9]"
+    },
+    "workplace": {
+      "value": "lagosAirport",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "product",
+    "name": {
+      "value": "Product Management",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🧭"
+    },
+    "entryRequirements": {
+      "value": [
+        "coding level 3"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "From career 'req' object in CAREERS table."
+    },
+    "payAmount": {
+      "value": 20000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Associate PM). Full verified ladder: L1 Associate PM — N20,000; L2 Product Manager — N31,000; L3 Senior PM — N45,000; L4 Head of Product — N62,000; L5 Chief Product Officer — N92,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5] mapped via DAY_NAMES export; shift starts at hour 9."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Associate PM",
+        "Product Manager",
+        "Senior PM",
+        "Head of Product",
+        "Chief Product Officer"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Associate PM — N20,000; L2 Product Manager — N31,000; L3 Senior PM — N45,000; L4 Head of Product — N62,000; L5 Chief Product Officer — N92,000. promo thresholds: [4, 5, 7, 9]"
+    },
+    "workplace": {
+      "value": "yabaHub",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "oilgas",
+    "name": {
+      "value": "Oil & Gas",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🛢️"
+    },
+    "entryRequirements": {
+      "value": [
+        "fitness level 3",
+        "or coding level 3 (alternative)"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "From career 'req' object in CAREERS table."
+    },
+    "payAmount": {
+      "value": 20000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Field Technician). Full verified ladder: L1 Field Technician — N20,000; L2 Drilling Engineer — N31,000; L3 Asset Manager — N45,000; L4 General Manager — N63,000; L5 Country MD — N96,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5] mapped via DAY_NAMES export; shift starts at hour 7."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Field Technician",
+        "Drilling Engineer",
+        "Asset Manager",
+        "General Manager",
+        "Country MD"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Field Technician — N20,000; L2 Drilling Engineer — N31,000; L3 Asset Manager — N45,000; L4 General Manager — N63,000; L5 Country MD — N96,000. promo thresholds: [4, 5, 7, 9]"
+    },
+    "workplace": {
+      "value": "phOilBase",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "airport",
+    "name": {
+      "value": "Airport Staff",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🛂"
+    },
+    "payAmount": {
+      "value": 12000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Check-in Agent). Full verified ladder: L1 Check-in Agent — N12,000; L2 Security Officer — N17,000; L3 Ramp Supervisor — N25,000; L4 Terminal Duty Manager — N37,000; L5 Airport Manager — N54,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [0, 1, 2, 4, 5] mapped via DAY_NAMES export; shift starts at hour 6."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Check-in Agent",
+        "Security Officer",
+        "Ramp Supervisor",
+        "Terminal Duty Manager",
+        "Airport Manager"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Check-in Agent — N12,000; L2 Security Officer — N17,000; L3 Ramp Supervisor — N25,000; L4 Terminal Duty Manager — N37,000; L5 Airport Manager — N54,000. promo thresholds: [2, 4, 6, 8]"
+    },
+    "workplace": {
+      "value": "lagosAirport",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "civilService",
+    "name": {
+      "value": "Civil Service",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🏛️"
+    },
+    "entryRequirements": {
+      "value": [
+        "charisma level 2",
+        "or coding level 2 (alternative)"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "From career 'req' object in CAREERS table."
+    },
+    "payAmount": {
+      "value": 17000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Admin Officer). Full verified ladder: L1 Admin Officer — N17,000; L2 Senior Admin Officer — N26,000; L3 Assistant Director — N38,000; L4 Director — N55,000; L5 Permanent Secretary — N82,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5] mapped via DAY_NAMES export; shift starts at hour 8."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Admin Officer",
+        "Senior Admin Officer",
+        "Assistant Director",
+        "Director",
+        "Permanent Secretary"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Admin Officer — N17,000; L2 Senior Admin Officer — N26,000; L3 Assistant Director — N38,000; L4 Director — N55,000; L5 Permanent Secretary — N82,000. promo thresholds: [3, 5, 7, 9]"
+    },
+    "workplace": {
+      "value": "abjSecretariat",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "abjKeke",
+    "name": {
+      "value": "Keke Riding",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🛺"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Keke Rider). Full verified ladder: L1 Keke Rider — N7,400; L2 Keke Owner — N15,800; L3 Park Marshal — N27,300; L4 Fleet Owner — N42,000; L5 Transport Union Chairman — N69,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 7 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 420,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 6."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Keke Rider",
+        "Keke Owner",
+        "Park Marshal",
+        "Fleet Owner",
+        "Transport Union Chairman"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Keke Rider — N7,400; L2 Keke Owner — N15,800; L3 Park Marshal — N27,300; L4 Fleet Owner — N42,000; L5 Transport Union Chairman — N69,000"
+    },
+    "workplace": {
+      "value": "abjGwagwalada",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "abjTrader",
+    "name": {
+      "value": "Wuse Market Trading",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🧺"
+    },
+    "payAmount": {
+      "value": 8300,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Shop Attendant). Full verified ladder: L1 Shop Attendant — N8,300; L2 Stall Owner — N16,500; L3 Wholesaler — N26,500; L4 Importer — N39,400; L5 Sarkin Kasuwa — N63,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 7."
+    },
+    "requiredSkills": {
+      "value": [
+        "hustle"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Shop Attendant",
+        "Stall Owner",
+        "Wholesaler",
+        "Importer",
+        "Sarkin Kasuwa"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Shop Attendant — N8,300; L2 Stall Owner — N16,500; L3 Wholesaler — N26,500; L4 Importer — N39,400; L5 Sarkin Kasuwa — N63,000"
+    },
+    "workplace": {
+      "value": "abjWuseMarket",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "abjTea",
+    "name": {
+      "value": "Mai Shayi",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🫖"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Tea Spot Hand). Full verified ladder: L1 Tea Spot Hand — N7,400; L2 Mai Shayi — N15,000; L3 Canteen Cook — N26,500; L4 Canteen Manager — N42,000; L5 Caterer to the Ministries — N70,500"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 8."
+    },
+    "requiredSkills": {
+      "value": [
+        "cooking"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Tea Spot Hand",
+        "Mai Shayi",
+        "Canteen Cook",
+        "Canteen Manager",
+        "Caterer to the Ministries"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Tea Spot Hand — N7,400; L2 Mai Shayi — N15,000; L3 Canteen Cook — N26,500; L4 Canteen Manager — N42,000; L5 Caterer to the Ministries — N70,500"
+    },
+    "workplace": {
+      "value": "abjSecretariat",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "abjWaiter",
+    "name": {
+      "value": "Lounge Waiting",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🍸"
+    },
+    "payAmount": {
+      "value": 6600,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Waiter). Full verified ladder: L1 Waiter — N6,600; L2 Head Waiter — N14,300; L3 Floor Manager — N25,200; L4 Lounge Manager — N40,300; L5 Lounge Owner — N72,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 6 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 360,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Sunday",
+        "Tuesday",
+        "Wednesday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [0, 2, 3, 6] mapped via DAY_NAMES export; shift starts at hour 16."
+    },
+    "requiredSkills": {
+      "value": [
+        "charisma"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Waiter",
+        "Head Waiter",
+        "Floor Manager",
+        "Lounge Manager",
+        "Lounge Owner"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Waiter — N6,600; L2 Head Waiter — N14,300; L3 Floor Manager — N25,200; L4 Lounge Manager — N40,300; L5 Lounge Owner — N72,000"
+    },
+    "workplace": {
+      "value": "abjLounge",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "phTrader",
+    "name": {
+      "value": "Creek Road Trading",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🧺"
+    },
+    "payAmount": {
+      "value": 8300,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Market Trader). Full verified ladder: L1 Market Trader — N8,300; L2 Stall Owner — N16,500; L3 Wholesaler — N26,500; L4 Importer — N39,400; L5 Market Queen — N63,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 7."
+    },
+    "requiredSkills": {
+      "value": [
+        "hustle"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Market Trader",
+        "Stall Owner",
+        "Wholesaler",
+        "Importer",
+        "Market Queen"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Market Trader — N8,300; L2 Stall Owner — N16,500; L3 Wholesaler — N26,500; L4 Importer — N39,400; L5 Market Queen — N63,000"
+    },
+    "workplace": {
+      "value": "phCreekRoad",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "phFerry",
+    "name": {
+      "value": "Ferry Work",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🚤"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Ferry Hand). Full verified ladder: L1 Ferry Hand — N7,400; L2 Boat Driver — N15,800; L3 Jetty Supervisor — N27,300; L4 Boat Line Manager — N42,000; L5 Waterways Boss — N69,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 7 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 420,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 6."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Ferry Hand",
+        "Boat Driver",
+        "Jetty Supervisor",
+        "Boat Line Manager",
+        "Waterways Boss"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Ferry Hand — N7,400; L2 Boat Driver — N15,800; L3 Jetty Supervisor — N27,300; L4 Boat Line Manager — N42,000; L5 Waterways Boss — N69,000"
+    },
+    "workplace": {
+      "value": "phBonny",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "phBoleSeller",
+    "name": {
+      "value": "Bole & Fish",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🐟"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Bole Seller). Full verified ladder: L1 Bole Seller — N7,400; L2 Fire Master — N15,000; L3 Joint Manager — N26,500; L4 Bole Joint Owner — N42,000; L5 Bole King — N70,500"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 8 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 480,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 10."
+    },
+    "requiredSkills": {
+      "value": [
+        "cooking"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Bole Seller",
+        "Fire Master",
+        "Joint Manager",
+        "Bole Joint Owner",
+        "Bole King"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Bole Seller — N7,400; L2 Fire Master — N15,000; L3 Joint Manager — N26,500; L4 Bole Joint Owner — N42,000; L5 Bole King — N70,500"
+    },
+    "workplace": {
+      "value": "phBole",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "phSecurity",
+    "name": {
+      "value": "Security",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 💂🏾"
+    },
+    "payAmount": {
+      "value": 7400,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Security Guard). Full verified ladder: L1 Security Guard — N7,400; L2 Shift Supervisor — N15,000; L3 Security Manager — N25,200; L4 Head of Security — N36,800; L5 Security Firm Owner — N60,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 3, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 9."
+    },
+    "requiredSkills": {
+      "value": [
+        "fitness"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Security Guard",
+        "Shift Supervisor",
+        "Security Manager",
+        "Head of Security",
+        "Security Firm Owner"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Security Guard — N7,400; L2 Shift Supervisor — N15,000; L3 Security Manager — N25,200; L4 Head of Security — N36,800; L5 Security Firm Owner — N60,000"
+    },
+    "workplace": {
+      "value": "phMall",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  },
+  {
+    "id": "refinery",
+    "name": {
+      "value": "Refining",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Career group emoji in bundle: 🛢️"
+    },
+    "payAmount": {
+      "value": 14000,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "unit": "NGN",
+      "notes": "Level-1 pay (Operator Trainee). Full verified ladder: L1 Operator Trainee — N14,000; L2 Panel Operator — N22,000; L3 Shift Supervisor — N33,000; L4 Plant Manager — N50,000; L5 Refinery GM — N88,000"
+    },
+    "payPeriod": {
+      "value": "shift",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Pay period inferred: each career level defines pay for one work shift of 9 game hours; in-game confirmation pending."
+    },
+    "shiftDurationMinutes": {
+      "value": 540,
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'hours' field x 60 from CAREERS table."
+    },
+    "workSchedule": {
+      "value": [
+        "Monday",
+        "Tuesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "days array [1, 2, 4, 5, 6] mapped via DAY_NAMES export; shift starts at hour 7."
+    },
+    "requiredSkills": {
+      "value": [
+        "hustle"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "'skill' field from CAREERS table."
+    },
+    "promotionRequirements": {
+      "value": [
+        "Operator Trainee",
+        "Panel Operator",
+        "Shift Supervisor",
+        "Plant Manager",
+        "Refinery GM"
+      ],
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "Full pay ladder (title - pay per shift): L1 Operator Trainee — N14,000; L2 Panel Operator — N22,000; L3 Shift Supervisor — N33,000; L4 Plant Manager — N50,000; L5 Refinery GM — N88,000. promo thresholds: [2, 4, 6, 8]. Career has tracks: operator (Plant Operator), driver (Tanker Driver), safety (Safety Officer), lab (Lab Technician), engineer (Process Engineer)"
+    },
+    "workplace": {
+      "value": "lagosRefinery",
+      "status": "verified",
+      "sourceIds": [
+        "src-game-target"
+      ],
+      "evidenceIds": [
+        "ev-client-bundle-2026-10-09"
+      ],
+      "checkedAt": "2026-10-09",
+      "notes": "location id from CAREERS table; see locations.json for the display name."
+    },
+    "lastReviewedAt": "2026-10-09"
+  }
+]

@@ -1,0 +1,213 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VerificationBadge from "../../components/VerificationBadge.astro";
+import {
+  allRecords,
+  findEvidence,
+  findSource,
+  type NormalizedRecord,
+} from "../../lib/game-data";
+
+export function getStaticPaths() {
+  return allRecords.map((record) => ({
+    params: { slug: record.slug },
+    props: { record },
+  }));
+}
+
+interface Props {
+  record: NormalizedRecord;
+}
+
+const { record } = Astro.props;
+
+const linkedSources = record.sourceIds
+  .map((id) => findSource(id))
+  .filter((s): s is NonNullable<typeof s> => s !== undefined);
+
+const linkedEvidence = record.evidenceIds
+  .map((id) => findEvidence(id))
+  .filter((e): e is NonNullable<typeof e> => e !== undefined);
+---
+
+<BaseLayout
+  title={`${record.name} — Game Data — LagosLifeGuide.app`}
+  description={`Verified Lagos Life ${record.typeLabel.toLowerCase()} data for ${record.name}. Field-level verification status with cited sources.`}
+  canonicalPath={`/game-data/${record.slug}/`}
+>
+  <article class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <!-- Breadcrumbs (UIUX §8.3) -->
+    <nav aria-label="Breadcrumb">
+      <ol class="flex flex-wrap items-center gap-space-xs text-label-lg text-text-muted">
+        <li>
+          <a href="/" class="transition-colors hover:text-primary">Home</a>
+        </li>
+        <li aria-hidden="true">/</li>
+        <li>
+          <a href="/game-data/" class="transition-colors hover:text-primary">Game Data</a>
+        </li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="font-semibold text-on-surface">{record.name}</li>
+      </ol>
+    </nav>
+
+    <header class="mt-space-md">
+      <p class="text-label-lg font-semibold uppercase tracking-widest text-brand-dark">{record.typeLabel}</p>
+      <div class="mt-space-xs flex flex-wrap items-center gap-space-md">
+        <h1 class="text-headline-lg font-bold tracking-tight text-on-surface">{record.name}</h1>
+        <VerificationBadge status={record.status} />
+      </div>
+      {
+        record.lastReviewedAt && (
+          <p class="mt-space-sm text-body-md text-text-muted">
+            Last reviewed <time datetime={record.lastReviewedAt}>{record.lastReviewedAt}</time>
+          </p>
+        )
+      }
+    </header>
+
+    <!-- Fields: every populated field with its own verification badge (UIUX §8.3, §8.4) -->
+    <section class="mt-space-lg" aria-labelledby="fields-heading">
+      <h2 id="fields-heading" class="text-headline-md font-bold text-on-surface">Fields</h2>
+      <div class="mt-space-md overflow-hidden rounded-card border border-border bg-surface-container-lowest shadow-card">
+        {
+          record.fields.map((row) => (
+            <div class="border-b border-border last:border-b-0">
+              <div class="flex flex-wrap items-start justify-between gap-space-sm px-space-md py-space-md">
+                <div class="min-w-0">
+                  <dt class="text-label-lg font-semibold text-text-muted">{row.label}</dt>
+                  {row.display !== null ? (
+                    <dd class="mt-space-xs text-body-lg text-on-surface">{row.display}</dd>
+                  ) : (
+                    <dd class="mt-space-xs text-body-lg italic text-text-muted">Not yet verified</dd>
+                  )}
+                  {row.field.notes && (
+                    <p class="mt-space-xs text-body-md text-on-surface-variant">{row.field.notes}</p>
+                  )}
+                  {row.field.applicableVersion && (
+                    <p class="mt-space-xs text-body-sm text-text-muted">
+                      Applies to game version: {row.field.applicableVersion}
+                    </p>
+                  )}
+                  {row.field.checkedAt && (
+                    <p class="mt-space-xs text-body-sm text-text-muted">
+                      Checked <time datetime={row.field.checkedAt}>{row.field.checkedAt}</time>
+                    </p>
+                  )}
+                </div>
+                <VerificationBadge status={row.field.status} />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-space-sm text-body-md text-text-muted">
+        Fields marked “Not yet verified” are unknown — they are never treated as zero or estimated.
+      </p>
+    </section>
+
+    <!-- Sources: real linked SourceRecords with URLs (PRD §2.3, UIUX §9.3) -->
+    <section class="mt-space-xl" aria-labelledby="sources-heading">
+      <h2 id="sources-heading" class="text-headline-md font-bold text-on-surface">Sources</h2>
+      {
+        linkedSources.length > 0 ? (
+          <ul class="mt-space-md grid gap-space-md">
+            {linkedSources.map((source) => (
+              <li class="rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card">
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-body-lg font-semibold text-primary underline-offset-2 hover:underline"
+                >
+                  {source.title ?? source.url}
+                </a>
+                <dl class="mt-space-xs grid gap-space-xs text-body-md">
+                  {source.publisher && (
+                    <div class="flex gap-space-xs">
+                      <dt class="font-semibold text-text-muted">Publisher</dt>
+                      <dd class="text-on-surface">{source.publisher}</dd>
+                    </div>
+                  )}
+                  <div class="flex gap-space-xs">
+                    <dt class="font-semibold text-text-muted">Type</dt>
+                    <dd class="text-on-surface">{source.evidenceType.replace(/_/g, " ")}</dd>
+                  </div>
+                  <div class="flex gap-space-xs">
+                    <dt class="font-semibold text-text-muted">Last accessed</dt>
+                    <dd class="text-on-surface">
+                      <time datetime={source.accessedAt}>{source.accessedAt}</time>
+                    </dd>
+                  </div>
+                  {source.applicableGameUrl && (
+                    <div class="flex gap-space-xs">
+                      <dt class="font-semibold text-text-muted">Applies to</dt>
+                      <dd class="text-on-surface break-all">{source.applicableGameUrl}</dd>
+                    </div>
+                  )}
+                  {source.applicableVersion && (
+                    <div class="flex gap-space-xs">
+                      <dt class="font-semibold text-text-muted">Game version</dt>
+                      <dd class="text-on-surface">{source.applicableVersion}</dd>
+                    </div>
+                  )}
+                </dl>
+                {source.notes && <p class="mt-space-sm text-body-md text-on-surface-variant">{source.notes}</p>}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="mt-space-md text-body-md text-text-muted">
+            No sources are linked to this record yet. Nothing here is presented as confirmed until a
+            source is cited.
+          </p>
+        )
+      }
+    </section>
+
+    <!-- Evidence notes -->
+    {
+      linkedEvidence.length > 0 && (
+        <section class="mt-space-xl" aria-labelledby="evidence-heading">
+          <h2 id="evidence-heading" class="text-headline-md font-bold text-on-surface">
+            Evidence notes
+          </h2>
+          <ul class="mt-space-md grid gap-space-md">
+            {linkedEvidence.map((ev) => (
+              <li class="rounded-card border border-border bg-surface-container-lowest p-space-md shadow-card">
+                <div class="flex flex-wrap items-center gap-space-sm">
+                  <span class="text-label-lg font-semibold uppercase tracking-wide text-text-muted">
+                    {ev.method.replace(/_/g, " ")}
+                  </span>
+                  <span class="text-body-sm text-text-muted">
+                    observed <time datetime={ev.observedAt}>{ev.observedAt}</time>
+                    {ev.gameVersion ? ` · game version ${ev.gameVersion}` : ""}
+                  </span>
+                </div>
+                {ev.observation && (
+                  <p class="mt-space-sm text-body-md text-on-surface">{ev.observation}</p>
+                )}
+                {ev.artifactPath && (
+                  <p class="mt-space-xs text-body-sm text-text-muted">Artifact: {ev.artifactPath}</p>
+                )}
+                {ev.reviewer && (
+                  <p class="mt-space-xs text-body-sm text-text-muted">Reviewer: {ev.reviewer}</p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <p class="mt-space-xl text-body-md">
+      <a
+        href="/report-error/"
+        class="font-semibold text-primary underline-offset-2 hover:underline"
+      >
+        Report an Error
+      </a>
+      {" "}if any field on this page looks wrong — corrections are re-verified against sources before publishing.
+    </p>
+  </article>
+</BaseLayout>
