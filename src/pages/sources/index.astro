@@ -208,7 +208,15 @@ const methodLabels: Record<EvidenceRecord["method"], string> = {
                       )}
                       {record.artifactPath && (
                         <p class="mt-space-sm text-body-sm text-text-muted">
-                          Artifact: <code class="rounded bg-surface-container px-1.5 py-0.5">{record.artifactPath}</code>
+                          Artifact:{" "}
+                          <a
+                            href={`/evidence/${record.artifactPath.split("/").pop()}`}
+                            class="font-semibold text-primary underline underline-offset-2 hover:text-brand-dark"
+                          >
+                            {record.artifactPath.split("/").pop()} (download)
+                          </a>{" "}
+                          · verify with <a href="/evidence/SHA256SUMS.txt" class="font-semibold text-primary underline underline-offset-2 hover:text-brand-dark">SHA256SUMS</a> ·{" "}
+                          <a href="/evidence/README.md" class="font-semibold text-primary underline underline-offset-2 hover:text-brand-dark">what these files are</a>
                         </p>
                       )}
                     </div>

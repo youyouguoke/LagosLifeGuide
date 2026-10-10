@@ -9,10 +9,21 @@ interface Props {
   /** Canonical path without origin, e.g. "/game-data/". Defaults to current path. */
   canonicalPath?: string;
   noindex?: boolean;
+  /** Additional JSON-LD nodes (Article, BreadcrumbList, ...). */
+  jsonLd?: object[];
 }
 
-const { title, description, canonicalPath, noindex = false } = Astro.props;
+const { title, description, canonicalPath, noindex = false, jsonLd = [] } = Astro.props;
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "LagosLifeGuide.app",
+  url: Astro.site?.toString(),
+  description:
+    "Independent Lagos Life guides, verified game data, and a first-week planner. Not affiliated with the game's developer.",
+};
+const graph = [websiteLd, ...jsonLd];
 ---
 
 <!doctype html>
@@ -38,6 +49,7 @@ const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
       defer
       src="https://feedback-hub.youyouguoke.workers.dev/widget.js"
       data-site-id="lagoslifeguide"></script>
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
   </head>
   <body class="flex min-h-screen flex-col">
     <SiteHeader />

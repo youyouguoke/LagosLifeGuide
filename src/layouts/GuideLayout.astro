@@ -17,9 +17,11 @@ interface Props {
   guide: GuidePost;
   /** Source records resolved from guide.sourceIds (never invented). */
   sources: SourceRecord[];
+  /** Extra JSON-LD nodes passed through to BaseLayout (e.g. Article). */
+  jsonLd?: object[];
 }
 
-const { guide, sources } = Astro.props;
+const { guide, sources, jsonLd = [] } = Astro.props;
 
 const tocId = (heading: string) =>
   heading
@@ -73,6 +75,7 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
   title={`${guide.title} — LagosLifeGuide.app`}
   description={guide.summary}
   canonicalPath={`/guides/${guide.slug}/`}
+  jsonLd={jsonLd}
 >
   <article
     class="mx-auto max-w-[1200px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"

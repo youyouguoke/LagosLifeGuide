@@ -23,6 +23,31 @@ interface Props {
 }
 
 const { guide, sources } = Astro.props;
+
+const guideUrl = `https://lagoslifeguide.app/guides/${guide.slug}/`;
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: guide.title,
+    description: guide.summary,
+    dateModified: guide.updatedAt,
+    inLanguage: "en",
+    isAccessibleForFree: true,
+    about: { "@type": "VideoGame", name: "Lagos Life", url: "https://lagoslife.app" },
+    mainEntityOfPage: guideUrl,
+    citation: guide.sourceIds,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://lagoslifeguide.app/" },
+      { "@type": "ListItem", position: 2, name: "Guides", item: "https://lagoslifeguide.app/guides/" },
+      { "@type": "ListItem", position: 3, name: guide.title, item: guideUrl },
+    ],
+  },
+];
 ---
 
-<GuideLayout guide={guide} sources={sources} />
+<GuideLayout guide={guide} sources={sources} jsonLd={jsonLd} />
