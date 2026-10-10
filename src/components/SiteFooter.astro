@@ -1,42 +1,94 @@
 ---
 const year = new Date().getFullYear();
-const links = [
-  { href: "/play/", label: "Play the Game" },
-  { href: "/about/", label: "About" },
-  { href: "/sources/", label: "Sources & Verification" },
-  { href: "/terms/", label: "Terms" },
-  { href: "/privacy/", label: "Privacy Policy" },
-  { href: "mailto:support@lagoslifeguide.app", label: "Contact" },
+
+const groups = [
+  {
+    title: "Play",
+    links: [
+      { href: "/play/", label: "Play the Game" },
+      { href: "/guides/how-to-play/", label: "How to Play" },
+      { href: "/app/", label: "App & Phone" },
+      { href: "/download/", label: "Download & Install" },
+    ],
+  },
+  {
+    title: "Explore",
+    links: [
+      { href: "/tools/first-week-planner/", label: "First Week Planner" },
+      { href: "/guides/", label: "Guides" },
+      { href: "/game-data/", label: "Game Data" },
+      { href: "/sources/", label: "Sources & Verification" },
+    ],
+  },
+  {
+    title: "Site",
+    links: [
+      { href: "/about/", label: "About" },
+      { href: "mailto:support@lagoslifeguide.app", label: "Contact" },
+      { href: "/terms/", label: "Terms" },
+      { href: "/privacy/", label: "Privacy Policy" },
+    ],
+  },
 ];
 ---
 
 <footer class="border-t border-outline-variant/60 bg-surface-container-low">
   <div
-    class="mx-auto flex max-w-[1280px] flex-col gap-space-lg px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"
+    class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"
   >
-    <div class="flex flex-col justify-between gap-space-md sm:flex-row sm:items-center">
-      <span class="text-headline-sm font-semibold text-on-surface">
-        LagosLifeGuide<span class="text-primary-container">.app</span>
-      </span>
-      <nav class="flex flex-wrap gap-space-md" aria-label="Footer">
-        {
-          links.map((l) => (
-            <a
-              href={l.href}
-              class="text-label-lg text-on-surface-variant transition-colors hover:text-primary"
-            >
-              {l.label}
-            </a>
-          ))
-        }
-      </nav>
+    <div class="grid gap-space-lg md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <!-- Brand block -->
+      <div>
+        <span class="text-headline-sm font-semibold tracking-tight text-on-surface">
+          LagosLifeGuide<span class="text-primary-container">.app</span>
+        </span>
+        <p class="mt-space-xs max-w-xs text-body-md text-on-surface-variant">
+          Independent Lagos Life companion — verified game data, honest guides, and a planner
+          that tells you when it doesn't know.
+        </p>
+        <a
+          href="/play/"
+          class="mt-space-md inline-flex items-center gap-1.5 rounded-full bg-primary-container px-4 py-2 text-label-md font-semibold text-on-primary transition-colors hover:bg-primary"
+        >
+          Play the official game
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Link groups -->
+      {
+        groups.map((g) => (
+          <nav aria-label={`Footer: ${g.title}`}>
+            <h2 class="text-label-sm font-bold uppercase tracking-wider text-on-surface">
+              {g.title}
+            </h2>
+            <ul class="mt-space-sm space-y-2">
+              {g.links.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    class="text-label-lg text-on-surface-variant transition-colors hover:text-primary"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
     </div>
-    <p class="max-w-3xl text-body-md text-text-muted">
-      LagosLifeGuide.app is an independent fan-made resource and is not affiliated with or
-      endorsed by the game's developer. Game trademarks and related intellectual property belong
-      to their respective owners. Content is for game information reference only — always defer
-      to the current state of the game itself.
-    </p>
-    <p class="text-body-sm text-text-muted">© {year} LagosLifeGuide.app</p>
+
+    <div class="mt-space-lg border-t border-outline-variant/40 pt-space-md">
+      <p class="max-w-3xl text-body-sm text-text-muted">
+        LagosLifeGuide.app is an independent fan-made resource and is not affiliated with or
+        endorsed by the game's developer. Game trademarks and related intellectual property belong
+        to their respective owners. Content is for game information reference only — always defer
+        to the current state of the game itself.
+      </p>
+      <p class="mt-space-sm text-label-md text-text-muted">© {year} LagosLifeGuide.app</p>
+    </div>
   </div>
 </footer>
