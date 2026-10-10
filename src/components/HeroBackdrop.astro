@@ -1,7 +1,7 @@
 ---
 interface Props {
   src: string;
-  credit: string;
+  credit?: string;
   creditUrl?: string;
   alt?: string;
   /** overlay opacity of the surface wash, 0-1; higher = image more hidden */
@@ -30,15 +30,18 @@ const top = Math.min(1, wash + 0.12);
   <div class="relative">
     <slot />
   </div>
-  <p class="relative px-4 pb-1.5 text-right text-[10px] font-medium text-on-surface-variant/80">
-    Photo: {
-      creditUrl ? (
-        <a href={creditUrl} target="_blank" rel="noopener" class="underline decoration-dotted underline-offset-2 hover:text-primary">
-          {credit}
-        </a>
-      ) : (
-        credit
-      )
-    }
-  </p>
+  {
+    credit && (
+      <p class="relative px-4 pb-1.5 text-right text-[10px] font-medium text-on-surface-variant/80">
+        Photo:{" "}
+        {creditUrl ? (
+          <a href={creditUrl} target="_blank" rel="noopener" class="underline decoration-dotted underline-offset-2 hover:text-primary">
+            {credit}
+          </a>
+        ) : (
+          credit
+        )}
+      </p>
+    )
+  }
 </div>

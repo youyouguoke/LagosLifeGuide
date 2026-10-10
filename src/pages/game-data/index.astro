@@ -48,8 +48,6 @@ const collectionLabel = (key: string) =>
     <div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest p-6 shadow-sm sm:p-10">
       <HeroBackdrop
         src="/images/hero/game-data-marina.jpg"
-        credit="kopee15 · Public domain"
-        creditUrl="https://commons.wikimedia.org/wiki/File:Lagos_skyline_with_marina.jpg"
         alt="Lagos skyline with marina"
       >
       <div
@@ -190,47 +188,6 @@ const collectionLabel = (key: string) =>
           }
         </div>
 
-        <!-- Status filter chips -->
-        <div
-          class="flex shrink-0 items-center gap-2 overflow-x-auto pb-1 sm:pb-0"
-          role="group"
-          aria-label="Filter by verification status"
-        >
-          <span class="mr-1 shrink-0 font-label-md text-label-md uppercase tracking-wider text-outline">
-            Status:
-          </span>
-          <button
-            type="button"
-            data-status-chip="all"
-            aria-pressed="true"
-            class="status-chip rounded-full bg-surface-container px-3 py-1.5 font-label-sm text-label-sm font-bold text-on-surface transition-all hover:opacity-80"
-          >
-            All Statuses
-          </button>
-          <button
-            type="button"
-            data-status-chip="verified"
-            aria-pressed="false"
-            class="status-chip flex items-center gap-1 rounded-full bg-surface-container-low px-3 py-1.5 font-label-sm text-label-sm font-bold text-verified transition-all hover:bg-surface-container"
-          >
-            <span aria-hidden="true">●</span> Verified
-          </button>
-          <button
-            type="button"
-            data-status-chip="partial"
-            aria-pressed="false"
-            class="status-chip flex items-center gap-1 rounded-full bg-surface-container-low px-3 py-1.5 font-label-sm text-label-sm font-bold text-partial transition-all hover:bg-surface-container"
-          >
-            <span aria-hidden="true">◐</span> Partially Verified
-          </button>
-          <button
-            type="button"
-            data-status-chip="pending"
-            aria-pressed="false"
-            class="status-chip flex items-center gap-1 rounded-full bg-surface-container-low px-3 py-1.5 font-label-sm text-label-sm font-bold text-needs-verification transition-all hover:bg-surface-container"
-          >
-            <span aria-hidden="true">○</span> Needs Verification
-          </button>
         </div>
       </div>
     </div>
@@ -365,20 +322,14 @@ const collectionLabel = (key: string) =>
   const searchInput = document.getElementById("game-data-search") as HTMLInputElement | null;
   const clearSearchBtn = document.getElementById("clear-search-btn");
   const chips = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-collection-chip]"));
-  const statusChips = Array.from(
-    document.querySelectorAll<HTMLButtonElement>("[data-status-chip]"),
-  );
   const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-record-card]"));
   const noResults = document.getElementById("game-data-no-results");
   const shownCount = document.getElementById("game-data-shown");
 
   let activeCollection = "all";
-  let activeStatus = "all";
 
   const CHIP_ACTIVE = ["bg-primary", "text-on-primary", "font-bold", "shadow-sm"];
   const CHIP_IDLE = ["bg-surface-container-low", "text-on-surface"];
-  const STATUS_ACTIVE = ["bg-surface-container", "text-on-surface"];
-  const STATUS_IDLE = ["bg-surface-container-low", "text-on-surface-variant"];
 
   function styleButtons(buttons: HTMLButtonElement[], activeKey: string, active: string[], idle: string[]): void {
     for (const btn of buttons) {
@@ -386,19 +337,6 @@ const collectionLabel = (key: string) =>
       btn.setAttribute("aria-pressed", String(isActive));
       for (const cls of active) btn.classList.remove(cls);
       for (const cls of idle) btn.classList.remove(cls);
-      // Re-apply the per-chip tone color for status chips (verified/partial/pending).
-      if (btn.dataset.statusChip && btn.dataset.statusChip !== "all" && !isActive) {
-        btn.classList.add(
-          btn.dataset.statusChip === "verified"
-            ? "text-verified"
-            : btn.dataset.statusChip === "partial"
-              ? "text-partial"
-              : "text-needs-verification",
-        );
-      }
-      if (btn.dataset.statusChip && btn.dataset.statusChip !== "all" && isActive) {
-        btn.classList.remove("text-verified", "text-partial", "text-needs-verification");
-      }
       for (const cls of isActive ? active : idle) btn.classList.add(cls);
     }
   }
@@ -408,9 +346,8 @@ const collectionLabel = (key: string) =>
     let visible = 0;
     for (const card of cards) {
       const inCategory = activeCollection === "all" || card.dataset.collection === activeCollection;
-      const inStatus = activeStatus === "all" || card.dataset.status === activeStatus;
       const inSearch = query === "" || (card.dataset.search ?? "").includes(query);
-      const show = inCategory && inStatus && inSearch;
+      const show = inCategory && inSearch;
       card.classList.toggle("hidden", !show);
       if (show) visible += 1;
     }
@@ -436,13 +373,6 @@ const collectionLabel = (key: string) =>
     });
   }
 
-  for (const chip of statusChips) {
-    chip.addEventListener("click", () => {
-      activeStatus = chip.dataset.statusChip ?? "all";
-      styleButtons(statusChips, activeStatus, STATUS_ACTIVE, STATUS_IDLE);
-      applyFilters();
-    });
-  }
 
   applyFilters();
 </script>
