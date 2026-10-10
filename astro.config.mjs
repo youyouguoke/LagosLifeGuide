@@ -3,12 +3,13 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { copyFileSync } from "node:fs";
 
-// Serve the URL index at the conventional /sitemap.xml path (real file, not a redirect).
+// Serve the flat URL list at the conventional /sitemap.xml path (real file, not a redirect,
+// and not a sitemapindex wrapper — crawlers/GSC get the urlset directly).
 const sitemapXmlAlias = {
   name: "sitemap-xml-alias",
   hooks: {
     "astro:build:done": ({ dir }) => {
-      copyFileSync(new URL("sitemap-index.xml", dir), new URL("sitemap.xml", dir));
+      copyFileSync(new URL("sitemap-0.xml", dir), new URL("sitemap.xml", dir));
     },
   },
 };
