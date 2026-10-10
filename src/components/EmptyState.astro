@@ -1,0 +1,30 @@
+---
+/** EmptyState (UIUX §8.4) — plain-language empty state, never fabricated content. */
+interface Props {
+  title: string;
+  description: string;
+  actionHref?: string;
+  actionLabel?: string;
+}
+
+const { title, description, actionHref, actionLabel } = Astro.props;
+---
+
+<div class="rounded-card border border-dashed border-border bg-surface-container-lowest p-space-lg text-center shadow-card">
+  <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-soft text-brand-dark" aria-hidden="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="7" />
+      <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+    </svg>
+  </div>
+  <h3 class="mt-space-md text-headline-sm font-semibold text-on-surface">{title}</h3>
+  <p class="mx-auto mt-space-sm max-w-md text-body-md text-on-surface-variant">{description}</p>
+  {actionHref && actionLabel && (
+    <a
+      href={actionHref}
+      class="mt-space-md inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-label-lg font-semibold text-white transition-colors hover:bg-brand-dark"
+    >
+      {actionLabel}
+    </a>
+  )}
+</div>

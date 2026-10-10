@@ -1,0 +1,22 @@
+---
+/** SectionHeader — eyebrow + title + optional subtitle. */
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+}
+
+const { eyebrow, title, subtitle } = Astro.props;
+---
+
+<header class="max-w-3xl">
+  {eyebrow && (
+    <p class="text-label-lg font-semibold uppercase tracking-widest text-brand-dark">{eyebrow}</p>
+  )}
+  <h2 class="mt-space-xs text-headline-lg font-bold tracking-tight text-on-surface">
+    {title}
+  </h2>
+  {subtitle && (
+    <p class="mt-space-sm text-body-lg text-on-surface-variant">{subtitle}</p>
+  )}
+</header>

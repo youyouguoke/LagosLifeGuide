@@ -1,0 +1,28 @@
+---
+/** VerificationBadge (UIUX §10.2) — status text always shown, never color alone. */
+interface Props {
+  status: "verified" | "partial" | "needs_verification" | "reported" | "unverified" | "conflicted";
+}
+
+const { status } = Astro.props;
+
+const styles: Record<Props["status"], { label: string; cls: string }> = {
+  verified: { label: "Verified", cls: "bg-verified-bg text-verified" },
+  partial: { label: "Partially Verified", cls: "bg-partial-bg text-partial" },
+  needs_verification: { label: "Needs Verification", cls: "bg-needs-verification-bg text-needs-verification" },
+  reported: { label: "Reported", cls: "bg-partial-bg text-partial" },
+  unverified: { label: "Not yet verified", cls: "bg-surface-muted text-text-muted" },
+  conflicted: { label: "Sources conflict", cls: "bg-needs-verification-bg text-needs-verification" },
+};
+
+const { label, cls } = styles[status];
+---
+
+<span class={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-label-md font-semibold ${cls}`}>
+  {status === "verified" && (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true">
+      <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  )}
+  {label}
+</span>

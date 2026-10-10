@@ -1,0 +1,1 @@
+1603ebce2dfe0f4833b733294a1ddd50d64136b42a97de6f4005fda542ffb40f  data/artifacts/game-client-data-2026-10-09.js

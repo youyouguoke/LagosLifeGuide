@@ -1,0 +1,21 @@
+[
+  {
+    "id": "src-game-target",
+    "url": "https://lagoslife.app",
+    "title": "Lagos Life — live your Lagos story",
+    "evidenceType": "official",
+    "accessedAt": "2026-10-09",
+    "applicableGameUrl": "https://lagoslife.app",
+    "notes": "TARGET GAME INSTANCE (confirmed by site owner 2026-10-09). Operator/publisher not stated on site; no terms or privacy pages discovered in initial review."
+  },
+  {
+    "id": "src-game-alt-instance",
+    "url": "https://lagoslife.com.ng",
+    "title": "Lagos Life — a free Nigeria life simulator: Lagos, Abuja & Port Harcourt",
+    "publisher": "GreatCallie",
+    "evidenceType": "official",
+    "accessedAt": "2026-10-09",
+    "applicableGameUrl": "https://lagoslife.com.ng",
+    "notes": "DIFFERENT GAME INSTANCE (Google Play: com.greatcallie.lagoslife). Similar name and theme; data must NOT be mixed with the target instance. Recorded to document the conflict."
+  }
+]
