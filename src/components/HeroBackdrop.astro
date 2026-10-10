@@ -8,31 +8,37 @@ interface Props {
   wash?: number;
 }
 
-const { src, credit, creditUrl, alt = "", wash = 0.86 } = Astro.props;
+const { src, credit, creditUrl, alt = "", wash = 0.82 } = Astro.props;
 const top = Math.min(1, wash + 0.12);
 ---
 
-<div class="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]" aria-hidden="true">
-  <img
-    src={src}
-    alt={alt}
-    class="absolute inset-0 h-full w-full object-cover"
-    loading="eager"
-    fetchpriority="high"
-  />
-  <div
-    class="absolute inset-0"
-    style={`background:linear-gradient(180deg, color-mix(in srgb, var(--color-surface) ${top * 100}%, transparent) 0%, color-mix(in srgb, var(--color-surface) ${wash * 100}%, transparent) 100%);`}
-  ></div>
+<div class="relative overflow-hidden rounded-[inherit]">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <img
+      src={src}
+      alt={alt}
+      class="absolute inset-0 h-full w-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div
+      class="absolute inset-0"
+      style={`background:linear-gradient(180deg, color-mix(in srgb, var(--color-surface) ${top * 100}%, transparent) 0%, color-mix(in srgb, var(--color-surface) ${wash * 100}%, transparent) 100%);`}
+    ></div>
+  </div>
+  <!-- Content sits above the wash via normal flow + relative positioning -->
+  <div class="relative">
+    <slot />
+  </div>
+  <p class="relative px-4 pb-1.5 text-right text-[10px] font-medium text-on-surface-variant/80">
+    Photo: {
+      creditUrl ? (
+        <a href={creditUrl} target="_blank" rel="noopener" class="underline decoration-dotted underline-offset-2 hover:text-primary">
+          {credit}
+        </a>
+      ) : (
+        credit
+      )
+    }
+  </p>
 </div>
-<p class="absolute bottom-1.5 right-4 z-10 text-[10px] font-medium text-on-surface-variant/80">
-  Photo: {
-    creditUrl ? (
-      <a href={creditUrl} target="_blank" rel="noopener" class="underline decoration-dotted underline-offset-2 hover:text-primary">
-        {credit}
-      </a>
-    ) : (
-      credit
-    )
-  }
-</p>
