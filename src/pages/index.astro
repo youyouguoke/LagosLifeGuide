@@ -162,95 +162,26 @@ const trustCards = [
           </div>
         </div>
 
-        <!-- Right column: original SVG illustration (replaces hotlinked image) -->
+        <!-- Right column: Lagos Life visual -->
         <div class="order-first lg:order-none lg:col-span-6">
           <div class="relative overflow-hidden rounded-3xl bg-surface-container-lowest shadow-xl transition-shadow duration-300 hover:shadow-2xl">
-            <svg viewBox="0 0 560 400" class="h-[300px] w-full object-cover sm:h-[410px]" role="img" aria-label="Abstract isometric illustration of a Lagos city district beside the lagoon, with towers, a ferry, and sun.">
-              <defs>
-                <linearGradient id="lgSky" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#eafef1" />
-                  <stop offset="1" stop-color="#dff3e5" />
-                </linearGradient>
-                <linearGradient id="lgWater" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#86ddfe" />
-                  <stop offset="1" stop-color="#4fa9c8" />
-                </linearGradient>
-              </defs>
-              <rect width="560" height="400" fill="url(#lgSky)" />
-              <!-- sun -->
-              <circle cx="452" cy="76" r="34" fill="#73fbb7" opacity="0.9" />
-              <circle cx="452" cy="76" r="48" fill="#73fbb7" opacity="0.25" />
-              <!-- distant skyline -->
-              <g fill="#d9ede0">
-                <rect x="20" y="120" width="34" height="120" />
-                <rect x="62" y="150" width="26" height="90" />
-                <rect x="400" y="130" width="30" height="110" />
-                <rect x="438" y="160" width="24" height="80" />
-                <rect x="500" y="140" width="32" height="100" />
-              </g>
-              <!-- isometric ground plane -->
-              <polygon points="280,180 560,270 280,360 0,270" fill="#e4f9eb" />
-              <!-- lagoon -->
-              <polygon points="280,268 560,330 560,400 0,400 0,330" fill="url(#lgWater)" />
-              <g stroke="#eafef1" stroke-width="3" fill="none" opacity="0.7" stroke-linecap="round">
-                <path d="M60 350 q14 -8 28 0 t28 0" />
-                <path d="M180 372 q14 -8 28 0 t28 0" />
-                <path d="M330 358 q14 -8 28 0 t28 0" />
-                <path d="M440 380 q14 -8 28 0 t28 0" />
-              </g>
-              <!-- isometric towers: top / left / right faces -->
-              <g>
-                <polygon points="210,196 250,184 290,196 250,208" fill="#53de9c" />
-                <polygon points="210,196 250,208 250,268 210,256" fill="#12845a" />
-                <polygon points="290,196 250,208 250,268 290,256" fill="#19b779" />
-              </g>
-              <g>
-                <polygon points="290,220 322,210 354,220 322,230" fill="#7bd2f2" />
-                <polygon points="290,220 322,230 322,282 290,272" fill="#006780" />
-                <polygon points="354,220 322,230 322,282 354,272" fill="#4fa9c8" />
-              </g>
-              <g>
-                <polygon points="150,224 178,215 206,224 178,233" fill="#93f6c3" />
-                <polygon points="150,224 178,233 178,279 150,270" fill="#0e5c40" />
-                <polygon points="206,224 178,233 178,279 206,270" fill="#19b779" />
-              </g>
-              <g>
-                <polygon points="360,240 382,233 404,240 382,247" fill="#53de9c" />
-                <polygon points="360,240 382,247 382,283 360,276" fill="#12845a" />
-                <polygon points="404,240 382,247 382,283 404,276" fill="#4fb385" />
-              </g>
-              <!-- windows -->
-              <g fill="#eafef1" opacity="0.85">
-                <rect x="220" y="216" width="8" height="10" /><rect x="236" y="221" width="8" height="10" />
-                <rect x="260" y="216" width="8" height="10" /><rect x="274" y="212" width="8" height="10" />
-                <rect x="298" y="236" width="7" height="9" /><rect x="312" y="241" width="7" height="9" />
-                <rect x="330" y="236" width="7" height="9" /><rect x="342" y="232" width="7" height="9" />
-                <rect x="158" y="240" width="7" height="9" /><rect x="170" y="244" width="7" height="9" />
-                <rect x="186" y="240" width="7" height="9" /><rect x="196" y="237" width="7" height="9" />
-              </g>
-              <!-- ferry -->
-              <g>
-                <polygon points="120,320 200,320 186,340 134,340" fill="#006c48" />
-                <rect x="140" y="304" width="40" height="16" rx="3" fill="#eafef1" />
-                <rect x="146" y="308" width="8" height="6" fill="#4fa9c8" />
-                <rect x="158" y="308" width="8" height="6" fill="#4fa9c8" />
-                <line x1="128" y1="344" x2="196" y2="344" stroke="#eafef1" stroke-width="2" stroke-dasharray="6 6" opacity="0.8" />
-              </g>
-              <!-- small sail boat -->
-              <g>
-                <polygon points="420,330 460,330 452,342 428,342" fill="#12845a" />
-                <line x1="440" y1="330" x2="440" y2="300" stroke="#24352c" stroke-width="2.5" />
-                <polygon points="440,300 440,326 418,326" fill="#eafef1" />
-              </g>
-            </svg>
+            <img
+              src="/images/home-hero.jpg"
+              alt="Lagos Life gameplay artwork"
+              class="h-[300px] w-full object-cover sm:h-[410px]"
+              loading="eager"
+              fetchpriority="high"
+              width="1024"
+              height="768"
+            />
             <!-- Floating caption overlay -->
             <div class="absolute bottom-4 left-4 flex items-center gap-2.5 rounded-2xl bg-surface-container-lowest/90 p-3 shadow-md backdrop-blur-md">
               <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-secondary text-surface-container-lowest">
                 <span class="[&>svg]:h-5 [&>svg]:w-5" set:html={i.sailing} />
               </div>
               <div>
-                <div class="text-label-md font-semibold text-on-surface">Illustration — Lagos skyline &amp; lagoon</div>
-                <div class="text-body-sm text-on-surface-variant">Original artwork created for this site</div>
+                <div class="text-label-md font-semibold text-on-surface">Lagos Life</div>
+                <div class="text-body-sm text-on-surface-variant">Gameplay artwork provided by the community</div>
               </div>
             </div>
           </div>
