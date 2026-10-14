@@ -703,7 +703,7 @@ const jobOptions = jobs
           value="${cost ? cost.amount : ""}"
         />
         <label class="sr-only">Cost period</label>
-        <select data-cost-period
+        <select data-cost-period aria-label="Recurring cost period"
           class="rounded-xl border border-outline-variant bg-surface-container-low/60 px-4 py-2 text-body-lg text-on-surface transition-all hover:bg-surface-container-low focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-container">
           <option value="week" ${cost?.period === "week" ? "selected" : ""}>per week</option>
           <option value="day" ${cost?.period === "day" ? "selected" : ""}>per day</option>

@@ -25,9 +25,11 @@ interface Props {
   lastReviewedAt?: string;
   /** Lowercased haystack for the client-side search filter. */
   searchText: string;
+  /** Numeric amount for directory sorting; null/undefined = not sortable. */
+  sortAmount?: number | null;
 }
 
-const { href, id, name, typeLabel, chipLabel, status, filterStatus, keyFields, collection, lastReviewedAt, searchText } =
+const { href, id, name, typeLabel, chipLabel, status, filterStatus, keyFields, collection, lastReviewedAt, searchText, sortAmount } =
   Astro.props;
 
 const shownKeyFields = keyFields.slice(0, 3);
@@ -39,6 +41,7 @@ const shownKeyFields = keyFields.slice(0, 3);
   data-collection={collection}
   data-status={filterStatus}
   data-search={searchText}
+  data-sort={sortAmount ?? ""}
   class="group flex flex-col justify-between rounded-2xl bg-surface-container-lowest p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
 >
   <div>

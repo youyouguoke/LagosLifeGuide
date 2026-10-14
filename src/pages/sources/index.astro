@@ -595,4 +595,10 @@ const methodLabels: Record<EvidenceRecord["method"], string> = {
       });
     });
   </script>
+
+  <script is:inline>
+    // source_view (PRD section 10): the Sources page is itself a trust signal worth measuring.
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "source_view" });
+  </script>
 </BaseLayout>

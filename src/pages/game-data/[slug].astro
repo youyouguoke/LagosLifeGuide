@@ -481,4 +481,9 @@ function fieldValue(row: FieldRow): string {
       </div>
     </section>
   </div>
+
+  <script is:inline define:vars={{ collection: record.collection, slug: record.slug }}>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "game_data_view", collection: collection, slug: slug });
+  </script>
 </BaseLayout>

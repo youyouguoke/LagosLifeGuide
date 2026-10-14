@@ -85,6 +85,11 @@ export interface NormalizedRecord {
   sourceIds: string[];
   evidenceIds: string[];
   lastReviewedAt?: string;
+  /**
+   * Numeric amount for directory sorting (jobs pay, housing cost), null when
+   * the collection has no meaningful amount or the value is unknown.
+   */
+  sortAmount: number | null;
 }
 
 /* ------------------------------------------------------------------ */
@@ -385,6 +390,17 @@ export function normalizeRecord(
   const evidenceIds = [...new Set(fields.flatMap((f) => f.field.evidenceIds ?? []))];
   const lastReviewedAt = typeof raw.lastReviewedAt === "string" ? raw.lastReviewedAt : undefined;
 
+  const amountField =
+    collection === "jobs"
+      ? fieldOrNull(raw.payAmount)
+      : collection === "housing-costs"
+        ? fieldOrNull(raw.amount)
+        : null;
+  const sortAmount =
+    amountField && typeof amountField.value === "number" && Number.isFinite(amountField.value)
+      ? amountField.value
+      : null;
+
   return {
     slug: slugFor(collection, record.id, idCounts),
     collection,
@@ -397,6 +413,7 @@ export function normalizeRecord(
     sourceIds,
     evidenceIds,
     lastReviewedAt,
+    sortAmount,
   };
 }
 

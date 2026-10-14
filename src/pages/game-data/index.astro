@@ -187,6 +187,20 @@ const collectionLabel = (key: string) =>
             ))
           }
         </div>
+
+        <div class="flex shrink-0 items-center gap-2">
+          <label for="game-data-sort" class="font-label-md text-label-md uppercase tracking-wider text-outline">
+            Sort:
+          </label>
+          <select
+            id="game-data-sort"
+            class="rounded-full bg-surface-container-low px-3 py-2 font-label-md text-label-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container"
+          >
+            <option value="default">Default</option>
+            <option value="amount-desc">Amount: high → low</option>
+            <option value="amount-asc">Amount: low → high</option>
+          </select>
+        </div>
       </div>
     </div>
   </section>
@@ -226,6 +240,7 @@ const collectionLabel = (key: string) =>
                 collection={rec.collection}
                 lastReviewedAt={rec.lastReviewedAt}
                 searchText={rec.searchText}
+                sortAmount={rec.sortAmount}
               />
             ))}
           </div>
@@ -362,6 +377,39 @@ const collectionLabel = (key: string) =>
     }
     applyFilters();
   });
+
+  // Amount sorting (PRD §2.3): stable sort; records without a known amount
+  // keep their relative order at the end.
+  const sortSelect = document.getElementById("game-data-sort") as HTMLSelectElement | null;
+  const list = document.getElementById("game-data-list");
+  const originalOrder = Array.from(list?.children ?? []);
+
+  function applySort(): void {
+    if (!list) return;
+    const mode = sortSelect?.value ?? "default";
+    const items = Array.from(list.children) as HTMLElement[];
+    if (mode === "default") {
+      for (const el of originalOrder) list.appendChild(el);
+      return;
+    }
+    const valueOf = (el: HTMLElement): number | null => {
+      const raw = el.dataset.sort ?? "";
+      if (raw === "") return null;
+      const n = Number(raw);
+      return Number.isFinite(n) ? n : null;
+    };
+    const sorted = items.slice().sort((a, b) => {
+      const av = valueOf(a);
+      const bv = valueOf(b);
+      if (av === null && bv === null) return 0;
+      if (av === null) return 1;
+      if (bv === null) return -1;
+      return mode === "amount-asc" ? av - bv : bv - av;
+    });
+    for (const el of sorted) list.appendChild(el);
+  }
+
+  sortSelect?.addEventListener("change", applySort);
 
   for (const chip of chips) {
     chip.addEventListener("click", () => {

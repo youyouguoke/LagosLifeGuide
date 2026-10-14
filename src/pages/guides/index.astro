@@ -325,6 +325,17 @@ const statuses = [
           applyFilters();
         });
       });
+
+      // guide_click (PRD §10): track which guide card visitors open.
+      const grid = document.getElementById("guides-grid");
+      grid?.addEventListener("click", (event: MouseEvent) => {
+        const anchor = (event.target as HTMLElement).closest("a");
+        if (!anchor) return;
+        const match = anchor.getAttribute("href")?.match(/\/guides\/([^/]+)\//);
+        const w = window as unknown as { dataLayer?: unknown[] };
+        if (!Array.isArray(w.dataLayer)) w.dataLayer = [];
+        w.dataLayer.push({ event: "guide_click", slug: match?.[1] ?? "" });
+      });
     })();
   </script>
 </BaseLayout>
