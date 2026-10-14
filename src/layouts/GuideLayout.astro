@@ -313,6 +313,22 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
                   </p>
                 ))}
               </div>
+              {
+                section.image && (
+                  <figure class="overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface-container-lowest shadow-sm">
+                    <img
+                      src={section.image.src}
+                      alt={section.image.alt}
+                      loading="lazy"
+                      decoding="async"
+                      class="h-auto w-full"
+                    />
+                    <figcaption class="px-space-md py-space-sm text-body-sm text-on-surface-variant">
+                      {section.image.caption}
+                    </figcaption>
+                  </figure>
+                )
+              }
             </section>
           ))
         }

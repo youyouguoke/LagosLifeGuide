@@ -26,5 +26,14 @@
     "accessedAt": "2026-10-10",
     "applicableGameUrl": "https://lagoslife.app",
     "notes": "Independent third-party guide covering the same game instance. Reviewed during editorial process for topic coverage; not cited as evidence for any published value on this site."
+  },
+  {
+    "id": "src-game-screenshots-2026-10-14",
+    "url": "https://lagoslife.app",
+    "title": "Lagos Life — in-game screenshots captured during verification session",
+    "evidenceType": "game_client",
+    "accessedAt": "2026-10-14",
+    "applicableGameUrl": "https://lagoslife.app",
+    "notes": "Unedited captures from a live gameplay session on the official instance (test account), archived in /evidence/in-game-2026-10-14/ and reused as page illustrations under /images/gameplay/. Same game instance this site covers; screenshots are factual depictions of the official game."
   }
 ]

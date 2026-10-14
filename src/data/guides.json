@@ -25,7 +25,12 @@
       },
       {
         "heading": "3. Cover Rent Before Anything Else",
-        "body": "The verified cheapest roofs in the game are the UNILAG Hall of Residence at ₦1,200, a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro at ₦2,600, and a single room in Kubwa at ₦2,800. Rent is charged weekly, due on Saturday (verified in-game on 14 Oct 2026). Moving into the UNILAG hall costs ₦3,600 upfront: two weeks' rent plus a one-week agent & agreement fee. What the data can tell you: even the mid-tier ₦6,000 options (Yaba, Gwarinpa, D-Line) cost less than one Banking shift."
+        "body": "The verified cheapest roofs in the game are the UNILAG Hall of Residence at ₦1,200, a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro at ₦2,600, and a single room in Kubwa at ₦2,800. Rent is charged weekly, due on Saturday (verified in-game on 14 Oct 2026). Moving into the UNILAG hall costs ₦3,600 upfront: two weeks' rent plus a one-week agent & agreement fee. What the data can tell you: even the mid-tier ₦6,000 options (Yaba, Gwarinpa, D-Line) cost less than one Banking shift.",
+        "image": {
+          "src": "/images/gameplay/houses-list-rent.png",
+          "alt": "Lagos Life Phone menu, Houses list showing Hall of Residence UNILAG at 1,200 naira per week",
+          "caption": "The in-game Houses list: the UNILAG hall at ₦1,200/week, with high-end Lagos rents visible above it. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "4. Pick Your First Job From the 13 No-Requirement Careers",
@@ -33,11 +38,21 @@
       },
       {
         "heading": "5. Work a Shift, Then Read the Actual Credit",
-        "body": "Client data gives base pay per shift, but what lands in your wallet can differ — bonuses, deductions, or rank effects are exactly the kind of thing only an observed shift confirms. After your first shift, write down the amount actually received and use that number in the planner from then on. If the received amount consistently differs from our table, that is a reportable correction: use the feedback button (bottom-right) and pick 'Correction'."
+        "body": "Client data gives base pay per shift, but what lands in your wallet can differ — bonuses, deductions, or rank effects are exactly the kind of thing only an observed shift confirms. After your first shift, write down the amount actually received and use that number in the planner from then on. If the received amount consistently differs from our table, that is a reportable correction: use the feedback button (bottom-right) and pick 'Correction'.",
+        "image": {
+          "src": "/images/gameplay/work-shift-banking.png",
+          "alt": "Lagos Life banking shift UI at Marina Towers showing accrued pay of 6,850 naira at 61 percent progress",
+          "caption": "A Banking shift in progress: pay accrues visibly (₦6,850 at 61%). The credit you actually receive is the ground truth. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "6. Recover Meters Before the Next Long Action",
-        "body": "The verified basics: Sleep restores +12 energy over 8 hours on any bed; Soak Garri & Sugar takes 12 minutes and restores +22 hunger. Cooking actions (Jollof, Amala & Ewedu) exist in the data with effects recorded, but their prices are not — check the in-game cost before relying on them. Training and work both drain meters (Lift Weights costs energy -14 and hygiene -18, for example), so the loop that keeps you productive is: work, eat, recover, then train — not the reverse."
+        "body": "The verified basics: Sleep restores +12 energy over 8 hours on any bed; Soak Garri & Sugar takes 12 minutes and restores +22 hunger. Cooking actions (Jollof, Amala & Ewedu) exist in the data with effects recorded, but their prices are not — check the in-game cost before relying on them. Training and work both drain meters (Lift Weights costs energy -14 and hygiene -18, for example), so the loop that keeps you productive is: work, eat, recover, then train — not the reverse.",
+        "image": {
+          "src": "/images/gameplay/buka-menu-amala-shitta.png",
+          "alt": "Lagos Life buka counter menu at Amala Shitta with prices for amala, jollof, pepper soup, ofada rice and zobo",
+          "caption": "Meal prices at the Amala Shitta counter — under the active food-subsidy policy they displayed round-to-₦50 of base × 0.7. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "7. Train Toward One Skill Gate",
@@ -151,7 +166,12 @@
     "sections": [
       {
         "heading": "The Full Picture: 17 Homes, 3 Cities",
-        "body": "Lagos (cheapest to priciest): UNILAG Hall of Residence, Akoka ₦1,200 · face-me-I-face-you, Mushin ₦2,400 · self-contain, Yaba ₦6,000 · mini-flat, Lekki Phase 1 ₦17,000 · terrace duplex, Ikate ₦45,000 · family duplex, Magodo GRA ₦110,000 · duplex, Ikoyi ₦250,000 · mansion, Banana Island ₦1,500,000. Abuja: single room, Kubwa ₦2,800 · mini flat, Gwarinpa ₦6,000 · serviced apartment, Wuse 2 ₦34,000 · detached house, Maitama ₦240,000 · mansion, Asokoro ₦1,400,000. Port Harcourt: single room, Rumuokoro ₦2,600 · mini flat, D-Line ₦6,000 · serviced apartment, Woji ₦32,000 · colonial duplex, Old GRA ₦220,000."
+        "body": "Lagos (cheapest to priciest): UNILAG Hall of Residence, Akoka ₦1,200 · face-me-I-face-you, Mushin ₦2,400 · self-contain, Yaba ₦6,000 · mini-flat, Lekki Phase 1 ₦17,000 · terrace duplex, Ikate ₦45,000 · family duplex, Magodo GRA ₦110,000 · duplex, Ikoyi ₦250,000 · mansion, Banana Island ₦1,500,000. Abuja: single room, Kubwa ₦2,800 · mini flat, Gwarinpa ₦6,000 · serviced apartment, Wuse 2 ₦34,000 · detached house, Maitama ₦240,000 · mansion, Asokoro ₦1,400,000. Port Harcourt: single room, Rumuokoro ₦2,600 · mini flat, D-Line ₦6,000 · serviced apartment, Woji ₦32,000 · colonial duplex, Old GRA ₦220,000.",
+        "image": {
+          "src": "/images/gameplay/houses-list-rent.png",
+          "alt": "Lagos Life Houses list showing weekly rents from the 1,200 naira UNILAG hall to the 1.875 million naira Banana Island mansion",
+          "caption": "The live rent ladder as the game displays it — note the four high-end homes at exactly 1.25× the game-file values on capture day. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "The ₦6,000 Sweet Spot",

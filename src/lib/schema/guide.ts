@@ -10,6 +10,15 @@ import type { VerificationStatus } from "./common";
 export interface GuideSection {
   heading: string;
   body: string;
+  /**
+   * Optional in-game screenshot illustrating this section. src is a site-root
+   * path under /images/gameplay/; alt/caption must state where it was captured.
+   */
+  image?: {
+    src: string;
+    alt: string;
+    caption: string;
+  };
 }
 
 export interface GuidePost {
