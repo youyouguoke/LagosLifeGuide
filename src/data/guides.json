@@ -120,7 +120,12 @@
     "sections": [
       {
         "heading": "How Careers Are Structured",
-        "body": "Every career has five levels, and each level pays per shift. Level-1 roles are open to everyone; mid-tier careers (₦17,000–₦21,000 per shift) require one skill at level 3 — for example Medicine requires fitness level 3, Oil & Gas requires fitness level 3 or coding level 3, Product Management requires coding level 3, Broadcasting requires comedy level 3, Real Estate requires charisma level 3, Aviation requires fitness level 3, and Lagos Civil Service requires hustle level 3. Abuja's Civil Service variant accepts charisma level 2 or coding level 2. That means your first weeks should pair a no-requirement job with skill training aimed at the gate you want to unlock."
+        "body": "Every career has five levels, and each level pays per shift. Level-1 roles are open to everyone; mid-tier careers (₦17,000–₦21,000 per shift) require one skill at level 3 — for example Medicine requires fitness level 3, Oil & Gas requires fitness level 3 or coding level 3, Product Management requires coding level 3, Broadcasting requires comedy level 3, Real Estate requires charisma level 3, Aviation requires fitness level 3, and Lagos Civil Service requires hustle level 3. Abuja's Civil Service variant accepts charisma level 2 or coding level 2. That means your first weeks should pair a no-requirement job with skill training aimed at the gate you want to unlock.",
+        "image": {
+          "src": "/images/gameplay/work-shift-banking.png",
+          "alt": "Lagos Life banking shift in progress at Marina Towers showing accrued pay and task stars",
+          "caption": "Every career pays per shift as you work — this Banking shift accrues pay visibly and pays out on completion. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "Tech: ₦9,900 → ₦76,500 Per Shift",
@@ -209,7 +214,12 @@
       },
       {
         "heading": "Fitness: Lift Weights Leads at Rate 2.0",
-        "body": "The best recorded fitness trainer is Lift Weights (60 minutes, rate 2.0) — but it drains energy -14 and hygiene -18, so schedule a shower and a meal around it. Treadmill (45 min, 1.6) and a PT Session (60 min) are the next tier. Almost-free alternatives that multitask: swimming in the Atlantic (60 min, rate 1.0, fun +20), beach football (1.2, social +16), and carrying loads as an Alabaru — 120 minutes at rate 0.8 but it pays ₦2,250 while you train. Even walking the dog builds 0.5 while adding +20 fun."
+        "body": "The best recorded fitness trainer is Lift Weights (60 minutes, rate 2.0) — but it drains energy -14 and hygiene -18, so schedule a shower and a meal around it. Treadmill (45 min, 1.6) and a PT Session (60 min) are the next tier. Almost-free alternatives that multitask: swimming in the Atlantic (60 min, rate 1.0, fun +20), beach football (1.2, social +16), and carrying loads as an Alabaru — 120 minutes at rate 0.8 but it pays ₦2,250 while you train. Even walking the dog builds 0.5 while adding +20 fun.",
+        "image": {
+          "src": "/images/gameplay/gym-training.png",
+          "alt": "Lagos Life i-Fitness gym treadmill action costing 300 naira and granting fitness",
+          "caption": "Training actions cost naira and energy and pay out skill XP — the treadmill at i-Fitness runs ₦300 a session. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "Coding: Grind the Hackathon and Side Projects",
@@ -242,7 +252,12 @@
     "sections": [
       {
         "heading": "What the University Actually Gives You",
-        "body": "The game data states three things per degree: faculty, programme length, and a mapping to an associated skill plus the careers it feeds. That makes the university a structured alternative to grinding skill trainers — a Computer Science degree builds coding and feeds the Tech career, which starts at ₦9,900 per shift and tops out at ₦76,500 as CTO. Fees are recorded as a flat ₦20,000 (school-wide constant, not per-degree), and programmes run four or five years."
+        "body": "The game data states three things per degree: faculty, programme length, and a mapping to an associated skill plus the careers it feeds. That makes the university a structured alternative to grinding skill trainers — a Computer Science degree builds coding and feeds the Tech career, which starts at ₦9,900 per shift and tops out at ₦76,500 as CTO. Fees are recorded as a flat ₦20,000 (school-wide constant, not per-degree), and programmes run four or five years.",
+        "image": {
+          "src": "/images/gameplay/campus-unilag-where-to.png",
+          "alt": "Lagos Life UNILAG campus on a sunny morning with the halls of residence and campus paths",
+          "caption": "The UNILAG campus in-game: enrol at the Senate Building, attend lectures, and a hall bunk becomes your cheapest roof. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "The Two Tech Feeds: Computer Science and Systems Engineering",
@@ -279,7 +294,12 @@
     "sections": [
       {
         "heading": "The Three Verified Odd Jobs",
-        "body": "Carry Load as an Alabaru: 120 minutes, earns ₦2,250, trains fitness at rate 0.8 — the only action in the game that pays you AND builds a career-gating skill, at the cost of energy -12 and hygiene -10. Help at the Buka (wash plates): 1750 naira per session, hygiene -8, fun -5, quick and unglamorous. Report a Crime: ₦2,000 with social +12 on top — the best social-per-naira deal in the verified data. All three are available with no requirements."
+        "body": "Carry Load as an Alabaru: 120 minutes, earns ₦2,250, trains fitness at rate 0.8 — the only action in the game that pays you AND builds a career-gating skill, at the cost of energy -12 and hygiene -10. Help at the Buka (wash plates): 1750 naira per session, hygiene -8, fun -5, quick and unglamorous. Report a Crime: ₦2,000 with social +12 on top — the best social-per-naira deal in the verified data. All three are available with no requirements.",
+        "image": {
+          "src": "/images/gameplay/market-alabaru.png",
+          "alt": "Lagos Life Balogun Market loading bay with the Carry Load Alabaru odd job visible",
+          "caption": "The Alabaru carry-load job at Balogun Market's loading bay: earns naira, trains Fitness, costs Energy — no career required. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "How Odd-Job Money Compares to a Shift",
@@ -303,7 +323,8 @@
     ],
     "limitations": [
       "All 69 prices are verified one-time amounts from the game files, but which items a given home requires (if any) is not recorded.",
-      "Whether luxury items grant any in-game benefit beyond ownership is not in the extracted data — we list them as prices, not as recommendations."
+      "Whether luxury items grant any in-game benefit beyond ownership is not in the extracted data — we list them as prices, not as recommendations.",
+      "Luxury-item weekly-income claims (jets +₦15m/₦40m/₦120m per week) are in-game store text observed 14 Oct 2026, not independently verified payouts."
     ],
     "sections": [
       {
@@ -316,7 +337,12 @@
       },
       {
         "heading": "The Billionaire Shelf",
-        "body": "The catalog's top end is not furniture — it's a trophy ledger. Diamond-Studded Throne ₦250,000,000. Old Master Painting ₦400,000,000. Gold Bullion Vault ₦500,000,000. Private Helicopter ₦750,000,000. Superyacht ₦1,500,000,000. Private Jet ₦3,000,000,000. And the most expensive item in the entire game: the Heavy Jet at ₦9,000,000,000. For scale: at the game's highest verified salary — Oil & Gas Country MD at ₦96,000 per shift — the Heavy Jet costs more than 93,000 shifts. Nobody buys this with a salary; it exists as an endgame sink."
+        "body": "The catalog's top end is not furniture — it's a trophy ledger. Diamond-Studded Throne ₦250,000,000. Old Master Painting ₦400,000,000. Gold Bullion Vault ₦500,000,000. Private Helicopter ₦750,000,000. Superyacht ₦1,500,000,000. Private Jet ₦3,000,000,000. And the most expensive item in the entire game: the Heavy Jet at ₦9,000,000,000. For scale: at the game's highest verified salary — Oil & Gas Country MD at ₦96,000 per shift — the Heavy Jet costs more than 93,000 shifts. Nobody buys this with a salary; it exists as an endgame sink. One detail only visible in-game: the jets carry an advertised weekly income in the shop (Light Jet +₦15m, Mid-size Jet +₦40m, Heavy Jet +₦120m per week). Treat those as store claims — we have not observed a payout cycle ourselves.",
+        "image": {
+          "src": "/images/gameplay/furniture-luxury-shop.png",
+          "alt": "Lagos Life luxury shop listing a gold bullion vault, helicopter, light jet, superyacht, private jets up to a 9 billion naira heavy jet",
+          "caption": "The luxury shelf as the game displays it — up to the ₦9bn Heavy Jet. The jets advertise weekly income; we have not independently observed a payout. Captured in-game at lagoslife.app · 14 Oct 2026."
+        }
       },
       {
         "heading": "What to Actually Buy",
