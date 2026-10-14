@@ -11232,10 +11232,11 @@
         "src-game-target"
       ],
       "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
+        "ev-client-bundle-2026-10-09",
+        "ev-in-game-2026-10-14"
       ],
-      "checkedAt": "2026-10-09",
-      "notes": "'cost' field from ACTIONS table."
+      "checkedAt": "2026-10-14",
+      "notes": "In-game menu (Amala Shitta, 2026-10-14) displayed round-to-₦50 of base×0.7 under the active 30% food-subsidy policy; base 300 confirmed by reversal."
     },
     "costCurrency": {
       "value": "NGN",
@@ -11306,10 +11307,11 @@
         "src-game-target"
       ],
       "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
+        "ev-client-bundle-2026-10-09",
+        "ev-in-game-2026-10-14"
       ],
-      "checkedAt": "2026-10-09",
-      "notes": "'cost' field from ACTIONS table."
+      "checkedAt": "2026-10-14",
+      "notes": "In-game menu (Amala Shitta, 2026-10-14) displayed round-to-₦50 of base×0.7 under the active 30% food-subsidy policy; base 550 confirmed by reversal."
     },
     "costCurrency": {
       "value": "NGN",
@@ -11380,10 +11382,11 @@
         "src-game-target"
       ],
       "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
+        "ev-client-bundle-2026-10-09",
+        "ev-in-game-2026-10-14"
       ],
-      "checkedAt": "2026-10-09",
-      "notes": "'cost' field from ACTIONS table."
+      "checkedAt": "2026-10-14",
+      "notes": "In-game menu (Amala Shitta, 2026-10-14) displayed round-to-₦50 of base×0.7 under the active 30% food-subsidy policy; base 400 confirmed by reversal."
     },
     "costCurrency": {
       "value": "NGN",
@@ -11528,10 +11531,11 @@
         "src-game-target"
       ],
       "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
+        "ev-client-bundle-2026-10-09",
+        "ev-in-game-2026-10-14"
       ],
-      "checkedAt": "2026-10-09",
-      "notes": "'cost' field from ACTIONS table."
+      "checkedAt": "2026-10-14",
+      "notes": "In-game menu (Amala Shitta, 2026-10-14) displayed round-to-₦50 of base×0.7 under the active 30% food-subsidy policy; base 600 confirmed by reversal."
     },
     "costCurrency": {
       "value": "NGN",

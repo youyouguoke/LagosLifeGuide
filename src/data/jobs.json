@@ -135,11 +135,12 @@
         "src-game-target"
       ],
       "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
+        "ev-client-bundle-2026-10-09",
+        "ev-in-game-2026-10-14"
       ],
-      "checkedAt": "2026-10-09",
+      "checkedAt": "2026-10-14",
       "unit": "NGN",
-      "notes": "Level-1 pay (Marketer). Full verified ladder: L1 Marketer — N11,600; L2 Relationship Officer — N21,000; L3 Branch Manager — N31,500; L4 Executive Director — N44,600; L5 MD/CEO — N72,000"
+      "notes": "Career group emoji in bundle: 🏦. In-game corroboration 2026-10-14: Branch Manager I shift accrued ₦6,850 by ~66% progress and paid out exactly (no tax deducted at this level); consistent with ₦11,600 base."
     },
     "payPeriod": {
       "value": "shift",

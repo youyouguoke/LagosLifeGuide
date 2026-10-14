@@ -25,7 +25,7 @@
       },
       {
         "heading": "3. Cover Rent Before Anything Else",
-        "body": "The verified cheapest roofs in the game are the UNILAG Hall of Residence at ₦1,200, a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro at ₦2,600, and a single room in Kubwa at ₦2,800. Here is the honest catch: the game files record these amounts but not the rent period. Until that is verified in-game, reserve several periods' worth before optional spending — how many periods is a judgement call the data cannot make for you. What the data can tell you: even the mid-tier ₦6,000 options (Yaba, Gwarinpa, D-Line) cost less than one Banking shift."
+        "body": "The verified cheapest roofs in the game are the UNILAG Hall of Residence at ₦1,200, a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro at ₦2,600, and a single room in Kubwa at ₦2,800. Rent is charged weekly, due on Saturday (verified in-game on 14 Oct 2026). Moving into the UNILAG hall costs ₦3,600 upfront: two weeks' rent plus a one-week agent & agreement fee. What the data can tell you: even the mid-tier ₦6,000 options (Yaba, Gwarinpa, D-Line) cost less than one Banking shift."
       },
       {
         "heading": "4. Pick Your First Job From the 13 No-Requirement Careers",
@@ -75,7 +75,7 @@
       },
       {
         "heading": "Sleep Cheap: The Cheapest Roofs in the Game",
-        "body": "The cheapest place to live is the UNILAG Hall of Residence in Akoka at ₦1,200. After that: a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro (Port Harcourt) at ₦2,600, and a single room in Kubwa (Abuja) at ₦2,800. A self-contain in Yaba, a mini flat in Gwarinpa (Abuja), and a mini flat in D-Line (Port Harcourt) all cost ₦6,000 — the natural upgrade once your career income stabilises. At the other extreme, a mansion on Banana Island costs ₦1,500,000 — 1,250× the UNILAG hostel. Warning: the game files record these rent amounts but not the rent period, so we cannot yet tell you whether ₦6,000 means per week or per month. Verify in-game before committing your savings."
+        "body": "The cheapest place to live is the UNILAG Hall of Residence in Akoka at ₦1,200. After that: a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro (Port Harcourt) at ₦2,600, and a single room in Kubwa (Abuja) at ₦2,800. A self-contain in Yaba, a mini flat in Gwarinpa (Abuja), and a mini flat in D-Line (Port Harcourt) all cost ₦6,000 — the natural upgrade once your career income stabilises. At the other extreme, a mansion on Banana Island costs ₦1,500,000 — 1,250× the UNILAG hostel. All rents are per week, charged on Saturday (verified in-game on 14 Oct 2026). One drift caveat: on that date the live game quoted four high-end Lagos homes (Ikoyi duplex, Banana Island mansion, Ikate terrace, Magodo duplex) at exactly 1.25× the values in the game files, while every low-end figure matched exactly. Treat the expensive end as approximate until the multiplier is pinned down."
       },
       {
         "heading": "Keep Your Meters Green for Free",
@@ -145,7 +145,7 @@
     ],
     "limitations": [
       "Rents verified from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
-      "Rent period (per week / per month / one-time) is NOT stated in the game files — this is our biggest open unknown and it changes every affordability conclusion. Confirm in-game.",
+      "Rent period verified in-game 14 Oct 2026: weekly, due Saturday. One drift caveat: four high-end Lagos homes displayed exactly 1.25× the game-file values that day, while all low-end figures matched exactly.\n",
       "Furnishing is separate: 69 furniture items carry one-time prices in the data, but which items each home requires is not yet verified."
     ],
     "sections": [
@@ -155,7 +155,7 @@
       },
       {
         "heading": "The ₦6,000 Sweet Spot",
-        "body": "Three different cities offer the same ₦6,000 mid-tier: a Yaba self-contain in Lagos, a Gwarinpa mini flat in Abuja, and a D-Line mini flat in Port Harcourt. If your career is in Lagos, Yaba is the natural upgrade from Mushin at only 2.5× the price — and Yaba is also home to CcHub (08:00–23:00 in the game), which matters for tech-flavoured play. Until the rent period is verified, we can't rank these by true affordability; what we can say is that the game designers priced the three cities' mid-tiers identically."
+        "body": "Three different cities offer the same ₦6,000 mid-tier: a Yaba self-contain in Lagos, a Gwarinpa mini flat in Abuja, and a D-Line mini flat in Port Harcourt. If your career is in Lagos, Yaba is the natural upgrade from Mushin at only 2.5× the price — and Yaba is also home to CcHub (08:00–23:00 in the game), which matters for tech-flavoured play. With rent verified as weekly (due Saturday), the three cities' identical ₦6,000 mid-tier pricing is a like-for-like comparison."
       },
       {
         "heading": "The Luxury Cliff",
@@ -163,7 +163,7 @@
       },
       {
         "heading": "What We Don't Know Yet",
-        "body": "Three open questions before any rent is 'advice' rather than 'data': (1) the rent period — weekly or monthly changes the maths by 4×; (2) furnishing requirements — the data prices 69 furniture items separately (one-time), but which homes demand which items is unverified; (3) location-linked perks — homes near job hubs may save commute time, but commute mechanics are not in the extracted data. Every one of these is marked 'Not yet verified' on the individual housing records in our Game Data directory, and any confirmed answer you find in-game can be reported from the record page."
+        "body": "Two open questions before any rent is 'advice' rather than 'data': (1) furnishing requirements — the data prices 69 furniture items separately (one-time), but which homes demand which items is unverified; (3) location-linked perks — homes near job hubs may save commute time, but commute mechanics are not in the extracted data. Every one of these is marked 'Not yet verified' on the individual housing records in our Game Data directory, and any confirmed answer you find in-game can be reported from the record page."
       }
     ]
   },
@@ -267,7 +267,7 @@
       },
       {
         "heading": "A Broke-Start Money Order",
-        "body": "A data-backed opening loop when your wallet is near zero: run Alabaru sessions until you can cover your first rent period plus a buffer (the cheapest verified roof, the UNILAG hostel, is ₦1,200 — one Alabaru session nearly covers it), keep hygiene above water with the cheapest hygiene actions you can find, then take the first Banking or Tech shift that fits your energy. Rent period is still unverified, so pad the buffer. From there, follow the First Week Roadmap guide — the odd jobs have done their job once a real salary starts."
+        "body": "A data-backed opening loop when your wallet is near zero: run Alabaru sessions until you can cover your first rent period plus a buffer (the cheapest verified roof, the UNILAG hostel, is ₦1,200 — one Alabaru session nearly covers it), keep hygiene above water with the cheapest hygiene actions you can find, then take the first Banking or Tech shift that fits your energy. Rent is weekly and due on Saturday (verified in-game 14 Oct 2026), so a two-week buffer is a sane minimum. From there, follow the First Week Roadmap guide — the odd jobs have done their job once a real salary starts."
       }
     ]
   },
@@ -300,7 +300,7 @@
       },
       {
         "heading": "What to Actually Buy",
-        "body": "The honest advice the data can back: buy essentials early (they're nearly free), treat everything above ₦50,000 as pure aspiration until your career gate is unlocked and rent is covered across an unverified rent period, and ignore the billionaire shelf entirely unless you can explain where the naira came from. What we cannot yet tell you: whether specific homes demand specific furnishings, and whether any item grants bonuses — both are marked 'Not yet verified' on the records until a player confirms them in-game."
+        "body": "The honest advice the data can back: buy essentials early (they're nearly free), treat everything above ₦50,000 as pure aspiration until your career gate is unlocked and rent is covered a week ahead (rent is weekly, due Saturday — verified in-game 14 Oct 2026), and ignore the billionaire shelf entirely unless you can explain where the naira came from. What we cannot yet tell you: whether specific homes demand specific furnishings, and whether any item grants bonuses — both are marked 'Not yet verified' on the records until a player confirms them in-game."
       }
     ]
   }

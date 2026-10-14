@@ -124,11 +124,12 @@
         "src-game-target"
       ],
       "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
+        "ev-client-bundle-2026-10-09",
+        "ev-in-game-2026-10-14"
       ],
-      "checkedAt": "2026-10-09",
+      "checkedAt": "2026-10-14",
       "unit": "NGN",
-      "notes": "'rent' field from HOMES table."
+      "notes": "rent' field from HOMES table. In-game verified 2026-10-14: displayed ₦17,000/week matches bundle base exactly (current home in test session)."
     },
     "currency": {
       "value": "NGN",
@@ -178,9 +179,9 @@
       "evidenceIds": [
         "ev-client-bundle-2026-10-09"
       ],
-      "checkedAt": "2026-10-09",
+      "checkedAt": "2026-10-14",
       "unit": "NGN",
-      "notes": "'rent' field from HOMES table."
+      "notes": "'rent' field from HOMES table. Drift caveat: live game displayed ₦312,500/week on 2026-10-14 = exactly 1.25× this bundle base; cause (dynamic market vs policy multiplier) unverified. Value kept at bundle base."
     },
     "currency": {
       "value": "NGN",
@@ -230,9 +231,9 @@
       "evidenceIds": [
         "ev-client-bundle-2026-10-09"
       ],
-      "checkedAt": "2026-10-09",
+      "checkedAt": "2026-10-14",
       "unit": "NGN",
-      "notes": "'rent' field from HOMES table."
+      "notes": "'rent' field from HOMES table. Drift caveat: live game displayed ₦1,875,000/week on 2026-10-14 = exactly 1.25× this bundle base; cause (dynamic market vs policy multiplier) unverified. Value kept at bundle base."
     },
     "currency": {
       "value": "NGN",
@@ -282,9 +283,9 @@
       "evidenceIds": [
         "ev-client-bundle-2026-10-09"
       ],
-      "checkedAt": "2026-10-09",
+      "checkedAt": "2026-10-14",
       "unit": "NGN",
-      "notes": "'rent' field from HOMES table."
+      "notes": "'rent' field from HOMES table. Drift caveat: live game displayed ₦56,250/week on 2026-10-14 = exactly 1.25× this bundle base; cause (dynamic market vs policy multiplier) unverified. Value kept at bundle base."
     },
     "currency": {
       "value": "NGN",
@@ -334,9 +335,9 @@
       "evidenceIds": [
         "ev-client-bundle-2026-10-09"
       ],
-      "checkedAt": "2026-10-09",
+      "checkedAt": "2026-10-14",
       "unit": "NGN",
-      "notes": "'rent' field from HOMES table."
+      "notes": "'rent' field from HOMES table. Drift caveat: live game displayed ₦137,500/week on 2026-10-14 = exactly 1.25× this bundle base; cause (dynamic market vs policy multiplier) unverified. Value kept at bundle base."
     },
     "currency": {
       "value": "NGN",
@@ -852,11 +853,12 @@
         "src-game-target"
       ],
       "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
+        "ev-client-bundle-2026-10-09",
+        "ev-in-game-2026-10-14"
       ],
-      "checkedAt": "2026-10-09",
+      "checkedAt": "2026-10-14",
       "unit": "NGN",
-      "notes": "'rent' field from HOMES table."
+      "notes": "rent' field from HOMES table. In-game verified: ₦1,200/week; every home pays rent weekly on Saturday; move-in = 2 weeks upfront (₦2,400) + ₦1,200 agent & agreement = ₦3,600, deducted exactly."
     },
     "currency": {
       "value": "NGN",

@@ -7,5 +7,14 @@
     "gameUrl": "https://lagoslife.app",
     "observation": "Static data tables extracted from the game's own client bundle (sha256 1603ebce...b40f). Client-displayed values; in-game spot-check pending.",
     "artifactPath": "data/artifacts/game-client-data-2026-10-09.js"
+  },
+  {
+    "id": "ev-in-game-2026-10-14",
+    "sourceId": "src-game-target",
+    "method": "in_game_test",
+    "observedAt": "2026-10-14",
+    "gameUrl": "https://lagoslife.app",
+    "observation": "Live gameplay on a test account: Nepo Baby origin credited ₦500,000; Banking career (Branch Manager I) shift accrued ₦6,850 at ~66% and paid out exactly (balance 499,850→506,700); Amala Shitta menu under the active 30% food-subsidy policy displayed round50(base×0.7) for all four items matching bundle costs 300/550/400/600; UNILAG matriculation charged ₦35,000 (₦15,000 acceptance + ₦20,000 first-session fees) with the 8 departments matching bundle faculties/years; Hall of Residence rent ₦1,200/week verified with move-in breakdown ₦2,400 (2 weeks upfront) + ₦1,200 (agent & agreement) = ₦3,600 deducted exactly; every home pays rent weekly on Saturday. High-end Lagos home rents displayed exactly 1.25× bundle base on this date (Ikoyi 312,500; Banana Island 1,875,000; Ikate 56,250; Magodo 137,500) while low-end matched exactly — live rent drift, base values retained in dataset.",
+    "artifactPath": "evidence/in-game-2026-10-14/"
   }
 ]
