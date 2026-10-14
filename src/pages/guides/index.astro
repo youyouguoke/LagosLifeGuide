@@ -223,6 +223,38 @@ const statuses = [
           </a>
         </div>
       </div>
+
+      <!-- Gameplay screenshot strip — captured in-game at lagoslife.app -->
+      <div class="relative z-10 mt-space-lg grid grid-cols-3 gap-space-sm">
+        {[
+          {
+            src: "/images/gameplay/lagos-city-map.png",
+            alt: "Lagos Life city map with location pins across Lagos",
+          },
+          {
+            src: "/images/gameplay/campus-unilag-where-to.png",
+            alt: "Lagos Life UNILAG campus on a sunny morning",
+          },
+          {
+            src: "/images/gameplay/beach-scene.png",
+            alt: "Lagos Life beach location with other players",
+          },
+        ].map((shot) => (
+          <a
+            href="/play/"
+            class="group overflow-hidden rounded-2xl border border-outline-variant/40 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+            aria-label="See what the game looks like — official play page"
+          >
+            <img
+              src={shot.src}
+              alt={shot.alt}
+              loading="lazy"
+              decoding="async"
+              class="h-auto w-full transition-transform duration-300 group-hover:scale-[1.03]"
+            />
+          </a>
+        ))}
+      </div>
     </section>
   </div>
 
