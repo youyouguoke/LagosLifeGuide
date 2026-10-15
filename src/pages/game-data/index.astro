@@ -39,9 +39,21 @@ const collectionLabel = (key: string) =>
 ---
 
 <BaseLayout
-  title="Game Data — LagosLifeGuide.app"
-  description="Structured, source-verified Lagos Life datasets: jobs, housing and living costs, skills and actions, and locations. Every field is verified individually against cited sources."
+  title="Lagos Life Game Data: Jobs, Rent, Skills & Locations – LagosLifeGuide"
+  description="Structured Lagos Life datasets: 33 careers with level-1 pay, housing and living costs, 325 skills and actions, and locations. Every field shows its own verification status, sources and check date."
   canonicalPath="/game-data/"
+  jsonLd={[
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      name: "Lagos Life Game Data",
+      url: "https://lagoslifeguide.app/game-data/",
+      description:
+        "Structured Lagos Life datasets: 33 careers with level-1 pay, housing and living costs, 325 skills and actions, and 28 locations. Every field carries its own verification status, cited sources and check date.",
+      license: "https://lagoslifeguide.app/terms/",
+      creator: { "@type": "Organization", name: "LagosLifeGuide", url: "https://lagoslifeguide.app/about/" },
+    },
+  ]}
 >
   <!-- Top intro section (Stitch game_data_directory) -->
   <section class="mx-auto w-full max-w-[1280px] px-4 pb-6 pt-8 sm:px-6 lg:px-10">

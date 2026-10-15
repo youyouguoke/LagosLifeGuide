@@ -234,7 +234,9 @@ function fieldDisplay(
     case "jobs.payAmount": {
       const periodField = fieldOrNull(record.payPeriod);
       const period = periodField ? formatScalar(periodField.value) : null;
-      return withCurrencyAndPeriod(value, null, period);
+      // Caliber label (P0-2): payAmount is always the level-1 entry figure;
+      // the full L1–L5 ladder lives in the field notes.
+      return `${withCurrencyAndPeriod(value, null, period)} · Level 1 entry`;
     }
     case "jobs.shiftDurationMinutes":
       return formatMinutes(field.value as number);
@@ -388,7 +390,19 @@ export function normalizeRecord(
   const nameField = fields.find((f) => f.key === "name");
   const sourceIds = [...new Set(fields.flatMap((f) => f.field.sourceIds ?? []))];
   const evidenceIds = [...new Set(fields.flatMap((f) => f.field.evidenceIds ?? []))];
-  const lastReviewedAt = typeof raw.lastReviewedAt === "string" ? raw.lastReviewedAt : undefined;
+  // Record-level review date: explicit value wins; otherwise derive from the
+  // latest per-field checkedAt so a record never shows a field status while
+  // claiming the review date is missing (P0-3 label consistency).
+  const checkedDates = fields
+    .map((f) => f.field.checkedAt)
+    .filter((d): d is string => typeof d === "string" && d.length > 0)
+    .sort();
+  const lastReviewedAt =
+    typeof raw.lastReviewedAt === "string"
+      ? raw.lastReviewedAt
+      : checkedDates.length > 0
+        ? checkedDates[checkedDates.length - 1]
+        : undefined;
 
   const amountField =
     collection === "jobs"

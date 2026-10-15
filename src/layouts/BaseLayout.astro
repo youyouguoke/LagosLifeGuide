@@ -34,6 +34,17 @@ const graph = [websiteLd, ...jsonLd];
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <!-- Open Graph / Twitter (P0-6) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="LagosLifeGuide" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL("/images/og-default.jpg", Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL("/images/og-default.jpg", Astro.site)} />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="180x180" href="/favicon-180.png" />
     <link rel="apple-touch-icon" href="/favicon-180.png" />

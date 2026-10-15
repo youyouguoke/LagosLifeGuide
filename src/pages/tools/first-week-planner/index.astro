@@ -11,8 +11,21 @@ const jobOptions = jobs
 ---
 
 <BaseLayout
-  title="Plan Your First Week — LagosLifeGuide.app"
-  description="Build a practical plan around your current situation and what you want to achieve."
+  title="Lagos Life First Week Planner: Budget, Jobs & Rent – LagosLifeGuide"
+  description="Free Lagos Life planner: enter your cash, rent and skills to get a 7-day plan. Runs in your browser; unknown values are never treated as zero."
+  jsonLd={[
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Lagos Life First Week Planner",
+      url: "https://lagoslifeguide.app/tools/first-week-planner/",
+      applicationCategory: "GameApplication",
+      operatingSystem: "Any (web browser)",
+      description:
+        "Free browser-side planner for the Lagos Life game: enter your cash, rent and skills to get a 7-day plan. Unknown values are never treated as zero.",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "NGN" },
+    },
+  ]}
 >
   <div class="mx-auto max-w-[1280px] px-margin md:px-margin-tablet lg:px-margin-desktop">
     <!-- Top utility bar: breadcrumb + local-storage status (Stitch sub-nav treatment) -->
@@ -70,10 +83,10 @@ const jobOptions = jobs
         3-Step Planning Tool
       </div>
       <h1 class="mt-space-xs text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
-        Plan Your First Week
+        Lagos Life First Week Planner
       </h1>
       <p class="mt-space-sm max-w-2xl text-body-lg text-on-surface-variant">
-        Build a practical plan around your current situation and what you want to achieve.
+        Enter your cash, rent and skills to get a 7-day plan. Everything runs in your browser — nothing is sent to a server.
       </p>
 
       <!-- Stepper indicator (Stitch tab treatment) -->

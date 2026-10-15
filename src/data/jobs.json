@@ -1859,7 +1859,7 @@
   {
     "id": "civil",
     "name": {
-      "value": "Civil Service",
+      "value": "Civil Service (Lagos)",
       "status": "verified",
       "sourceIds": [
         "src-game-target"
@@ -1868,7 +1868,7 @@
         "ev-client-bundle-2026-10-09"
       ],
       "checkedAt": "2026-10-09",
-      "notes": "Career group emoji in bundle: 🗂️"
+      "notes": "Career group emoji in bundle: 🗂️ Display name disambiguated 2026-10-15: distinct from Abuja civilService record."
     },
     "entryRequirements": {
       "value": [
@@ -2751,7 +2751,7 @@
   {
     "id": "civilService",
     "name": {
-      "value": "Civil Service",
+      "value": "Civil Service (Abuja)",
       "status": "verified",
       "sourceIds": [
         "src-game-target"
@@ -2760,7 +2760,7 @@
         "ev-client-bundle-2026-10-09"
       ],
       "checkedAt": "2026-10-09",
-      "notes": "Career group emoji in bundle: 🏛️"
+      "notes": "Career group emoji in bundle: 🏛️ Display name disambiguated 2026-10-15: distinct from Lagos civil record."
     },
     "entryRequirements": {
       "value": [
