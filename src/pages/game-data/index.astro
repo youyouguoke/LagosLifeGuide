@@ -241,7 +241,7 @@ const collectionLabel = (key: string) =>
           <div id="game-data-list" class="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
             {cards.map((rec) => (
               <DataRecordCard
-                href={`/game-data/${rec.slug}/`}
+                href={rec.collection === "jobs" ? `/jobs/${rec.slug}/` : `/game-data/${rec.slug}/`}
                 id={rec.slug}
                 name={rec.name}
                 typeLabel={rec.typeLabel}

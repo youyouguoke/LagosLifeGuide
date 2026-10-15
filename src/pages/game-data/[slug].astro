@@ -12,10 +12,14 @@ import {
 } from "../../lib/game-data";
 
 export function getStaticPaths() {
-  return allRecords.map((record) => ({
-    params: { slug: record.slug },
-    props: { record },
-  }));
+  // Job records now live under /jobs/<slug>/ (P1-1 keyword URLs); the old
+  // /game-data/<slug>/ addresses 301 via public/_redirects.
+  return allRecords
+    .filter((record) => record.collection !== "jobs")
+    .map((record) => ({
+      params: { slug: record.slug },
+      props: { record },
+    }));
 }
 
 interface Props {

@@ -18,6 +18,48 @@ const dataCounts = [
   { label: "Locations", count: locations.length },
 ];
 
+/* P1-2: homepage FAQ — answers grounded in the site's own data and policies. */
+const faqs = [
+  {
+    q: "Where is the official Lagos Life game?",
+    a: "Lagos Life is a browser game served from lagoslife.app. Our Play page links to it directly and explains how to sign in safely. This website is an independent guide — we never host the game and never ask for your password.",
+  },
+  {
+    q: "Is LagosLifeGuide affiliated with the developer?",
+    a: "No. LagosLifeGuide is an independent, fan-made resource and is not affiliated with or endorsed by the game's developer. Trademarks belong to their owners.",
+  },
+  {
+    q: "Do I need an app or an APK to play Lagos Life?",
+    a: "No. Lagos Life runs in a browser, including on phones. On Android or iPhone you can install it from the browser's 'Add to Home Screen' / 'Install app' menu — no store download or APK is required. Be careful with look-alike apps in stores: the instance this site covers is the web game at lagoslife.app.",
+  },
+  {
+    q: "Can I withdraw game naira as real money?",
+    a: "No mechanism for that exists in the game client data we analyse, and no such feature has been observed in play. Treat game naira as a fictional in-game currency with no real-world value.",
+  },
+  {
+    q: "How are the numbers on this site verified?",
+    a: "Every data field carries its own status — Verified, Partially Verified, or Needs Verification — together with the sources and check date behind it. A growing subset has been corroborated by logged-in play with screenshots kept as evidence. Anything unknown is shown as 'Data Pending' and is never estimated.",
+  },
+  {
+    q: "How often is the data updated?",
+    a: "Every record shows the date it was last checked. When the game updates, we re-extract the client data files, re-run field-level verification, and update the affected records.",
+  },
+  {
+    q: "Is Lagos Life like The Sims?",
+    a: "It is a life simulation in the same broad genre: you build a character, work careers, rent homes, train skills and grow your wealth over in-game weeks. It plays in a browser, is set in Lagos (with Abuja and Port Harcourt areas), and uses naira as its currency. It is a different game from The Sims, made by a different developer.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 /** Inline SVG icons (stroke style) — no external icon font dependency. */
 const icon = (paths: string, filled = false) =>
   `<svg width="20" height="20" viewBox="0 0 24 24" fill="${filled ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="shrink-0">${paths}</svg>`;
@@ -107,6 +149,7 @@ const trustCards = [
 <BaseLayout
   title="Lagos Life Guide: Jobs, Rent & Skills Data – LagosLifeGuide"
   description="Independent Lagos Life guide: 472 records on jobs, rent and skills, each field with its own verification status and cited sources, plus a free first-week planner. Not affiliated with the developer."
+  jsonLd={[faqJsonLd]}
 >
   <!-- Top ambient lagoon aura -->
   <div class="relative w-full overflow-hidden">
@@ -313,7 +356,7 @@ const trustCards = [
       <div class="grid grid-cols-2 gap-space-md md:grid-cols-4">
         {dataCounts.map((d) => (
           <a
-            href="/game-data/"
+            href={d.label === "Careers" ? "/jobs/" : "/game-data/"}
             class="group rounded-3xl border border-outline-variant/50 bg-surface p-space-md transition-shadow hover:shadow-lg"
           >
             <div class="text-headline-lg font-extrabold tracking-tight text-primary">{d.count}</div>
@@ -369,6 +412,69 @@ const trustCards = [
         >
           <span>Use the feedback button (bottom-right)</span>
         </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. ABOUT THIS GUIDE (P1-2: long-form copy for search intent) -->
+  <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <div class="grid gap-space-lg lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-secondary">
+          <span>About this guide</span>
+        </div>
+        <h2 class="text-headline-lg-mobile font-bold text-inverse-surface md:text-headline-lg">
+          What Lagos Life is, and what this site adds
+        </h2>
+      </div>
+      <div class="max-w-3xl space-y-4 text-body-lg leading-relaxed text-on-surface-variant lg:col-span-8">
+        <p>
+          Lagos Life is a free-to-play life simulation that runs in your browser at lagoslife.app.
+          You create a character, pick an origin — from a broke newcomer to a well-funded "Nepo
+          Baby" — and build a life across Lagos, Abuja and Port Harcourt: working career ladders
+          from street trading to CEO, renting anything from a Yaba self-contain to a Banana Island
+          mansion, studying at UNILAG, and training skills that unlock better jobs. LagosLifeGuide
+          is an independent companion site for that game. We are not the developer and not
+          affiliated with them.
+        </p>
+        <p>
+          What you get here is data you can act on. The <a href="/jobs/" class="font-semibold text-primary hover:underline">Jobs &amp; Pay hub</a> compares all 33
+          careers with their full five-level pay ladders and skill gates. The
+          <a href="/game-data/" class="font-semibold text-primary hover:underline">Game Data directory</a> holds 472 structured records covering rent, transport,
+          food, degrees, skills and locations. Eight <a href="/guides/" class="font-semibold text-primary hover:underline">guides</a> walk you through the
+          first week, career ladders, housing costs and money-making without a job. And the
+          <a href="/tools/first-week-planner/" class="font-semibold text-primary hover:underline">first-week planner</a> turns your actual starting situation into a
+          seven-day plan — entirely in your browser, with nothing sent to any server.
+        </p>
+        <p>
+          Every number on this site carries its own verification trail. Each field is labelled
+          Verified, Partially Verified, or Needs Verification, with the sources and check date
+          listed on the record itself and the full methodology on our
+          <a href="/sources/" class="font-semibold text-primary hover:underline">Sources &amp; Verification</a> page. A growing set of values — starting cash,
+          banking pay, food prices, UNILAG fees, dorm rent and the weekly rent cycle — has been
+          confirmed by logged-in play, with screenshots archived as evidence. Where the game
+          itself does not tell us a value, we show "Data Pending" instead of guessing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ (P1-2) -->
+  <section id="faq" class="w-full bg-surface-container-lowest/60 py-space-xl">
+    <div class="mx-auto max-w-[1280px] px-margin md:px-margin-tablet lg:px-margin-desktop">
+      <h2 class="text-headline-lg-mobile font-bold text-inverse-surface md:text-headline-lg">
+        Frequently asked questions
+      </h2>
+      <div class="mt-space-md grid gap-space-md md:grid-cols-2">
+        {faqs.map((f) => (
+          <details class="group rounded-2xl border border-outline-variant/40 bg-surface p-space-md open:shadow-md">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-space-sm font-headline-sm text-headline-sm font-extrabold text-on-surface [&::-webkit-details-marker]:hidden">
+              {f.q}
+              <span class="text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-space-sm text-body-md leading-relaxed text-on-surface-variant">{f.a}</p>
+          </details>
+        ))}
       </div>
     </div>
   </section>

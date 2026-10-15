@@ -8,6 +8,21 @@ const jobs = jobsJson as GameJob[];
 const jobOptions = jobs
   .filter((j) => typeof j.name?.value === "string" && j.name.value.trim() !== "")
   .map((j) => ({ id: j.id, name: j.name.value as string }));
+
+// P1-3: weekly projection lookup (level-1 pay × scheduled shifts per week).
+const jobLookup: Record<string, { name: string; pay: number | null; shifts: number | null }> =
+  Object.fromEntries(
+    jobs.map((j) => [
+      j.id,
+      {
+        name: (j.name?.value as string) ?? j.id,
+        pay: typeof j.payAmount?.value === "number" ? j.payAmount.value : null,
+        shifts: Array.isArray(j.workSchedule?.value)
+          ? (j.workSchedule.value as unknown[]).length
+          : null,
+      },
+    ]),
+  );
 ---
 
 <BaseLayout
@@ -180,6 +195,26 @@ const jobOptions = jobs
               />
               <p class="mt-space-xs text-body-md text-outline">
                 Leave blank if unknown — we never treat unknown as zero.
+              </p>
+              <div class="mt-space-xs flex flex-wrap gap-space-xs">
+                <button
+                  type="button"
+                  data-preset-cash="500000"
+                  class="rounded-full bg-primary-fixed/50 px-3 py-1.5 font-label-md text-label-md font-bold text-primary transition-colors hover:bg-primary-fixed"
+                >
+                  Preset: Nepo Baby start · ₦500,000
+                </button>
+                <button
+                  type="button"
+                  data-preset-cash="60000"
+                  class="rounded-full bg-primary-fixed/50 px-3 py-1.5 font-label-md text-label-md font-bold text-primary transition-colors hover:bg-primary-fixed"
+                >
+                  Preset: LAPO start · ₦60,000
+                </button>
+              </div>
+              <p class="mt-1 text-body-sm text-outline">
+                Nepo ₦500,000 corroborated in-game (2026-10-14); LAPO ₦60,000 from the game client
+                files, in-game check still pending.
               </p>
               <p id="planner-cash-error" class="mt-space-xs hidden text-body-md font-semibold text-needs-verification" role="alert"></p>
             </div>
@@ -555,6 +590,19 @@ const jobOptions = jobs
       <!-- Budget: always labelled "remaining after known costs", never total balance (BD-003) -->
       <div id="result-budget" class="mt-space-md"></div>
 
+      <!-- Weekly projection (P1-3): income − weekly known costs, formula shown -->
+      <div id="result-projection" class="mt-space-md"></div>
+
+      <div class="mt-space-md flex justify-end">
+        <button
+          id="plan-copy"
+          type="button"
+          class="rounded-button bg-surface-container-high px-5 py-2.5 font-label-lg text-label-lg font-semibold text-on-surface transition-colors hover:bg-surface-container-highest"
+        >
+          Copy plan summary
+        </button>
+      </div>
+
       <div class="mt-space-md">
         <h3 class="text-headline-sm font-semibold text-on-surface">Recommendations</h3>
         <div id="result-recommendations" class="mt-space-sm grid gap-space-md"></div>
@@ -572,6 +620,7 @@ const jobOptions = jobs
     </section>
   </div>
 
+  <script type="application/json" id="planner-job-lookup" set:html={JSON.stringify(jobLookup)}></script>
   <script>
     import { buildPlan } from "../../../lib/planner/build-plan";
     import {
@@ -590,6 +639,11 @@ const jobOptions = jobs
     import type { EvidenceRecord } from "../../../lib/schema/common";
     import actionsJson from "../../../data/skills-actions.json";
     import evidenceJson from "../../../data/evidence.json";
+
+    type JobLookupEntry = { name: string; pay: number | null; shifts: number | null };
+    const JOB_LOOKUP = JSON.parse(
+      document.getElementById("planner-job-lookup")?.textContent ?? "{}",
+    ) as Record<string, JobLookupEntry>;
 
     /* ---------- DOM helpers ---------- */
 
@@ -622,6 +676,7 @@ const jobOptions = jobs
       currentSkillIds: [],
     };
     let started = false;
+    let lastResult: PlannerResult | null = null;
 
     const actions: GameSkillAction[] = actionsJson as unknown as GameSkillAction[];
     const evidence: EvidenceRecord[] = evidenceJson as unknown as EvidenceRecord[];
@@ -831,6 +886,53 @@ const jobOptions = jobs
     form.addEventListener("input", markStarted, { once: true });
     form.addEventListener("change", markStarted, { once: true });
 
+    /* ---------- P1-3: origin presets + copy summary ---------- */
+
+    document.querySelectorAll<HTMLButtonElement>("[data-preset-cash]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const cashEl = document.getElementById("planner-cash") as HTMLInputElement | null;
+        if (!cashEl) return;
+        cashEl.value = btn.dataset.presetCash ?? "";
+        cashEl.dispatchEvent(new Event("input", { bubbles: true }));
+        syncFromDom();
+        renderReview();
+      });
+    });
+
+    must<HTMLButtonElement>("plan-copy").addEventListener("click", () => {
+      const lines = [
+        `Lagos Life first-week plan (${new Date().toISOString().slice(0, 10)})`,
+        `Summary: ${lastResult?.summary ?? "not generated yet"}`,
+        `Status: ${lastResult?.status ?? "unknown"}`,
+      ];
+      if (lastResult?.budget) {
+        lines.push(
+          `Cash on hand: ${lastResult.budget.availableCash ?? "unknown"}`,
+          `Remaining after known costs: ${
+            lastResult.budget.remainingAmount ?? "unknown"
+          }${lastResult.budget.remainingPeriod ? ` per ${lastResult.budget.remainingPeriod}` : ""}`,
+        );
+      }
+      (lastResult?.recommendations ?? []).forEach((rec, i) => {
+        lines.push(`${i + 1}. ${rec.title} [${rec.status}] — ${rec.reason}`);
+      });
+      lines.push("Generated with LagosLifeGuide.app — unknown values never treated as zero.");
+      navigator.clipboard
+        .writeText(lines.join("\n"))
+        .then(() => {
+          must<HTMLButtonElement>("plan-copy").textContent = "Copied!";
+          setTimeout(() => {
+            must<HTMLButtonElement>("plan-copy").textContent = "Copy plan summary";
+          }, 2000);
+        })
+        .catch(() => {
+          must<HTMLButtonElement>("plan-copy").textContent = "Copy failed";
+          setTimeout(() => {
+            must<HTMLButtonElement>("plan-copy").textContent = "Copy plan summary";
+          }, 2000);
+        });
+    });
+
     /* ---------- Review rendering ---------- */
 
     function renderReview(): void {
@@ -941,6 +1043,7 @@ const jobOptions = jobs
       '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5h.01" stroke-linecap="round"/></svg>';
 
     function renderResults(result: PlannerResult): void {
+      lastResult = result;
       const meta = STATUS_META[result.status];
       resultsSection.hidden = false;
 
@@ -986,6 +1089,63 @@ const jobOptions = jobs
       } else {
         budgetHost.innerHTML = "";
       }
+
+      // Weekly projection (P1-3): level-1 pay × scheduled shifts − known weekly
+      // costs. Formula is always shown; unknown inputs are never guessed.
+      const projHost = must<HTMLDivElement>("result-projection");
+      const lookup = JOB_LOOKUP as Record<
+        string,
+        { name: string; pay: number | null; shifts: number | null }
+      >;
+      const job = input.currentJobId ? lookup[input.currentJobId] : undefined;
+      const weeklyIncome =
+        job && job.pay !== null && job.shifts !== null ? job.pay * job.shifts : null;
+      const weeklyCosts = result.budget
+        ? result.budget.knownCosts.filter((c) => c.period === "week").reduce((s, c) => s + c.amount, 0)
+        : null;
+      const hasWeeklyCosts = result.budget
+        ? result.budget.knownCosts.some((c) => c.period === "week")
+        : false;
+      const endCash =
+        result.budget && weeklyIncome !== null && result.budget.availableCash !== null
+          ? result.budget.availableCash + weeklyIncome - (weeklyCosts ?? 0)
+          : null;
+      const projLines: string[] = [];
+      if (weeklyIncome !== null && job) {
+        projLines.push(
+          `Weekly income: ₦${job.pay} × ${job.shifts} scheduled shifts = ₦${weeklyIncome.toLocaleString("en-NG")} (${job.name}, Level 1)`,
+        );
+      } else {
+        projLines.push(
+          "Weekly income: unknown — pick a current job above to project it (Level 1 pay × scheduled shifts).",
+        );
+      }
+      if (hasWeeklyCosts && weeklyCosts !== null) {
+        projLines.push(`Known weekly costs: ₦${weeklyCosts.toLocaleString("en-NG")}`);
+      } else {
+        projLines.push(
+          "Known weekly costs: none recorded — day-rate or unknown-period costs are not converted (no verified rule).",
+        );
+      }
+      projHost.innerHTML = `
+        <div class="rounded-2xl bg-surface-container-lowest p-space-md shadow-sm">
+          <h3 class="text-headline-sm font-semibold text-on-surface">One-week projection</h3>
+          <ul class="mt-space-xs list-disc pl-6 text-body-md text-on-surface-variant">
+            ${projLines.map((l) => `<li>${esc(l)}</li>`).join("")}
+          </ul>
+          <p class="mt-space-xs text-body-lg font-semibold text-on-surface">
+            ${
+              endCash !== null
+                ? `End-of-week cash (known values only): ₦${endCash.toLocaleString("en-NG")}`
+                : "End-of-week cash: cannot be calculated — cash on hand or weekly income is unknown."
+            }
+          </p>
+          <p class="mt-space-xs text-body-sm text-outline">
+            Formula: cash on hand + (Level 1 pay × scheduled shifts) − known weekly costs.
+            Unknown values are never treated as zero; no unverified conversions are applied.
+          </p>
+        </div>
+      `;
 
       // Recommendations — Stitch ordered plan cards with number chips and status pills.
       const recHost = must<HTMLDivElement>("result-recommendations");

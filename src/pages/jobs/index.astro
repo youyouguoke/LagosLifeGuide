@@ -1,0 +1,259 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import jobsJson from "../../data/jobs.json";
+import locationsJson from "../../data/locations.json";
+import type { GameJob } from "../../lib/schema/job";
+import { cityFromId, formatNaira, parseLadder } from "../../lib/jobs-ladder";
+
+const jobs = jobsJson as unknown as GameJob[];
+const locations = new Map(
+  (locationsJson as { id: string; name?: { value?: string } }[]).map((l) => [
+    l.id,
+    l.name?.value ?? l.id,
+  ]),
+);
+
+interface JobRow {
+  slug: string;
+  name: string;
+  city: string;
+  entryPay: number | null;
+  topPay: number | null;
+  gate: string;
+  gated: boolean;
+  workplace: string;
+  shiftHours: number | null;
+  checkedAt: string | undefined;
+}
+
+const rows: JobRow[] = jobs
+  .map((j) => {
+    const ladder = parseLadder(j.payAmount?.notes);
+    const top = ladder.length > 0 ? ladder[ladder.length - 1].pay : null;
+    const reqs = Array.isArray(j.entryRequirements?.value)
+      ? (j.entryRequirements.value as string[])
+      : [];
+    const mins = typeof j.shiftDurationMinutes?.value === "number"
+      ? j.shiftDurationMinutes.value
+      : null;
+    return {
+      slug: j.id,
+      name: j.name?.value ?? j.id,
+      city: cityFromId(j.id),
+      entryPay: typeof j.payAmount?.value === "number" ? j.payAmount.value : null,
+      topPay: top,
+      gate: reqs.length > 0 ? reqs.join(", ") : "None",
+      gated: reqs.length > 0,
+      workplace: locations.get(j.workplace?.value ?? "") ?? j.workplace?.value ?? "Not yet verified",
+      shiftHours: mins !== null ? Math.round((mins / 60) * 10) / 10 : null,
+      checkedAt: j.payAmount?.checkedAt,
+    };
+  })
+  .sort((a, b) => (b.entryPay ?? -1) - (a.entryPay ?? -1));
+---
+
+<BaseLayout
+  title="Lagos Life Jobs & Pay by Rank: All 33 Careers"
+  description="Compare all 33 Lagos Life careers by city, entry skill, workplace and pay at every rank. Each figure shows its verification status and check date."
+  canonicalPath="/jobs/"
+  jsonLd={[
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://lagoslifeguide.app/" },
+        { "@type": "ListItem", position: 2, name: "Jobs & Pay", item: "https://lagoslifeguide.app/jobs/" },
+      ],
+    },
+  ]}
+>
+  <div class="mx-auto w-full max-w-[1280px] px-4 pb-12 pt-8 sm:px-6 lg:px-10">
+    <nav aria-label="Breadcrumb" class="mb-4 text-body-sm text-on-surface-variant">
+      <a href="/" class="hover:text-primary">Home</a>
+      <span class="mx-2 text-outline" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-on-surface">Jobs & Pay</span>
+    </nav>
+
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+      Lagos Life Jobs and Pay by Rank
+    </h1>
+    <p class="mt-4 max-w-3xl text-body-lg leading-relaxed text-on-surface-variant">
+      All 33 Lagos Life careers across Lagos, Abuja and Port Harcourt. Entry pay is the
+      <strong class="text-on-surface">Level 1 wage for one shift</strong>; top pay is the
+      <strong class="text-on-surface">Level 5 wage</strong>. A skill gate means you must reach the
+      listed skill level before the career accepts you — no gate means you can apply on day one.
+      Every figure carries its own verification status and check date; details live on each
+      career page.
+    </p>
+
+    <!-- Filters -->
+    <div class="mt-8 flex flex-col gap-3 rounded-card border border-outline-variant/40 bg-surface-container-lowest p-4 shadow-sm sm:flex-row sm:items-end">
+      <div class="flex flex-1 flex-col gap-1">
+        <label for="jobs-city" class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">City</label>
+        <select id="jobs-city" class="rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-body-md text-on-surface">
+          <option value="all">All cities</option>
+          <option value="Lagos">Lagos</option>
+          <option value="Abuja">Abuja</option>
+          <option value="Port Harcourt">Port Harcourt</option>
+        </select>
+      </div>
+      <div class="flex flex-1 flex-col gap-1">
+        <label for="jobs-gate" class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Entry requirement</label>
+        <select id="jobs-gate" class="rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-body-md text-on-surface">
+          <option value="all">Any</option>
+          <option value="open">No skill gate</option>
+          <option value="gated">Skill-gated</option>
+        </select>
+      </div>
+      <div class="flex flex-1 flex-col gap-1">
+        <label for="jobs-sort" class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Sort by pay</label>
+        <select id="jobs-sort" class="rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-body-md text-on-surface">
+          <option value="entry-desc">Entry pay · high to low</option>
+          <option value="entry-asc">Entry pay · low to high</option>
+          <option value="top-desc">Top pay · high to low</option>
+          <option value="top-asc">Top pay · low to high</option>
+        </select>
+      </div>
+      <p id="jobs-count" class="font-label-md text-label-md font-bold text-primary sm:pb-2" aria-live="polite">
+        {rows.length} careers
+      </p>
+    </div>
+
+    <!-- Desktop table -->
+    <div class="mt-6 hidden overflow-x-auto rounded-card border border-outline-variant/40 bg-surface-container-lowest shadow-sm md:block">
+      <table class="w-full text-left">
+        <thead>
+          <tr class="border-b border-outline-variant/40 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">
+            <th scope="col" class="px-4 py-3">Career</th>
+            <th scope="col" class="px-4 py-3">City</th>
+            <th scope="col" class="px-4 py-3">Entry pay / shift</th>
+            <th scope="col" class="px-4 py-3">Top pay / shift</th>
+            <th scope="col" class="px-4 py-3">Skill gate</th>
+            <th scope="col" class="px-4 py-3">Workplace</th>
+            <th scope="col" class="px-4 py-3">Shift</th>
+          </tr>
+        </thead>
+        <tbody id="jobs-tbody">
+          {rows.map((r) => (
+            <tr
+              class="job-row border-b border-outline-variant/20 last:border-0 hover:bg-surface-container/40"
+              data-city={r.city}
+              data-gated={r.gated ? "true" : "false"}
+              data-entry={r.entryPay ?? ""}
+              data-top={r.topPay ?? ""}
+            >
+              <td class="px-4 py-3">
+                <a href={`/jobs/${r.slug}/`} class="font-headline-sm text-headline-sm font-extrabold text-primary hover:underline">
+                  {r.name}
+                </a>
+              </td>
+              <td class="px-4 py-3 text-body-md text-on-surface-variant">{r.city}</td>
+              <td class="px-4 py-3 font-body-md text-body-md font-bold text-on-surface">
+                {r.entryPay !== null ? formatNaira(r.entryPay) : "Data Pending"}
+              </td>
+              <td class="px-4 py-3 font-body-md text-body-md text-on-surface">
+                {r.topPay !== null ? formatNaira(r.topPay) : "Data Pending"}
+              </td>
+              <td class="px-4 py-3 text-body-md text-on-surface-variant">{r.gate}</td>
+              <td class="px-4 py-3 text-body-md text-on-surface-variant">{r.workplace}</td>
+              <td class="px-4 py-3 text-body-md text-on-surface-variant">
+                {r.shiftHours !== null ? `${r.shiftHours} h` : "Data Pending"}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile cards -->
+    <div id="jobs-cards" class="mt-6 grid grid-cols-1 gap-4 md:hidden">
+      {rows.map((r) => (
+        <a
+          href={`/jobs/${r.slug}/`}
+          class="job-row block rounded-card border border-outline-variant/40 bg-surface-container-lowest p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+          data-city={r.city}
+          data-gated={r.gated ? "true" : "false"}
+          data-entry={r.entryPay ?? ""}
+          data-top={r.topPay ?? ""}
+        >
+          <div class="flex items-start justify-between gap-3">
+            <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">{r.name}</h2>
+            <span class="rounded-full bg-surface-container px-2.5 py-1 font-label-md text-label-md font-bold text-secondary">
+              {r.city}
+            </span>
+          </div>
+          <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-body-md">
+            <div>
+              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Entry / shift</dt>
+              <dd class="font-bold text-on-surface">{r.entryPay !== null ? formatNaira(r.entryPay) : "Data Pending"}</dd>
+            </div>
+            <div>
+              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Top / shift</dt>
+              <dd class="text-on-surface">{r.topPay !== null ? formatNaira(r.topPay) : "Data Pending"}</dd>
+            </div>
+            <div class="col-span-2">
+              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Skill gate</dt>
+              <dd class="text-on-surface-variant">{r.gate}</dd>
+            </div>
+            <div class="col-span-2">
+              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Workplace</dt>
+              <dd class="text-on-surface-variant">
+                {r.workplace} · {r.shiftHours !== null ? `${r.shiftHours} h shifts` : "shift length pending"}
+              </dd>
+            </div>
+          </dl>
+        </a>
+      ))}
+    </div>
+
+    <p class="mt-6 text-body-sm text-on-surface-variant">
+      Pay figures come from the game client data files and are individually checked; a subset has
+      in-game corroboration. See <a href="/sources/" class="text-primary hover:underline">Sources &amp; Verification</a>
+      for the method, or open any career for the full L1–L5 ladder with per-field status.
+    </p>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var city = document.getElementById("jobs-city");
+      var gate = document.getElementById("jobs-gate");
+      var sort = document.getElementById("jobs-sort");
+      var count = document.getElementById("jobs-count");
+      var tbody = document.getElementById("jobs-tbody");
+      var cards = document.getElementById("jobs-cards");
+      if (!city || !gate || !sort || !tbody || !cards) return;
+
+      function apply() {
+        var rows = Array.prototype.slice.call(document.querySelectorAll(".job-row"));
+        var visible = 0;
+        rows.forEach(function (row) {
+          var ok =
+            (city.value === "all" || row.dataset.city === city.value) &&
+            (gate.value === "all" || row.dataset.gated === gate.value);
+          row.style.display = ok ? "" : "none";
+          if (ok) visible++;
+        });
+        var sortKey = sort.value;
+        var num = function (row, key) {
+          var v = row.dataset[key];
+          return v === "" ? -1 : Number(v);
+        };
+        rows.sort(function (a, b) {
+          var key = sortKey.startsWith("entry") ? "entry" : "top";
+          var av = num(a, key);
+          var bv = num(b, key);
+          return sortKey.endsWith("asc") ? av - bv : bv - av;
+        });
+        rows.forEach(function (row) {
+          if (row.tagName === "TR") tbody.appendChild(row);
+          else cards.appendChild(row);
+        });
+        if (count) count.textContent = visible + (visible === 1 ? " career" : " careers");
+      }
+
+      city.addEventListener("change", apply);
+      gate.addEventListener("change", apply);
+      sort.addEventListener("change", apply);
+    })();
+  </script>
+</BaseLayout>

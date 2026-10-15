@@ -1,0 +1,226 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VerificationBadge from "../../components/VerificationBadge.astro";
+import jobsJson from "../../data/jobs.json";
+import locationsJson from "../../data/locations.json";
+import type { DataField } from "../../lib/schema/common";
+import type { GameJob } from "../../lib/schema/job";
+import { cityFromId, formatNaira, parseLadder } from "../../lib/jobs-ladder";
+
+export function getStaticPaths() {
+  return (jobsJson as unknown as GameJob[]).map((j) => ({ params: { slug: j.id } }));
+}
+
+const { slug } = Astro.params;
+const job = (jobsJson as unknown as GameJob[]).find((j) => j.id === slug)!;
+const locations = new Map(
+  (locationsJson as { id: string; name?: { value?: string } }[]).map((l) => [
+    l.id,
+    l.name?.value ?? l.id,
+  ]),
+);
+
+const name = job.name?.value ?? job.id;
+const city = cityFromId(job.id);
+const ladder = parseLadder(job.payAmount?.notes);
+const entryReqs = Array.isArray(job.entryRequirements?.value)
+  ? (job.entryRequirements.value as string[])
+  : [];
+const promoReqs = Array.isArray(job.promotionRequirements?.value)
+  ? (job.promotionRequirements.value as string[])
+  : [];
+const skills = Array.isArray(job.requiredSkills?.value)
+  ? (job.requiredSkills.value as string[])
+  : [];
+const workSchedule = Array.isArray(job.workSchedule?.value)
+  ? (job.workSchedule.value as string[])
+  : typeof job.workSchedule?.value === "string"
+    ? [job.workSchedule.value as string]
+    : [];
+const workplace = locations.get(job.workplace?.value ?? "") ?? job.workplace?.value ?? null;
+const shiftMinutes = typeof job.shiftDurationMinutes?.value === "number"
+  ? job.shiftDurationMinutes.value
+  : null;
+const payStatus = job.payAmount?.status ?? "unverified";
+const checkedAt = job.payAmount?.checkedAt;
+
+interface FieldRowDef {
+  label: string;
+  field: DataField<unknown> | undefined;
+  display: string | null;
+}
+
+function scalar(v: unknown): string | null {
+  if (v === null || v === undefined) return null;
+  if (Array.isArray(v)) return v.length === 0 ? "None recorded" : (v as string[]).join(", ");
+  return String(v);
+}
+
+const rows: FieldRowDef[] = [
+  { label: "City", field: undefined, display: city },
+  {
+    label: "Entry pay (Level 1, per shift)",
+    field: job.payAmount,
+    display:
+      typeof job.payAmount?.value === "number" ? formatNaira(job.payAmount.value) : null,
+  },
+  {
+    label: "Pay period",
+    field: job.payPeriod,
+    display: scalar(job.payPeriod?.value),
+  },
+  {
+    label: "Shift length",
+    field: job.shiftDurationMinutes,
+    display: shiftMinutes !== null ? `${Math.round((shiftMinutes / 60) * 10) / 10} hours` : null,
+  },
+  {
+    label: "Workplace",
+    field: job.workplace,
+    display: workplace,
+  },
+  {
+    label: "Work schedule",
+    field: job.workSchedule,
+    display: workSchedule.length > 0 ? workSchedule.join(", ") : null,
+  },
+  {
+    label: "Entry requirements (skill gate)",
+    field: job.entryRequirements,
+    display: entryReqs.length > 0 ? entryReqs.join(", ") : "None — open from day one",
+  },
+  {
+    label: "Skills used on the job",
+    field: job.requiredSkills,
+    display: skills.length > 0 ? skills.join(", ") : null,
+  },
+  {
+    label: "Promotion requirements",
+    field: job.promotionRequirements,
+    display: promoReqs.length > 0 ? promoReqs.join(", ") : null,
+  },
+];
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://lagoslifeguide.app/" },
+      { "@type": "ListItem", position: 2, name: "Jobs & Pay", item: "https://lagoslifeguide.app/jobs/" },
+      { "@type": "ListItem", position: 3, name, item: `https://lagoslifeguide.app/jobs/${job.id}/` },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={`${name} — Lagos Life Job Pay & Requirements | LagosLifeGuide`}
+  description={`Lagos Life ${name} job data: level-1 to level-5 pay per shift, skill gate, workplace and promotion requirements in ${city}, with per-field verification status.`}
+  canonicalPath={`/jobs/${job.id}/`}
+  jsonLd={jsonLd}
+>
+  <div class="mx-auto w-full max-w-[1000px] px-4 py-8 sm:px-6 lg:px-10">
+    <nav aria-label="Breadcrumb" class="mb-4 text-body-sm text-on-surface-variant">
+      <a href="/" class="hover:text-primary">Home</a>
+      <span class="mx-2 text-outline" aria-hidden="true">/</span>
+      <a href="/jobs/" class="hover:text-primary">Jobs & Pay</a>
+      <span class="mx-2 text-outline" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-on-surface">{name}</span>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+        {name}
+      </h1>
+      <VerificationBadge status={payStatus} />
+    </div>
+    <p class="mt-2 text-body-md text-on-surface-variant">
+      {city}
+      {checkedAt ? ` · pay checked ${checkedAt}` : ""}
+    </p>
+
+    {
+      ladder.length > 0 && (
+        <section aria-labelledby="pay-ladder" class="mt-8">
+          <h2 id="pay-ladder" class="font-headline-sm text-headline-sm font-extrabold text-on-surface">
+            Pay ladder — per shift
+          </h2>
+          <div class="mt-4 overflow-x-auto rounded-card border border-outline-variant/40 bg-surface-container-lowest shadow-sm">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="border-b border-outline-variant/40 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">
+                  <th scope="col" class="px-4 py-3">Level</th>
+                  <th scope="col" class="px-4 py-3">Title</th>
+                  <th scope="col" class="px-4 py-3">Pay per shift</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[1, 2, 3, 4, 5].map((level) => {
+                  const step = ladder.find((s) => s.level === level);
+                  return (
+                    <tr class="border-b border-outline-variant/20 last:border-0">
+                      <td class="px-4 py-3 text-body-md text-on-surface-variant">L{level}</td>
+                      <td class="px-4 py-3 text-body-md text-on-surface">
+                        {step ? step.title : "Data Pending"}
+                      </td>
+                      <td class="px-4 py-3 font-body-md text-body-md font-bold text-on-surface">
+                        {step ? formatNaira(step.pay) : "Data Pending"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-2 text-body-sm text-on-surface-variant">
+            Ladder as documented from the game client data files. Level 1 is the wage you earn on
+            your first shift.
+          </p>
+        </section>
+      )
+    }
+
+    <section aria-labelledby="job-fields" class="mt-8">
+      <h2 id="job-fields" class="font-headline-sm text-headline-sm font-extrabold text-on-surface">
+        Job details
+      </h2>
+      <dl class="mt-4 divide-y divide-outline-variant/20 rounded-card border border-outline-variant/40 bg-surface-container-lowest shadow-sm">
+        {
+          rows.map((row) => (
+            <div class="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">
+                {row.label}
+              </dt>
+              <dd class="flex items-center gap-3 text-body-md text-on-surface sm:text-right">
+                {row.display ?? (
+                  <span class="inline-block rounded bg-surface-container px-1.5 py-0.5 font-label-md text-label-md font-bold text-error">
+                    Data Pending
+                  </span>
+                )}
+                {row.field && <VerificationBadge status={row.field.status} />}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <div class="mt-8 flex flex-col gap-3 rounded-card bg-primary-fixed/30 p-6 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-body-md text-on-surface">
+        Planning your first week? Plug this pay into the planner and see what rent you can afford.
+      </p>
+      <a
+        href="/tools/first-week-planner/"
+        class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-button bg-primary px-6 py-3 font-label-lg text-label-lg font-semibold text-on-primary transition-colors hover:bg-primary-container"
+      >
+        Open the planner
+      </a>
+    </div>
+  </div>
+
+  <script is:inline define:vars={{ collection: "jobs", slug: job.id }}>
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "game_data_view", collection, slug });
+  </script>
+</BaseLayout>
