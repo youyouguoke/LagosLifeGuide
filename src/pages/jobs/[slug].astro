@@ -5,7 +5,8 @@ import jobsJson from "../../data/jobs.json";
 import locationsJson from "../../data/locations.json";
 import type { DataField } from "../../lib/schema/common";
 import type { GameJob } from "../../lib/schema/job";
-import { cityFromId, formatNaira, parseLadder } from "../../lib/jobs-ladder";
+import { cityFromWorkplace, formatNaira, ladderForJob } from "../../lib/jobs-ladder";
+import EvidenceSection from "../../components/EvidenceSection.astro";
 
 export function getStaticPaths() {
   return (jobsJson as unknown as GameJob[]).map((j) => ({ params: { slug: j.id } }));
@@ -21,8 +22,10 @@ const locations = new Map(
 );
 
 const name = job.name?.value ?? job.id;
-const city = cityFromId(job.id);
-const ladder = parseLadder(job.payAmount?.notes);
+const city = cityFromWorkplace(
+  typeof job.workplace?.value === "string" ? job.workplace.value : null,
+);
+const ladder = ladderForJob(job);
 const entryReqs = Array.isArray(job.entryRequirements?.value)
   ? (job.entryRequirements.value as string[])
   : [];
@@ -205,6 +208,23 @@ const jsonLd = [
         }
       </dl>
     </section>
+
+    {job.id === "banking" && (
+      <EvidenceSection
+        date="2026-10-14"
+        images={[
+          { src: "/evidence/in-game-2026-10-14/banking-promo.png", alt: "Banking career promotion panel in the live game: levels 1–5 with pay ladder ₦20,000 → ₦72,000" },
+        ]}
+        tested={[
+          "Promotion panel shows the full 5-rank ladder with per-rank pay: ₦20,000 → ₦32,000 → ₦44,000 → ₦60,000 → ₦72,000",
+          "Promotion requirements shown as 1 / 2 / 3 / 4 / 5 completed shifts for ranks 1–5",
+        ]}
+        notTested={[
+          "A complete paid shift at each rank (earnings screen)",
+          "Whether overtime or adjustments change the base figures above",
+        ]}
+      />
+    )}
 
     <div class="mt-8 flex flex-col gap-3 rounded-card bg-primary-fixed/30 p-6 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-body-md text-on-surface">

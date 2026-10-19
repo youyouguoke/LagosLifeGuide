@@ -1,0 +1,45 @@
+---
+interface Props {
+  date: string;
+  /** What this session actually tested — be specific and honest. */
+  tested: string[];
+  /** What was NOT tested — competitor-style candour. */
+  notTested: string[];
+  images: { src: string; alt: string }[];
+}
+
+const { date, tested, notTested, images } = Astro.props;
+---
+
+<section class="mt-space-md rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md" aria-label="In-game evidence">
+  <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">
+    In-game evidence · <time datetime={date}>{date}</time>
+  </h2>
+  <p class="mt-1 text-body-sm text-on-surface-variant">
+    Logged-in session on the official game instance
+    (lagoslife.app, test account). Screenshots below are cropped to hide account details.
+  </p>
+
+  <div class="mt-3 grid gap-3 sm:grid-cols-2">
+    {images.map((img) => (
+      <figure class="overflow-hidden rounded-card border border-outline-variant/30">
+        <img src={img.src} alt={img.alt} loading="lazy" class="block h-auto w-full object-cover" />
+      </figure>
+    ))}
+  </div>
+
+  <div class="mt-4 grid gap-3 md:grid-cols-2">
+    <div>
+      <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">Tested</div>
+      <ul class="mt-1 list-disc pl-5 text-body-sm leading-relaxed text-on-surface">
+        {tested.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+    <div>
+      <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-needs-verification">Not tested</div>
+      <ul class="mt-1 list-disc pl-5 text-body-sm leading-relaxed text-on-surface">
+        {notTested.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>

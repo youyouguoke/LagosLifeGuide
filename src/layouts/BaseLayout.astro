@@ -11,9 +11,21 @@ interface Props {
   noindex?: boolean;
   /** Additional JSON-LD nodes (Article, BreadcrumbList, ...). */
   jsonLd?: object[];
+  /** Per-page share image, absolute path under public/, e.g. "/images/og-jobs.jpg". */
+  ogImage?: string;
+  /** Open Graph type; "article" for guides, "website" elsewhere. */
+  ogType?: "website" | "article";
 }
 
-const { title, description, canonicalPath, noindex = false, jsonLd = [] } = Astro.props;
+const {
+  title,
+  description,
+  canonicalPath,
+  noindex = false,
+  jsonLd = [],
+  ogImage = "/images/og-default.jpg",
+  ogType = "website",
+} = Astro.props;
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
 const websiteLd = {
   "@context": "https://schema.org",
@@ -34,13 +46,13 @@ const graph = [websiteLd, ...jsonLd];
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <!-- Open Graph / Twitter (P0-6) -->
-    <meta property="og:type" content="website" />
+    <!-- Open Graph / Twitter (P0-6; per-page images P0-2) -->
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="LagosLifeGuide" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL("/images/og-default.jpg", Astro.site)} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

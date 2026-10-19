@@ -1,0 +1,173 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import VerificationBadge from "../components/VerificationBadge.astro";
+
+/**
+ * P1-3 — Starting origins compared.
+ * Every figure is traced: Nepo cash is in-game verified (2026-10-14);
+ * UNILAG hostel rent and fees are in-game verified; remaining fields come
+ * from the game client data files and are labelled partial accordingly.
+ */
+
+const rows: {
+  label: string;
+  nepo: string;
+  lapo: string;
+  fresher: string;
+}[] = [
+  {
+    label: "Starting cash",
+    nepo: "₦500,000 pocket money",
+    lapo: "₦60,000 LAPO loan",
+    fresher: "₦14,000",
+  },
+  {
+    label: "Weekly obligations",
+    nepo: "None — Daddy pays the Lekki rent",
+    lapo: "Repay ₦12,000 every week (₦72,000 total owed)",
+    fresher: "₦1,200 hostel rent · ₦3,000 allowance every Monday",
+  },
+  {
+    label: "Housing",
+    nepo: "Fully furnished Lekki flat",
+    lapo: "Start in Mushin or Yaba",
+    fresher: "Bunk in a UNILAG hall of residence",
+  },
+  {
+    label: "Skills",
+    nepo: "Starts employed — no grind needed",
+    lapo: "Hustle skill starts at 2 · learns every skill 25% faster",
+    fresher: "Student path — degree unlocks career bonuses at graduation",
+  },
+  {
+    label: "Job start",
+    nepo: "Branch Manager at Daddy's friend's bank, from day one",
+    lapo: "Hustle from zero",
+    fresher: "Part-time campus gigs while studying",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Which origin should I pick in Lagos Life?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Nepo Baby is the easy mode: ₦500,000 cash, a paid-for Lekki flat and a bank manager job from day one. LAPO Baby is the debt run — a ₦60,000 loan with ₦12,000 weekly repayments, but you learn skills 25% faster. UNILAG Fresher is the student path: the cheapest start, but a degree pays a salary bonus for the rest of the character's life.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does the LAPO loan have to be repaid?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. The LAPO origin borrows ₦60,000 and owes ₦72,000, repaid at ₦12,000 every in-game week until it is cleared.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Lagos Life Origins Compared: Nepo Baby vs LAPO vs UNILAG Fresher"
+  description="Compare the three Lagos Life starting backgrounds — starting cash, weekly obligations, housing and skills — with per-field verification status and check dates."
+  canonicalPath="/origins/"
+  jsonLd={[faqJsonLd]}
+  ogImage="/images/og-origins.jpg"
+>
+  <div class="mx-auto max-w-[1200px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <nav aria-label="Breadcrumb" class="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
+      <a href="/" class="hover:text-primary">Home</a>
+      <span class="text-outline" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-on-surface">Starting Origins</span>
+    </nav>
+
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+      Lagos Life Starting Origins, Compared
+    </h1>
+    <p class="mt-4 max-w-3xl text-body-lg leading-relaxed text-on-surface-variant">
+      Your origin decides how much cash you start with, what you owe, and where you sleep on night
+      one. All three are
+      <strong class="text-on-surface">base values before in-game adjustments</strong>. Figures
+      verified by logged-in play are marked; the rest come from the game client data files.
+    </p>
+
+    <!-- Comparison table -->
+    <div class="mt-8 overflow-x-auto rounded-card border border-outline-variant/40 bg-surface-container-lowest shadow-sm">
+      <table class="w-full min-w-[640px] text-left">
+        <thead>
+          <tr class="border-b border-outline-variant/40 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">
+            <th scope="col" class="px-4 py-3"></th>
+            <th scope="col" class="px-4 py-3">👶🏾💰 Nepo Baby</th>
+            <th scope="col" class="px-4 py-3">🏦 LAPO Baby</th>
+            <th scope="col" class="px-4 py-3">🎓 UNILAG Fresher</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr class="border-b border-outline-variant/20 last:border-0">
+              <th scope="row" class="px-4 py-3 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">
+                {r.label}
+              </th>
+              <td class="px-4 py-3 text-body-md text-on-surface">{r.nepo}</td>
+              <td class="px-4 py-3 text-body-md text-on-surface">{r.lapo}</td>
+              <td class="px-4 py-3 text-body-md text-on-surface">{r.fresher}</td>
+            </tr>
+          ))}
+          <tr>
+            <th scope="row" class="px-4 py-3 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Verification</th>
+            <td class="px-4 py-3"><VerificationBadge status="partial" /> <span class="ml-1 text-body-sm text-on-surface-variant">cash verified in-game 2026-10-14</span></td>
+            <td class="px-4 py-3"><VerificationBadge status="partial" /> <span class="ml-1 text-body-sm text-on-surface-variant">client data, in-game check pending</span></td>
+            <td class="px-4 py-3"><VerificationBadge status="partial" /> <span class="ml-1 text-body-sm text-on-surface-variant">hostel rent &amp; fees verified in-game 2026-10-14</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Per-origin notes -->
+    <div class="mt-8 grid gap-space-md md:grid-cols-3">
+      <div class="rounded-2xl bg-surface-container-low p-space-md">
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Nepo Baby</h2>
+        <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+          The soft-life start. ₦500,000 in pocket money was confirmed by a logged-in run on
+          2026-10-14 — you begin with more cash than most careers pay in a month of shifts, and no
+          rent to pay. Best for learning the map and systems without money pressure.
+        </p>
+      </div>
+      <div class="rounded-2xl bg-surface-container-low p-space-md">
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">LAPO Baby</h2>
+        <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+          The debt run. You owe ₦12,000 every week from day one, so the first weeks are about
+          out-earning the loan. The 25% faster skill learning is the long-game payoff — verified
+          numbers pending an in-game run.
+        </p>
+      </div>
+      <div class="rounded-2xl bg-surface-container-low p-space-md">
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">UNILAG Fresher</h2>
+        <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+          The student path. Verified in-game: hostel rent ₦1,200/week and ₦35,000 in first
+          registration (₦15,000 acceptance + ₦20,000 first fees). Graduating with a strong class
+          adds a permanent pay bonus on every shift.
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA to planner -->
+    <div class="mt-8 rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
+      <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">
+        Try an origin in the planner
+      </h2>
+      <p class="mt-1 text-body-md text-on-surface-variant">
+        The first-week planner has one-click presets for Nepo Baby (₦500,000) and LAPO (₦60,000 —
+        remember the ₦12,000 weekly repayment as a recurring cost), and you can type the Fresher's
+        ₦14,000 directly.
+      </p>
+      <a href="/tools/first-week-planner/" class="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary-container px-space-md py-2.5 text-label-lg font-semibold text-on-primary transition-colors hover:bg-primary">
+        Open the First Week Planner
+      </a>
+    </div>
+  </div>
+</BaseLayout>

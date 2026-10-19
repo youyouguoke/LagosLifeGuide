@@ -37,3 +37,43 @@ describe("formatNaira", () => {
     expect(formatNaira(96000)).toBe("₦96,000");
   });
 });
+
+describe("ladderForJob", () => {
+  it("falls back to promotionRequirements.notes when payAmount.notes has no ladder", async () => {
+    const { ladderForJob } = await import("../../src/lib/jobs-ladder");
+    const job = {
+      payAmount: { notes: "Top pay often quoted in guides (N96,000)... no ladder here" },
+      promotionRequirements: {
+        notes:
+          "L1 Field Technician — N20,000; L2 Senior Technician — N32,000; L3 Rig Supervisor — N44,000; L4 Field Superintendent — N60,000; L5 Country Manager — N96,000",
+      },
+    };
+    const ladder = ladderForJob(job as never);
+    expect(ladder).toHaveLength(5);
+    expect(ladder[4].pay).toBe(96000);
+  });
+
+  it("dedupes when both fields carry the same ladder", async () => {
+    const { ladderForJob } = await import("../../src/lib/jobs-ladder");
+    const notes =
+      "L1 Teller — N20,000; L2 Senior Teller — N32,000; L3 Bank Officer — N44,000; L4 Bank Manager — N60,000; L5 Managing Director — N72,000";
+    const ladder = ladderForJob({
+      payAmount: { notes },
+      promotionRequirements: { notes },
+    } as never);
+    expect(ladder).toHaveLength(5);
+    expect(ladder[4].pay).toBe(72000);
+  });
+});
+
+describe("cityFromWorkplace", () => {
+  it("derives city from the workplace location id, not the job id", async () => {
+    const { cityFromWorkplace } = await import("../../src/lib/jobs-ladder");
+    // P0-1 regression: civilService is an Abuja career but its id lacks the prefix
+    expect(cityFromWorkplace("abjSecretariat")).toBe("Abuja");
+    expect(cityFromWorkplace("phCreekRoad")).toBe("Port Harcourt");
+    expect(cityFromWorkplace("lagosSecretariat")).toBe("Lagos");
+    expect(cityFromWorkplace(null)).toBe("Lagos");
+    expect(cityFromWorkplace(undefined)).toBe("Lagos");
+  });
+});

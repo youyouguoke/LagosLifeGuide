@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+/**
+ * P1-4 — Login & troubleshooting page.
+ * Scope discipline: only advice we can stand behind — generic browser-level
+ * fixes, plus the official channels stated in the game's own terms/privacy
+ * policy (checked 2026-10-19). We never ask for passwords or account data.
+ */
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Why can't I log in to Lagos Life?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Most login failures are a wrong password or an expired browser session. Check the password first, then hard-refresh the page (Ctrl/Cmd+Shift+R) to clear a stale session cookie. If you added an email to your account, use the in-game password-reset link.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "The Lagos Life page stays on a loading screen. What can I do?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The game stores your progress in the browser, so a corrupted local cache can hang the loader. Try a hard refresh, then clearing site data for lagoslife.app (you will need to log in again afterwards).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can LagosLifeGuide fix my balance or account?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. This site is an independent fan guide — we cannot see, modify or recover any account, balance or purchase. Account and data requests go to the developer in-game (@shallyr, per the official privacy policy); payment problems are handled under section 3 of the official terms.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Lagos Life Login Help & Troubleshooting – LagosLifeGuide"
+  description="Fix common Lagos Life login problems: failed sign-in, endless loading, disabled buttons. Plus the official support channels — we cannot modify accounts or balances."
+  canonicalPath="/login-help/"
+  jsonLd={[faqJsonLd]}
+  ogImage="/images/og-login-help.jpg"
+>
+  <div class="mx-auto max-w-[860px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <nav aria-label="Breadcrumb" class="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
+      <a href="/" class="hover:text-primary">Home</a>
+      <span class="text-outline" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-on-surface">Login Help</span>
+    </nav>
+
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+      Lagos Life Login Help &amp; Troubleshooting
+    </h1>
+    <p class="mt-4 max-w-2xl text-body-lg leading-relaxed text-on-surface-variant">
+      Fixes for the most common sign-in problems with the official game at
+      <a href="https://lagoslife.app" class="text-primary hover:underline" rel="noopener">lagoslife.app</a>.
+      <strong class="text-on-surface">This site is an independent fan guide: we cannot see, reset or
+      modify any account or balance, and we will never ask for your password.</strong>
+      For anything only the developer can fix, use the official channels listed below.
+    </p>
+
+    <section class="mt-space-lg space-y-space-md">
+      <div class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">"Login failed" or wrong-password errors</h2>
+        <ol class="mt-2 list-decimal space-y-1 pl-5 text-body-md leading-relaxed text-on-surface-variant">
+          <li>Re-check the password — the game requires the exact username and password you registered with.</li>
+          <li>If you added an optional email to your account, use the password-reset flow so the game can send you a reset link.</li>
+          <li>Still stuck? The official terms let the developer close accounts that break the rules (section 7); if you think that happened, contact them through the official channel below.</li>
+        </ol>
+      </div>
+
+      <div class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">The page loads forever</h2>
+        <ol class="mt-2 list-decimal space-y-1 pl-5 text-body-md leading-relaxed text-on-surface-variant">
+          <li>Hard refresh with Ctrl/Cmd+Shift+R — this reloads the game past a stale cached copy.</li>
+          <li>If it still hangs, clear site data for lagoslife.app in your browser settings. The game keeps your progress server-side against your account; you will simply log in again afterwards.</li>
+          <li>Try a different browser or a private window to rule out an extension blocking the game.</li>
+        </ol>
+      </div>
+
+      <div class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Buttons are greyed out or do nothing</h2>
+        <ol class="mt-2 list-decimal space-y-1 pl-5 text-body-md leading-relaxed text-on-surface-variant">
+          <li>Your session may have expired: refresh the page and sign in again.</li>
+          <li>Some actions unlock as you play (for example jobs gated behind skills) — a disabled button can be the game telling you a requirement is missing, not a bug.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="mt-space-lg rounded-2xl border-l-4 border-primary bg-surface-container-low p-space-md">
+      <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Official support channels</h2>
+      <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+        Checked against the official terms and privacy policy on 2026-10-19:
+      </p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-body-md leading-relaxed text-on-surface">
+        <li><strong>Account &amp; data requests</strong> (see, correct, download or delete your data): message <strong>@shallyr</strong> inside the game, as stated in the official privacy policy.</li>
+        <li><strong>Payment problems</strong> (charged but no naira arrived, double charge): the official terms, section 3, say the developer will fix or refund these — contact them in-game. Payments are processed by their provider, Bachs; the game itself never sees card details.</li>
+        <li><strong>Account deletion:</strong> you can ask for this at any time under section 7 of the terms, via the same in-game channel.</li>
+      </ul>
+      <p class="mt-3 text-body-sm text-needs-verification">
+        We deliberately do not collect account names, emails or screenshots with personal details on
+        this site. Pages here never need your password.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

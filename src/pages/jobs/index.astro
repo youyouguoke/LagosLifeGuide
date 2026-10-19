@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import jobsJson from "../../data/jobs.json";
 import locationsJson from "../../data/locations.json";
 import type { GameJob } from "../../lib/schema/job";
-import { cityFromId, formatNaira, parseLadder } from "../../lib/jobs-ladder";
+import { cityFromWorkplace, formatNaira, ladderForJob } from "../../lib/jobs-ladder";
 
 const jobs = jobsJson as unknown as GameJob[];
 const locations = new Map(
@@ -28,7 +28,7 @@ interface JobRow {
 
 const rows: JobRow[] = jobs
   .map((j) => {
-    const ladder = parseLadder(j.payAmount?.notes);
+    const ladder = ladderForJob(j);
     const top = ladder.length > 0 ? ladder[ladder.length - 1].pay : null;
     const reqs = Array.isArray(j.entryRequirements?.value)
       ? (j.entryRequirements.value as string[])
@@ -39,7 +39,9 @@ const rows: JobRow[] = jobs
     return {
       slug: j.id,
       name: j.name?.value ?? j.id,
-      city: cityFromId(j.id),
+      city: cityFromWorkplace(
+        typeof j.workplace?.value === "string" ? j.workplace.value : null,
+      ),
       entryPay: typeof j.payAmount?.value === "number" ? j.payAmount.value : null,
       topPay: top,
       gate: reqs.length > 0 ? reqs.join(", ") : "None",
@@ -55,6 +57,7 @@ const rows: JobRow[] = jobs
 <BaseLayout
   title="Lagos Life Jobs & Pay by Rank: All 33 Careers"
   description="Compare all 33 Lagos Life careers by city, entry skill, workplace and pay at every rank. Each figure shows its verification status and check date."
+  ogImage="/images/og-jobs.jpg"
   canonicalPath="/jobs/"
   jsonLd={[
     {
@@ -83,7 +86,10 @@ const rows: JobRow[] = jobs
       <strong class="text-on-surface">Level 5 wage</strong>. A skill gate means you must reach the
       listed skill level before the career accepts you — no gate means you can apply on day one.
       Every figure carries its own verification status and check date; details live on each
-      career page.
+      career page. All pay figures are
+      <strong class="text-on-surface">base pay per shift, before adjustments and tax</strong> —
+      in-game events and policies can move what you actually receive. Other guides sometimes
+      show a different pay grade by default, so identical careers may not match their numbers exactly.
     </p>
 
     <!-- Filters -->
@@ -106,12 +112,20 @@ const rows: JobRow[] = jobs
         </select>
       </div>
       <div class="flex flex-1 flex-col gap-1">
+        <label for="jobs-level" class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Level</label>
+        <select id="jobs-level" class="rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-body-md text-on-surface">
+          <option value="1" selected>Level 1 (entry)</option>
+          <option value="2">Level 2</option>
+          <option value="3">Level 3</option>
+          <option value="4">Level 4</option>
+          <option value="5">Level 5 (top)</option>
+        </select>
+      </div>
+      <div class="flex flex-1 flex-col gap-1">
         <label for="jobs-sort" class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Sort by pay</label>
         <select id="jobs-sort" class="rounded-lg border border-outline-variant bg-surface-container-lowest px-3 py-2 text-body-md text-on-surface">
-          <option value="entry-desc">Entry pay · high to low</option>
-          <option value="entry-asc">Entry pay · low to high</option>
-          <option value="top-desc">Top pay · high to low</option>
-          <option value="top-asc">Top pay · low to high</option>
+          <option value="pay-desc">Pay · high to low</option>
+          <option value="pay-asc">Pay · low to high</option>
         </select>
       </div>
       <p id="jobs-count" class="font-label-md text-label-md font-bold text-primary sm:pb-2" aria-live="polite">
@@ -126,11 +140,11 @@ const rows: JobRow[] = jobs
           <tr class="border-b border-outline-variant/40 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">
             <th scope="col" class="px-4 py-3">Career</th>
             <th scope="col" class="px-4 py-3">City</th>
-            <th scope="col" class="px-4 py-3">Entry pay / shift</th>
-            <th scope="col" class="px-4 py-3">Top pay / shift</th>
+            <th scope="col" class="px-4 py-3" id="jobs-pay-head">L1 pay / shift</th>
             <th scope="col" class="px-4 py-3">Skill gate</th>
             <th scope="col" class="px-4 py-3">Workplace</th>
             <th scope="col" class="px-4 py-3">Shift</th>
+            <th scope="col" class="px-4 py-3"><span class="sr-only">Compare</span></th>
           </tr>
         </thead>
         <tbody id="jobs-tbody">
@@ -139,8 +153,11 @@ const rows: JobRow[] = jobs
               class="job-row border-b border-outline-variant/20 last:border-0 hover:bg-surface-container/40"
               data-city={r.city}
               data-gated={r.gated ? "true" : "false"}
-              data-entry={r.entryPay ?? ""}
-              data-top={r.topPay ?? ""}
+              data-levels={JSON.stringify(Object.fromEntries(ladderForJob(jobs.find((x) => x.id === r.slug)!).map((s) => [s.level, s.pay])))}
+              data-name={r.name}
+              data-gate={r.gate}
+              data-workplace={r.workplace}
+              data-shift={r.shiftHours ?? ""}
             >
               <td class="px-4 py-3">
                 <a href={`/jobs/${r.slug}/`} class="font-headline-sm text-headline-sm font-extrabold text-primary hover:underline">
@@ -149,15 +166,17 @@ const rows: JobRow[] = jobs
               </td>
               <td class="px-4 py-3 text-body-md text-on-surface-variant">{r.city}</td>
               <td class="px-4 py-3 font-body-md text-body-md font-bold text-on-surface">
-                {r.entryPay !== null ? formatNaira(r.entryPay) : "Data Pending"}
-              </td>
-              <td class="px-4 py-3 font-body-md text-body-md text-on-surface">
-                {r.topPay !== null ? formatNaira(r.topPay) : "Data Pending"}
+                <span class="js-pay">{r.entryPay !== null ? formatNaira(r.entryPay) : "Data Pending"}</span>
               </td>
               <td class="px-4 py-3 text-body-md text-on-surface-variant">{r.gate}</td>
               <td class="px-4 py-3 text-body-md text-on-surface-variant">{r.workplace}</td>
               <td class="px-4 py-3 text-body-md text-on-surface-variant">
                 {r.shiftHours !== null ? `${r.shiftHours} h` : "Data Pending"}
+              </td>
+              <td class="px-4 py-3">
+                <button type="button" class="jobs-compare-btn rounded-full border border-outline-variant px-3 py-1 text-label-md font-bold text-primary hover:bg-surface-container" data-slug={r.slug}>
+                  + Compare
+                </button>
               </td>
             </tr>
           ))}
@@ -168,41 +187,44 @@ const rows: JobRow[] = jobs
     <!-- Mobile cards -->
     <div id="jobs-cards" class="mt-6 grid grid-cols-1 gap-4 md:hidden">
       {rows.map((r) => (
-        <a
-          href={`/jobs/${r.slug}/`}
+        <div
           class="job-row block rounded-card border border-outline-variant/40 bg-surface-container-lowest p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
           data-city={r.city}
           data-gated={r.gated ? "true" : "false"}
-          data-entry={r.entryPay ?? ""}
-          data-top={r.topPay ?? ""}
+          data-levels={JSON.stringify(Object.fromEntries(ladderForJob(jobs.find((x) => x.id === r.slug)!).map((s) => [s.level, s.pay])))}
+          data-name={r.name}
+          data-gate={r.gate}
+          data-workplace={r.workplace}
+          data-shift={r.shiftHours ?? ""}
         >
-          <div class="flex items-start justify-between gap-3">
-            <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">{r.name}</h2>
-            <span class="rounded-full bg-surface-container px-2.5 py-1 font-label-md text-label-md font-bold text-secondary">
-              {r.city}
-            </span>
-          </div>
-          <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-body-md">
-            <div>
-              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Entry / shift</dt>
-              <dd class="font-bold text-on-surface">{r.entryPay !== null ? formatNaira(r.entryPay) : "Data Pending"}</dd>
+          <a href={`/jobs/${r.slug}/`} class="block">
+            <div class="flex items-start justify-between gap-3">
+              <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">{r.name}</h2>
+              <span class="rounded-full bg-surface-container px-2.5 py-1 font-label-md text-label-md font-bold text-secondary">
+                {r.city}
+              </span>
             </div>
-            <div>
-              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Top / shift</dt>
-              <dd class="text-on-surface">{r.topPay !== null ? formatNaira(r.topPay) : "Data Pending"}</dd>
-            </div>
-            <div class="col-span-2">
-              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Skill gate</dt>
-              <dd class="text-on-surface-variant">{r.gate}</dd>
-            </div>
-            <div class="col-span-2">
-              <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Workplace</dt>
-              <dd class="text-on-surface-variant">
-                {r.workplace} · {r.shiftHours !== null ? `${r.shiftHours} h shifts` : "shift length pending"}
-              </dd>
-            </div>
-          </dl>
-        </a>
+            <dl class="mt-3 grid grid-cols-2 gap-x-4 gap-y-2 text-body-md">
+              <div>
+                <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Pay / shift</dt>
+                <dd class="font-bold text-on-surface"><span class="js-pay">{r.entryPay !== null ? formatNaira(r.entryPay) : "Data Pending"}</span></dd>
+              </div>
+              <div>
+                <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Skill gate</dt>
+                <dd class="text-on-surface-variant">{r.gate}</dd>
+              </div>
+              <div class="col-span-2">
+                <dt class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Workplace</dt>
+                <dd class="text-on-surface-variant">
+                  {r.workplace} · {r.shiftHours !== null ? `${r.shiftHours} h shifts` : "shift length pending"}
+                </dd>
+              </div>
+            </dl>
+          </a>
+          <button type="button" class="jobs-compare-btn mt-3 rounded-full border border-outline-variant px-3 py-1 text-label-md font-bold text-primary" data-slug={r.slug}>
+            + Compare
+          </button>
+        </div>
       ))}
     </div>
 
@@ -211,6 +233,16 @@ const rows: JobRow[] = jobs
       in-game corroboration. See <a href="/sources/" class="text-primary hover:underline">Sources &amp; Verification</a>
       for the method, or open any career for the full L1–L5 ladder with per-field status.
     </p>
+
+    <!-- Compare bar + panel (P1-1) -->
+    <div id="jobs-compare-bar" class="sticky bottom-4 mt-6 hidden items-center justify-between gap-3 rounded-card border border-outline-variant/40 bg-inverse-surface p-3 shadow-lg">
+      <div id="jobs-compare-names" class="flex flex-wrap items-center gap-2 text-body-md text-inverse-on-surface"></div>
+      <div class="flex items-center gap-2">
+        <button type="button" id="jobs-compare-clear" class="rounded-full px-3 py-1.5 text-label-md font-bold text-inverse-on-surface hover:opacity-80">Clear</button>
+        <button type="button" id="jobs-compare-open" class="rounded-full bg-primary-container px-4 py-1.5 text-label-md font-bold text-on-primary">Compare</button>
+      </div>
+    </div>
+    <div id="jobs-compare-panel" class="mt-6 hidden overflow-x-auto rounded-card border border-outline-variant/40 bg-surface-container-lowest p-4 shadow-sm"></div>
   </div>
 
   <script is:inline>
@@ -223,9 +255,151 @@ const rows: JobRow[] = jobs
       var cards = document.getElementById("jobs-cards");
       if (!city || !gate || !sort || !tbody || !cards) return;
 
+      function levelsOf(row) {
+        try { return JSON.parse(row.dataset.levels || "{}"); } catch (e) { return {}; }
+      }
+      function payAt(row, lvl) {
+        var v = levelsOf(row)[String(lvl)];
+        return typeof v === "number" ? v : null;
+      }
+      function naira(n) {
+        return "₦" + n.toLocaleString("en-NG");
+      }
+
+      /* ----- Level switch: swap displayed pay column ----- */
+      function renderPay() {
+        var lvl = level ? level.value : "1";
+        document.querySelectorAll(".job-row").forEach(function (row) {
+          var cell = row.querySelector(".js-pay");
+          if (!cell) return;
+          var p = payAt(row, lvl);
+          cell.textContent = p === null ? "Data Pending" : naira(p);
+        });
+        if (payHead) {
+          payHead.textContent =
+            lvl === "1" ? "L1 pay / shift (entry)" :
+            lvl === "5" ? "L5 pay / shift (top)" :
+            "L" + lvl + " pay / shift";
+        }
+      }
+
+      /* ----- Compare (up to 3 careers) ----- */
+      var selected = [];
+      var bar = document.getElementById("jobs-compare-bar");
+      var names = document.getElementById("jobs-compare-names");
+      var panel = document.getElementById("jobs-compare-panel");
+
+      function rowBySlug(slug) {
+        var found = null;
+        document.querySelectorAll(".job-row").forEach(function (row) {
+          var btn = row.querySelector(".jobs-compare-btn");
+          if (btn && btn.dataset.slug === slug) found = row;
+        });
+        return found;
+      }
+
+      function renderBar() {
+        if (!bar || !names) return;
+        bar.classList.toggle("hidden", selected.length === 0);
+        bar.classList.toggle("flex", selected.length > 0);
+        names.innerHTML = "";
+        selected.forEach(function (slug) {
+          var row = rowBySlug(slug);
+          var chip = document.createElement("span");
+          chip.className = "rounded-full bg-surface-container-high px-3 py-1 font-semibold";
+          chip.textContent = row ? row.dataset.name : slug;
+          names.appendChild(chip);
+        });
+        var hint = document.createElement("span");
+        hint.className = "text-body-sm opacity-70";
+        hint.textContent = selected.length + " of 3";
+        names.appendChild(hint);
+      }
+
+      function renderCompare() {
+        if (!panel) return;
+        if (selected.length < 2) {
+          panel.classList.add("hidden");
+          panel.innerHTML = "";
+          return;
+        }
+        var cols = selected.map(function (slug) {
+          var row = rowBySlug(slug);
+          return row
+            ? { slug: slug, name: row.dataset.name, city: row.dataset.city, gate: row.dataset.gate, workplace: row.dataset.workplace, shift: row.dataset.shift, levels: levelsOf(row) }
+            : null;
+        }).filter(Boolean);
+
+        var attrs = [
+          { k: "city", label: "City" },
+          { k: "workplace", label: "Workplace" },
+          { k: "shift", label: "Shift length" },
+          { k: "gate", label: "Skill gate" },
+        ];
+        var html = '<h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Side-by-side comparison</h2>';
+        html += '<table class="mt-3 w-full min-w-[480px] text-left"><thead><tr class="border-b border-outline-variant/40 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary"><th class="px-3 py-2"></th>';
+        cols.forEach(function (c) {
+          html += '<th class="px-3 py-2"><a class="text-primary hover:underline" href="/jobs/' + c.slug + '/">' + c.name + "</a></th>";
+        });
+        html += "</tr></thead><tbody>";
+        attrs.forEach(function (a) {
+          html += '<tr class="border-b border-outline-variant/20"><td class="px-3 py-2 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">' + a.label + "</td>";
+          cols.forEach(function (c) {
+            var v = a.k === "shift" ? (c.shift ? c.shift + " h" : "Data Pending") : c[a.k];
+            html += '<td class="px-3 py-2 text-body-md text-on-surface">' + (v || "—") + "</td>";
+          });
+          html += "</tr>";
+        });
+        for (var lvl = 1; lvl <= 5; lvl++) {
+          html += '<tr class="border-b border-outline-variant/20"><td class="px-3 py-2 font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">L' + lvl + " pay / shift</td>";
+          cols.forEach(function (c) {
+            var p = c.levels[String(lvl)];
+            html += '<td class="px-3 py-2 text-body-md font-bold text-on-surface">' + (typeof p === "number" ? naira(p) : "Data Pending") + "</td>";
+          });
+          html += "</tr>";
+        }
+        html += "</tbody></table>";
+        html += '<p class="mt-3 text-body-sm text-on-surface-variant">Base pay per shift, before adjustments and tax.</p>';
+        panel.innerHTML = html;
+        panel.classList.remove("hidden");
+        panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      document.querySelectorAll(".jobs-compare-btn").forEach(function (btn) {
+        btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var slug = btn.dataset.slug;
+          var i = selected.indexOf(slug);
+          if (i >= 0) selected.splice(i, 1);
+          else {
+            if (selected.length >= 3) return;
+            selected.push(slug);
+          }
+          btn.textContent = i >= 0 ? "+ Compare" : "✓ Added";
+          btn.classList.toggle("bg-surface-container", i < 0);
+          renderBar();
+          renderCompare();
+        });
+      });
+
+      var clearBtn = document.getElementById("jobs-compare-clear");
+      if (clearBtn) clearBtn.addEventListener("click", function () {
+        selected = [];
+        document.querySelectorAll(".jobs-compare-btn").forEach(function (b) {
+          b.textContent = "+ Compare";
+          b.classList.remove("bg-surface-container");
+        });
+        renderBar();
+        renderCompare();
+      });
+      var openBtn = document.getElementById("jobs-compare-open");
+      if (openBtn) openBtn.addEventListener("click", renderCompare);
+
       function apply() {
         var rows = Array.prototype.slice.call(document.querySelectorAll(".job-row"));
         var visible = 0;
+        var lvl = level ? level.value : "1";
         rows.forEach(function (row) {
           var ok =
             (city.value === "all" || row.dataset.city === city.value) &&
@@ -234,14 +408,13 @@ const rows: JobRow[] = jobs
           if (ok) visible++;
         });
         var sortKey = sort.value;
-        var num = function (row, key) {
-          var v = row.dataset[key];
-          return v === "" ? -1 : Number(v);
+        var num = function (row) {
+          var p = payAt(row, lvl);
+          return p === null ? -1 : p;
         };
         rows.sort(function (a, b) {
-          var key = sortKey.startsWith("entry") ? "entry" : "top";
-          var av = num(a, key);
-          var bv = num(b, key);
+          var av = num(a);
+          var bv = num(b);
           return sortKey.endsWith("asc") ? av - bv : bv - av;
         });
         rows.forEach(function (row) {
@@ -254,6 +427,9 @@ const rows: JobRow[] = jobs
       city.addEventListener("change", apply);
       gate.addEventListener("change", apply);
       sort.addEventListener("change", apply);
+      if (level) level.addEventListener("change", function () { renderPay(); apply(); });
+      renderPay();
+      apply();
     })();
   </script>
 </BaseLayout>

@@ -28,6 +28,7 @@ const jobLookup: Record<string, { name: string; pay: number | null; shifts: numb
 <BaseLayout
   title="Lagos Life First Week Planner: Budget, Jobs & Rent – LagosLifeGuide"
   description="Free Lagos Life planner: enter your cash, rent and skills to get a 7-day plan. Runs in your browser; unknown values are never treated as zero."
+  ogImage="/images/og-planner.jpg"
   jsonLd={[
     {
       "@context": "https://schema.org",
@@ -211,10 +212,19 @@ const jobLookup: Record<string, { name: string; pay: number | null; shifts: numb
                 >
                   Preset: LAPO start · ₦60,000
                 </button>
+                <button
+                  type="button"
+                  data-preset-cash="14000"
+                  class="rounded-full bg-primary-fixed/50 px-3 py-1.5 font-label-md text-label-md font-bold text-primary transition-colors hover:bg-primary-fixed"
+                >
+                  Preset: UNILAG Fresher · ₦14,000
+                </button>
               </div>
               <p class="mt-1 text-body-sm text-outline">
-                Nepo ₦500,000 corroborated in-game (2026-10-14); LAPO ₦60,000 from the game client
-                files, in-game check still pending.
+                Nepo ₦500,000 and UNILAG Fresher ₦14,000 corroborated in-game (2026-10-14); LAPO
+                ₦60,000 from the game client files, in-game check still pending — and remember its
+                ₦12,000 weekly repayment. Full comparison on the
+                <a href="/origins/" class="text-primary hover:underline">origins page</a>.
               </p>
               <p id="planner-cash-error" class="mt-space-xs hidden text-body-md font-semibold text-needs-verification" role="alert"></p>
             </div>

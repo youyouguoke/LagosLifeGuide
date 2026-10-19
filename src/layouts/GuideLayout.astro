@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import VerificationBadge from "../components/VerificationBadge.astro";
+import EvidenceSection from "../components/EvidenceSection.astro";
 import type { GuidePost } from "../lib/schema/guide";
 import type { SourceRecord } from "../lib/schema/common";
 
@@ -76,6 +77,8 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
   description={guide.summary}
   canonicalPath={`/guides/${guide.slug}/`}
   jsonLd={jsonLd}
+  ogImage={`/images/og-guide-${guide.slug}.jpg`}
+  ogType="article"
 >
   <article
     class="mx-auto max-w-[1200px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop"
@@ -182,6 +185,18 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
         {guide.title}
       </h1>
     </header>
+
+    <!-- Quick answer box (P0-3): summary + explicit check date -->
+    <div class="mb-space-lg max-w-[960px] rounded-2xl border-l-4 border-primary bg-surface-container-low p-space-md">
+      <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">
+        Quick answer
+      </div>
+      <p class="mt-1 text-body-lg leading-relaxed text-on-surface">{guide.summary}</p>
+      <p class="mt-2 text-body-sm text-on-surface-variant">
+        Last checked: <time datetime={guide.updatedAt}>{guide.updatedAt}</time>
+        <VerificationBadge status={guide.verificationStatus} />
+      </p>
+    </div>
 
     <!-- Sidebar + Main Content Grid -->
     <div class="grid grid-cols-1 items-start gap-space-xl lg:grid-cols-12">
@@ -331,6 +346,28 @@ const sectionNumber = (index: number) => String(index + 1).padStart(2, "0");
               }
             </section>
           ))
+        }
+
+        <!-- In-game evidence (P1-5): only for guides backed by a logged-in session -->
+        {
+          guide.slug === "how-to-play" && (
+            <EvidenceSection
+              date="2026-10-14"
+              images={[
+                { src: "/evidence/in-game-2026-10-14/unilag-fresher-start-money.png", alt: "Fresh UNILAG character in the live game showing ₦14,000 starting money" },
+                { src: "/evidence/in-game-2026-10-14/unilag-first-classes.png", alt: "UNILAG 100L semester courses screen after registration" },
+              ]}
+              tested={[
+                "A fresh UNILAG Fresher starts with ₦14,000",
+                "First registration costs ₦35,000 total: ₦15,000 acceptance fee + ₦20,000 first fees",
+                "100L courses populate the semester immediately after registration",
+              ]}
+              notTested={[
+                "Completing a full degree and confirming the graduation pay bonus end-to-end",
+                "Earning side income during the first in-game week as a fresher",
+              ]}
+            />
+          )
         }
 
         <!-- Unverified Boundaries (rendered only from guide data) -->
