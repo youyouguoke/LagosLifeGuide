@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextSteps from "../../components/NextSteps.astro";
 
 const officialUrl = "https://lagoslife.app";
 
@@ -27,6 +28,7 @@ const apkChecks = [
   title="Lagos Life Download & Install Guide (No APK Needed) | LagosLifeGuide.app"
   description="Lagos Life needs no download: install the official web app from lagoslife.app on Android or iPhone. Plus how to assess any APK claiming to be the game."
   canonicalPath="/download/"
+  ogImage="/images/og-download.jpg"
 >
   <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
     <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
@@ -119,6 +121,8 @@ const apkChecks = [
         <li>You're signed out: sign back in from the game screen — and only clear site data if you're certain you can sign in again.</li>
       </ul>
     </div>
+
+    <NextSteps />
 
     <p class="mt-space-lg text-body-sm text-text-muted">
       Last reviewed 2026-10-10. Facts about the official install path (web app manifest, no store

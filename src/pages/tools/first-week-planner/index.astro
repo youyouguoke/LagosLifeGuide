@@ -974,6 +974,8 @@ const jobLookup: Record<string, { name: string; pay: number | null; shifts: numb
     const step1Error = must<HTMLParagraphElement>("planner-step1-error");
 
     must<HTMLButtonElement>("planner-next-1").addEventListener("click", () => {
+      // P0-3: planner started (event only — inputs are never logged, see "Runs entirely in your browser")
+      (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({ event: "planner_start" });
       const { errors } = syncFromDom();
       if (errors.length > 0) {
         step1Error.textContent = errors.join(" ");
@@ -1054,6 +1056,8 @@ const jobLookup: Record<string, { name: string; pay: number | null; shifts: numb
 
     function renderResults(result: PlannerResult): void {
       lastResult = result;
+      // P0-3: planner finished (event only)
+      (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({ event: "planner_complete", status: result.status });
       const meta = STATUS_META[result.status];
       resultsSection.hidden = false;
 

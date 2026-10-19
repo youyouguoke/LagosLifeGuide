@@ -1,0 +1,65 @@
+---
+/**
+ * P0-1 — Contextual "New to the game?" next-step cards for entry pages.
+ * Sits in the body of /play/, /app/, /download/ and the homepage, below the
+ * official-link fold but above the FAQ. Clicks are measured (P0-3) via
+ * dataLayer events only — no personal data.
+ */
+const cards = [
+  {
+    href: "/tools/first-week-planner/",
+    title: "Plan your first week",
+    body: "Enter your starting cash and rent, get a 7-day money plan. Runs entirely in your browser.",
+    cta: "Open the planner",
+    id: "planner",
+  },
+  {
+    href: "/jobs/",
+    title: "Jobs you can start today",
+    body: "All 33 careers with entry pay, skill gates and the full L1–L5 pay ladder — each figure checked and dated.",
+    cta: "Browse jobs & pay",
+    id: "jobs",
+  },
+  {
+    href: "/origins/",
+    title: "Pick your starting origin",
+    body: "Nepo Baby vs LAPO vs UNILAG Fresher: starting cash, weekly obligations and skills, compared.",
+    cta: "Compare origins",
+    id: "origins",
+  },
+];
+---
+
+<section class="mt-space-xl" aria-label="New to the game?">
+  <h2 class="text-headline-lg font-bold text-on-surface">New to the game?</h2>
+  <p class="mt-1 text-body-md text-on-surface-variant">
+    Three next steps our data can help with — no account needed for any of them.
+  </p>
+  <div class="mt-space-md grid gap-space-md sm:grid-cols-3">
+    {cards.map((c) => (
+      <a
+        href={c.href}
+        data-next-step={c.id}
+        class="group flex flex-col rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+      >
+        <h3 class="font-headline-sm text-headline-sm font-extrabold text-on-surface group-hover:text-primary">
+          {c.title}
+        </h3>
+        <p class="mt-1 flex-1 text-body-sm leading-relaxed text-on-surface-variant">{c.body}</p>
+        <span class="mt-3 inline-flex items-center gap-1 font-label-md text-label-md font-bold text-primary">
+          {c.cta}
+          <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+        </span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<script is:inline>
+  document.querySelectorAll("[data-next-step]").forEach(function (el) {
+    el.addEventListener("click", function () {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "next_step_click", step: el.getAttribute("data-next-step") });
+    });
+  });
+</script>

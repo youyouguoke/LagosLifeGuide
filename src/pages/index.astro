@@ -8,6 +8,32 @@ import jobs from "../data/jobs.json";
 import housingCosts from "../data/housing-costs.json";
 import skillsActions from "../data/skills-actions.json";
 import locations from "../data/locations.json";
+import NextSteps from "../components/NextSteps.astro";
+
+/* P1-2: "Recently reviewed" — the 10 most recently checked records, straight from data. */
+function fieldCheckedAt(r: Record<string, unknown>): string {
+  for (const v of Object.values(r)) {
+    if (v && typeof v === "object" && "checkedAt" in (v as Record<string, unknown>)) {
+      const c = (v as { checkedAt?: string }).checkedAt;
+      if (typeof c === "string") return c;
+    }
+  }
+  return "";
+}
+function fieldName(r: Record<string, unknown>): string {
+  const n = r.name as { value?: unknown } | undefined;
+  return typeof n?.value === "string" ? n.value : String(r.id ?? "");
+}
+const recentlyReviewed = [
+  ...(jobs as unknown as Record<string, unknown>[]).map((r) => ({ r, href: `/jobs/${r.id}/` })),
+  ...(housingCosts as unknown as Record<string, unknown>[]).map((r) => ({ r, href: `/game-data/${r.id}/` })),
+  ...(skillsActions as unknown as Record<string, unknown>[]).map((r) => ({ r, href: `/game-data/${r.id}/` })),
+  ...(locations as unknown as Record<string, unknown>[]).map((r) => ({ r, href: `/game-data/${r.id}/` })),
+]
+  .map(({ r, href }) => ({ href, name: fieldName(r), date: fieldCheckedAt(r) }))
+  .filter((x) => x.date)
+  .sort((a, b) => (a.date < b.date ? 1 : -1))
+  .slice(0, 10);
 
 const guideList = guides as unknown as GuidePost[];
 
@@ -34,7 +60,7 @@ const faqs = [
   },
   {
     q: "Can I withdraw game naira as real money?",
-    a: "No. The official terms of service are explicit (section 3, checked 2026-10-19): in-game naira, items, houses and jobs 'have no real-world value and can't be cashed out, sold or transferred outside the game'. Real money only flows in — as optional top-ups of in-game naira. Source: https://lagoslife.app/terms",
+    a: "No. The official terms of service are explicit (section 3, checked 2026-10-19): in-game naira, items, houses and jobs 'have no real-world value and can't be cashed out, sold or transferred outside the game'. Real money only flows in — as optional top-ups of in-game naira. Full details with the exact quote: our <a href=\"/payments/\" class=\"text-primary hover:underline\">payments & withdrawal page</a>. Source: https://lagoslife.app/terms",
   },
   {
     q: "Is Lagos Life free to play?",
@@ -484,9 +510,37 @@ const trustCards = [
               {f.q}
               <span class="text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
             </summary>
-            <p class="mt-space-sm text-body-md leading-relaxed text-on-surface-variant">{f.a}</p>
+            <p class="mt-space-sm text-body-md leading-relaxed text-on-surface-variant" set:html={f.a} />
           </details>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Next steps (P0-1) + Recently reviewed (P1-2) -->
+  <section class="w-full py-space-xl">
+    <div class="mx-auto max-w-[1280px] px-margin md:px-margin-tablet lg:px-margin-desktop">
+      <NextSteps />
+
+      <div class="mt-space-xl">
+        <div class="flex items-baseline justify-between gap-space-md">
+          <h2 class="text-headline-lg-mobile font-bold text-inverse-surface md:text-headline-lg">
+            Recently reviewed
+          </h2>
+          <a href="/updates/" class="font-label-md text-label-md font-bold text-primary hover:underline">
+            All recent updates →
+          </a>
+        </div>
+        <ul class="mt-space-md grid gap-space-sm sm:grid-cols-2">
+          {recentlyReviewed.map((r) => (
+            <li class="flex items-center justify-between gap-space-sm rounded-2xl border border-outline-variant/40 bg-surface-container-lowest px-space-md py-space-sm">
+              <a href={r.href} class="font-headline-sm text-headline-sm font-bold text-on-surface hover:text-primary">
+                {r.name}
+              </a>
+              <time datetime={r.date} class="shrink-0 text-body-sm text-on-surface-variant">{r.date}</time>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>

@@ -267,6 +267,29 @@ function fieldDisplay(
       return `${withCurrencyAndPeriod(value, "NGN", null)} · 80% of buyout`;
     case "skills-actions.durationMinutes":
       return formatMinutes(field.value as number);
+    case "skills-actions.effectDescription": {
+      // P0-2: render the raw client effect ("needs: fun +10; bubble: 💻") in plain words.
+      const raw = typeof field.value === "string" ? field.value : "";
+      const segs = raw.split(";").map((s) => s.trim()).filter(Boolean);
+      const pretty = segs.map((seg) => {
+        const m = seg.match(/^(needs|instant):\s*([a-z]+)\s*([+-]?\d+)$/i);
+        if (m) {
+          const name = m[2].charAt(0).toUpperCase() + m[2].slice(1);
+          const n = parseInt(m[3], 10);
+          const verb =
+            m[1] === "instant"
+              ? n >= 0
+                ? "Instantly restores"
+                : "Instantly drops"
+              : n >= 0
+                ? "Raises"
+                : "Lowers";
+          return `${verb} ${name} by ${Math.abs(n)}`;
+        }
+        return seg.charAt(0).toUpperCase() + seg.slice(1);
+      });
+      return pretty.join(" · ");
+    }
     case "skills-actions.costAmount": {
       const currencyField = fieldOrNull(record.costCurrency);
       return withCurrencyAndPeriod(value, currencyField ? formatScalar(currencyField.value) : null, null);

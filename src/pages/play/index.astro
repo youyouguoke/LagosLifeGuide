@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextSteps from "../../components/NextSteps.astro";
 
 const officialUrl = "https://lagoslife.app";
 
@@ -29,7 +30,7 @@ const faqs = [
   },
   {
     q: "Does LagosLifeGuide.app host the game?",
-    a: "Never. We are an independent guide. The only official address we point to is lagoslife.app, and we will never ask for your game password.",
+    a: "Never. We are an independent guide. We link only to lagoslife.app as the game's main address; the developer's own domain lagoslife.eliysites.com serves the same app (verified 2026-10-19). We will never ask for your game password.",
   },
 ];
 ---
@@ -38,6 +39,7 @@ const faqs = [
   title="Play Lagos Life — Official Link & Sign-In Help | LagosLifeGuide.app"
   description="The official Lagos Life game link, how to sign in safely, and what to do when the official site will not load. Independent guide — we never ask for your password."
   canonicalPath="/play/"
+  ogImage="/images/og-play.jpg"
 >
   <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
     <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
@@ -76,9 +78,12 @@ const faqs = [
         </a>
       </div>
       <p class="mt-space-md rounded-xl bg-surface-container-lowest p-space-sm text-body-sm text-on-surface-variant">
-        Safety rule #1: read the address bar before typing any password. The only official address
+        Safety rule #1: read the address bar before typing any password. The game's main address
         is <strong class="font-semibold text-on-surface">lagoslife.app</strong> — not this guide
-        site, not any look-alike domain.
+        site, not any look-alike domain. We verified on 2026-10-19 that
+        <strong class="font-semibold text-on-surface">lagoslife.eliysites.com</strong> (the
+        developer's own infrastructure domain — Eliy, named in the official terms) serves the same
+        app; we still link only lagoslife.app.
       </p>
     </div>
 
@@ -163,6 +168,8 @@ const faqs = [
         </figure>
       </div>
     </div>
+
+    <NextSteps />
 
     <!-- FAQ -->
     <div class="mt-space-xl rounded-3xl bg-surface-container-low/50 p-space-md sm:p-space-lg">

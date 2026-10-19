@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const checkedAt = "2026-10-19";
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How do I recover a Lagos Life account or reset its password?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "If you added an optional email to the account, use the in-game password-reset flow to receive a reset link. Account and data requests (including deletion) go to the developer in-game: message @shallyr, as stated in the official privacy policy (checked 2026-10-19).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can LagosLifeGuide reset my password or recover my account?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. This is an independent fan guide — it cannot see, reset or modify any account, and it will never ask for a password.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Lagos Life Account & Password Recovery: Who Can Actually Help"
+  description="Forgot your Lagos Life password? The reset flow, the official owner-verification route, and the exact support channel (@shallyr in-game) — quoted from the game's own policies."
+  canonicalPath="/account-help/"
+  jsonLd={[faqJsonLd]}
+  ogImage="/images/og-account-help.jpg"
+>
+  <div class="mx-auto max-w-[860px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <nav aria-label="Breadcrumb" class="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
+      <a href="/" class="hover:text-primary">Home</a>
+      <span class="text-outline" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-on-surface">Account & Recovery</span>
+    </nav>
+
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+      Lagos Life Account & Password Recovery
+    </h1>
+
+    <div class="mt-6 rounded-2xl border-l-4 border-primary bg-surface-container-low p-space-md">
+      <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">Quick answer</div>
+      <p class="mt-1 text-body-lg leading-relaxed text-on-surface">
+        Password resets run through the <strong>in-game reset flow</strong> (an email on the account
+        receives the link). For anything only the developer can do — account recovery, data export,
+        deletion — the official privacy policy names the channel: <strong>message @shallyr inside
+        the game</strong>.
+      </p>
+      <p class="mt-2 text-body-sm text-on-surface-variant">
+        Sources: <a href="https://lagoslife.app/privacy" class="text-primary hover:underline" rel="noopener">lagoslife.app/privacy</a> and
+        <a href="https://lagoslife.app/terms" class="text-primary hover:underline" rel="noopener">lagoslife.app/terms</a> · checked <time datetime={checkedAt}>{checkedAt}</time>
+      </p>
+    </div>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">Recovery routes, in order</h2>
+    <ol class="mt-2 list-decimal space-y-2 pl-5 text-body-md leading-relaxed text-on-surface-variant">
+      <li><strong>Self-serve reset.</strong> If an email is attached to the account, the game's password-reset flow sends a link to it. No email on file means this route is unavailable.</li>
+      <li><strong>Owner verification.</strong> The game's own systems record events like "owner questions asked" and "owner check passed" — the developer can verify an account's owner before helping. This happens in-game via their support channel.</li>
+      <li><strong>Official channel: @shallyr.</strong> The privacy policy says data requests — see, correct, download or delete your data — go to this in-game contact. The terms (section 7) also let you ask for account deletion at any time.</li>
+    </ol>
+
+    <div class="mt-space-md rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
+      <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">What we will never do</h2>
+      <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+        LagosLifeGuide cannot see, reset, recover or delete any account, and no page on this site
+        will ever ask for your game password. Anyone claiming otherwise — in a comment, a DM or a
+        look-alike site — is not us.
+      </p>
+    </div>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">Related</h2>
+    <div class="mt-space-sm grid gap-3 sm:grid-cols-3">
+      <a href="/login-help/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Troubleshooting</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Login help & fixes</div>
+      </a>
+      <a href="/payments/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Money</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Payments & withdrawal</div>
+      </a>
+      <a href="/age-limit/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Rule</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Age limit: 18+</div>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

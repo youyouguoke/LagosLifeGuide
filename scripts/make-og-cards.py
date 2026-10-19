@@ -50,7 +50,48 @@ card("Lagos Life Game Data", "472 records · per-field verification · Data Pend
 card("Lagos Life Guides", "Walkthroughs & data deep dives with check dates", "public/images/og-guides.jpg")
 card("Lagos Life Starting Origins", "Nepo Baby vs LAPO vs UNILAG Fresher compared", "public/images/og-origins.jpg")
 card("Lagos Life Login Help", "Troubleshooting & official support channels", "public/images/og-login-help.jpg")
+# P0-4: entry pages, updates hub, new short pages (third plan round)
+card("Lagos Life Official Link", "The one address to bookmark · sign-in help", "public/images/og-play.jpg")
+card("Lagos Life App", "Install the web app on Android, iPhone or PC", "public/images/og-app.jpg")
+card("Lagos Life Download", "How to get the game on any device", "public/images/og-download.jpg")
+card("Lagos Life Recent Updates", "Recently reviewed records & guides, by date", "public/images/og-updates.jpg")
+card("Lagos Life Locations", "28 places · hours & every action at each", "public/images/og-locations.jpg")
+card("Lagos Life Age Limit: 18+", "Official rule, quoted & dated", "public/images/og-age-limit.jpg")
+card("Lagos Life Payments & Withdrawal", "Top-ups in, no cash-out — official terms", "public/images/og-payments.jpg")
+card("Lagos Life Account & Recovery", "Who can actually reset or recover accounts", "public/images/og-account-help.jpg")
 for g in guides:
     slug = g.get("slug")
     title = g.get("title", "Guide").replace("Lagos Life: ", "").replace(" in Lagos Life", "")
     card(title[:60], "Guide · verification status & check date on page", f"public/images/og-guide-{slug}.jpg")
+
+# P0-4: per-record share cards — unified template, name + location printed.
+skills = json.load(open("src/data/skills-actions.json"))
+locations = json.load(open("src/data/locations.json"))
+housing = json.load(open("src/data/housing-costs.json"))
+loc_name = {}
+for l in locations:
+    v = l.get("name") or {}
+    loc_name[l.get("id")] = v.get("value") if isinstance(v, dict) else None
+n = 0
+generated = []
+for r in skills:
+    rid = r.get("id")
+    loc = loc_name.get((r.get("locationId") or {}).get("value"))
+    card((r.get("name") or {}).get("value", "Game action")[:60],
+         f"Action at {loc}" if loc else "Game action record",
+         f"public/images/og/records/{rid}.jpg")
+    generated.append(rid)
+    n += 1
+for r in locations:
+    card((r.get("name") or {}).get("value", "Location")[:60], "Location · hours & actions on page",
+         f"public/images/og/records/{r.get('id')}.jpg")
+    generated.append(r.get("id"))
+    n += 1
+for r in housing:
+    rid = r.get("id")
+    card((r.get("name") or {}).get("value", "Housing")[:60], "Housing record · rent & buy verified",
+         f"public/images/og/records/{rid}.jpg")
+    generated.append(rid)
+    n += 1
+json.dump(generated, open("src/data/og-records.json", "w"))
+print(f"record cards: {n}")

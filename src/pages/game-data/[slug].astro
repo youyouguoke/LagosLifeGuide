@@ -11,6 +11,9 @@ import {
   type FieldRow,
   type NormalizedRecord,
 } from "../../lib/game-data";
+import locationsJson from "../../data/locations.json";
+import skillsActionsJson from "../../data/skills-actions.json";
+import ogRecords from "../../data/og-records.json";
 
 export function getStaticPaths() {
   // Job records now live under /jobs/<slug>/ (P1-1 keyword URLs); the old
@@ -72,12 +75,93 @@ function fieldValue(row: FieldRow): string {
   // NEVER render an unknown value as 0 — explicit Data Pending instead.
   return row.display ?? "Data Pending";
 }
+
+/* ------------------------------------------------------------------ */
+/* P0-2 — Human summary + related links (action records first)         */
+/* ------------------------------------------------------------------ */
+
+const rowOf = (key: string): FieldRow | undefined =>
+  record.fields.find((f) => f.key === key);
+
+/** Turn the raw client effect string into one honest English sentence. */
+function humanEffect(raw: unknown): string | null {
+  if (typeof raw !== "string" || raw.length === 0) return null;
+  const segments = raw.split(";").map((s) => s.trim()).filter(Boolean);
+  const parts: string[] = [];
+  for (const seg of segments) {
+    const needs = seg.match(/^(needs|instant):\s*([a-z]+)\s*([+-]?\d+)$/i);
+    if (needs) {
+      const [, kind, need, num] = needs;
+      const name = need.charAt(0).toUpperCase() + need.slice(1);
+      const n = parseInt(num, 10);
+      if (kind === "instant") {
+        parts.push(n >= 0 ? `instantly restores ${name} by ${n}` : `instantly drops ${name} by ${Math.abs(n)}`);
+      } else {
+        parts.push(n >= 0 ? `raises the ${name} need by ${n}` : `lowers the ${name} need by ${Math.abs(n)}`);
+      }
+      continue;
+    }
+    if (/^\d+-year program/.test(seg)) {
+      parts.push(`it is a ${seg}`);
+      continue;
+    }
+    // Anything we don't understand stays verbatim rather than being guessed at.
+    parts.push(seg);
+  }
+  if (parts.length === 0) return null;
+  if (parts.length === 1) return parts[0];
+  return parts.slice(0, -1).join(", ") + " and " + parts[parts.length - 1];
+}
+
+const locRow = rowOf("locationId");
+const locSlug =
+  locRow && typeof locRow.field.value === "string" ? locRow.field.value : null;
+const locRecord = locSlug
+  ? allRecords.find((r) => r.collection === "locations" && r.slug === locSlug)
+  : undefined;
+const durRow = rowOf("durationMinutes");
+const effRow = rowOf("effectDescription");
+
+const isActionRecord = record.collection === "skills-actions";
+const inGameBacked = record.evidenceIds.some((id) => id.startsWith("ev-in-game-"));
+
+let plainSummary: string | null = null;
+if (isActionRecord) {
+  const where = locRecord
+    ? `${locRecord.name}`
+    : locSlug
+      ? locSlug
+      : "an unknown location";
+  const dur =
+    durRow && typeof durRow.field.value === "number"
+      ? `${durRow.field.value} in-game minutes`
+      : "an unknown amount of time";
+  const effect = humanEffect(effRow?.field.value);
+  const effectText = effect ? ` and, per the game's data, ${effect}` : "";
+  const verifiedText = inGameBacked
+    ? "This value has been corroborated by logged-in play."
+    : "Only the game-client value is verified — we have not tested this action in a live session.";
+  plainSummary = `${record.name} is an action at ${where}. It takes ${dur}${effectText}. ${verifiedText}`;
+}
+
+/* Related links: same-location sibling actions + the location page. */
+const siblingActions = isActionRecord && locSlug
+  ? allRecords
+      .filter(
+        (r) =>
+          r.collection === "skills-actions" &&
+          r.slug !== record.slug &&
+          r.fields.find((f) => f.key === "locationId")?.field.value === locSlug,
+      )
+      .slice(0, 6)
+  : [];
 ---
 
 <BaseLayout
   title={`${record.name} — Lagos Life ${record.typeLabel} Data | LagosLifeGuide`}
   description={`Lagos Life ${record.typeLabel.toLowerCase()} data for ${record.name}: every field carries its own verification status, cited sources and check date. Nothing unverified is presented as fact.`}
   canonicalPath={`/game-data/${record.slug}/`}
+  ogImage={(ogRecords as string[]).includes(record.slug) ? `/images/og/records/${record.slug}.jpg` : "/images/og-game-data.jpg"}
   jsonLd={[
     {
       "@context": "https://schema.org",
@@ -182,6 +266,14 @@ function fieldValue(row: FieldRow): string {
         </div>
       </div>
     </header>
+
+    <!-- P0-2: human summary (action records) -->
+    {plainSummary && (
+      <div class="mb-8 rounded-2xl border-l-4 border-primary bg-surface-container-low p-space-md">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">Quick answer</div>
+        <p class="mt-1 text-body-lg leading-relaxed text-on-surface">{plainSummary}</p>
+      </div>
+    )}
 
     <!-- SECTION 1: Confirmed Information -->
     <section class="mb-10" aria-labelledby="confirmed-heading">
@@ -482,6 +574,31 @@ function fieldValue(row: FieldRow): string {
         >
           <span class="material-symbols-outlined mr-1 text-[18px]">arrow_back</span>
           Return to Game Data Directory
+        </a>
+      </div>
+    </section>
+
+    <!-- P0-2: Related — same-location actions, location page, planner -->
+    <section class="mb-10" aria-label="Related">
+      <h2 class="mb-4 font-headline-md text-headline-md font-extrabold text-on-surface">Related</h2>
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {locRecord && (
+          <a href={`/locations/${locRecord.slug}/`} class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+            <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Location</div>
+            <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">{locRecord.name}</div>
+            <div class="mt-1 text-body-sm text-on-surface-variant">Opening hours and every action available there.</div>
+          </a>
+        )}
+        {siblingActions.map((a) => (
+          <a href={`/game-data/${a.slug}/`} class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+            <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-tertiary">Also at {locRecord?.name ?? "this location"}</div>
+            <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">{a.name}</div>
+          </a>
+        ))}
+        <a href="/tools/first-week-planner/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+          <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">Tool</div>
+          <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">First Week Planner</div>
+          <div class="mt-1 text-body-sm text-on-surface-variant">See how this cost fits a 7-day budget.</div>
         </a>
       </div>
     </section>

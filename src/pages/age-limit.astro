@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const checkedAt = "2026-10-19";
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Is there an age limit for Lagos Life?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. The official terms of service state you must be 18 or older to play, and that accounts believed to belong to younger players may be closed (section 1, checked 2026-10-19).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What happens if an underage account is found?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The official terms say the operator may close accounts it believes belong to someone younger than 18 (section 1).",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Lagos Life Age Limit: 18+ (Official Rule, Verified 2026-10-19)"
+  description="Lagos Life's official age requirement is 18 and over, per section 1 of the game's terms of service — quoted here with the check date."
+  canonicalPath="/age-limit/"
+  jsonLd={[faqJsonLd]}
+  ogImage="/images/og-age-limit.jpg"
+>
+  <div class="mx-auto max-w-[860px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <nav aria-label="Breadcrumb" class="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
+      <a href="/" class="hover:text-primary">Home</a>
+      <span class="text-outline" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-on-surface">Age Limit</span>
+    </nav>
+
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+      Lagos Life Age Limit: 18+
+    </h1>
+
+    <div class="mt-6 rounded-2xl border-l-4 border-primary bg-surface-container-low p-space-md">
+      <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">Quick answer</div>
+      <p class="mt-1 text-body-lg leading-relaxed text-on-surface">
+        You must be <strong>18 or older</strong> to play Lagos Life. The official terms of service say so
+        directly, and state that accounts believed to belong to younger players may be closed.
+      </p>
+      <p class="mt-2 text-body-sm text-on-surface-variant">
+        Source: <a href="https://lagoslife.app/terms" class="text-primary hover:underline" rel="noopener">lagoslife.app/terms</a>,
+        section 1 ("Who can play") · checked <time datetime={checkedAt}>{checkedAt}</time>
+      </p>
+    </div>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">The exact wording</h2>
+    <blockquote class="mt-3 rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md text-body-lg leading-relaxed text-on-surface-variant">
+      "You must be 18 or older. By signing up you confirm you are. We may close accounts we believe
+      belong to someone younger."
+      <footer class="mt-2 text-body-sm">— Lagos Life Terms of Service, section 1</footer>
+    </blockquote>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">Why the limit exists</h2>
+    <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+      The game is an open multiplayer world with chats, player-run ads and in-app payments. Its own
+      privacy policy repeats the 18+ rule and says data from anyone younger will be deleted if
+      discovered. We quote the rule rather than guess at the reasons — the game does not publish
+      more than this.
+    </p>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">Related</h2>
+    <div class="mt-space-sm grid gap-3 sm:grid-cols-3">
+      <a href="/payments/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Money</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Payments & withdrawal</div>
+      </a>
+      <a href="/account-help/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Accounts</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Account & password recovery</div>
+      </a>
+      <a href="/play/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Official</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Official game link</div>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

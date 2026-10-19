@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import NextSteps from "../../components/NextSteps.astro";
 
 const officialUrl = "https://lagoslife.app";
 
@@ -44,6 +45,7 @@ const checks = [
   title="Lagos Life App: Play on Browser & Phone | LagosLifeGuide.app"
   description="The Lagos Life “app” is a web app — install it from lagoslife.app on Android or iPhone with no store download. Includes how to spot unofficial look-alike apps."
   canonicalPath="/app/"
+  ogImage="/images/og-app.jpg"
 >
   <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
     <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
@@ -128,6 +130,8 @@ const checks = [
         </div>
       ))}
     </div>
+
+    <NextSteps />
 
     <p class="mt-space-lg text-body-sm text-text-muted">
       Last reviewed 2026-10-10. Manifest facts verified against lagoslifeguide's captured copy of
