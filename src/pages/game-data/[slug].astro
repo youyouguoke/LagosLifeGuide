@@ -502,6 +502,25 @@ function fieldValue(row: FieldRow): string {
         ]}
       />
     )}
+
+    {["home-mushin-rent", "home-yaba-rent", "home-lekki-rent", "home-ikateTerrace-rent", "home-magodo-rent", "home-ikoyi-rent", "home-bananaIsland-rent"].includes(record.slug) && (
+      <EvidenceSection
+        date="2026-10-19"
+        images={[
+          { src: "/evidence/in-game-2026-10-19/houses-browse-lagos.png", alt: "In-game Lagos homes browser showing rent, buyout and move-in for all 7 homes" },
+          { src: "/evidence/in-game-2026-10-19/house-detail-mushin.png", alt: "Home detail dialog with move-in breakdown, exact buyout and the 80% resale line" },
+        ]}
+        tested={[
+          "Move-in total = 3× weekly rent (2 weeks upfront + 1 week agent & agreement), read from this home's detail dialog",
+          "Exact buyout price and the 80% resale figure, stated in the dialog text",
+          "Rents on 2026-10-19 matched the client-data base values exactly",
+        ]}
+        notTested={[
+          "Executing an actual purchase and resale transaction end-to-end",
+          "Whether governor policies ever move buyout or resale figures the way they move rent",
+        ]}
+      />
+    )}
   </div>
 
   <script is:inline define:vars={{ collection: record.collection, slug: record.slug }}>

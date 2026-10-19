@@ -1,353 +1,357 @@
 [
-  {
-    "slug": "how-to-play",
-    "title": "How to Play Lagos Life: A Beginner Walkthrough",
-    "summary": "The eight decisions that make up a first session, in order: open the official game, record your starting state, cover rent before anything else, pick from the 13 no-requirement careers, work a shift, recover your meters, train toward a skill gate, then review the week in the planner. Every number cited is in our public dataset.",
-    "topic": "Beginner",
-    "verificationStatus": "partial",
-    "updatedAt": "2026-10-10",
-    "sourceIds": [
-      "src-game-target"
-    ],
-    "limitations": [
-      "All figures come from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
-      "Rent period, action prices, and shift scheduling mechanics are not stated in the game files — steps that depend on them say so explicitly.",
-      "This guide covers the browser version at lagoslife.app only. Other apps or sites named 'Lagos Life' are different games."
-    ],
-    "sections": [
-      {
-        "heading": "1. Open the Official Game — and Only the Official Game",
-        "body": "The game this guide covers lives at lagoslife.app, in your browser, free to open. Two safety habits before anything else: read the address bar before you type any password, and never enter account details on a third-party guide site — including this one. LagosLifeGuide.app does not host the game and will never ask for your game password. If an embedded browser inside a social app fails to load the game, copy the address into your regular browser."
-      },
-      {
-        "heading": "2. Write Down Your Starting State",
-        "body": "Before you spend anything, record four numbers from the game screen: your cash, your current job (or none), your housing and its cost, and any recurring obligations. These four inputs are exactly what the First Week Planner on this site asks for. If a number is unknown, leave it blank — the planner treats unknown as unknown, never as zero, and this guide will flag where that matters."
-      },
-      {
-        "heading": "3. Cover Rent Before Anything Else",
-        "body": "The verified cheapest roofs in the game are the UNILAG Hall of Residence at ₦1,200, a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro at ₦2,600, and a single room in Kubwa at ₦2,800. Rent is charged weekly, due on Saturday (verified in-game on 14 Oct 2026). Moving into the UNILAG hall costs ₦3,600 upfront: two weeks' rent plus a one-week agent & agreement fee. What the data can tell you: even the mid-tier ₦6,000 options (Yaba, Gwarinpa, D-Line) cost less than one Banking shift.",
-        "image": {
-          "src": "/images/gameplay/houses-list-rent.png",
-          "alt": "Lagos Life Phone menu, Houses list showing Hall of Residence UNILAG at 1,200 naira per week",
-          "caption": "The in-game Houses list: the UNILAG hall at ₦1,200/week, with high-end Lagos rents visible above it. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "4. Pick Your First Job From the 13 No-Requirement Careers",
-        "body": "Thirteen careers accept you with zero requirements, and their verified level-1 pay per shift is: Banking (Marketer) ₦11,600 · Tech (Intern) ₦9,900 · Nursing ₦9,100 · Trading, DJ, Teaching ₦8,300 · Music, Hairstyling, Chef, Fitness Coach, Event Planning, Retail ₦7,400 · Content Creator, Football (Pundit) ₦6,600. Abuja and Port Harcourt have their own entry jobs (Keke Riding, Mai Shayi, Wuse Market Trading, Creek Road Trading, Ferry Work, Bole & Fish, Security at ₦7,400–₦8,300), and Airport Staff pays ₦12,000 with no listed requirement. Best early income: Banking. Best long-run tech path: Tech Intern. Full five-level ladders for all 33 careers are in the career guide and the Game Data directory."
-      },
-      {
-        "heading": "5. Work a Shift, Then Read the Actual Credit",
-        "body": "Client data gives base pay per shift, but what lands in your wallet can differ — bonuses, deductions, or rank effects are exactly the kind of thing only an observed shift confirms. After your first shift, write down the amount actually received and use that number in the planner from then on. If the received amount consistently differs from our table, that is a reportable correction: use the feedback button (bottom-right) and pick 'Correction'.",
-        "image": {
-          "src": "/images/gameplay/work-shift-banking.png",
-          "alt": "Lagos Life banking shift UI at Marina Towers showing accrued pay of 6,850 naira at 61 percent progress",
-          "caption": "A Banking shift in progress: pay accrues visibly (₦6,850 at 61%). The credit you actually receive is the ground truth. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "6. Recover Meters Before the Next Long Action",
-        "body": "The verified basics: Sleep restores +12 energy over 8 hours on any bed; Soak Garri & Sugar takes 12 minutes and restores +22 hunger. Cooking actions (Jollof, Amala & Ewedu) exist in the data with effects recorded, but their prices are not — check the in-game cost before relying on them. Training and work both drain meters (Lift Weights costs energy -14 and hygiene -18, for example), so the loop that keeps you productive is: work, eat, recover, then train — not the reverse.",
-        "image": {
-          "src": "/images/gameplay/buka-menu-amala-shitta.png",
-          "alt": "Lagos Life buka counter menu at Amala Shitta with prices for amala, jollof, pepper soup, ofada rice and zobo",
-          "caption": "Meal prices at the Amala Shitta counter — under the active food-subsidy policy they displayed round-to-₦50 of base × 0.7. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "7. Train Toward One Skill Gate",
-        "body": "Five skills gate the high-paying careers: fitness (Medicine ₦21,000, Aviation, Oil & Gas), coding (Product Management, Oil & Gas alternative), comedy (Broadcasting), charisma (Real Estate), hustle (Civil Service). The best recorded trainers: Lift Weights for fitness (rate 2.0), Weekend Hackathon or Side Project for coding (2.0 / 1.6), filming a skit for comedy (1.5), Practise Speech or the club run for charisma (1.3 / 1.5), Buy & Resell Goods for hustle (1.5). Pick ONE gate for your first weeks — splitting training across skills is how first weeks stall. Details in the skill training guide."
-      },
-      {
-        "heading": "8. Review the Week, Then Choose One Next Goal",
-        "body": "End the week with the First Week Planner: enter what you now know (observed shift pay, actual rent charged — note the period the game states), pick a goal (financial stability, career growth, or exploration), and let it compute what remains after known costs. It labels that figure as 'remaining after known costs', never as your balance. If the result is Blocked or Partial, the reason shown is data-backed: either an input is unknown or no verified dataset supports a recommendation yet. That is the tool working as intended, not a bug."
-      },
-      {
-        "heading": "Common Questions, Honestly Answered",
-        "body": "Is Lagos Life free? The client at lagoslife.app opens in a browser without a purchase step; anything beyond that is not in our verified data. Can I play on my phone? The game is a browser app; our site works on mobile, but we have not verified the game's own mobile behaviour in-game. Why is my pay different from your table? Base pay is from the game's files; your observed credit is the ground truth — report the difference and we log it. How long does a skill take to level? The files record training rates but not their unit, so we publish rates as relative speed only. Is this the same Lagos Life from the app store? No — lagoslife.app is a distinct game from similarly named apps; our data does not transfer to them."
-      }
-    ]
-  },
-  {
-    "slug": "first-week-roadmap",
-    "title": "Your First Week in Lagos Life: A Beginner's Roadmap",
-    "summary": "Thirteen careers accept you with zero requirements, the cheapest bed in the game costs ₦1,200, and two free actions cover your sleep and hunger. Here's how the first seven days actually add up — every number verified against the game's own data files.",
-    "topic": "Beginner",
-    "verificationStatus": "partial",
-    "updatedAt": "2026-10-10",
-    "sourceIds": [
-      "src-game-target"
-    ],
-    "limitations": [
-      "All figures were extracted from the game's client data files on 2026-10-09 (document review). An in-game spot-check is still pending.",
-      "The game files do not state how often rent is charged — weekly, daily, or monthly is unverified. Budget with the First Week Planner and treat rent period as unknown.",
-      "Action costs: the extracted data records effects and duration for actions but not their prices. Where an action costs money in-game, that price is not yet verified."
-    ],
-    "sections": [
-      {
-        "heading": "Start Earning on Day One: 13 Careers With Zero Requirements",
-        "body": "You don't need any skill or certificate to start working. The game data lists 13 entry careers with no requirements, paying per shift: Banking (Marketer) ₦11,600 · Tech (Intern) ₦9,900 · Nursing ₦9,100 · Trading, DJ, and Teaching ₦8,300 · Music, Hairstyling, Chef, Fitness Coach, Event Planning, and Retail ₦7,400 · Content Creator and Football (Pundit) ₦6,600. If your goal is maximum early cash, Banking pays the best on day one. Trading at ₦8,300 is the best-paid career whose later levels we cover in the career ladders guide. Every one of these has five promotion levels — the level-1 job is a starting point, never a ceiling."
-      },
-      {
-        "heading": "Sleep Cheap: The Cheapest Roofs in the Game",
-        "body": "The cheapest place to live is the UNILAG Hall of Residence in Akoka at ₦1,200. After that: a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro (Port Harcourt) at ₦2,600, and a single room in Kubwa (Abuja) at ₦2,800. A self-contain in Yaba, a mini flat in Gwarinpa (Abuja), and a mini flat in D-Line (Port Harcourt) all cost ₦6,000 — the natural upgrade once your career income stabilises. At the other extreme, a mansion on Banana Island costs ₦1,500,000 — 1,250× the UNILAG hostel. All rents are per week, charged on Saturday (verified in-game on 14 Oct 2026). One drift caveat: on that date the live game quoted four high-end Lagos homes (Ikoyi duplex, Banana Island mansion, Ikate terrace, Magodo duplex) at exactly 1.25× the values in the game files, while every low-end figure matched exactly. Treat the expensive end as approximate until the multiplier is pinned down."
-      },
-      {
-        "heading": "Keep Your Meters Green for Free",
-        "body": "Two basic actions cost nothing and cover your core needs. Sleep restores +12 energy over 8 hours (480 minutes) — a mattress is enough, better beds don't change the effect in the extracted data. Soak Garri & Sugar takes 12 minutes and restores +22 hunger. Cooking actions like Cook Jollof and Amala & Ewedu exist in the data with their effects recorded, but their ingredient costs are not in the extracted table — check the in-game price before your shopping run. Simplest sustainable loop for week one: work a shift, eat garri, sleep, repeat — then bank everything above your rent."
-      },
-      {
-        "heading": "Plan the Week With Real Numbers",
-        "body": "The First Week Planner on this site runs entirely in your browser: enter your starting cash, your rent, any recurring costs you know, pick a goal, and it computes what remains after known costs — labelled as such, never presented as your total balance. Because our datasets record effects and pay per shift, the planner can already reason about your week even while some cost data is still being verified. Unknown inputs stay unknown; the tool never treats a blank as zero."
-      }
-    ]
-  },
-  {
-    "slug": "career-ladders-pay",
-    "title": "Every Career Path and What Each Level Pays",
-    "summary": "33 career tracks across three cities, each with five levels. Oil & Gas tops out at ₦96,000 per shift — the highest verified pay in the game. Full ladders for the five main paths, plus which careers are gated behind skill levels.",
-    "topic": "Careers",
-    "verificationStatus": "partial",
-    "updatedAt": "2026-10-10",
-    "sourceIds": [
-      "src-game-target"
-    ],
-    "limitations": [
-      "Pay figures come from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
-      "Promotion thresholds between levels exist in the game files but are only partially readable — we do not publish them until fully verified. See each job record for what's confirmed.",
-      "Abuja and Port Harcourt careers require travelling to those cities; how travel works is not yet verified."
-    ],
-    "sections": [
-      {
-        "heading": "How Careers Are Structured",
-        "body": "Every career has five levels, and each level pays per shift. Level-1 roles are open to everyone; mid-tier careers (₦17,000–₦21,000 per shift) require one skill at level 3 — for example Medicine requires fitness level 3, Oil & Gas requires fitness level 3 or coding level 3, Product Management requires coding level 3, Broadcasting requires comedy level 3, Real Estate requires charisma level 3, Aviation requires fitness level 3, and Lagos Civil Service requires hustle level 3. Abuja's Civil Service variant accepts charisma level 2 or coding level 2. That means your first weeks should pair a no-requirement job with skill training aimed at the gate you want to unlock.",
-        "image": {
-          "src": "/images/gameplay/work-shift-banking.png",
-          "alt": "Lagos Life banking shift in progress at Marina Towers showing accrued pay and task stars",
-          "caption": "Every career pays per shift as you work — this Banking shift accrues pay visibly and pays out on completion. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "Tech: ₦9,900 → ₦76,500 Per Shift",
-        "body": "Intern ₦9,900 · Junior Dev ₦19,500 · Senior Dev ₦32,800 · Tech Lead ₦47,300 · CTO ₦76,500. Tech starts average and ends near the top. The related Product Management track (coding level 3 required) pays ₦20,000 at level 1, so a coding build has two destinations."
-      },
-      {
-        "heading": "Banking: ₦11,600 → ₦72,000 Per Shift",
-        "body": "Marketer ₦11,600 · Relationship Officer ₦21,000 · Branch Manager ₦31,500 · Executive Director ₦44,600 · MD/CEO ₦72,000. The best-paying day-one career in the game, and the second-highest final salary. No skill gate — pure income from the start."
-      },
-      {
-        "heading": "Oil & Gas: ₦20,000 → ₦96,000 Per Shift",
-        "body": "Field Technician ₦20,000 · Drilling Engineer ₦31,000 · Asset Manager ₦45,000 · General Manager ₦63,000 · Country MD ₦96,000. The highest verified pay in the game at level 5, and the best level-1 pay of any gated career (tied with Medicine). Gate: fitness level 3, or coding level 3 as an alternative. The Port Harcourt Refining track is the related mid-tier path at ₦14,000 with no skill requirement listed."
-      },
-      {
-        "heading": "Medicine: ₦21,000 → ₦90,000 Per Shift",
-        "body": "House Officer ₦21,000 · Resident Doctor ₦31,000 · Registrar ₦44,000 · Consultant ₦60,000 · Chief Medical Director ₦90,000. The best level-1 pay in the entire game, gated behind fitness level 3. A fitness-first build earns more from day one of the gated career than most careers pay at level 3."
-      },
-      {
-        "heading": "Retail and the Creative Tier",
-        "body": "Retail: Sales Rep ₦7,400 → Retail Boss ₦60,000. Music, Hairstyling, Chef, Fitness Coach, and Event Planning all start at ₦7,400; Content Creator and Football start at ₦6,600 — the lowest entry pays, so treat creative work as a passion pick rather than an optimal first job unless its later levels (recorded in the game data) justify it for your plan. All five-level ladders for all 33 careers are in the Game Data directory with per-field verification."
-      },
-      {
-        "heading": "City Tracks: Abuja, Port Harcourt, and the Airport",
-        "body": "Beyond Lagos, the game data lists Abuja careers — Keke Riding and Mai Shayi (tea vendor) at ₦7,400, Wuse Market Trading at ₦8,300, Lounge Waiting at ₦6,600 — and Port Harcourt careers — Creek Road Trading ₦8,300, Ferry Work, Bole & Fish, and Security at ₦7,400. Airport Staff pays ₦12,000 with no listed requirements, and Refinery Work in Port Harcourt pays ₦14,000, also ungated. If you spawn outside Lagos, these are your on-ramps; how inter-city travel works is not yet verified."
-      }
-    ]
-  },
-  {
-    "slug": "housing-costs-compared",
-    "title": "Where to Live: Every Rent Price Compared",
-    "summary": "17 rentable homes across Lagos, Abuja, and Port Harcourt — from the ₦1,200 UNILAG hostel to the ₦1,500,000 Banana Island mansion. City-by-city tiers, what the honest unknowns are, and the three mid-tier sweet spots at ₦6,000.",
-    "topic": "Housing",
-    "verificationStatus": "partial",
-    "updatedAt": "2026-10-10",
-    "sourceIds": [
-      "src-game-target"
-    ],
-    "limitations": [
-      "Rents verified from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
-      "Rent period verified in-game 14 Oct 2026: weekly, due Saturday. One drift caveat: four high-end Lagos homes displayed exactly 1.25× the game-file values that day, while all low-end figures matched exactly.\n",
-      "Furnishing is separate: 69 furniture items carry one-time prices in the data, but which items each home requires is not yet verified."
-    ],
-    "sections": [
-      {
-        "heading": "The Full Picture: 17 Homes, 3 Cities",
-        "body": "Lagos (cheapest to priciest): UNILAG Hall of Residence, Akoka ₦1,200 · face-me-I-face-you, Mushin ₦2,400 · self-contain, Yaba ₦6,000 · mini-flat, Lekki Phase 1 ₦17,000 · terrace duplex, Ikate ₦45,000 · family duplex, Magodo GRA ₦110,000 · duplex, Ikoyi ₦250,000 · mansion, Banana Island ₦1,500,000. Abuja: single room, Kubwa ₦2,800 · mini flat, Gwarinpa ₦6,000 · serviced apartment, Wuse 2 ₦34,000 · detached house, Maitama ₦240,000 · mansion, Asokoro ₦1,400,000. Port Harcourt: single room, Rumuokoro ₦2,600 · mini flat, D-Line ₦6,000 · serviced apartment, Woji ₦32,000 · colonial duplex, Old GRA ₦220,000.",
-        "image": {
-          "src": "/images/gameplay/houses-list-rent.png",
-          "alt": "Lagos Life Houses list showing weekly rents from the 1,200 naira UNILAG hall to the 1.875 million naira Banana Island mansion",
-          "caption": "The live rent ladder as the game displays it — note the four high-end homes at exactly 1.25× the game-file values on capture day. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "The ₦6,000 Sweet Spot",
-        "body": "Three different cities offer the same ₦6,000 mid-tier: a Yaba self-contain in Lagos, a Gwarinpa mini flat in Abuja, and a D-Line mini flat in Port Harcourt. If your career is in Lagos, Yaba is the natural upgrade from Mushin at only 2.5× the price — and Yaba is also home to CcHub (08:00–23:00 in the game), which matters for tech-flavoured play. With rent verified as weekly (due Saturday), the three cities' identical ₦6,000 mid-tier pricing is a like-for-like comparison."
-      },
-      {
-        "heading": "The Luxury Cliff",
-        "body": "The jump from mid-tier to luxury is steep everywhere: Ikoyi at ₦250,000 is 42× the Yaba self-contain beside it in the same city; Banana Island at ₦1,500,000 is 88× the Lekki mini-flat two tiers below. Abuja and Port Harcourt mirror this — Maitama ₦240,000 and Old GRA ₦220,000 against ₦6,000 mid-tiers. On any career's pay curve, luxury housing is a late-game decision: even a Country MD (Oil & Gas, ₦96,000 per shift) would feel a Banana Island mansion."
-      },
-      {
-        "heading": "What We Don't Know Yet",
-        "body": "Two open questions before any rent is 'advice' rather than 'data': (1) furnishing requirements — the data prices 69 furniture items separately (one-time), but which homes demand which items is unverified; (3) location-linked perks — homes near job hubs may save commute time, but commute mechanics are not in the extracted data. Every one of these is marked 'Not yet verified' on the individual housing records in our Game Data directory, and any confirmed answer you find in-game can be reported from the record page."
-      }
-    ]
-  },
-  {
-    "slug": "skill-training-guide",
-    "title": "How to Level Every Skill: The Training Data",
-    "summary": "Five skills gate the ₦17,000–₦21,000 careers, and the game data records exactly which activities train them and how fast. Lift Weights (fitness rate 2.0), the Weekend Hackathon (coding 2.0), and the club run that trains charisma at 1.5 while maxing your social meter.",
-    "topic": "Skills",
-    "verificationStatus": "partial",
-    "updatedAt": "2026-10-10",
-    "sourceIds": [
-      "src-game-target"
-    ],
-    "limitations": [
-      "Training rates are recorded in the game files but their unit is not stated — treat them as relative speed indicators, not per-hour guarantees.",
-      "Whether skills decay over time is not in the extracted data.",
-      "Several top trainers are venue-tied (gym, club, members' lounge); what each venue costs to access is not yet verified."
-    ],
-    "sections": [
-      {
-        "heading": "Five Skills Unlock the High-Paying Careers",
-        "body": "Every skill-gated career in the game keys off one of five trainable skills. Fitness level 3 opens Medicine (₦21,000/shift), Aviation (₦19,000), and Oil & Gas (₦20,000). Coding level 3 opens Product Management (₦20,000) and the alternative route into Oil & Gas. Comedy level 3 opens Broadcasting (₦18,000). Charisma level 3 opens Real Estate (₦18,000) — and Abuja's Civil Service accepts charisma level 2, a lower bar than Lagos. Hustle level 3 opens Lagos Civil Service (₦17,000). So your training plan IS your career plan: pick the gate first, then train toward it."
-      },
-      {
-        "heading": "Fitness: Lift Weights Leads at Rate 2.0",
-        "body": "The best recorded fitness trainer is Lift Weights (60 minutes, rate 2.0) — but it drains energy -14 and hygiene -18, so schedule a shower and a meal around it. Treadmill (45 min, 1.6) and a PT Session (60 min) are the next tier. Almost-free alternatives that multitask: swimming in the Atlantic (60 min, rate 1.0, fun +20), beach football (1.2, social +16), and carrying loads as an Alabaru — 120 minutes at rate 0.8 but it pays ₦2,250 while you train. Even walking the dog builds 0.5 while adding +20 fun.",
-        "image": {
-          "src": "/images/gameplay/gym-training.png",
-          "alt": "Lagos Life i-Fitness gym treadmill action costing 300 naira and granting fitness",
-          "caption": "Training actions cost naira and energy and pay out skill XP — the treadmill at i-Fitness runs ₦300 a session. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "Coding: Grind the Hackathon and Side Projects",
-        "body": "Weekend Hackathon posts the best coding rate in the game (2.0) but eats 4 hours — plan it as a rest-day anchor, not a daily habit. Side Project (120 min, 1.6) is the best everyday grind; Practise Coding (120 min, 1.2) and Freelance Gig (180 min, 0.6, fun -6) trail behind. Meetups (120 min, 0.8) add social +16 if your social meter needs the boost. One Product Management unlock (coding L3) beats months of Banking promotions on pay."
-      },
-      {
-        "heading": "Comedy, Charisma, and Hustle: The Social Trainers",
-        "body": "Comedy: filming a skit (60 min, rate 1.5) beats open-mic stand-up practice (40 min, 1.3); performing at Comedy Night (1.2) is the stage version. Charisma: the single fastest recorded rate is Shut Down the Club — 180 minutes at 1.5 that also maxes social and fun (+100 each) — with Practise Speech (45 min, 1.3) as the daily driver and Practise Presenting at the radio house (1.2) a close third. Hustle: Buy & Resell Goods leads (120 min, 1.5), Talk Billion-Naira Deals at the members' lounge posts 1.4, and Read a Business Book (60 min, 1.2) is the quiet grind. Hustle training overlaps neatly with the Trading and Retail career families."
-      },
-      {
-        "heading": "The Efficient Weekly Pattern",
-        "body": "Combine money and training wherever the data allows it: Alabaru shifts earn ₦2,250 while quietly building fitness; reselling goods builds hustle while you're out in the markets; the hackathon anchors one weekend day for coders. The pattern the data supports: work your no-requirement job for income, run two or three targeted training blocks per in-game day, and keep Sleep plus a cheap meal action in the loop so your meters never block the plan. Exact meter numbers per activity are in the Game Data directory on every action's record page."
-      }
-    ]
-  },
-  {
-    "slug": "unilag-degree-paths",
-    "title": "The UNILAG Route: 8 Degrees and Where Each One Leads",
-    "summary": "School fees are ₦20,000 and programmes run 4–5 years. Every degree names the skill it builds and the careers it feeds — Computer Science and Systems Engineering both feed Tech, while Accounting feeds three career families at once.",
-    "topic": "Education",
-    "verificationStatus": "partial",
-    "updatedAt": "2026-10-10",
-    "sourceIds": [
-      "src-game-target"
-    ],
-    "limitations": [
-      "Tuition is a single global figure (₦20,000) in the game files — the data does not show per-degree fee differences, and other costs (books, acceptance) are not recorded.",
-      "What a completed degree changes mechanically (skill, career access) is recorded; admission requirements and in-game duration mechanics are not yet verified."
-    ],
-    "sections": [
-      {
-        "heading": "What the University Actually Gives You",
-        "body": "The game data states three things per degree: faculty, programme length, and a mapping to an associated skill plus the careers it feeds. That makes the university a structured alternative to grinding skill trainers — a Computer Science degree builds coding and feeds the Tech career, which starts at ₦9,900 per shift and tops out at ₦76,500 as CTO. Fees are recorded as a flat ₦20,000 (school-wide constant, not per-degree), and programmes run four or five years.",
-        "image": {
-          "src": "/images/gameplay/campus-unilag-where-to.png",
-          "alt": "Lagos Life UNILAG campus on a sunny morning with the halls of residence and campus paths",
-          "caption": "The UNILAG campus in-game: enrol at the Senate Building, attend lectures, and a hall bunk becomes your cheapest roof. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "The Two Tech Feeds: Computer Science and Systems Engineering",
-        "body": "Computer Science is a 4-year Faculty of Science programme; Systems Engineering is 5 years in Engineering. Both build coding and feed the Tech career family. If your target is the Product Management track (₦20,000 level-1, coding level 3 required) or the Oil & Gas alternative gate, the data says either degree lands you on the same skill. The 13 career-prep courses in the game include a Software Developer course, which the data describes as covering which path to pick and how to land the job."
-      },
-      {
-        "heading": "Degrees That Feed Multiple Careers",
-        "body": "Accounting (4 years, Management Sciences) builds hustle and feeds three career families at once — Banking, Trading, and Retail. Mass Communication (4 years, Social Sciences) builds charisma and feeds Content Creator and Football Pundit. Creative Arts (4 years, Arts) builds music and feeds Music, DJ, and Event Planning — the creative cluster. If you're undecided, Accounting's three-way feed is the broadest verified return in the degree table."
-      },
-      {
-        "heading": "The Professional Degrees: Law, Nursing, and Education",
-        "body": "Law is a 5-year programme in the Faculty of Law building charisma, feeding the Law career (₦9,100 at level 1, rising to a recorded top tier). Nursing Science is 5 years in the College of Medicine, builds fitness, and feeds Nursing. Education is 4 years in the Faculty of Education, builds charisma, and feeds Teaching. Notably, Nursing's fitness association points the same direction as the Medicine career gate — the game consistently treats fitness as the health-career skill."
-      },
-      {
-        "heading": "Degrees vs Direct Skill Training",
-        "body": "Here's the honest comparison the data supports: degrees cost ₦20,000 and 4–5 years but bundle a skill with career access and thirteen career-prep courses (including Money Smart, the only finance-literacy course in the list). Direct skill training is free and faster per session — Lift Weights builds fitness at rate 2.0 from day one — but unlocks the gate without any credential attached. Whether employers in-game treat a degree differently from a raw level-3 skill is not recorded in the extracted data; that's a question for in-game testing before we publish it as advice."
-      }
-    ]
-  },
-  {
-    "slug": "earn-without-a-job",
-    "title": "Broke? Three Ways to Earn Before Your First Shift",
-    "summary": "Alabaru pays ₦2,250 per session and trains fitness, helping at the Buka pays ₦1,750, and reporting a crime pays ₦2,000 plus social. Not shift money — but they need no job, no skill, and no gate.",
-    "topic": "Beginner",
-    "verificationStatus": "partial",
-    "updatedAt": "2026-10-10",
-    "sourceIds": [
-      "src-game-target"
-    ],
-    "limitations": [
-      "Only three actions in the extracted data carry a verified earn value. Other money-looking actions (freelance gigs, paid skits) show money bubbles in the game files but their earn amounts are not recorded — we do not list them as verified earners.",
-      "Whether these odd jobs can be repeated indefinitely or have caps/cooldowns is not in the extracted data."
-    ],
-    "sections": [
-      {
-        "heading": "The Three Verified Odd Jobs",
-        "body": "Carry Load as an Alabaru: 120 minutes, earns ₦2,250, trains fitness at rate 0.8 — the only action in the game that pays you AND builds a career-gating skill, at the cost of energy -12 and hygiene -10. Help at the Buka (wash plates): 1750 naira per session, hygiene -8, fun -5, quick and unglamorous. Report a Crime: ₦2,000 with social +12 on top — the best social-per-naira deal in the verified data. All three are available with no requirements.",
-        "image": {
-          "src": "/images/gameplay/market-alabaru.png",
-          "alt": "Lagos Life Balogun Market loading bay with the Carry Load Alabaru odd job visible",
-          "caption": "The Alabaru carry-load job at Balogun Market's loading bay: earns naira, trains Fitness, costs Energy — no career required. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "How Odd-Job Money Compares to a Shift",
-        "body": "Put the numbers side by side: a single Banking shift pays ₦11,600, while roughly five Alabaru sessions match one shift — at 2 hours each, that's ten game-hours of hauling against one work shift. The conclusion the data supports: odd jobs are bridge money for your very first days (and the Alabaru is worth repeating for the fitness alone), not a career. The moment you can take a no-requirement job — Banking first, then Tech or Trading — the odd jobs stop paying competitively. Report a Crime is the exception worth keeping for the social boost."
-      },
-      {
-        "heading": "A Broke-Start Money Order",
-        "body": "A data-backed opening loop when your wallet is near zero: run Alabaru sessions until you can cover your first rent period plus a buffer (the cheapest verified roof, the UNILAG hostel, is ₦1,200 — one Alabaru session nearly covers it), keep hygiene above water with the cheapest hygiene actions you can find, then take the first Banking or Tech shift that fits your energy. Rent is weekly and due on Saturday (verified in-game 14 Oct 2026), so a two-week buffer is a sane minimum. From there, follow the First Week Roadmap guide — the odd jobs have done their job once a real salary starts."
-      }
-    ]
-  },
-  {
-    "slug": "furnishing-luxury-catalog",
-    "title": "The Catalog: From a ₦300 Calendar to a ₦9 Billion Jet",
-    "summary": "69 buyable items, all one-time prices. The essentials are almost free — foam mattress ₦1,800, standing fan ₦2,200 — while the top of the catalog is a billionaire trophy shelf of jets, yachts, and a gold bullion vault.",
-    "topic": "Money",
-    "verificationStatus": "partial",
-    "updatedAt": "2026-10-10",
-    "sourceIds": [
-      "src-game-target"
-    ],
-    "limitations": [
-      "All 69 prices are verified one-time amounts from the game files, but which items a given home requires (if any) is not recorded.",
-      "Whether luxury items grant any in-game benefit beyond ownership is not in the extracted data — we list them as prices, not as recommendations.",
-      "Luxury-item weekly-income claims (jets +₦15m/₦40m/₦120m per week) are in-game store text observed 14 Oct 2026, not independently verified payouts."
-    ],
-    "sections": [
-      {
-        "heading": "Setting Up for Almost Nothing",
-        "body": "The bottom of the catalog is shockingly cheap. A wall calendar is ₦300, bucket and bowl ₦400, a plastic chair ₦500. The basics of a functioning room stack up under ₦10,000: foam mattress ₦1,800, kerosene stove ₦1,100, rechargeable lamp ₦1,100, standing mirror ₦1,700, standing fan ₦2,200, WC toilet ₦3,000, kitchen counter ₦4,200. Against even the lowest starter salary (₦6,600 per shift as a Content Creator), a fully functional room is one or two shifts of spending — the game deliberately makes essentials trivial and luxury astronomical."
-      },
-      {
-        "heading": "The Middle: Comfort and Hobby Items",
-        "body": "Between ₦10,000 and ₦50,000 the catalog shifts from utility to lifestyle: an acoustic guitar at ₦4,200, bookshelf ₦3,600, dumbbell rack ₦3,400 — note the dumbbell rack pairs with Lift Weights, the best fitness trainer in the game, though whether owning equipment changes training is not recorded. This band is where most players will park their money after rent and before investments in their career gate. Check each item's record page in the Game Data directory for its verified status before treating any of it as required."
-      },
-      {
-        "heading": "The Billionaire Shelf",
-        "body": "The catalog's top end is not furniture — it's a trophy ledger. Diamond-Studded Throne ₦250,000,000. Old Master Painting ₦400,000,000. Gold Bullion Vault ₦500,000,000. Private Helicopter ₦750,000,000. Superyacht ₦1,500,000,000. Private Jet ₦3,000,000,000. And the most expensive item in the entire game: the Heavy Jet at ₦9,000,000,000. For scale: at the game's highest verified salary — Oil & Gas Country MD at ₦96,000 per shift — the Heavy Jet costs more than 93,000 shifts. Nobody buys this with a salary; it exists as an endgame sink. One detail only visible in-game: the jets carry an advertised weekly income in the shop (Light Jet +₦15m, Mid-size Jet +₦40m, Heavy Jet +₦120m per week). Treat those as store claims — we have not observed a payout cycle ourselves.",
-        "image": {
-          "src": "/images/gameplay/furniture-luxury-shop.png",
-          "alt": "Lagos Life luxury shop listing a gold bullion vault, helicopter, light jet, superyacht, private jets up to a 9 billion naira heavy jet",
-          "caption": "The luxury shelf as the game displays it — up to the ₦9bn Heavy Jet. The jets advertise weekly income; we have not independently observed a payout. Captured in-game at lagoslife.app · 14 Oct 2026."
-        }
-      },
-      {
-        "heading": "What to Actually Buy",
-        "body": "The honest advice the data can back: buy essentials early (they're nearly free), treat everything above ₦50,000 as pure aspiration until your career gate is unlocked and rent is covered a week ahead (rent is weekly, due Saturday — verified in-game 14 Oct 2026), and ignore the billionaire shelf entirely unless you can explain where the naira came from. What we cannot yet tell you: whether specific homes demand specific furnishings, and whether any item grants bonuses — both are marked 'Not yet verified' on the records until a player confirms them in-game."
-      }
-    ]
-  }
+ {
+  "slug": "how-to-play",
+  "title": "How to Play Lagos Life: A Beginner Walkthrough",
+  "summary": "The eight decisions that make up a first session, in order: open the official game, record your starting state, cover rent before anything else, pick from the 13 no-requirement careers, work a shift, recover your meters, train toward a skill gate, then review the week in the planner. Every number cited is in our public dataset.",
+  "topic": "Beginner",
+  "verificationStatus": "partial",
+  "updatedAt": "2026-10-10",
+  "sourceIds": [
+   "src-game-target"
+  ],
+  "limitations": [
+   "All figures come from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
+   "Rent period, action prices, and shift scheduling mechanics are not stated in the game files — steps that depend on them say so explicitly.",
+   "This guide covers the browser version at lagoslife.app only. Other apps or sites named 'Lagos Life' are different games."
+  ],
+  "sections": [
+   {
+    "heading": "1. Open the Official Game — and Only the Official Game",
+    "body": "The game this guide covers lives at lagoslife.app, in your browser, free to open. Two safety habits before anything else: read the address bar before you type any password, and never enter account details on a third-party guide site — including this one. LagosLifeGuide.app does not host the game and will never ask for your game password. If an embedded browser inside a social app fails to load the game, copy the address into your regular browser."
+   },
+   {
+    "heading": "2. Write Down Your Starting State",
+    "body": "Before you spend anything, record four numbers from the game screen: your cash, your current job (or none), your housing and its cost, and any recurring obligations. These four inputs are exactly what the First Week Planner on this site asks for. If a number is unknown, leave it blank — the planner treats unknown as unknown, never as zero, and this guide will flag where that matters."
+   },
+   {
+    "heading": "3. Cover Rent Before Anything Else",
+    "body": "The verified cheapest roofs in the game are the UNILAG Hall of Residence at ₦1,200, a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro at ₦2,600, and a single room in Kubwa at ₦2,800. Rent is charged weekly, due on Saturday (verified in-game on 14 Oct 2026). Moving into the UNILAG hall costs ₦3,600 upfront: two weeks' rent plus a one-week agent & agreement fee. What the data can tell you: even the mid-tier ₦6,000 options (Yaba, Gwarinpa, D-Line) cost less than one Banking shift.",
+    "image": {
+     "src": "/images/gameplay/houses-list-rent.png",
+     "alt": "Lagos Life Phone menu, Houses list showing Hall of Residence UNILAG at 1,200 naira per week",
+     "caption": "The in-game Houses list: the UNILAG hall at ₦1,200/week, with high-end Lagos rents visible above it. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "4. Pick Your First Job From the 13 No-Requirement Careers",
+    "body": "Thirteen careers accept you with zero requirements, and their verified level-1 pay per shift is: Banking (Marketer) ₦11,600 · Tech (Intern) ₦9,900 · Nursing ₦9,100 · Trading, DJ, Teaching ₦8,300 · Music, Hairstyling, Chef, Fitness Coach, Event Planning, Retail ₦7,400 · Content Creator, Football (Pundit) ₦6,600. Abuja and Port Harcourt have their own entry jobs (Keke Riding, Mai Shayi, Wuse Market Trading, Creek Road Trading, Ferry Work, Bole & Fish, Security at ₦7,400–₦8,300), and Airport Staff pays ₦12,000 with no listed requirement. Best early income: Banking. Best long-run tech path: Tech Intern. Full five-level ladders for all 33 careers are in the career guide and the Game Data directory."
+   },
+   {
+    "heading": "5. Work a Shift, Then Read the Actual Credit",
+    "body": "Client data gives base pay per shift, but what lands in your wallet can differ — bonuses, deductions, or rank effects are exactly the kind of thing only an observed shift confirms. After your first shift, write down the amount actually received and use that number in the planner from then on. If the received amount consistently differs from our table, that is a reportable correction: use the feedback button (bottom-right) and pick 'Correction'.",
+    "image": {
+     "src": "/images/gameplay/work-shift-banking.png",
+     "alt": "Lagos Life banking shift UI at Marina Towers showing accrued pay of 6,850 naira at 61 percent progress",
+     "caption": "A Banking shift in progress: pay accrues visibly (₦6,850 at 61%). The credit you actually receive is the ground truth. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "6. Recover Meters Before the Next Long Action",
+    "body": "The verified basics: Sleep restores +12 energy over 8 hours on any bed; Soak Garri & Sugar takes 12 minutes and restores +22 hunger. Cooking actions (Jollof, Amala & Ewedu) exist in the data with effects recorded, but their prices are not — check the in-game cost before relying on them. Training and work both drain meters (Lift Weights costs energy -14 and hygiene -18, for example), so the loop that keeps you productive is: work, eat, recover, then train — not the reverse.",
+    "image": {
+     "src": "/images/gameplay/buka-menu-amala-shitta.png",
+     "alt": "Lagos Life buka counter menu at Amala Shitta with prices for amala, jollof, pepper soup, ofada rice and zobo",
+     "caption": "Meal prices at the Amala Shitta counter — under the active food-subsidy policy they displayed round-to-₦50 of base × 0.7. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "7. Train Toward One Skill Gate",
+    "body": "Five skills gate the high-paying careers: fitness (Medicine ₦21,000, Aviation, Oil & Gas), coding (Product Management, Oil & Gas alternative), comedy (Broadcasting), charisma (Real Estate), hustle (Civil Service). The best recorded trainers: Lift Weights for fitness (rate 2.0), Weekend Hackathon or Side Project for coding (2.0 / 1.6), filming a skit for comedy (1.5), Practise Speech or the club run for charisma (1.3 / 1.5), Buy & Resell Goods for hustle (1.5). Pick ONE gate for your first weeks — splitting training across skills is how first weeks stall. Details in the skill training guide."
+   },
+   {
+    "heading": "8. Review the Week, Then Choose One Next Goal",
+    "body": "End the week with the First Week Planner: enter what you now know (observed shift pay, actual rent charged — note the period the game states), pick a goal (financial stability, career growth, or exploration), and let it compute what remains after known costs. It labels that figure as 'remaining after known costs', never as your balance. If the result is Blocked or Partial, the reason shown is data-backed: either an input is unknown or no verified dataset supports a recommendation yet. That is the tool working as intended, not a bug."
+   },
+   {
+    "heading": "Common Questions, Honestly Answered",
+    "body": "Is Lagos Life free? The client at lagoslife.app opens in a browser without a purchase step; anything beyond that is not in our verified data. Can I play on my phone? The game is a browser app; our site works on mobile, but we have not verified the game's own mobile behaviour in-game. Why is my pay different from your table? Base pay is from the game's files; your observed credit is the ground truth — report the difference and we log it. How long does a skill take to level? The files record training rates but not their unit, so we publish rates as relative speed only. Is this the same Lagos Life from the app store? No — lagoslife.app is a distinct game from similarly named apps; our data does not transfer to them."
+   }
+  ]
+ },
+ {
+  "slug": "first-week-roadmap",
+  "title": "Your First Week in Lagos Life: A Beginner's Roadmap",
+  "summary": "Thirteen careers accept you with zero requirements, the cheapest bed in the game costs ₦1,200, and two free actions cover your sleep and hunger. Here's how the first seven days actually add up — every number verified against the game's own data files.",
+  "topic": "Beginner",
+  "verificationStatus": "partial",
+  "updatedAt": "2026-10-10",
+  "sourceIds": [
+   "src-game-target"
+  ],
+  "limitations": [
+   "All figures were extracted from the game's client data files on 2026-10-09 (document review). An in-game spot-check is still pending.",
+   "The game files do not state how often rent is charged — weekly, daily, or monthly is unverified. Budget with the First Week Planner and treat rent period as unknown.",
+   "Action costs: the extracted data records effects and duration for actions but not their prices. Where an action costs money in-game, that price is not yet verified."
+  ],
+  "sections": [
+   {
+    "heading": "Start Earning on Day One: 13 Careers With Zero Requirements",
+    "body": "You don't need any skill or certificate to start working. The game data lists 13 entry careers with no requirements, paying per shift: Banking (Marketer) ₦11,600 · Tech (Intern) ₦9,900 · Nursing ₦9,100 · Trading, DJ, and Teaching ₦8,300 · Music, Hairstyling, Chef, Fitness Coach, Event Planning, and Retail ₦7,400 · Content Creator and Football (Pundit) ₦6,600. If your goal is maximum early cash, Banking pays the best on day one. Trading at ₦8,300 is the best-paid career whose later levels we cover in the career ladders guide. Every one of these has five promotion levels — the level-1 job is a starting point, never a ceiling."
+   },
+   {
+    "heading": "Sleep Cheap: The Cheapest Roofs in the Game",
+    "body": "The cheapest place to live is the UNILAG Hall of Residence in Akoka at ₦1,200. After that: a face-me-I-face-you room in Mushin at ₦2,400, a single room in Rumuokoro (Port Harcourt) at ₦2,600, and a single room in Kubwa (Abuja) at ₦2,800. A self-contain in Yaba, a mini flat in Gwarinpa (Abuja), and a mini flat in D-Line (Port Harcourt) all cost ₦6,000 — the natural upgrade once your career income stabilises. At the other extreme, a mansion on Banana Island costs ₦1,500,000 — 1,250× the UNILAG hostel. All rents are per week, charged on Saturday (verified in-game on 14 Oct 2026). One drift caveat: on that date the live game quoted four high-end Lagos homes (Ikoyi duplex, Banana Island mansion, Ikate terrace, Magodo duplex) at exactly 1.25× the values in the game files, while every low-end figure matched exactly. Treat the expensive end as approximate until the multiplier is pinned down."
+   },
+   {
+    "heading": "Keep Your Meters Green for Free",
+    "body": "Two basic actions cost nothing and cover your core needs. Sleep restores +12 energy over 8 hours (480 minutes) — a mattress is enough, better beds don't change the effect in the extracted data. Soak Garri & Sugar takes 12 minutes and restores +22 hunger. Cooking actions like Cook Jollof and Amala & Ewedu exist in the data with their effects recorded, but their ingredient costs are not in the extracted table — check the in-game price before your shopping run. Simplest sustainable loop for week one: work a shift, eat garri, sleep, repeat — then bank everything above your rent."
+   },
+   {
+    "heading": "Plan the Week With Real Numbers",
+    "body": "The First Week Planner on this site runs entirely in your browser: enter your starting cash, your rent, any recurring costs you know, pick a goal, and it computes what remains after known costs — labelled as such, never presented as your total balance. Because our datasets record effects and pay per shift, the planner can already reason about your week even while some cost data is still being verified. Unknown inputs stay unknown; the tool never treats a blank as zero."
+   }
+  ]
+ },
+ {
+  "slug": "career-ladders-pay",
+  "title": "Every Career Path and What Each Level Pays",
+  "summary": "33 career tracks across three cities, each with five levels. Oil & Gas tops out at ₦96,000 per shift — the highest verified pay in the game. Full ladders for the five main paths, plus which careers are gated behind skill levels.",
+  "topic": "Careers",
+  "verificationStatus": "partial",
+  "updatedAt": "2026-10-10",
+  "sourceIds": [
+   "src-game-target"
+  ],
+  "limitations": [
+   "Pay figures come from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
+   "Promotion thresholds between levels exist in the game files but are only partially readable — we do not publish them until fully verified. See each job record for what's confirmed.",
+   "Abuja and Port Harcourt careers require travelling to those cities; how travel works is not yet verified."
+  ],
+  "sections": [
+   {
+    "heading": "How Careers Are Structured",
+    "body": "Every career has five levels, and each level pays per shift. Level-1 roles are open to everyone; mid-tier careers (₦17,000–₦21,000 per shift) require one skill at level 3 — for example Medicine requires fitness level 3, Oil & Gas requires fitness level 3 or coding level 3, Product Management requires coding level 3, Broadcasting requires comedy level 3, Real Estate requires charisma level 3, Aviation requires fitness level 3, and Lagos Civil Service requires hustle level 3. Abuja's Civil Service variant accepts charisma level 2 or coding level 2. That means your first weeks should pair a no-requirement job with skill training aimed at the gate you want to unlock.",
+    "image": {
+     "src": "/images/gameplay/work-shift-banking.png",
+     "alt": "Lagos Life banking shift in progress at Marina Towers showing accrued pay and task stars",
+     "caption": "Every career pays per shift as you work — this Banking shift accrues pay visibly and pays out on completion. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "Tech: ₦9,900 → ₦76,500 Per Shift",
+    "body": "Intern ₦9,900 · Junior Dev ₦19,500 · Senior Dev ₦32,800 · Tech Lead ₦47,300 · CTO ₦76,500. Tech starts average and ends near the top. The related Product Management track (coding level 3 required) pays ₦20,000 at level 1, so a coding build has two destinations."
+   },
+   {
+    "heading": "Banking: ₦11,600 → ₦72,000 Per Shift",
+    "body": "Marketer ₦11,600 · Relationship Officer ₦21,000 · Branch Manager ₦31,500 · Executive Director ₦44,600 · MD/CEO ₦72,000. The best-paying day-one career in the game, and the second-highest final salary. No skill gate — pure income from the start."
+   },
+   {
+    "heading": "Oil & Gas: ₦20,000 → ₦96,000 Per Shift",
+    "body": "Field Technician ₦20,000 · Drilling Engineer ₦31,000 · Asset Manager ₦45,000 · General Manager ₦63,000 · Country MD ₦96,000. The highest verified pay in the game at level 5, and the best level-1 pay of any gated career (tied with Medicine). Gate: fitness level 3, or coding level 3 as an alternative. The Port Harcourt Refining track is the related mid-tier path at ₦14,000 with no skill requirement listed."
+   },
+   {
+    "heading": "Medicine: ₦21,000 → ₦90,000 Per Shift",
+    "body": "House Officer ₦21,000 · Resident Doctor ₦31,000 · Registrar ₦44,000 · Consultant ₦60,000 · Chief Medical Director ₦90,000. The best level-1 pay in the entire game, gated behind fitness level 3. A fitness-first build earns more from day one of the gated career than most careers pay at level 3."
+   },
+   {
+    "heading": "Retail and the Creative Tier",
+    "body": "Retail: Sales Rep ₦7,400 → Retail Boss ₦60,000. Music, Hairstyling, Chef, Fitness Coach, and Event Planning all start at ₦7,400; Content Creator and Football start at ₦6,600 — the lowest entry pays, so treat creative work as a passion pick rather than an optimal first job unless its later levels (recorded in the game data) justify it for your plan. All five-level ladders for all 33 careers are in the Game Data directory with per-field verification."
+   },
+   {
+    "heading": "City Tracks: Abuja, Port Harcourt, and the Airport",
+    "body": "Beyond Lagos, the game data lists Abuja careers — Keke Riding and Mai Shayi (tea vendor) at ₦7,400, Wuse Market Trading at ₦8,300, Lounge Waiting at ₦6,600 — and Port Harcourt careers — Creek Road Trading ₦8,300, Ferry Work, Bole & Fish, and Security at ₦7,400. Airport Staff pays ₦12,000 with no listed requirements, and Refinery Work in Port Harcourt pays ₦14,000, also ungated. If you spawn outside Lagos, these are your on-ramps; how inter-city travel works is not yet verified."
+   }
+  ]
+ },
+ {
+  "slug": "housing-costs-compared",
+  "title": "Where to Live: Every Rent Price Compared",
+  "summary": "17 rentable homes across Lagos, Abuja, and Port Harcourt — from the ₦1,200 UNILAG hostel to the ₦1,500,000 Banana Island mansion. City-by-city tiers, what the honest unknowns are, and the three mid-tier sweet spots at ₦6,000.",
+  "topic": "Housing",
+  "verificationStatus": "partial",
+  "updatedAt": "2026-10-19",
+  "sourceIds": [
+   "src-game-target"
+  ],
+  "limitations": [
+   "Rents verified from the game's client data files (document review, 2026-10-09); in-game spot-check pending.",
+   "Rent period verified in-game 14 Oct 2026: weekly, due Saturday. One drift caveat: four high-end Lagos homes displayed exactly 1.25× the game-file values that day, while all low-end figures matched exactly.\n",
+   "Furnishing is separate: 69 furniture items carry one-time prices in the data, but which items each home requires is not yet verified."
+  ],
+  "sections": [
+   {
+    "heading": "The Full Picture: 17 Homes, 3 Cities",
+    "body": "Lagos (cheapest to priciest): UNILAG Hall of Residence, Akoka ₦1,200 · face-me-I-face-you, Mushin ₦2,400 · self-contain, Yaba ₦6,000 · mini-flat, Lekki Phase 1 ₦17,000 · terrace duplex, Ikate ₦45,000 · family duplex, Magodo GRA ₦110,000 · duplex, Ikoyi ₦250,000 · mansion, Banana Island ₦1,500,000. Abuja: single room, Kubwa ₦2,800 · mini flat, Gwarinpa ₦6,000 · serviced apartment, Wuse 2 ₦34,000 · detached house, Maitama ₦240,000 · mansion, Asokoro ₦1,400,000. Port Harcourt: single room, Rumuokoro ₦2,600 · mini flat, D-Line ₦6,000 · serviced apartment, Woji ₦32,000 · colonial duplex, Old GRA ₦220,000.",
+    "image": {
+     "src": "/images/gameplay/houses-list-rent.png",
+     "alt": "Lagos Life Houses list showing weekly rents from the 1,200 naira UNILAG hall to the 1.875 million naira Banana Island mansion",
+     "caption": "The live rent ladder as the game displays it — note the four high-end homes at exactly 1.25× the game-file values on capture day. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "The ₦6,000 Sweet Spot",
+    "body": "Three different cities offer the same ₦6,000 mid-tier: a Yaba self-contain in Lagos, a Gwarinpa mini flat in Abuja, and a D-Line mini flat in Port Harcourt. If your career is in Lagos, Yaba is the natural upgrade from Mushin at only 2.5× the price — and Yaba is also home to CcHub (08:00–23:00 in the game), which matters for tech-flavoured play. With rent verified as weekly (due Saturday), the three cities' identical ₦6,000 mid-tier pricing is a like-for-like comparison."
+   },
+   {
+    "heading": "The Luxury Cliff",
+    "body": "The jump from mid-tier to luxury is steep everywhere: Ikoyi at ₦250,000 is 42× the Yaba self-contain beside it in the same city; Banana Island at ₦1,500,000 is 88× the Lekki mini-flat two tiers below. Abuja and Port Harcourt mirror this — Maitama ₦240,000 and Old GRA ₦220,000 against ₦6,000 mid-tiers. On any career's pay curve, luxury housing is a late-game decision: even a Country MD (Oil & Gas, ₦96,000 per shift) would feel a Banana Island mansion."
+   },
+   {
+    "heading": "Buying vs Renting: In-Game Numbers (2026-10-19)",
+    "body": "Every Lagos home can be bought outright or rented, and the in-game detail dialogs state all three numbers plainly. Move-in always costs 3× the weekly rent (2 weeks upfront plus a 1-week agent & agreement fee): Mushin ₦7,200 · Yaba ₦18,000 · Lekki Phase 1 ₦51,000 · Ikate ₦135,000 · Magodo ₦330,000 · Ikoyi ₦750,000 · Banana Island ₦4,500,000. Buyout prices read from the dialogs: Mushin ₦113,000 · Yaba ₦312,000 · Lekki Phase 1 ₦910,000 · Ikate ₦2,470,000 · Magodo ₦6,067,000 · Ikoyi ₦14,733,000 · Banana Island ₦91,000,000. Every dialog states the same resale rule: a home sells back for 80% of what you paid (for example ₦90,400 back on the ₦113,000 Mushin room). Bought homes pay no rent at all, and the UI claims the Mushin room 'pays for itself in about 47 weeks of rent' — divide any buyout by its weekly rent and the same ~47-week figure falls out, so ownership only beats renting if you stay put for roughly a year. The UNILAG Hall of Residence is rent-only with no buyout option, and player-to-player buying via the Invest tab is still 'Opening soon'. Each figure above was read from the live game on 2026-10-19 and is marked Verified on the corresponding record."
+   },
+   {
+    "heading": "What We Don't Know Yet",
+    "body": "Two open questions before any rent is 'advice' rather than 'data': (1) furnishing requirements — the data prices 69 furniture items separately (one-time), but which homes demand which items is unverified; (3) location-linked perks — homes near job hubs may save commute time, but commute mechanics are not in the extracted data. Every one of these is marked 'Not yet verified' on the individual housing records in our Game Data directory, and any confirmed answer you find in-game can be reported from the record page."
+   }
+  ]
+ },
+ {
+  "slug": "skill-training-guide",
+  "title": "How to Level Every Skill: The Training Data",
+  "summary": "Five skills gate the ₦17,000–₦21,000 careers, and the game data records exactly which activities train them and how fast. Lift Weights (fitness rate 2.0), the Weekend Hackathon (coding 2.0), and the club run that trains charisma at 1.5 while maxing your social meter.",
+  "topic": "Skills",
+  "verificationStatus": "partial",
+  "updatedAt": "2026-10-10",
+  "sourceIds": [
+   "src-game-target"
+  ],
+  "limitations": [
+   "Training rates are recorded in the game files but their unit is not stated — treat them as relative speed indicators, not per-hour guarantees.",
+   "Whether skills decay over time is not in the extracted data.",
+   "Several top trainers are venue-tied (gym, club, members' lounge); what each venue costs to access is not yet verified."
+  ],
+  "sections": [
+   {
+    "heading": "Five Skills Unlock the High-Paying Careers",
+    "body": "Every skill-gated career in the game keys off one of five trainable skills. Fitness level 3 opens Medicine (₦21,000/shift), Aviation (₦19,000), and Oil & Gas (₦20,000). Coding level 3 opens Product Management (₦20,000) and the alternative route into Oil & Gas. Comedy level 3 opens Broadcasting (₦18,000). Charisma level 3 opens Real Estate (₦18,000) — and Abuja's Civil Service accepts charisma level 2, a lower bar than Lagos. Hustle level 3 opens Lagos Civil Service (₦17,000). So your training plan IS your career plan: pick the gate first, then train toward it."
+   },
+   {
+    "heading": "Fitness: Lift Weights Leads at Rate 2.0",
+    "body": "The best recorded fitness trainer is Lift Weights (60 minutes, rate 2.0) — but it drains energy -14 and hygiene -18, so schedule a shower and a meal around it. Treadmill (45 min, 1.6) and a PT Session (60 min) are the next tier. Almost-free alternatives that multitask: swimming in the Atlantic (60 min, rate 1.0, fun +20), beach football (1.2, social +16), and carrying loads as an Alabaru — 120 minutes at rate 0.8 but it pays ₦2,250 while you train. Even walking the dog builds 0.5 while adding +20 fun.",
+    "image": {
+     "src": "/images/gameplay/gym-training.png",
+     "alt": "Lagos Life i-Fitness gym treadmill action costing 300 naira and granting fitness",
+     "caption": "Training actions cost naira and energy and pay out skill XP — the treadmill at i-Fitness runs ₦300 a session. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "Coding: Grind the Hackathon and Side Projects",
+    "body": "Weekend Hackathon posts the best coding rate in the game (2.0) but eats 4 hours — plan it as a rest-day anchor, not a daily habit. Side Project (120 min, 1.6) is the best everyday grind; Practise Coding (120 min, 1.2) and Freelance Gig (180 min, 0.6, fun -6) trail behind. Meetups (120 min, 0.8) add social +16 if your social meter needs the boost. One Product Management unlock (coding L3) beats months of Banking promotions on pay."
+   },
+   {
+    "heading": "Comedy, Charisma, and Hustle: The Social Trainers",
+    "body": "Comedy: filming a skit (60 min, rate 1.5) beats open-mic stand-up practice (40 min, 1.3); performing at Comedy Night (1.2) is the stage version. Charisma: the single fastest recorded rate is Shut Down the Club — 180 minutes at 1.5 that also maxes social and fun (+100 each) — with Practise Speech (45 min, 1.3) as the daily driver and Practise Presenting at the radio house (1.2) a close third. Hustle: Buy & Resell Goods leads (120 min, 1.5), Talk Billion-Naira Deals at the members' lounge posts 1.4, and Read a Business Book (60 min, 1.2) is the quiet grind. Hustle training overlaps neatly with the Trading and Retail career families."
+   },
+   {
+    "heading": "The Efficient Weekly Pattern",
+    "body": "Combine money and training wherever the data allows it: Alabaru shifts earn ₦2,250 while quietly building fitness; reselling goods builds hustle while you're out in the markets; the hackathon anchors one weekend day for coders. The pattern the data supports: work your no-requirement job for income, run two or three targeted training blocks per in-game day, and keep Sleep plus a cheap meal action in the loop so your meters never block the plan. Exact meter numbers per activity are in the Game Data directory on every action's record page."
+   }
+  ]
+ },
+ {
+  "slug": "unilag-degree-paths",
+  "title": "The UNILAG Route: 8 Degrees and Where Each One Leads",
+  "summary": "School fees are ₦20,000 and programmes run 4–5 years. Every degree names the skill it builds and the careers it feeds — Computer Science and Systems Engineering both feed Tech, while Accounting feeds three career families at once.",
+  "topic": "Education",
+  "verificationStatus": "partial",
+  "updatedAt": "2026-10-10",
+  "sourceIds": [
+   "src-game-target"
+  ],
+  "limitations": [
+   "Tuition is a single global figure (₦20,000) in the game files — the data does not show per-degree fee differences, and other costs (books, acceptance) are not recorded.",
+   "What a completed degree changes mechanically (skill, career access) is recorded; admission requirements and in-game duration mechanics are not yet verified."
+  ],
+  "sections": [
+   {
+    "heading": "What the University Actually Gives You",
+    "body": "The game data states three things per degree: faculty, programme length, and a mapping to an associated skill plus the careers it feeds. That makes the university a structured alternative to grinding skill trainers — a Computer Science degree builds coding and feeds the Tech career, which starts at ₦9,900 per shift and tops out at ₦76,500 as CTO. Fees are recorded as a flat ₦20,000 (school-wide constant, not per-degree), and programmes run four or five years.",
+    "image": {
+     "src": "/images/gameplay/campus-unilag-where-to.png",
+     "alt": "Lagos Life UNILAG campus on a sunny morning with the halls of residence and campus paths",
+     "caption": "The UNILAG campus in-game: enrol at the Senate Building, attend lectures, and a hall bunk becomes your cheapest roof. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "The Two Tech Feeds: Computer Science and Systems Engineering",
+    "body": "Computer Science is a 4-year Faculty of Science programme; Systems Engineering is 5 years in Engineering. Both build coding and feed the Tech career family. If your target is the Product Management track (₦20,000 level-1, coding level 3 required) or the Oil & Gas alternative gate, the data says either degree lands you on the same skill. The 13 career-prep courses in the game include a Software Developer course, which the data describes as covering which path to pick and how to land the job."
+   },
+   {
+    "heading": "Degrees That Feed Multiple Careers",
+    "body": "Accounting (4 years, Management Sciences) builds hustle and feeds three career families at once — Banking, Trading, and Retail. Mass Communication (4 years, Social Sciences) builds charisma and feeds Content Creator and Football Pundit. Creative Arts (4 years, Arts) builds music and feeds Music, DJ, and Event Planning — the creative cluster. If you're undecided, Accounting's three-way feed is the broadest verified return in the degree table."
+   },
+   {
+    "heading": "The Professional Degrees: Law, Nursing, and Education",
+    "body": "Law is a 5-year programme in the Faculty of Law building charisma, feeding the Law career (₦9,100 at level 1, rising to a recorded top tier). Nursing Science is 5 years in the College of Medicine, builds fitness, and feeds Nursing. Education is 4 years in the Faculty of Education, builds charisma, and feeds Teaching. Notably, Nursing's fitness association points the same direction as the Medicine career gate — the game consistently treats fitness as the health-career skill."
+   },
+   {
+    "heading": "Degrees vs Direct Skill Training",
+    "body": "Here's the honest comparison the data supports: degrees cost ₦20,000 and 4–5 years but bundle a skill with career access and thirteen career-prep courses (including Money Smart, the only finance-literacy course in the list). Direct skill training is free and faster per session — Lift Weights builds fitness at rate 2.0 from day one — but unlocks the gate without any credential attached. Whether employers in-game treat a degree differently from a raw level-3 skill is not recorded in the extracted data; that's a question for in-game testing before we publish it as advice."
+   }
+  ]
+ },
+ {
+  "slug": "earn-without-a-job",
+  "title": "Broke? Three Ways to Earn Before Your First Shift",
+  "summary": "Alabaru pays ₦2,250 per session and trains fitness, helping at the Buka pays ₦1,750, and reporting a crime pays ₦2,000 plus social. Not shift money — but they need no job, no skill, and no gate.",
+  "topic": "Beginner",
+  "verificationStatus": "partial",
+  "updatedAt": "2026-10-10",
+  "sourceIds": [
+   "src-game-target"
+  ],
+  "limitations": [
+   "Only three actions in the extracted data carry a verified earn value. Other money-looking actions (freelance gigs, paid skits) show money bubbles in the game files but their earn amounts are not recorded — we do not list them as verified earners.",
+   "Whether these odd jobs can be repeated indefinitely or have caps/cooldowns is not in the extracted data."
+  ],
+  "sections": [
+   {
+    "heading": "The Three Verified Odd Jobs",
+    "body": "Carry Load as an Alabaru: 120 minutes, earns ₦2,250, trains fitness at rate 0.8 — the only action in the game that pays you AND builds a career-gating skill, at the cost of energy -12 and hygiene -10. Help at the Buka (wash plates): 1750 naira per session, hygiene -8, fun -5, quick and unglamorous. Report a Crime: ₦2,000 with social +12 on top — the best social-per-naira deal in the verified data. All three are available with no requirements.",
+    "image": {
+     "src": "/images/gameplay/market-alabaru.png",
+     "alt": "Lagos Life Balogun Market loading bay with the Carry Load Alabaru odd job visible",
+     "caption": "The Alabaru carry-load job at Balogun Market's loading bay: earns naira, trains Fitness, costs Energy — no career required. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "How Odd-Job Money Compares to a Shift",
+    "body": "Put the numbers side by side: a single Banking shift pays ₦11,600, while roughly five Alabaru sessions match one shift — at 2 hours each, that's ten game-hours of hauling against one work shift. The conclusion the data supports: odd jobs are bridge money for your very first days (and the Alabaru is worth repeating for the fitness alone), not a career. The moment you can take a no-requirement job — Banking first, then Tech or Trading — the odd jobs stop paying competitively. Report a Crime is the exception worth keeping for the social boost."
+   },
+   {
+    "heading": "A Broke-Start Money Order",
+    "body": "A data-backed opening loop when your wallet is near zero: run Alabaru sessions until you can cover your first rent period plus a buffer (the cheapest verified roof, the UNILAG hostel, is ₦1,200 — one Alabaru session nearly covers it), keep hygiene above water with the cheapest hygiene actions you can find, then take the first Banking or Tech shift that fits your energy. Rent is weekly and due on Saturday (verified in-game 14 Oct 2026), so a two-week buffer is a sane minimum. From there, follow the First Week Roadmap guide — the odd jobs have done their job once a real salary starts."
+   }
+  ]
+ },
+ {
+  "slug": "furnishing-luxury-catalog",
+  "title": "The Catalog: From a ₦300 Calendar to a ₦9 Billion Jet",
+  "summary": "69 buyable items, all one-time prices. The essentials are almost free — foam mattress ₦1,800, standing fan ₦2,200 — while the top of the catalog is a billionaire trophy shelf of jets, yachts, and a gold bullion vault.",
+  "topic": "Money",
+  "verificationStatus": "partial",
+  "updatedAt": "2026-10-10",
+  "sourceIds": [
+   "src-game-target"
+  ],
+  "limitations": [
+   "All 69 prices are verified one-time amounts from the game files, but which items a given home requires (if any) is not recorded.",
+   "Whether luxury items grant any in-game benefit beyond ownership is not in the extracted data — we list them as prices, not as recommendations.",
+   "Luxury-item weekly-income claims (jets +₦15m/₦40m/₦120m per week) are in-game store text observed 14 Oct 2026, not independently verified payouts."
+  ],
+  "sections": [
+   {
+    "heading": "Setting Up for Almost Nothing",
+    "body": "The bottom of the catalog is shockingly cheap. A wall calendar is ₦300, bucket and bowl ₦400, a plastic chair ₦500. The basics of a functioning room stack up under ₦10,000: foam mattress ₦1,800, kerosene stove ₦1,100, rechargeable lamp ₦1,100, standing mirror ₦1,700, standing fan ₦2,200, WC toilet ₦3,000, kitchen counter ₦4,200. Against even the lowest starter salary (₦6,600 per shift as a Content Creator), a fully functional room is one or two shifts of spending — the game deliberately makes essentials trivial and luxury astronomical."
+   },
+   {
+    "heading": "The Middle: Comfort and Hobby Items",
+    "body": "Between ₦10,000 and ₦50,000 the catalog shifts from utility to lifestyle: an acoustic guitar at ₦4,200, bookshelf ₦3,600, dumbbell rack ₦3,400 — note the dumbbell rack pairs with Lift Weights, the best fitness trainer in the game, though whether owning equipment changes training is not recorded. This band is where most players will park their money after rent and before investments in their career gate. Check each item's record page in the Game Data directory for its verified status before treating any of it as required."
+   },
+   {
+    "heading": "The Billionaire Shelf",
+    "body": "The catalog's top end is not furniture — it's a trophy ledger. Diamond-Studded Throne ₦250,000,000. Old Master Painting ₦400,000,000. Gold Bullion Vault ₦500,000,000. Private Helicopter ₦750,000,000. Superyacht ₦1,500,000,000. Private Jet ₦3,000,000,000. And the most expensive item in the entire game: the Heavy Jet at ₦9,000,000,000. For scale: at the game's highest verified salary — Oil & Gas Country MD at ₦96,000 per shift — the Heavy Jet costs more than 93,000 shifts. Nobody buys this with a salary; it exists as an endgame sink. One detail only visible in-game: the jets carry an advertised weekly income in the shop (Light Jet +₦15m, Mid-size Jet +₦40m, Heavy Jet +₦120m per week). Treat those as store claims — we have not observed a payout cycle ourselves.",
+    "image": {
+     "src": "/images/gameplay/furniture-luxury-shop.png",
+     "alt": "Lagos Life luxury shop listing a gold bullion vault, helicopter, light jet, superyacht, private jets up to a 9 billion naira heavy jet",
+     "caption": "The luxury shelf as the game displays it — up to the ₦9bn Heavy Jet. The jets advertise weekly income; we have not independently observed a payout. Captured in-game at lagoslife.app · 14 Oct 2026."
+    }
+   },
+   {
+    "heading": "What to Actually Buy",
+    "body": "The honest advice the data can back: buy essentials early (they're nearly free), treat everything above ₦50,000 as pure aspiration until your career gate is unlocked and rent is covered a week ahead (rent is weekly, due Saturday — verified in-game 14 Oct 2026), and ignore the billionaire shelf entirely unless you can explain where the naira came from. What we cannot yet tell you: whether specific homes demand specific furnishings, and whether any item grants bonuses — both are marked 'Not yet verified' on the records until a player confirms them in-game."
+   }
+  ]
+ }
 ]

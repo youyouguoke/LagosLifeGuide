@@ -198,7 +198,16 @@ const COLLECTION_FIELD_ORDER: Record<CollectionKey, string[]> = {
     "promotionRequirements",
     "workplace",
   ],
-  "housing-costs": ["name", "amount", "currency", "period", "conditions"],
+  "housing-costs": [
+    "name",
+    "amount",
+    "buyPrice",
+    "moveInTotal",
+    "resaleValue",
+    "currency",
+    "period",
+    "conditions",
+  ],
   "skills-actions": [
     "name",
     "prerequisites",
@@ -249,6 +258,13 @@ function fieldDisplay(
         periodField ? formatScalar(periodField.value) : null,
       );
     }
+    // P1-2 in-game verified housing economics (2026-10-19)
+    case "housing-costs.buyPrice":
+      return withCurrencyAndPeriod(value, "NGN", null);
+    case "housing-costs.moveInTotal":
+      return withCurrencyAndPeriod(value, "NGN", "one-time");
+    case "housing-costs.resaleValue":
+      return `${withCurrencyAndPeriod(value, "NGN", null)} · 80% of buyout`;
     case "skills-actions.durationMinutes":
       return formatMinutes(field.value as number);
     case "skills-actions.costAmount": {
