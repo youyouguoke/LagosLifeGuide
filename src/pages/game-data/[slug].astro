@@ -8,6 +8,7 @@ import {
   collections,
   findEvidence,
   findSource,
+  humanizeEffect,
   type FieldRow,
   type NormalizedRecord,
 } from "../../lib/game-data";
@@ -83,36 +84,6 @@ function fieldValue(row: FieldRow): string {
 const rowOf = (key: string): FieldRow | undefined =>
   record.fields.find((f) => f.key === key);
 
-/** Turn the raw client effect string into one honest English sentence. */
-function humanEffect(raw: unknown): string | null {
-  if (typeof raw !== "string" || raw.length === 0) return null;
-  const segments = raw.split(";").map((s) => s.trim()).filter(Boolean);
-  const parts: string[] = [];
-  for (const seg of segments) {
-    const needs = seg.match(/^(needs|instant):\s*([a-z]+)\s*([+-]?\d+)$/i);
-    if (needs) {
-      const [, kind, need, num] = needs;
-      const name = need.charAt(0).toUpperCase() + need.slice(1);
-      const n = parseInt(num, 10);
-      if (kind === "instant") {
-        parts.push(n >= 0 ? `instantly restores ${name} by ${n}` : `instantly drops ${name} by ${Math.abs(n)}`);
-      } else {
-        parts.push(n >= 0 ? `raises the ${name} need by ${n}` : `lowers the ${name} need by ${Math.abs(n)}`);
-      }
-      continue;
-    }
-    if (/^\d+-year program/.test(seg)) {
-      parts.push(`it is a ${seg}`);
-      continue;
-    }
-    // Anything we don't understand stays verbatim rather than being guessed at.
-    parts.push(seg);
-  }
-  if (parts.length === 0) return null;
-  if (parts.length === 1) return parts[0];
-  return parts.slice(0, -1).join(", ") + " and " + parts[parts.length - 1];
-}
-
 const locRow = rowOf("locationId");
 const locSlug =
   locRow && typeof locRow.field.value === "string" ? locRow.field.value : null;
@@ -126,6 +97,7 @@ const isActionRecord = record.collection === "skills-actions";
 const inGameBacked = record.evidenceIds.some((id) => id.startsWith("ev-in-game-"));
 
 let plainSummary: string | null = null;
+let requirementText = "";
 if (isActionRecord) {
   const where = locRecord
     ? `${locRecord.name}`
@@ -136,8 +108,17 @@ if (isActionRecord) {
     durRow && typeof durRow.field.value === "number"
       ? `${durRow.field.value} in-game minutes`
       : "an unknown amount of time";
-  const effect = humanEffect(effRow?.field.value);
+  const effect = humanizeEffect(effRow?.field.value);
   const effectText = effect ? ` and, per the game's data, ${effect}` : "";
+  // Requirements are derived only from facts in the data (venue, tuition) — the
+  // client stores no other prerequisite fields, and none are invented.
+  const costRow = rowOf("costAmount");
+  const costVal = costRow && typeof costRow.field.value === "number" ? costRow.field.value : null;
+  requirementText = locRecord
+    ? record.slug.startsWith("degree-") || record.slug.startsWith("course-")
+      ? `Enrolment at ${locRecord.name}${costVal ? ` and ₦${costVal.toLocaleString("en-NG")} tuition` : ""}`
+      : `Be at ${locRecord.name}`
+    : "No venue required (anywhere)";
   const verifiedText = inGameBacked
     ? "This value has been corroborated by logged-in play."
     : "Only the game-client value is verified — we have not tested this action in a live session.";
@@ -270,8 +251,11 @@ const siblingActions = isActionRecord && locSlug
     <!-- P0-2: human summary (action records) -->
     {plainSummary && (
       <div class="mb-8 rounded-2xl border-l-4 border-primary bg-surface-container-low p-space-md">
-        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">Quick answer</div>
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">What it is</div>
         <p class="mt-1 text-body-lg leading-relaxed text-on-surface">{plainSummary}</p>
+        <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+          <strong class="text-on-surface">Requires:</strong> {requirementText}.
+        </p>
       </div>
     )}
 
@@ -602,6 +586,18 @@ const siblingActions = isActionRecord && locSlug
         </a>
       </div>
     </section>
+
+    {record.slug === "atmHack" && (
+      <div class="mb-10 rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Looking for "hacks"?</div>
+        <p class="mt-1 text-body-md leading-relaxed text-on-surface-variant">
+          If you searched for a Lagos Life hack, unlimited naira or a modded APK: the action on this page is
+          the only thing called a "hack" in the game, and it pays no naira. Our{" "}
+          <a href="/hack/" class="text-primary hover:underline">hacks &amp; unlimited-naira page</a> explains what
+          actually works and why generators and modded APKs don't.
+        </p>
+      </div>
+    )}
 
     {record.slug === "home-unilagHostel-rent" && (
       <EvidenceSection

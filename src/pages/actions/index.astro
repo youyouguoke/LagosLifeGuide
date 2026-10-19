@@ -1,0 +1,240 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import locationsJson from "../../data/locations.json";
+import skillsJson from "../../data/skills-actions.json";
+import { effectLabel } from "../../lib/game-data";
+
+/**
+ * Action finder (review round 3): every one of the 325 recorded actions in one
+ * searchable table — name, venue, duration, cost, effect WITH units, derived
+ * requirements, and our per-record verification status. Requirements are
+ * derived only from facts already in the data (venue, tuition); the game
+ * client stores no other prerequisite fields, so none are invented.
+ */
+
+interface SkillRow {
+  id: string;
+  name: string;
+  status: string;
+  checkedAt: string;
+  locationId: string | null;
+  locationName: string | null;
+  minutes: number | null;
+  cost: number | null;
+  effect: string | null;
+  requirements: string;
+}
+
+const locName = new Map<string, string>();
+for (const l of locationsJson as unknown as { id: string; name?: { value?: string } }[]) {
+  locName.set(l.id, l.name?.value ?? l.id);
+}
+
+const rows: SkillRow[] = (skillsJson as unknown as {
+  id: string;
+  name: { value?: string; status?: string; checkedAt?: string };
+  durationMinutes?: { value?: number };
+  costAmount?: { value?: number | null; status?: string };
+  effectDescription?: { value?: string };
+  locationId?: { value?: string };
+}[]).map((a) => {
+  const loc = a.locationId?.value ?? null;
+  const cost = a.costAmount?.value ?? null;
+  let requirements: string;
+  if (!loc) {
+    requirements = "Anywhere (no venue needed)";
+  } else if (a.id.startsWith("degree-") || a.id.startsWith("course-")) {
+    requirements = `Enrol at ${locName.get(loc) ?? loc}${cost ? ` · ₦${cost.toLocaleString("en-NG")} tuition` : ""}`;
+  } else {
+    requirements = `Be at ${locName.get(loc) ?? loc}`;
+  }
+  return {
+    id: a.id,
+    name: a.name.value ?? a.id,
+    status: a.name.status ?? "unverified",
+    checkedAt: a.name.checkedAt ?? "",
+    locationId: loc,
+    locationName: loc ? (locName.get(loc) ?? loc) : "—",
+    minutes: a.durationMinutes?.value ?? null,
+    cost,
+    effect: effectLabel(a.effectDescription?.value ?? null),
+    requirements,
+  };
+});
+
+rows.sort((a, b) => a.name.localeCompare(b.name));
+
+const locOptions = [...new Set(rows.map((r) => r.locationName).filter((n): n is string => n !== "—"))].sort();
+
+const badge: Record<string, { text: string; cls: string }> = {
+  verified: { text: "Verified", cls: "bg-primary-fixed text-on-primary-fixed" },
+  reported: { text: "Reported", cls: "bg-tertiary-fixed text-on-tertiary-fixed" },
+  unverified: { text: "Pending", cls: "bg-surface-container-highest text-on-surface-variant" },
+  conflicted: { text: "Conflicted", cls: "bg-error-container text-on-error-container" },
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How many actions are in Lagos Life?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: `Our extracted game-client data records ${rows.length} actions — everything from sleeping and cooking to degrees, gym sessions and ATM hacking. Each row carries its own verification status and check date.`,
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What do the effect units mean?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Effects are shown in points (pts) on the game's need bars — Fun, Energy, Hunger and Hygiene. 'Fun +10 pts' means the action raises the Fun need bar by ten points.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Lagos Life Action Finder: All 325 Actions, Filterable | LagosLifeGuide"
+  description={`Every recorded action in Lagos Life in one filterable table — venue, duration, cost, effect in points, requirements and per-row verification status. ${rows.length} actions from the verified game-client data.`}
+  canonicalPath="/actions/"
+  jsonLd={[faqJsonLd]}
+  ogImage="/images/og-actions.jpg"
+>
+  <div class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <nav aria-label="Breadcrumb" class="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
+      <a href="/" class="hover:text-primary">Home</a>
+      <span class="text-outline" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-on-surface">Action Finder</span>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="rounded-full bg-primary-fixed px-2.5 py-0.5 font-label-sm text-label-sm text-on-primary-fixed">{rows.length} actions</span>
+      <span class="rounded-full bg-surface-container px-2.5 py-0.5 font-label-sm text-label-sm text-on-surface-variant">from verified game-client data</span>
+    </div>
+    <h1 class="mt-2 text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+      Lagos Life Action Finder
+    </h1>
+    <p class="mt-3 max-w-3xl text-body-lg leading-relaxed text-on-surface-variant">
+      Every action we have extracted from the game — what it is called, where it happens, how long it
+      takes, what it costs, and what it does to your needs <strong class="text-on-surface">in points</strong>.
+      The client data stores no other prerequisite fields, so requirements below are only what the
+      data itself proves: the venue, and tuition for university actions.
+    </p>
+
+    <div class="mt-space-lg flex flex-col gap-3 sm:flex-row sm:items-end">
+      <div class="grow">
+        <label for="action-search" class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">
+          Search actions
+        </label>
+        <input
+          id="action-search"
+          type="search"
+          placeholder="e.g. hack, sleep, jollof, degree…"
+          autocomplete="off"
+          class="mt-1 w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-body-md text-on-surface outline-none focus:border-primary"
+        />
+      </div>
+      <div class="sm:w-64">
+        <label for="action-location" class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">
+          Venue
+        </label>
+        <select
+          id="action-location"
+          class="mt-1 w-full rounded-xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3 text-body-md text-on-surface outline-none focus:border-primary"
+        >
+          <option value="">All venues</option>
+          {locOptions.map((n) => <option value={n}>{n}</option>)}
+        </select>
+      </div>
+    </div>
+    <p id="action-count" class="mt-2 text-body-sm text-on-surface-variant" aria-live="polite">
+      Showing all {rows.length} actions
+    </p>
+
+    <div class="mt-3 overflow-x-auto rounded-2xl border border-outline-variant/40">
+      <table class="w-full min-w-[900px] border-collapse text-left">
+        <thead>
+          <tr class="bg-surface-container font-label-md text-label-md uppercase tracking-wide text-secondary">
+            <th class="px-4 py-3">Action</th>
+            <th class="px-4 py-3">Venue</th>
+            <th class="px-4 py-3 text-right">Minutes</th>
+            <th class="px-4 py-3 text-right">Cost</th>
+            <th class="px-4 py-3">Effect (pts)</th>
+            <th class="px-4 py-3">Requirements</th>
+            <th class="px-4 py-3">Status</th>
+          </tr>
+        </thead>
+        <tbody id="action-rows">
+          {rows.map((r) => (
+            <tr
+              class="border-t border-outline-variant/20 align-top transition-colors hover:bg-surface-container-low/60"
+              data-name={r.name.toLowerCase()}
+              data-location={r.locationName}
+            >
+              <td class="px-4 py-3">
+                <a href={`/game-data/${r.id}/`} class="font-semibold text-on-surface hover:text-primary hover:underline">
+                  {r.name}
+                </a>
+              </td>
+              <td class="px-4 py-3 text-body-sm text-on-surface-variant">
+                {r.locationId ? (
+                  <a href={`/locations/${r.locationId}/`} class="hover:text-primary hover:underline">{r.locationName}</a>
+                ) : (
+                  r.locationName
+                )}
+              </td>
+              <td class="px-4 py-3 text-right text-body-sm tabular-nums">{r.minutes ?? "—"}</td>
+              <td class="px-4 py-3 text-right text-body-sm tabular-nums">
+                {r.cost != null ? `₦${r.cost.toLocaleString("en-NG")}` : "—"}
+              </td>
+              <td class="px-4 py-3 text-body-sm">{r.effect ?? "—"}</td>
+              <td class="px-4 py-3 text-body-sm text-on-surface-variant">{r.requirements}</td>
+              <td class="px-4 py-3">
+                <span class={`inline-block rounded-full px-2 py-0.5 font-label-sm text-label-sm ${badge[r.status]?.cls ?? badge.unverified.cls}`}>
+                  {badge[r.status]?.text ?? "Pending"}
+                </span>
+                {r.checkedAt && <div class="mt-1 text-[11px] text-on-surface-variant">{r.checkedAt}</div>}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 text-body-sm text-on-surface-variant">
+      Status meanings: <strong>Verified</strong> — matches the game client bundle on file; <strong>Pending</strong> —
+      present in the data but not yet independently corroborated; <strong>Reported</strong> — player-reported,
+      unconfirmed. Effects and durations come from the game client; we note on each record page whether
+      logged-in play has corroborated it.
+    </p>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var search = document.getElementById("action-search");
+      var loc = document.getElementById("action-location");
+      var count = document.getElementById("action-count");
+      var rows = Array.prototype.slice.call(document.querySelectorAll("#action-rows tr"));
+      var total = rows.length;
+      function apply() {
+        var q = (search.value || "").trim().toLowerCase();
+        var l = loc.value;
+        var shown = 0;
+        rows.forEach(function (r) {
+          var ok = (!q || r.dataset.name.indexOf(q) !== -1) && (!l || r.dataset.location === l);
+          r.classList.toggle("hidden", !ok);
+          if (ok) shown++;
+        });
+        count.textContent = shown === total
+          ? "Showing all " + total + " actions"
+          : "Showing " + shown + " of " + total + " actions";
+      }
+      search.addEventListener("input", apply);
+      loc.addEventListener("change", apply);
+    })();
+  </script>
+</BaseLayout>

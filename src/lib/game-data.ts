@@ -284,7 +284,7 @@ function fieldDisplay(
               : n >= 0
                 ? "Raises"
                 : "Lowers";
-          return `${verb} ${name} by ${Math.abs(n)}`;
+          return `${verb} ${name} by ${Math.abs(n)} pts`;
         }
         return seg.charAt(0).toUpperCase() + seg.slice(1);
       });
@@ -297,6 +297,65 @@ function fieldDisplay(
     default:
       return value;
   }
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared humanizers (record pages + the /actions/ finder)             */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Turn a raw client effect string ("needs: fun +10; bubble: 💻") into one
+ * honest English sentence, with units (need-bar points) stated. Anything the
+ * parser does not recognise is returned verbatim — never guessed at.
+ */
+export function humanizeEffect(raw: unknown): string | null {
+  if (typeof raw !== "string" || raw.length === 0) return null;
+  const segments = raw.split(";").map((s) => s.trim()).filter(Boolean);
+  const parts: string[] = [];
+  for (const seg of segments) {
+    const needs = seg.match(/^(needs|instant):\s*([a-z]+)\s*([+-]?\d+)$/i);
+    if (needs) {
+      const [, kind, need, num] = needs;
+      const name = need.charAt(0).toUpperCase() + need.slice(1);
+      const n = parseInt(num, 10);
+      const unit = Math.abs(n) === 1 ? "point" : "points";
+      if (kind === "instant") {
+        parts.push(n >= 0 ? `instantly restores ${name} by ${n} ${unit}` : `instantly drops ${name} by ${Math.abs(n)} ${unit}`);
+      } else {
+        parts.push(n >= 0 ? `raises the ${name} need by ${n} ${unit}` : `lowers the ${name} need by ${Math.abs(n)} ${unit}`);
+      }
+      continue;
+    }
+    if (/^\d+-year program/.test(seg)) {
+      parts.push(`it is a ${seg}`);
+      continue;
+    }
+    parts.push(seg);
+  }
+  if (parts.length === 0) return null;
+  if (parts.length === 1) return parts[0];
+  return parts.slice(0, -1).join(", ") + " and " + parts[parts.length - 1];
+}
+
+/** Short "Fun +10 pts" style label for dense tables (the /actions/ finder). */
+export function effectLabel(raw: unknown): string | null {
+  if (typeof raw !== "string" || raw.length === 0) return null;
+  const segs = raw.split(";").map((s) => s.trim()).filter(Boolean);
+  const out: string[] = [];
+  for (const seg of segs) {
+    const m = seg.match(/^(needs|instant):\s*([a-z]+)\s*([+-]?\d+)$/i);
+    if (m) {
+      const name = m[2].charAt(0).toUpperCase() + m[2].slice(1);
+      out.push(`${name} ${m[3]} pts${m[1] === "instant" ? " (instant)" : ""}`);
+      continue;
+    }
+    if (/^\d+-year program/.test(seg)) {
+      out.push(seg);
+      continue;
+    }
+    out.push(seg);
+  }
+  return out.length > 0 ? out.join(" · ") : null;
 }
 
 /* ------------------------------------------------------------------ */

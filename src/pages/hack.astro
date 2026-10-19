@@ -1,0 +1,119 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const checkedAt = "2026-10-19";
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Is there a real Lagos Life hack or unlimited naira cheat?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. The only 'hack' in the game is the ATM-hacking action at CcHub — an in-game activity that raises the Fun need by 10 points. It does not generate naira. The official terms state game currency has no real-world value and can't be cashed out or transferred (checked 2026-10-19).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do Lagos Life modded APKs or naira generators work?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No verified one exists. Any APK outside the official site is unverifiable by design, and 'unlimited naira' generators cannot change server-side balances — at best they do nothing, at worst they steal your login. The official game is a browser app at lagoslife.app with no official APK.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do you actually earn naira fast in Lagos Life?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Through the game's own economy: jobs with verified pay ladders (up to ₦72,000/shift at the top of Banking), housing buyouts that resell at 80%, and transport business. Our planner and the jobs page cover the legitimate routes with dated, verified numbers.",
+      },
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title="Lagos Life Hack, Unlimited Naira & Modded APK: What Actually Works"
+  description="Searching for a Lagos Life hack or unlimited naira? The only real 'hack' is the in-game ATM action. Why generators and modded APKs don't work — and the legitimate fast-naira routes, with verified numbers."
+  canonicalPath="/hack/"
+  jsonLd={[faqJsonLd]}
+  ogImage="/images/og-hack.jpg"
+>
+  <div class="mx-auto max-w-[860px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+    <nav aria-label="Breadcrumb" class="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
+      <a href="/" class="hover:text-primary">Home</a>
+      <span class="text-outline" aria-hidden="true">/</span>
+      <span aria-current="page" class="text-on-surface">Hacks & Unlimited Naira</span>
+    </nav>
+
+    <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
+      Lagos Life Hacks, Unlimited Naira & Modded APKs
+    </h1>
+
+    <div class="mt-6 rounded-2xl border-l-4 border-primary bg-surface-container-low p-space-md">
+      <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-primary">Quick answer</div>
+      <p class="mt-1 text-body-lg leading-relaxed text-on-surface">
+        <strong>No real hack, cheat or unlimited-naira generator exists.</strong> The only "hack" in the
+        game is the ATM-hacking action at CcHub — an in-game activity that takes 60 minutes and raises
+        your Fun need by 10 points. It produces <em>no naira at all</em>. And because the game runs as a
+        browser app with server-side accounts, no modded APK can change your balance.
+      </p>
+      <p class="mt-2 text-body-sm text-on-surface-variant">
+        Checked <time datetime={checkedAt}>{checkedAt}</time> against the game's client data and official terms
+        (<a href="https://lagoslife.app/terms" class="text-primary hover:underline" rel="noopener">lagoslife.app/terms</a>, section 3).
+      </p>
+    </div>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">What the ATM "hack" actually is</h2>
+    <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+      The game literally contains an action called <a href="/game-data/atmHack/" class="text-primary hover:underline">Hack an ATM</a>,
+      available at CcHub in Yaba. Per the extracted game-client data — the same data every record on
+      this site cites — it takes 60 in-game minutes and its entire effect is
+      <strong class="text-on-surface">Fun +10 points</strong>. There is no naira reward attached to it in
+      the data. It is a flavour action, not an economy exploit. We have not found any other action,
+      item or flag in the client data that grants unearned currency.
+    </p>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">Why "unlimited naira" generators can't work</h2>
+    <ul class="mt-2 list-disc space-y-1 pl-5 text-body-md leading-relaxed text-on-surface-variant">
+      <li><strong>Balances live server-side.</strong> Your naira is stored on the game's servers, not in your browser. A website or APK cannot edit it — anyone claiming otherwise is describing an impossible action.</li>
+      <li><strong>Game currency has no real-world value.</strong> The official terms (section 3) state in-game naira "have no real-world value and can't be cashed out, sold or transferred outside the game" — so even a hypothetical exploit would yield nothing outside the game.</li>
+      <li><strong>The usual payload is your login.</strong> Every "generator" we know of in this genre asks for your username, and many ask for your password "to connect the hack". Handing those over gives strangers your account.</li>
+    </ul>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">About modded APKs</h2>
+    <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
+      There is no official APK to modify: the game is a web app at lagoslife.app, installable from the
+      browser (see our <a href="/download/" class="text-primary hover:underline">download guide</a>).
+      Any APK claiming to be Lagos Life is built by a third party, cannot be verified, and sits outside
+      anything the official terms cover. The same applies to "mod menu" downloads. Our advice is boring
+      and absolute: play the browser app, keep your password to yourself.
+    </p>
+
+    <h2 class="mt-space-lg font-headline-md text-headline-md font-extrabold text-on-surface">What actually earns naira fast (legitimately)</h2>
+    <div class="mt-space-sm grid gap-3 sm:grid-cols-3">
+      <a href="/jobs/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Careers</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Verified pay ladders</div>
+        <p class="mt-1 text-body-sm text-on-surface-variant">33 careers with L1–L5 pay per shift, top of Banking ₦72,000.</p>
+      </a>
+      <a href="/guides/housing-costs-compared/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Housing</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Buy low, resell at 80%</div>
+        <p class="mt-1 text-body-sm text-on-surface-variant">Buyout and resale values measured in-game on 2026-10-19.</p>
+      </a>
+      <a href="/actions/" class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md transition-all hover:-translate-y-0.5 hover:border-primary/50">
+        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">All 325 actions</div>
+        <div class="mt-1 font-headline-sm text-headline-sm font-extrabold text-on-surface">Action finder</div>
+        <p class="mt-1 text-body-sm text-on-surface-variant">Filter every action by venue, cost and effect — no cheats, just data.</p>
+      </a>
+    </div>
+    <p class="mt-3">
+      <a href="/tools/first-week-planner/" class="inline-flex items-center justify-center rounded-full bg-primary-container px-space-lg py-3 text-label-lg font-semibold text-on-primary transition-colors hover:bg-primary">
+        Plan your first week instead →
+      </a>
+    </p>
+  </div>
+</BaseLayout>

@@ -59,6 +59,8 @@ card("Lagos Life Locations", "28 places · hours & every action at each", "publi
 card("Lagos Life Age Limit: 18+", "Official rule, quoted & dated", "public/images/og-age-limit.jpg")
 card("Lagos Life Payments & Withdrawal", "Top-ups in, no cash-out — official terms", "public/images/og-payments.jpg")
 card("Lagos Life Account & Recovery", "Who can actually reset or recover accounts", "public/images/og-account-help.jpg")
+card("Lagos Life Action Finder", "All 325 actions · search, filter, verified", "public/images/og-actions.jpg")
+card("Lagos Life Hacks & Unlimited Naira", "What actually works — and what never will", "public/images/og-hack.jpg")
 for g in guides:
     slug = g.get("slug")
     title = g.get("title", "Guide").replace("Lagos Life: ", "").replace(" in Lagos Life", "")
