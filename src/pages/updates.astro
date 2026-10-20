@@ -1,85 +1,111 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import jobs from "../data/jobs.json";
-import housingCosts from "../data/housing-costs.json";
-import skillsActions from "../data/skills-actions.json";
-import locations from "../data/locations.json";
+import locationsJson from "../data/locations.json";
+import skillsActionsJson from "../data/skills-actions.json";
 
 /**
- * P1-2 — /updates/: every record with a real review date, newest first.
- * Dates come straight from the data files (field checkedAt values) — nothing
- * here is written by hand, so the page updates itself as records are re-checked.
+ * P0-6 — /updates/ as a review-event timeline: what was checked, when, and
+ * what changed. The full per-record list is collapsed below; the homepage
+ * shows the same data as "Recently reviewed".
  */
+
+const locations = locationsJson as unknown as {
+  id: string; name: { value?: string; checkedAt?: string };
+}[];
+const skills = skillsActionsJson as unknown as {
+  id: string; name: { value?: string; checkedAt?: string };
+  locationId?: { value?: string };
+}[];
+const locName = new Map(locations.map((l) => [l.id, l.name?.value ?? l.id]));
 
 function fieldCheckedAt(r: Record<string, unknown>): string {
   for (const v of Object.values(r)) {
-    if (v && typeof v === "object" && "checkedAt" in (v as Record<string, unknown>)) {
-      const c = (v as { checkedAt?: string }).checkedAt;
-      if (typeof c === "string") return c;
+    if (v && typeof v === "object" && "checkedAt" in (v as object)) {
+      return String((v as { checkedAt?: string }).checkedAt ?? "");
     }
   }
   return "";
 }
-function fieldName(r: Record<string, unknown>): string {
-  const n = r.name as { value?: unknown } | undefined;
-  return typeof n?.value === "string" ? n.value : String(r.id ?? "");
+
+interface TimelineEvent {
+  date: string;
+  title: string;
+  what: string;
 }
 
-type Row = { href: string; name: string; collection: string; date: string };
-const rows: Row[] = [
-  ...(jobs as unknown as Record<string, unknown>[]).map((r) => ({
-    r,
-    href: `/jobs/${r.id}/`,
-    collection: "Jobs",
+const timeline: TimelineEvent[] = [
+  {
+    date: "2026-10-19",
+    title: "Housing economics verified in-game",
+    what: "Logged-in play measured buyout prices, move-in totals (3× weekly rent) and the 80% resale rule for all seven Lagos homes — Mushin ₦113,000 to Banana Island ₦91,000,000. Screenshots archived (evidence ev-in-game-2026-10-19).",
+  },
+  {
+    date: "2026-10-19",
+    title: "Actions deep-mined from the client bundle",
+    what: "Re-extracted the action tables: 55 new actions added (33 at UNILAG, 13 at Teslim Balogun Stadium, 4 at MindSpace, 5 at Jibowu Motor Park), growth skills and unlock requirements attached to 128 and 20 existing actions. 15 missing venues added (Elegushi Beach, Eko Hotels, casino, mosque, church and others).",
+  },
+  {
+    date: "2026-10-19",
+    title: "New pages: action finder, locations, rule pages, hacks",
+    what: "Launched /actions/ (every action, filterable), /locations/ (per-venue pages), /age-limit/, /payments/, /account-help/, /updates/ and /hack/ (unlimited-naira answer), plus entry-page next steps and per-page share images.",
+  },
+  {
+    date: "2026-10-14",
+    title: "UNILAG hostel rent verified in-game",
+    what: "Logged-in play confirmed the ₦7,500/session UNILAG hostel rate. Screenshot archived (evidence ev-in-game-2026-10-14).",
+  },
+  {
+    date: "2026-10-09",
+    title: "Full data extraction from the game client",
+    what: "Captured the official game client bundle and extracted 33 careers, 86 housing records, 325 actions and 28 locations — every figure on this site traces to this file, archived with SHA-256 checksums.",
+  },
+];
+
+const typeOf = (id: string) => (id.startsWith("home-") ? "Housing" : "Location");
+
+const records = [
+  ...skills.map((r) => ({
+    slug: r.id,
+    name: (locName.get(r.id) ?? r.name?.value ?? r.id) as string,
+    type: "Action",
+    date: fieldCheckedAt(r as unknown as Record<string, unknown>),
+    url: `/game-data/${r.id}/`,
   })),
-  ...(housingCosts as unknown as Record<string, unknown>[]).map((r) => ({
-    r,
-    href: `/game-data/${r.id}/`,
-    collection: "Housing & Costs",
-  })),
-  ...(skillsActions as unknown as Record<string, unknown>[]).map((r) => ({
-    r,
-    href: `/game-data/${r.id}/`,
-    collection: "Skills & Actions",
-  })),
-  ...(locations as unknown as Record<string, unknown>[]).map((r) => ({
-    r,
-    href: `/game-data/${r.id}/`,
-    collection: "Locations",
+  ...locations.map((l) => ({
+    slug: l.id,
+    name: l.name?.value ?? l.id,
+    type: typeOf(l.id),
+    date: fieldCheckedAt(l as unknown as Record<string, unknown>),
+    url: `/locations/${l.id}/`,
   })),
 ]
-  .map(({ r, href, collection }) => ({
-    href,
-    name: fieldName(r),
-    collection,
-    date: fieldCheckedAt(r),
-  }))
-  .filter((x) => x.date)
-  .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.name.localeCompare(b.name)));
+  .filter((r) => r.date)
+  .sort((a, b) => (a.date < b.date ? 1 : -1));
 
-const byDate = new Map<string, Row[]>();
-for (const row of rows) {
-  const list = byDate.get(row.date) ?? [];
-  list.push(row);
-  byDate.set(row.date, list);
-}
-const dates = [...byDate.keys()].sort((a, b) => (a < b ? 1 : -1));
-
-const collectionChip: Record<string, string> = {
-  Jobs: "bg-primary-fixed/40 text-primary",
-  "Housing & Costs": "bg-secondary-fixed/40 text-secondary",
-  "Skills & Actions": "bg-tertiary-fixed/40 text-tertiary",
-  Locations: "bg-surface-container-high text-on-surface-variant",
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "How often is LagosLifeGuide data reviewed?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Every field carries its own check date. The full client-bundle extraction was checked 2026-10-09; housing economics and hostel rent were verified by logged-in play on 2026-10-14 and 2026-10-19. Anything not yet corroborated is labelled Pending, never presented as fact.",
+      },
+    },
+  ],
 };
 ---
 
 <BaseLayout
-  title="Recent Updates: What We Re-Checked & When – LagosLifeGuide"
-  description="Every Lagos Life record carries its own check date. This page lists the most recently reviewed records and guides, newest first — updated automatically from our data."
+  title="Recent Updates: What We Checked & Changed | LagosLifeGuide"
+  description="Review timeline for LagosLifeGuide: data extractions, logged-in verifications and new pages, with dates and evidence. Every record's own check date is listed below."
   canonicalPath="/updates/"
+  jsonLd={[faqJsonLd]}
   ogImage="/images/og-updates.jpg"
 >
-  <div class="mx-auto max-w-[920px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
+  <div class="mx-auto max-w-[900px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
     <nav aria-label="Breadcrumb" class="mb-4 flex items-center gap-2 text-label-md text-on-surface-variant">
       <a href="/" class="hover:text-primary">Home</a>
       <span class="text-outline" aria-hidden="true">/</span>
@@ -89,38 +115,49 @@ const collectionChip: Record<string, string> = {
     <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
       Recent Updates
     </h1>
-    <p class="mt-4 max-w-2xl text-body-lg leading-relaxed text-on-surface-variant">
-      Every figure on this site carries the date it was last checked against the game or its
-      data files. This page collects those dates so freshness is visible at a glance —
-      it is generated from the data itself, so it can never drift out of date.
+    <p class="mt-3 max-w-2xl text-body-lg leading-relaxed text-on-surface-variant">
+      What we checked, when, and what changed. Nothing here is automated marketing copy — each entry
+      maps to archived evidence you can inspect on our <a href="/sources/" class="text-primary hover:underline">sources page</a>.
     </p>
 
-    <div class="mt-space-lg space-y-space-lg">
-      {dates.map((date) => (
-        <section>
-          <h2 class="flex items-center gap-3 font-headline-sm text-headline-sm font-extrabold text-on-surface">
-            <time datetime={date}>{date}</time>
-            <span class="h-px flex-1 bg-outline-variant/40" aria-hidden="true" />
-            <span class="text-body-sm font-normal text-on-surface-variant">
-              {byDate.get(date)!.length} record{byDate.get(date)!.length === 1 ? "" : "s"}
-            </span>
-          </h2>
-          <ul class="mt-space-sm grid gap-space-sm sm:grid-cols-2">
-            {byDate.get(date)!.map((row) => (
-              <li class="flex items-center justify-between gap-space-sm rounded-2xl border border-outline-variant/40 bg-surface-container-lowest px-space-md py-space-sm">
-                <div class="min-w-0">
-                  <a href={row.href} class="block truncate font-headline-sm text-headline-sm font-bold text-on-surface hover:text-primary">
-                    {row.name}
-                  </a>
-                  <span class={`mt-1 inline-block rounded-full px-2 py-0.5 text-label-sm font-bold ${collectionChip[row.collection] ?? "bg-surface-container-high text-on-surface-variant"}`}>
-                    {row.collection}
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
+    <ol class="mt-space-lg space-y-space-md">
+      {timeline.map((e) => (
+        <li class="relative rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
+          <div class="flex flex-wrap items-center gap-2">
+            <time datetime={e.date} class="rounded-full bg-primary-fixed px-2.5 py-0.5 font-label-sm text-label-sm text-on-primary-fixed">{e.date}</time>
+          </div>
+          <h2 class="mt-2 font-headline-sm text-headline-sm font-extrabold text-on-surface">{e.title}</h2>
+          <p class="mt-1 text-body-md leading-relaxed text-on-surface-variant">{e.what}</p>
+        </li>
       ))}
-    </div>
+    </ol>
+
+    <details class="mt-space-lg rounded-2xl border border-outline-variant/40 bg-surface-container-lowest">
+      <summary class="cursor-pointer p-space-md font-headline-sm text-headline-sm font-extrabold text-on-surface">
+        Full per-record check dates ({records.length} records)
+      </summary>
+      <div class="max-h-[480px] overflow-y-auto px-space-md pb-space-md">
+        <table class="w-full border-collapse text-left">
+          <thead>
+            <tr class="font-label-md text-label-md uppercase tracking-wide text-secondary">
+              <th class="py-2 pr-3">Record</th>
+              <th class="py-2 pr-3">Type</th>
+              <th class="py-2">Checked</th>
+            </tr>
+          </thead>
+          <tbody>
+            {records.map((r) => (
+              <tr class="border-t border-outline-variant/20">
+                <td class="py-1.5 pr-3 text-body-sm">
+                  <a href={r.url} class="text-on-surface hover:text-primary hover:underline">{r.name}</a>
+                </td>
+                <td class="py-1.5 pr-3 text-body-sm text-on-surface-variant">{r.type}</td>
+                <td class="py-1.5 text-body-sm tabular-nums text-on-surface-variant">{r.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </details>
   </div>
 </BaseLayout>

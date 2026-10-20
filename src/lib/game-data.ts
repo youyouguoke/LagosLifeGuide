@@ -177,6 +177,8 @@ const FIELD_LABELS: Record<string, string> = {
   costAmount: "Cost",
   costCurrency: "Cost currency",
   effectDescription: "Effect",
+  skillKey: "Trains skill",
+  requirement: "Requirement",
   locationId: "Location",
   requiredSkillIds: "Required skills",
   category: "Category",
@@ -211,10 +213,12 @@ const COLLECTION_FIELD_ORDER: Record<CollectionKey, string[]> = {
   "skills-actions": [
     "name",
     "prerequisites",
+    "requirement",
     "durationMinutes",
     "costAmount",
     "costCurrency",
     "effectDescription",
+    "skillKey",
     "locationId",
     "requiredSkillIds",
   ],
@@ -268,7 +272,8 @@ function fieldDisplay(
     case "skills-actions.durationMinutes":
       return formatMinutes(field.value as number);
     case "skills-actions.effectDescription": {
-      // P0-2: render the raw client effect ("needs: fun +10; bubble: 💻") in plain words.
+      // P0-2/P0-3: render raw client effects in plain words with units —
+      // "needs" = pts per in-game hour, "instant" = one-off.
       const raw = typeof field.value === "string" ? field.value : "";
       const segs = raw.split(";").map((s) => s.trim()).filter(Boolean);
       const pretty = segs.map((seg) => {
@@ -276,15 +281,10 @@ function fieldDisplay(
         if (m) {
           const name = m[2].charAt(0).toUpperCase() + m[2].slice(1);
           const n = parseInt(m[3], 10);
-          const verb =
-            m[1] === "instant"
-              ? n >= 0
-                ? "Instantly restores"
-                : "Instantly drops"
-              : n >= 0
-                ? "Raises"
-                : "Lowers";
-          return `${verb} ${name} by ${Math.abs(n)} pts`;
+          if (m[1] === "instant") {
+            return n >= 0 ? `${name} +${n} (instant)` : `${name} ${n} (instant)`;
+          }
+          return `${name} ${n >= 0 ? "+" : ""}${n}/h`;
         }
         return seg.charAt(0).toUpperCase() + seg.slice(1);
       });
@@ -304,9 +304,12 @@ function fieldDisplay(
 /* ------------------------------------------------------------------ */
 
 /**
- * Turn a raw client effect string ("needs: fun +10; bubble: 💻") into one
- * honest English sentence, with units (need-bar points) stated. Anything the
- * parser does not recognise is returned verbatim — never guessed at.
+ * Turn a raw client effect string ("needs: fun +10; instant: hunger +70")
+ * into one honest English sentence. Bundle semantics: `needs` values are
+ * POINTS PER IN-GAME HOUR applied over the action's duration (untilFull
+ * actions cap at a full bar — e.g. 8h of sleep at energy:17/h ≈ a full bar);
+ * `instant` values apply once, immediately. Anything unrecognised is
+ * returned verbatim — never guessed at.
  */
 export function humanizeEffect(raw: unknown): string | null {
   if (typeof raw !== "string" || raw.length === 0) return null;
@@ -322,7 +325,7 @@ export function humanizeEffect(raw: unknown): string | null {
       if (kind === "instant") {
         parts.push(n >= 0 ? `instantly restores ${name} by ${n} ${unit}` : `instantly drops ${name} by ${Math.abs(n)} ${unit}`);
       } else {
-        parts.push(n >= 0 ? `raises the ${name} need by ${n} ${unit}` : `lowers the ${name} need by ${Math.abs(n)} ${unit}`);
+        parts.push(n >= 0 ? `raises ${name} by ${n} ${unit} per in-game hour` : `drains ${n} ${unit} of ${name} per in-game hour`);
       }
       continue;
     }
@@ -337,7 +340,7 @@ export function humanizeEffect(raw: unknown): string | null {
   return parts.slice(0, -1).join(", ") + " and " + parts[parts.length - 1];
 }
 
-/** Short "Fun +10 pts" style label for dense tables (the /actions/ finder). */
+/** Short "Fun +10/h" style label for dense tables (the /actions/ finder). */
 export function effectLabel(raw: unknown): string | null {
   if (typeof raw !== "string" || raw.length === 0) return null;
   const segs = raw.split(";").map((s) => s.trim()).filter(Boolean);
@@ -346,7 +349,7 @@ export function effectLabel(raw: unknown): string | null {
     const m = seg.match(/^(needs|instant):\s*([a-z]+)\s*([+-]?\d+)$/i);
     if (m) {
       const name = m[2].charAt(0).toUpperCase() + m[2].slice(1);
-      out.push(`${name} ${m[3]} pts${m[1] === "instant" ? " (instant)" : ""}`);
+      out.push(m[1] === "instant" ? `${name} ${m[3]} (instant)` : `${name} ${m[3]}/h`);
       continue;
     }
     if (/^\d+-year program/.test(seg)) {

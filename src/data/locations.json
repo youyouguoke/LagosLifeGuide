@@ -1,1289 +1,2042 @@
 [
-  {
-    "id": "abjGwagwalada",
-    "name": {
-      "value": "Gwagwalada Market & Motor Park",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Gwagwalada"
-    },
-    "activities": {
-      "value": [
-        "shopMarket",
-        "abjYamHaggle",
-        "abjMasa",
-        "abjMotorPark"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "06:00-20:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [6, 20] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
+ {
+  "id": "abjGwagwalada",
+  "name": {
+   "value": "Gwagwalada Market & Motor Park",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Gwagwalada"
   },
-  {
-    "id": "abjLounge",
-    "name": {
-      "value": "Kryxtal Lounge",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Wuse 2"
-    },
-    "activities": {
-      "value": [
-        "abjLoungeDance",
-        "abjLoungeBottle",
-        "abjLoungeCocktail",
-        "abjPepperSoup"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "00:00-24:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
+  "activities": {
+   "value": [
+    "shopMarket",
+    "abjYamHaggle",
+    "abjMasa",
+    "abjMotorPark"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
   },
-  {
-    "id": "abjSecretariat",
-    "name": {
-      "value": "Federal Secretariat",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Shehu Shagari Way"
-    },
-    "activities": {
-      "value": [
-        "abjMinistryQueue",
-        "abjPermSec",
-        "abjCanteen",
-        "abjShayi"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "06:00-20:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [6, 20] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "abjWuseMarket",
-    "name": {
-      "value": "Wuse Market",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Wuse Zone 5"
-    },
-    "activities": {
-      "value": [
-        "shopMarket",
-        "abjHaggle",
-        "abjKilishi",
-        "abjFura"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "07:00-19:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [7, 19] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "balogun",
-    "name": {
-      "value": "Balogun Market",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Lagos Island"
-    },
-    "activities": {
-      "value": [
-        "shopMarket",
-        "haggle",
-        "asoebi",
-        "windowShop",
-        "resell",
-        "alabaru",
-        "galaLacasera",
-        "pickpocket",
-        "fakeBags"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "07:00-19:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [7, 19] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "clubEko",
-    "name": {
-      "value": "Quilox",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Victoria Island"
-    },
-    "activities": {
-      "value": [
-        "clubDance",
-        "danceBattle",
-        "sprayMoney",
-        "hypeMan",
-        "djShoutout",
-        "bottleService",
-        "goldBottle",
-        "vipTable",
-        "champagneParade",
-        "clubRound",
-        "clubTakeover",
-        "bigRound",
-        "bigTable",
-        "clubShutdown",
-        "clubCocktail",
-        "network",
-        "requestSong",
-        "selfies",
-        "sneakVip"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "22:00-05:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [22, 5] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "courthouse",
-    "name": {
-      "value": "Lagos High Court",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Igbosere, Lagos Island"
-    },
-    "activities": {
-      "value": [
-        "watchTrial",
-        "celebCase",
-        "courtGist",
-        "closingArgument",
-        "swearAffidavit",
-        "legalAid",
-        "courtSnack"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "00:00-24:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "freedomPark",
-    "name": {
-      "value": "Freedom Park",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Lagos Island"
-    },
-    "activities": {
-      "value": [
-        "stagePlay",
-        "watchComedy",
-        "spokenWord",
-        "comedyNight",
-        "artShow",
-        "buyArt",
-        "treeChill",
-        "ayo",
-        "chapman",
-        "graffiti"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "09:00-22:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [9, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "golfClub",
-    "name": {
-      "value": "Ikoyi Golf Club",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Ikoyi"
-    },
-    "activities": {
-      "value": [
-        "playGolf",
-        "golfLesson",
-        "golfDrinks",
-        "golfRound",
-        "membersLounge",
-        "billionDeal",
-        "golfChampagne",
-        "billionBottle"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "00:00-24:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "hospital",
-    "name": {
-      "value": "General Hospital",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Ikeja"
-    },
-    "activities": {
-      "value": [
-        "injection",
-        "checkup",
-        "vitamins",
-        "visitPatient",
-        "volunteerWard"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "00:00-24:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "ikoyiGym",
-    "name": {
-      "value": "i-Fitness",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Ikoyi"
-    },
-    "activities": {
-      "value": [
-        "lift",
-        "treadmill",
-        "yoga",
-        "ptSession",
-        "gymShower",
-        "shake"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "05:00-22:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [5, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "lagosAirport",
-    "name": {
-      "value": "Murtala Muhammed International Airport",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Ikeja"
-    },
-    "activities": {
-      "value": [
-        "bookFlight",
-        "bookChopper",
-        "lagosLounge",
-        "lagosDutyFree",
-        "lagosAirportChops",
-        "lagosPlaneSpot"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "00:00-24:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "lagosRefinery",
-    "name": {
-      "value": "Lagos Oil Refinery",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area:"
-    },
-    "openingHours": {
-      "value": "00:00-24:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "lcc",
-    "name": {
-      "value": "Lekki Conservation Centre",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Lekki"
-    },
-    "activities": {
-      "value": [
-        "canopy",
-        "monkeys",
-        "croc",
-        "picnic",
-        "treeHouse",
-        "naturePics"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "08:00-17:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [8, 17] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "library",
-    "name": {
-      "value": "The Library",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Victoria Island"
-    },
-    "activities": {
-      "value": [
-        "secretShelf",
-        "readBook",
-        "cocktails",
-        "libraryDance",
-        "sprayMoney",
-        "requestSong",
-        "djShoutout",
-        "goldBottle",
-        "bigRound",
-        "bigTable",
-        "clubShutdown",
-        "lounge",
-        "selfies"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "22:00-04:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [22, 4] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "mall",
-    "name": {
-      "value": "The Palms",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Lekki"
-    },
-    "activities": {
-      "value": [
-        "shopSupermarket",
-        "cinema",
-        "foodCourt",
-        "shawarma",
-        "iceCream",
-        "newOutfit",
-        "mallStroll",
-        "shoplift"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "09:00-22:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [9, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "mamaPut",
-    "name": {
-      "value": "Amala Shitta",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Surulere"
-    },
-    "activities": {
-      "value": [
-        "amala",
-        "jollofChicken",
-        "pepperSoup",
-        "efoSemo",
-        "shawaRice",
-        "zoboCup",
-        "gistMama",
-        "mamaRecipe",
-        "washPlates",
-        "washHandsBuka",
-        "whotBuka"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "07:00-22:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [7, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "naijaRadio",
-    "name": {
-      "value": "Naija Radio House",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Ikeja"
-    },
-    "activities": {
-      "value": [
-        "radioListen",
-        "radioDance",
-        "radioRequest",
-        "radioGist",
-        "radioPresent",
-        "radioWork",
-        "radioPray",
-        "radioTour"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "00:00-24:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "office",
-    "name": {
-      "value": "Marina Towers",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Victoria Island"
-    },
-    "activities": {
-      "value": [
-        "lobbyNetwork",
-        "canteenLunch"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "06:00-21:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [6, 21] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "phBole",
-    "name": {
-      "value": "Mama Ibiba's Bole Spot",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Rumuokoro"
-    },
-    "activities": {
-      "value": [
-        "phBoleFish",
-        "phPalmWine",
-        "phBoleGist"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "10:00-23:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [10, 23] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "phBonny",
-    "name": {
-      "value": "Bonny Jetty",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Bonny Waterside"
-    },
-    "activities": {
-      "value": [
-        "phBoatRide",
-        "phJettySeafood",
-        "phWatchBoats",
-        "phJettyPics"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "06:00-19:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [6, 19] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "phCreekRoad",
-    "name": {
-      "value": "Creek Road Market",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Old Township"
-    },
-    "activities": {
-      "value": [
-        "shopMarket",
-        "phFishHaggle",
-        "phPointKill",
-        "phWatchCanoes"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "06:00-19:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [6, 19] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "phMall",
-    "name": {
-      "value": "Port Harcourt Mall",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Azikiwe Road"
-    },
-    "activities": {
-      "value": [
-        "shopSupermarket",
-        "cinema",
-        "foodCourt",
-        "mallStroll"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "09:00-22:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [9, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "phOilBase",
-    "name": {
-      "value": "Trans-Amadi Oil Base",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Trans-Amadi"
-    },
-    "activities": {
-      "value": [
-        "phSafetyBrief",
-        "phBaseCanteen"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "06:00-21:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [6, 21] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "salon",
-    "name": {
-      "value": "Mama Bisi's Salon",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Surulere"
-    },
-    "activities": {
-      "value": [
-        "braids",
-        "lowCut",
-        "afroSet",
-        "locs",
-        "nails",
-        "salonGist"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "08:00-21:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [8, 21] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "shrine",
-    "name": {
-      "value": "New Afrika Shrine",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Ikeja"
-    },
-    "activities": {
-      "value": [
-        "liveBand",
-        "openMic",
-        "requestFela",
-        "buyTable",
-        "shrineChops",
-        "felaHistory"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "14:00-04:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [14, 4] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "viewingCentre",
-    "name": {
-      "value": "Oga Sunday Viewing Centre",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Surulere"
-    },
-    "activities": {
-      "value": [
-        "watchMatch",
-        "argueFootball",
-        "betPadi",
-        "accumulator",
-        "lotto",
-        "maltSuya",
-        "fightAgbero",
-        "ludoViewing"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "12:00-23:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [12, 23] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
-  },
-  {
-    "id": "yabaHub",
-    "name": {
-      "value": "CcHub",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "Location record from client bundle LOCATIONS tables; area: Yaba"
-    },
-    "activities": {
-      "value": [
-        "sideProject",
-        "wifiChill",
-        "freelanceGig",
-        "meetup",
-        "pitch",
-        "hackathon",
-        "coffeePuff",
-        "startupGist",
-        "atmHack"
-      ],
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'actions' array from the location record."
-    },
-    "openingHours": {
-      "value": "08:00-23:00",
-      "status": "verified",
-      "sourceIds": [
-        "src-game-target"
-      ],
-      "evidenceIds": [
-        "ev-client-bundle-2026-10-09"
-      ],
-      "checkedAt": "2026-10-09",
-      "notes": "'open' array [8, 23] rendered as hours; semantics (daily/opening window) as displayed in the client."
-    }
+  "openingHours": {
+   "value": "06:00-20:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [6, 20] rendered as hours; semantics (daily/opening window) as displayed in the client."
   }
+ },
+ {
+  "id": "abjLounge",
+  "name": {
+   "value": "Kryxtal Lounge",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Wuse 2"
+  },
+  "activities": {
+   "value": [
+    "abjLoungeDance",
+    "abjLoungeBottle",
+    "abjLoungeCocktail",
+    "abjPepperSoup"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "abjSecretariat",
+  "name": {
+   "value": "Federal Secretariat",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Shehu Shagari Way"
+  },
+  "activities": {
+   "value": [
+    "abjMinistryQueue",
+    "abjPermSec",
+    "abjCanteen",
+    "abjShayi"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "06:00-20:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [6, 20] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "abjWuseMarket",
+  "name": {
+   "value": "Wuse Market",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Wuse Zone 5"
+  },
+  "activities": {
+   "value": [
+    "shopMarket",
+    "abjHaggle",
+    "abjKilishi",
+    "abjFura"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "07:00-19:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [7, 19] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "balogun",
+  "name": {
+   "value": "Balogun Market",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Lagos Island"
+  },
+  "activities": {
+   "value": [
+    "shopMarket",
+    "haggle",
+    "asoebi",
+    "windowShop",
+    "resell",
+    "alabaru",
+    "galaLacasera",
+    "pickpocket",
+    "fakeBags"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "07:00-19:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [7, 19] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "clubEko",
+  "name": {
+   "value": "Quilox",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Victoria Island"
+  },
+  "activities": {
+   "value": [
+    "clubDance",
+    "danceBattle",
+    "sprayMoney",
+    "hypeMan",
+    "djShoutout",
+    "bottleService",
+    "goldBottle",
+    "vipTable",
+    "champagneParade",
+    "clubRound",
+    "clubTakeover",
+    "bigRound",
+    "bigTable",
+    "clubShutdown",
+    "clubCocktail",
+    "network",
+    "requestSong",
+    "selfies",
+    "sneakVip"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "22:00-05:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [22, 5] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "courthouse",
+  "name": {
+   "value": "Lagos High Court",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Igbosere, Lagos Island"
+  },
+  "activities": {
+   "value": [
+    "watchTrial",
+    "celebCase",
+    "courtGist",
+    "closingArgument",
+    "swearAffidavit",
+    "legalAid",
+    "courtSnack"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "freedomPark",
+  "name": {
+   "value": "Freedom Park",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Lagos Island"
+  },
+  "activities": {
+   "value": [
+    "stagePlay",
+    "watchComedy",
+    "spokenWord",
+    "comedyNight",
+    "artShow",
+    "buyArt",
+    "treeChill",
+    "ayo",
+    "chapman",
+    "graffiti"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "09:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [9, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "golfClub",
+  "name": {
+   "value": "Ikoyi Golf Club",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Ikoyi"
+  },
+  "activities": {
+   "value": [
+    "playGolf",
+    "golfLesson",
+    "golfDrinks",
+    "golfRound",
+    "membersLounge",
+    "billionDeal",
+    "golfChampagne",
+    "billionBottle"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "hospital",
+  "name": {
+   "value": "General Hospital",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Ikeja"
+  },
+  "activities": {
+   "value": [
+    "injection",
+    "checkup",
+    "vitamins",
+    "visitPatient",
+    "volunteerWard"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "ikoyiGym",
+  "name": {
+   "value": "i-Fitness",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Ikoyi"
+  },
+  "activities": {
+   "value": [
+    "lift",
+    "treadmill",
+    "yoga",
+    "ptSession",
+    "gymShower",
+    "shake"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "05:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [5, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "lagosAirport",
+  "name": {
+   "value": "Murtala Muhammed International Airport",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Ikeja"
+  },
+  "activities": {
+   "value": [
+    "bookFlight",
+    "bookChopper",
+    "lagosLounge",
+    "lagosDutyFree",
+    "lagosAirportChops",
+    "lagosPlaneSpot"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "lagosRefinery",
+  "name": {
+   "value": "Lagos Oil Refinery",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area:"
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "lcc",
+  "name": {
+   "value": "Lekki Conservation Centre",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Lekki"
+  },
+  "activities": {
+   "value": [
+    "canopy",
+    "monkeys",
+    "croc",
+    "picnic",
+    "treeHouse",
+    "naturePics"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "08:00-17:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [8, 17] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "library",
+  "name": {
+   "value": "The Library",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Victoria Island"
+  },
+  "activities": {
+   "value": [
+    "secretShelf",
+    "readBook",
+    "cocktails",
+    "libraryDance",
+    "sprayMoney",
+    "requestSong",
+    "djShoutout",
+    "goldBottle",
+    "bigRound",
+    "bigTable",
+    "clubShutdown",
+    "lounge",
+    "selfies"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "22:00-04:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [22, 4] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "mall",
+  "name": {
+   "value": "The Palms",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Lekki"
+  },
+  "activities": {
+   "value": [
+    "shopSupermarket",
+    "cinema",
+    "foodCourt",
+    "shawarma",
+    "iceCream",
+    "newOutfit",
+    "mallStroll",
+    "shoplift"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "09:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [9, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "mamaPut",
+  "name": {
+   "value": "Amala Shitta",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Surulere"
+  },
+  "activities": {
+   "value": [
+    "amala",
+    "jollofChicken",
+    "pepperSoup",
+    "efoSemo",
+    "shawaRice",
+    "zoboCup",
+    "gistMama",
+    "mamaRecipe",
+    "washPlates",
+    "washHandsBuka",
+    "whotBuka"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "07:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [7, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "naijaRadio",
+  "name": {
+   "value": "Naija Radio House",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Ikeja"
+  },
+  "activities": {
+   "value": [
+    "radioListen",
+    "radioDance",
+    "radioRequest",
+    "radioGist",
+    "radioPresent",
+    "radioWork",
+    "radioPray",
+    "radioTour"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [0, 24] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "office",
+  "name": {
+   "value": "Marina Towers",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Victoria Island"
+  },
+  "activities": {
+   "value": [
+    "lobbyNetwork",
+    "canteenLunch"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "06:00-21:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [6, 21] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "phBole",
+  "name": {
+   "value": "Mama Ibiba's Bole Spot",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Rumuokoro"
+  },
+  "activities": {
+   "value": [
+    "phBoleFish",
+    "phPalmWine",
+    "phBoleGist"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "10:00-23:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [10, 23] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "phBonny",
+  "name": {
+   "value": "Bonny Jetty",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Bonny Waterside"
+  },
+  "activities": {
+   "value": [
+    "phBoatRide",
+    "phJettySeafood",
+    "phWatchBoats",
+    "phJettyPics"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "06:00-19:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [6, 19] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "phCreekRoad",
+  "name": {
+   "value": "Creek Road Market",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Old Township"
+  },
+  "activities": {
+   "value": [
+    "shopMarket",
+    "phFishHaggle",
+    "phPointKill",
+    "phWatchCanoes"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "06:00-19:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [6, 19] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "phMall",
+  "name": {
+   "value": "Port Harcourt Mall",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Azikiwe Road"
+  },
+  "activities": {
+   "value": [
+    "shopSupermarket",
+    "cinema",
+    "foodCourt",
+    "mallStroll"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "09:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [9, 22] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "phOilBase",
+  "name": {
+   "value": "Trans-Amadi Oil Base",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Trans-Amadi"
+  },
+  "activities": {
+   "value": [
+    "phSafetyBrief",
+    "phBaseCanteen"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "06:00-21:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [6, 21] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "salon",
+  "name": {
+   "value": "Mama Bisi's Salon",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Surulere"
+  },
+  "activities": {
+   "value": [
+    "braids",
+    "lowCut",
+    "afroSet",
+    "locs",
+    "nails",
+    "salonGist"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "08:00-21:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [8, 21] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "shrine",
+  "name": {
+   "value": "New Afrika Shrine",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Ikeja"
+  },
+  "activities": {
+   "value": [
+    "liveBand",
+    "openMic",
+    "requestFela",
+    "buyTable",
+    "shrineChops",
+    "felaHistory"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "14:00-04:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [14, 4] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "viewingCentre",
+  "name": {
+   "value": "Oga Sunday Viewing Centre",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Surulere"
+  },
+  "activities": {
+   "value": [
+    "watchMatch",
+    "argueFootball",
+    "betPadi",
+    "accumulator",
+    "lotto",
+    "maltSuya",
+    "fightAgbero",
+    "ludoViewing"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "12:00-23:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [12, 23] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "yabaHub",
+  "name": {
+   "value": "CcHub",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Location record from client bundle LOCATIONS tables; area: Yaba"
+  },
+  "activities": {
+   "value": [
+    "sideProject",
+    "wifiChill",
+    "freelanceGig",
+    "meetup",
+    "pitch",
+    "hackathon",
+    "coffeePuff",
+    "startupGist",
+    "atmHack"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the location record."
+  },
+  "openingHours": {
+   "value": "08:00-23:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'open' array [8, 23] rendered as hours; semantics (daily/opening window) as displayed in the client."
+  }
+ },
+ {
+  "id": "elegushi",
+  "name": {
+   "value": "Elegushi Beach",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "swim",
+    "jetSki",
+    "horse",
+    "suya",
+    "coconut",
+    "beachBall",
+    "cabana",
+    "beachPics",
+    "paidShoot",
+    "beachRave",
+    "requestSong"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "08:00-04:00 (next day)",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "pollingUnit",
+  "name": {
+   "value": "Polling Unit 001",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "castVote",
+    "getAccredited",
+    "inkThumb",
+    "watchCount",
+    "argueResults",
+    "queueGist"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "mosque",
+  "name": {
+   "value": "Lagos Central Mosque",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "prayMosque",
+    "jumuah",
+    "wudu",
+    "readQuran",
+    "imamLecture",
+    "giveSadaqah",
+    "gistImam"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "05:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "church",
+  "name": {
+   "value": "House of Grace Chapel",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "attendService",
+    "sundayService",
+    "joinChoir",
+    "giveTestimony",
+    "giveOffering",
+    "prayBreakthrough",
+    "gistPastor"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "06:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "policeStation",
+  "name": {
+   "value": "Eko Police Division",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "waitCell",
+    "cellToilet",
+    "cellFood",
+    "cellSleep",
+    "cellCards",
+    "cellPushups",
+    "cellClean",
+    "payBail",
+    "reportCrime",
+    "gistOfficer"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "rooftop",
+  "name": {
+   "value": "Ivory Rooftop",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "candlelitDinner",
+    "tastingMenu",
+    "chocolateLava",
+    "champagneToast",
+    "requestSax",
+    "sunsetView",
+    "rooftopPhotos"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "12:00-01:00 (next day)",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "ekoHotel",
+  "name": {
+   "value": "Eko Hotels & Suites",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "hotelPool",
+    "poolsideChops",
+    "hotelBuffet",
+    "hotelLounge",
+    "shisha",
+    "polancoBrunch",
+    "hotelSpa",
+    "lobbyPics",
+    "hotelRoom",
+    "presidentialSuite"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "polanco",
+  "name": {
+   "value": "Polanco Motors",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "browseShowroom",
+    "testDrive",
+    "salesRep",
+    "showroomSelfie"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "08:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "boatCruise",
+  "name": {
+   "value": "Lagoon Boat Cruise",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "sunsetCruise",
+    "deckSunbathe",
+    "deckCocktail",
+    "boatParty",
+    "cruisePhotos",
+    "fishing",
+    "captainHelm",
+    "yachtCharter"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "mako",
+  "name": {
+   "value": "Mako",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "makoPizza",
+    "makoCocktail",
+    "makoHouse",
+    "makoJetty",
+    "makoPregame",
+    "makoNetwork"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "14:00-03:00 (next day)",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "casino",
+  "name": {
+   "value": "Eko Casino",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "slotLights",
+    "tipDealer",
+    "watchHighRollers",
+    "casinoCocktail",
+    "casinoBuffet",
+    "casinoSelfie"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "jibowuPark",
+  "name": {
+   "value": "Jibowu Motor Park",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "jibowuBusTicket",
+    "jibowuBusWatch",
+    "jibowuAgoyin",
+    "jibowuGist",
+    "jibowuNap"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "unilag",
+  "name": {
+   "value": "University of Lagos",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "uniCourses",
+    "uniLecture",
+    "uniTutorial",
+    "uniExam",
+    "uniEnrol",
+    "uniFees",
+    "uniResults",
+    "uniCampusPhotos",
+    "uniStudy",
+    "uniTdb",
+    "uniPastQ",
+    "uniTypeAssign",
+    "uniTutorJuniors",
+    "uniFootball",
+    "uniJog",
+    "uniInterHall",
+    "uniYarn",
+    "uniGroupStudy",
+    "uniRally",
+    "uniWhot",
+    "uniRiceBeans",
+    "uniSpag",
+    "uniAkara",
+    "uniPureWater",
+    "uniHelpBuka",
+    "uniNap",
+    "uniHallGist",
+    "uniBath",
+    "uniBraid",
+    "uniRecharge",
+    "uniPuffPuff",
+    "uniLagoon",
+    "uniLagoonDate",
+    "uniLagoonPics"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "teslimStadium",
+  "name": {
+   "value": "Teslim Balogun Stadium",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "standTicket",
+    "vipTicket",
+    "boxTicket",
+    "leadChant",
+    "concertTicket",
+    "concertVip",
+    "frontRow",
+    "stadiumTour",
+    "fanShop",
+    "gateSuya",
+    "pureWaterGala",
+    "fiveASide",
+    "penaltyKick"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "00:00-24:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ },
+ {
+  "id": "mindSpace",
+  "name": {
+   "value": "MindSpace Wellness Centre",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "Venue from client bundle LOCATIONS table."
+  },
+  "activities": {
+   "value": [
+    "groupTherapy",
+    "oneOnOne",
+    "journalTea",
+    "breathingClass"
+   ],
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "'actions' array from the venue record."
+  },
+  "openingHours": {
+   "value": "07:00-22:00",
+   "status": "verified",
+   "sourceIds": [
+    "src-game-target"
+   ],
+   "evidenceIds": [
+    "ev-client-bundle-2026-10-09"
+   ],
+   "checkedAt": "2026-10-09",
+   "notes": "open:[start,end] from venue record (end<=start means past midnight)."
+  },
+  "lastReviewedAt": "2026-10-19"
+ }
 ]

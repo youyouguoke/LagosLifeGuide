@@ -110,15 +110,18 @@ if (isActionRecord) {
       : "an unknown amount of time";
   const effect = humanizeEffect(effRow?.field.value);
   const effectText = effect ? ` and, per the game's data, ${effect}` : "";
-  // Requirements are derived only from facts in the data (venue, tuition) — the
-  // client stores no other prerequisite fields, and none are invented.
+  // Requirements: prefer the bundle's own unlock gate ("Needs Coding 6"),
+  // fall back to what the data proves (venue, tuition). Never invented.
   const costRow = rowOf("costAmount");
   const costVal = costRow && typeof costRow.field.value === "number" ? costRow.field.value : null;
-  requirementText = locRecord
-    ? record.slug.startsWith("degree-") || record.slug.startsWith("course-")
-      ? `Enrolment at ${locRecord.name}${costVal ? ` and ₦${costVal.toLocaleString("en-NG")} tuition` : ""}`
-      : `Be at ${locRecord.name}`
-    : "No venue required (anywhere)";
+  const gateRow = rowOf("requirement");
+  requirementText = gateRow && typeof gateRow.field.value === "string"
+    ? gateRow.field.value
+    : locRecord
+      ? record.slug.startsWith("degree-") || record.slug.startsWith("course-")
+        ? `Enrolment at ${locRecord.name}${costVal ? ` and ₦${costVal.toLocaleString("en-NG")} tuition` : ""}`
+        : `Be at ${locRecord.name}`
+      : "No venue required (anywhere)";
   const verifiedText = inGameBacked
     ? "This value has been corroborated by logged-in play."
     : "Only the game-client value is verified — we have not tested this action in a live session.";
