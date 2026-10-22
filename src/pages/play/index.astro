@@ -19,38 +19,96 @@ const symptoms = [
   },
 ];
 
-const faqs = [
-  {
-    q: "Is Lagos Life free to open?",
-    a: "The official client at lagoslife.app loads in a browser without a purchase step. Anything beyond that — in-game purchases, subscriptions — is not in our verified data, so we don't comment on it.",
-  },
-  {
-    q: "Is lagoslife.app the same as the Lagos Life app on the Play Store?",
-    a: "No. The Play Store has Lagos Life titles from other operators (for example GreatCallie's game, which also runs lagoslife.com.ng). Those are different games with different data. This guide covers only the browser game at lagoslife.app.",
-  },
-  {
-    q: "Does LagosLifeGuide.app host the game?",
-    a: "Never. We are an independent guide. We link only to lagoslife.app as the game's main address; the developer's own domain lagoslife.eliysites.com serves the same app (verified 2026-10-19). We will never ask for your game password.",
-  },
-];
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What is the Lagos Life game link?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The current entry address is https://lagoslife.app (the developer's own domain lagoslife.eliysites.com serves the same app). Last checked 2026-10-22. LagosLifeGuide.app is an unofficial fan guide — we link to the game but do not host it.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I log in to Lagos Life?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Open lagoslife.app and use the sign-in option shown by the game with the username and password you registered with. If login fails, see our login help page for step-by-step fixes. Never enter your password on any site other than the official game.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is there a Lagos Life app?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The official game is a browser app — it installs on your phone or PC as a PWA (progressive web app): open lagoslife.app in Chrome or Edge and use \"Add to Home Screen\" / \"Install app\". Play Store titles named Lagos Life from other operators are different games. See our app page for steps.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I play Lagos Life on PC?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. The game runs in a desktop browser at lagoslife.app with the same account as on mobile — log in on either device and your progress follows your account.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is LagosLifeGuide.app the official Lagos Life site?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. This is an unofficial fan guide with verified game data (sources and check dates on our sources page). The official game is only at lagoslife.app. We will never ask for your game password.",
+      },
+    },
+  ],
+};
+
+const faqs = faqJsonLd.mainEntity.map((q) => ({ q: q.name, a: q.acceptedAnswer.text }));
 ---
 
 <BaseLayout
-  title="Play Lagos Life — Official Link & Sign-In Help | LagosLifeGuide.app"
-  description="The official Lagos Life game link, how to sign in safely, and what to do when the official site will not load. Independent guide — we never ask for your password."
+  title="Lagos Life Game Login, Link & Play Online (Unofficial Guide)"
+  description="Where to play Lagos Life: game link, login help, website and app install steps for phone and PC. Checked October 2026. Unofficial fan guide."
   canonicalPath="/play/"
   ogImage="/images/og-play.jpg"
+  jsonLd={[faqJsonLd]}
 >
   <section class="mx-auto max-w-[1280px] px-margin py-space-xl md:px-margin-tablet lg:px-margin-desktop">
     <div class="mb-space-xs inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 text-label-sm font-bold text-primary">
       Official Access
     </div>
     <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-inverse-surface md:text-display-hero">
-      Play Lagos Life: Official Link &amp; Sign-In Help
+      Lagos Life Game – Link, Login and App Install
     </h1>
-    <p class="mt-space-sm max-w-3xl text-body-lg text-on-surface-variant">
-      One official address, a few safety habits, and honest troubleshooting. Everything below was
-      checked against the game's own site files on 2026-10-10.
+    <p class="mt-space-sm max-w-3xl text-body-lg leading-relaxed text-on-surface-variant">
+      <strong class="text-on-surface">Lagos Life plays in your browser at lagoslife.app</strong> — no
+      download needed, just log in with the account you registered in-game. You can also install it as
+      an app on your phone or PC. This is an unofficial fan guide: we link to the game, we don't host it
+      and we never ask for your password.
+    </p>
+
+    <div class="mt-space-md flex flex-wrap items-center gap-3">
+      <a
+        href="https://lagoslife.app"
+        data-official-link="lagoslife.app"
+        rel="noopener"
+        class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-label-lg font-bold text-on-primary transition hover:opacity-90"
+      >Play Lagos Life</a>
+      <a
+        href="/login-help/"
+        class="inline-flex items-center gap-2 rounded-full border-2 border-primary px-5 py-2.5 text-label-lg font-bold text-primary transition hover:bg-surface-container"
+      >Login help</a>
+      <a
+        href="/app/"
+        class="inline-flex items-center gap-2 rounded-full border-2 border-primary px-5 py-2.5 text-label-lg font-bold text-primary transition hover:bg-surface-container"
+      >Install app</a>
+    </div>
+    <p class="mt-3 text-body-sm text-on-surface-variant">
+      Last checked: <strong class="text-on-surface">2026-10-22</strong> · Official address:
+      <a href="https://lagoslife.app" class="text-primary hover:underline" rel="noopener">lagoslife.app</a>
     </p>
 
     <!-- Official link card -->

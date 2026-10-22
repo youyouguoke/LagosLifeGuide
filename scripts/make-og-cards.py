@@ -52,6 +52,7 @@ card("Lagos Life Starting Origins", "Nepo Baby vs LAPO vs UNILAG Fresher compare
 card("Lagos Life Login Help", "Troubleshooting & official support channels", "public/images/og-login-help.jpg")
 # P0-4: entry pages, updates hub, new short pages (third plan round)
 card("Lagos Life Official Link", "The one address to bookmark · sign-in help", "public/images/og-play.jpg")
+card("Lagos Life Game Guide", "Verified jobs, actions & locations data", "public/images/og-home.jpg")
 card("Lagos Life App", "Install the web app on Android, iPhone or PC", "public/images/og-app.jpg")
 card("Lagos Life Download", "How to get the game on any device", "public/images/og-download.jpg")
 card("Lagos Life Recent Updates", "Recently reviewed records & guides, by date", "public/images/og-updates.jpg")

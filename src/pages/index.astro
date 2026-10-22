@@ -185,9 +185,20 @@ const trustCards = [
 ---
 
 <BaseLayout
-  title="Lagos Life Guide: Jobs, Rent & Skills Data – LagosLifeGuide"
+  title="Lagos Life Game Guide: Link, Login, Jobs, Actions & Verified Data"
   description="Independent Lagos Life guide: 472 records on jobs, rent and skills, each field with its own verification status and cited sources, plus a free first-week planner. Not affiliated with the developer."
-  jsonLd={[faqJsonLd]}
+  ogImage="/images/og-home.jpg"
+  jsonLd={[
+    faqJsonLd,
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "LagosLifeGuide.app",
+      url: "https://lagoslifeguide.app/",
+      description:
+        "Independent Lagos Life game guide — verified game data, guides and tools. Not affiliated with the developer.",
+    },
+  ]}
 >
   <!-- Top ambient lagoon aura -->
   <div class="relative w-full overflow-hidden">
@@ -521,6 +532,31 @@ const trustCards = [
   <section class="w-full py-space-xl">
     <div class="mx-auto max-w-[1280px] px-margin md:px-margin-tablet lg:px-margin-desktop">
       <NextSteps />
+
+      <nav aria-label="Site sections" class="mt-space-xl">
+        <h2 class="text-headline-lg-mobile font-bold text-inverse-surface md:text-headline-lg">
+          Explore the guide
+        </h2>
+        <div class="mt-space-md flex flex-wrap gap-3">
+          {[
+            { href: "/play/", label: "Play & login" },
+            { href: "/login-help/", label: "Login help" },
+            { href: "/app/", label: "Install the app" },
+            { href: "/actions/", label: "Action Finder" },
+            { href: "/locations/", label: "Locations" },
+            { href: "/jobs/", label: "Jobs & pay" },
+            { href: "/hack/", label: "Hacks & cheats" },
+            { href: "/updates/", label: "Recent updates" },
+          ].map((l) => (
+            <a
+              href={l.href}
+              class="rounded-full border border-outline-variant bg-surface-container-lowest px-4 py-2 text-label-lg font-semibold text-on-surface transition-colors hover:border-primary hover:text-primary"
+            >
+              {l.label}
+            </a>
+          ))}
+        </div>
+      </nav>
 
       <div class="mt-space-xl">
         <div class="flex items-baseline justify-between gap-space-md">

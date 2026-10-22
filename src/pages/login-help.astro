@@ -2,11 +2,14 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 /**
- * P1-4 — Login & troubleshooting page.
- * Scope discipline: only advice we can stand behind — generic browser-level
- * fixes, plus the official channels stated in the game's own terms/privacy
- * policy (checked 2026-10-19). We never ask for passwords or account data.
+ * Round 5 — /login-help/ rebuilt as the dedicated page for login queries
+ * ("lagos life game login": 3,363 GSC impressions, 0 clicks). /play/ keeps
+ * the entry answer; this page carries sign-in, sims login, login app, sign up.
+ * Only verified channels (official ToS/privacy, checked 2026-10-19); never
+ * collects credentials, never mimics the official form.
  */
+
+const officialUrl = "https://lagoslife.app";
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -14,35 +17,79 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "Why can't I log in to Lagos Life?",
+      name: "How do I sign in to Lagos Life?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Most login failures are a wrong password or an expired browser session. Check the password first, then hard-refresh the page (Ctrl/Cmd+Shift+R) to clear a stale session cookie. If you added an email to your account, use the in-game password-reset link.",
+        text: "Open lagoslife.app in a regular browser and use the sign-in option shown by the game itself, with the username and password you registered with. If the page hangs, hard-refresh (Ctrl/Cmd+Shift+R); if you forgot the password and added an email to your account, use the in-game password-reset flow.",
       },
     },
     {
       "@type": "Question",
-      name: "The Lagos Life page stays on a loading screen. What can I do?",
+      name: "Where is the Lagos Life login page?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "The game stores your progress in the browser, so a corrupted local cache can hang the loader. Try a hard refresh, then clearing site data for lagoslife.app (you will need to log in again afterwards).",
+        text: "The game has no separate login website: the sign-in form appears inside the game client after you open the official address lagoslife.app. Be careful of look-alike sites — the official address was last checked 2026-10-22.",
       },
     },
     {
       "@type": "Question",
-      name: "Can LagosLifeGuide fix my balance or account?",
+      name: "Can I log in on both my phone and PC?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. This site is an independent fan guide — we cannot see, modify or recover any account, balance or purchase. Account and data requests go to the developer in-game (@shallyr, per the official privacy policy); payment problems are handled under section 3 of the official terms.",
+        text: "Yes. Progress is tied to your account, not the device. Log in with the same username and password in any browser on any device.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I sign up for Lagos Life?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Registration happens inside the game client at lagoslife.app — choose the sign-up option on its start screen and pick a username and password there. This fan guide never registers accounts on your behalf.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is this the official Lagos Life login?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "No. LagosLifeGuide.app is an unofficial fan guide. The only place to enter your game password is the official client at lagoslife.app. We never ask for, store or transmit your credentials.",
       },
     },
   ],
 };
+
+const errorRows: { symptom: string; cause: string; fix: string }[] = [
+  {
+    symptom: "\"Login failed\" / wrong password",
+    cause: "Typo, or you registered with a different username spelling.",
+    fix: "Re-check both fields exactly as registered. If you added an email to the account, use the in-game password-reset link.",
+  },
+  {
+    symptom: "Page loads forever / black screen",
+    cause: "Stale cached files, or an embedded in-app browser blocking the client.",
+    fix: "Open the address in Chrome/Safari/Edge (not inside a social app), hard-refresh with Ctrl/Cmd+Shift+R, then clear site data for lagoslife.app as a last resort — you'll log in again afterwards.",
+  },
+  {
+    symptom: "Signed out and can't get back in",
+    cause: "Expired session cookie.",
+    fix: "Refresh the page and sign in again. Only clear site data if you're sure you remember your password.",
+  },
+  {
+    symptom: "Buttons greyed out / nothing happens",
+    cause: "Expired session, or a missing in-game requirement (some actions unlock later).",
+    fix: "Refresh and sign in again. If one specific button is disabled, it's usually the game telling you a requirement is missing — not a login bug.",
+  },
+  {
+    symptom: "Account seems banned or deleted",
+    cause: "The official terms (section 7) allow the developer to close rule-breaking accounts.",
+    fix: "Only the developer can review this — contact them in-game via @shallyr. No fan site can restore an account.",
+  },
+];
 ---
 
 <BaseLayout
-  title="Lagos Life Login Help & Troubleshooting – LagosLifeGuide"
-  description="Fix common Lagos Life login problems: failed sign-in, endless loading, disabled buttons. Plus the official support channels — we cannot modify accounts or balances."
+  title="Lagos Life Game Login Help: Sign In, Forgot Password & Errors"
+  description="Can't log in to Lagos Life? Step-by-step sign in help for the game and app: login link, forgotten password, account errors. Unofficial guide."
   canonicalPath="/login-help/"
   jsonLd={[faqJsonLd]}
   ogImage="/images/og-login-help.jpg"
@@ -55,58 +102,109 @@ const faqJsonLd = {
     </nav>
 
     <h1 class="text-display-hero-mobile font-extrabold tracking-tight text-on-surface md:text-display-hero">
-      Lagos Life Login Help &amp; Troubleshooting
+      Lagos Life Game Login Help
     </h1>
     <p class="mt-4 max-w-2xl text-body-lg leading-relaxed text-on-surface-variant">
-      Fixes for the most common sign-in problems with the official game at
-      <a href="https://lagoslife.app" class="text-primary hover:underline" rel="noopener">lagoslife.app</a>.
-      <strong class="text-on-surface">This site is an independent fan guide: we cannot see, reset or
-      modify any account or balance, and we will never ask for your password.</strong>
-      For anything only the developer can fix, use the official channels listed below.
+      <strong class="text-on-surface">You log in inside the game itself</strong>: open the official
+      address <a href={officialUrl} class="text-primary hover:underline" rel="noopener">lagoslife.app</a> in
+      any browser and use the sign-in option it shows, with the username and password you registered
+      with. <strong class="text-on-surface">This is an unofficial guide — we will never ask for your
+      password</strong>, and the only place you should ever type it is the official game client.
+      Last checked: <strong class="text-on-surface">2026-10-22</strong>.
     </p>
+
+    <div class="mt-space-md flex flex-wrap gap-3">
+      <a href={officialUrl} data-official-link="lagoslife.app" rel="noopener"
+        class="inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-label-lg font-bold text-on-primary transition hover:opacity-90">Open the game</a>
+      <a href="/account-help/"
+        class="inline-flex items-center rounded-full border-2 border-primary px-4 py-2 text-label-lg font-bold text-primary transition hover:bg-surface-container">Lost your account?</a>
+    </div>
 
     <section class="mt-space-lg space-y-space-md">
       <div class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
-        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">"Login failed" or wrong-password errors</h2>
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Sign in on your phone</h2>
         <ol class="mt-2 list-decimal space-y-1 pl-5 text-body-md leading-relaxed text-on-surface-variant">
-          <li>Re-check the password — the game requires the exact username and password you registered with.</li>
-          <li>If you added an optional email to your account, use the password-reset flow so the game can send you a reset link.</li>
-          <li>Still stuck? The official terms let the developer close accounts that break the rules (section 7); if you think that happened, contact them through the official channel below.</li>
+          <li>Open Chrome or Safari and go to <span class="font-mono text-on-surface">lagoslife.app</span>.</li>
+          <li>Wait for the start screen, then choose the sign-in option.</li>
+          <li>Enter your registered username and password. For one-tap access later, use "Add to Home Screen" to install the game as an app — steps on our <a href="/app/" class="text-primary hover:underline">app page</a>.</li>
         </ol>
       </div>
 
       <div class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
-        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">The page loads forever</h2>
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Sign in on your PC</h2>
         <ol class="mt-2 list-decimal space-y-1 pl-5 text-body-md leading-relaxed text-on-surface-variant">
-          <li>Hard refresh with Ctrl/Cmd+Shift+R — this reloads the game past a stale cached copy.</li>
-          <li>If it still hangs, clear site data for lagoslife.app in your browser settings. The game keeps your progress server-side against your account; you will simply log in again afterwards.</li>
-          <li>Try a different browser or a private window to rule out an extension blocking the game.</li>
+          <li>Open lagoslife.app in Chrome, Edge or Firefox.</li>
+          <li>Use the same username and password as on mobile — your progress follows your account, not the device.</li>
+          <li>You can also install it as a desktop app from the browser's install prompt — see <a href="/download/" class="text-primary hover:underline">install on PC</a>.</li>
         </ol>
       </div>
 
       <div class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
-        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Buttons are greyed out or do nothing</h2>
+        <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Sign in from the installed app</h2>
         <ol class="mt-2 list-decimal space-y-1 pl-5 text-body-md leading-relaxed text-on-surface-variant">
-          <li>Your session may have expired: refresh the page and sign in again.</li>
-          <li>Some actions unlock as you play (for example jobs gated behind skills) — a disabled button can be the game telling you a requirement is missing, not a bug.</li>
+          <li>Tap the Lagos Life icon on your home screen or desktop.</li>
+          <li>It opens the same official client — sign in exactly as in a browser.</li>
+          <li>If the app icon opens a blank page, delete the shortcut and re-add it from the browser (the stored address may be stale).</li>
         </ol>
       </div>
     </section>
 
+    <section class="mt-space-lg">
+      <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Common login errors and fixes</h2>
+      <div class="mt-3 overflow-x-auto rounded-2xl border border-outline-variant/40">
+        <table class="w-full min-w-[560px] text-left text-body-md">
+          <thead>
+            <tr class="bg-surface-container text-label-md font-bold uppercase tracking-wide text-on-surface-variant">
+              <th class="px-4 py-3">What you see</th>
+              <th class="px-4 py-3">Likely cause</th>
+              <th class="px-4 py-3">What to do</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/40">
+            {errorRows.map((r) => (
+              <tr class="align-top">
+                <td class="px-4 py-3 font-semibold text-on-surface">{r.symptom}</td>
+                <td class="px-4 py-3 text-on-surface-variant">{r.cause}</td>
+                <td class="px-4 py-3 text-on-surface-variant">{r.fix}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="mt-space-lg rounded-2xl border border-outline-variant/40 bg-surface-container-low p-space-md">
+      <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Related problems</h2>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-body-md leading-relaxed text-on-surface-variant">
+        <li><a href="/account-help/" class="text-primary hover:underline">Lost your account or password?</a> — the recovery route through the official support channel (@shallyr, per the official privacy policy).</li>
+        <li><a href="/age-limit/" class="text-primary hover:underline">Age limit</a> — who is allowed to play, answered in one line.</li>
+        <li><a href="/payments/" class="text-primary hover:underline">Payments and withdrawals</a> — what happens to money in the game (and why "withdraw" requests are a scam signal).</li>
+        <li><a href="/play/" class="text-primary hover:underline">Game link and how to play</a> — if you landed here before opening the game.</li>
+      </ul>
+    </section>
+
     <section class="mt-space-lg rounded-2xl border-l-4 border-primary bg-surface-container-low p-space-md">
       <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Official support channels</h2>
-      <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">
-        Checked against the official terms and privacy policy on 2026-10-19:
-      </p>
       <ul class="mt-2 list-disc space-y-1 pl-5 text-body-md leading-relaxed text-on-surface">
-        <li><strong>Account &amp; data requests</strong> (see, correct, download or delete your data): message <strong>@shallyr</strong> inside the game, as stated in the official privacy policy. See our <a href="/account-help/" class="text-primary hover:underline">account &amp; recovery page</a> for the full route.</li>
-        <li><strong>Payment problems</strong> (charged but no naira arrived, double charge): the official terms, section 3, say the developer will fix or refund these — contact them in-game. Payments are processed by their provider, Bachs; the game itself never sees card details.</li>
-        <li><strong>Account deletion:</strong> you can ask for this at any time under section 7 of the terms, via the same in-game channel.</li>
+        <li><strong>Account &amp; data requests</strong>: message <strong>@shallyr</strong> inside the game (official privacy policy, checked 2026-10-19).</li>
+        <li><strong>Payment problems</strong>: handled by the developer under section 3 of the official terms; payments are processed by their provider, Bachs — the game never sees card details.</li>
+        <li><strong>Account closure review</strong>: section 7 of the official terms, same in-game channel.</li>
       </ul>
       <p class="mt-3 text-body-sm text-needs-verification">
-        We deliberately do not collect account names, emails or screenshots with personal details on
-        this site. Pages here never need your password.
+        This page never collects account names, emails or passwords — and no honest fan site ever will.
       </p>
+    </section>
+
+    <section class="mt-space-lg">
+      <h2 class="font-headline-sm text-headline-sm font-extrabold text-on-surface">Frequently asked</h2>
+      <div class="mt-3 space-y-3">
+        {faqJsonLd.mainEntity.map((f) => (
+          <details class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest px-4 py-3">
+            <summary class="cursor-pointer text-body-lg font-bold text-on-surface">{f.name}</summary>
+            <p class="mt-2 text-body-md leading-relaxed text-on-surface-variant">{f.acceptedAnswer.text}</p>
+          </details>
+        ))}
+      </div>
     </section>
   </div>
 </BaseLayout>

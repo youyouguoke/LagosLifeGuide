@@ -14,10 +14,41 @@ const sitemapXmlAlias = {
   },
 };
 
+// Round 5 (P1): lastmod per URL, updated only when content actually changes.
+// Default record pages: last full data extraction 2026-10-09.
+const LASTMOD_BY_PREFIX = [
+  ["/play/", "2026-10-22"],
+  ["/login-help/", "2026-10-22"],
+  ["/app/", "2026-10-22"],
+  ["/download/", "2026-10-22"],
+  ["/hack/", "2026-10-22"],
+  ["/actions/", "2026-10-22"],
+  ["/updates/", "2026-10-22"],
+  ["/locations/", "2026-10-22"],
+  ["/game-data/locations/", "2026-10-22"],
+  ["/game-data/skills-actions/", "2026-10-22"],
+  ["/locations/", "2026-10-22"],
+];
+
+function lastmodFor(url) {
+  for (const [prefix, date] of LASTMOD_BY_PREFIX) {
+    if (url.startsWith(`https://lagoslifeguide.app${prefix}`)) return date;
+  }
+  return "2026-10-09"; // record pages: last full extraction date
+}
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://lagoslifeguide.app",
-  integrations: [sitemap(), sitemapXmlAlias],
+  integrations: [
+    sitemap({
+      serialize(item) {
+        item.lastmod = lastmodFor(item.url);
+        return item;
+      },
+    }),
+    sitemapXmlAlias,
+  ],
   vite: { plugins: [tailwindcss()] },
   // PRD v1.1 §2 used /data/*; UIUX v1.3 §5.2 and the Stitch kit use /game-data/*.
   // Canonical routes are /game-data/*; /data/* redirects keep PRD-era links working.
