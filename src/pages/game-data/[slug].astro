@@ -139,6 +139,34 @@ const siblingActions = isActionRecord && locSlug
       )
       .slice(0, 6)
   : [];
+
+// Feedback fb_mvr6oj86 (2026-10-27): players landing on this page expect a
+// money exploit. Answer the money question in-place with client-data facts.
+const atmFaqJsonLd =
+  record.slug === "atmHack"
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Does hacking an ATM give you naira in Lagos Life?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "No. In the game's client data (checked 2026-10-09), the Hack an ATM action raises Fun by 10 points per in-game hour and nothing else — no naira, no items. It requires Coding 6, takes 60 in-game minutes, and is available at CcHub. If you observed it paying money in-game, report it via the feedback button and we will verify.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What actually earns naira fast in Lagos Life?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Careers, not actions. The best-paying career with zero requirements is Banking (Marketer) at 11,600 naira per shift, and the highest verified pay in the game is Oil & Gas Country MD at 96,000 naira per shift. There is no verified method for billions of naira — the game's recorded economy tops out far below that.",
+            },
+          },
+        ],
+      }
+    : null;
 ---
 
 <BaseLayout
@@ -156,6 +184,7 @@ const siblingActions = isActionRecord && locSlug
         { "@type": "ListItem", position: 3, name: record.name, item: `https://lagoslifeguide.app/game-data/${record.slug}/` },
       ],
     },
+    ...(atmFaqJsonLd ? [atmFaqJsonLd] : []),
   ]}
 >
   <div class="mx-auto w-full max-w-[1280px] px-4 py-8 sm:px-6 lg:px-10">
@@ -591,15 +620,38 @@ const siblingActions = isActionRecord && locSlug
     </section>
 
     {record.slug === "atmHack" && (
-      <div class="mb-10 rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
-        <div class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">Looking for "hacks"?</div>
-        <p class="mt-1 text-body-md leading-relaxed text-on-surface-variant">
-          If you searched for a Lagos Life hack, unlimited naira or a modded APK: the action on this page is
-          the only thing called a "hack" in the game, and it pays no naira. Our{" "}
-          <a href="/hack/" class="text-primary hover:underline">hacks &amp; unlimited-naira page</a> explains what
-          actually works and why generators and modded APKs don't.
-        </p>
-      </div>
+      <section class="mb-10" aria-label="FAQ">
+        <div class="rounded-2xl border border-outline-variant/40 bg-surface-container-lowest p-space-md">
+          <h2 class="font-label-md text-label-md font-bold uppercase tracking-wide text-secondary">FAQ</h2>
+          <dl class="mt-3 space-y-4">
+            <div>
+              <dt class="font-headline-sm text-headline-sm font-extrabold text-on-surface">
+                Does hacking an ATM give you naira?
+              </dt>
+              <dd class="mt-1 text-body-md leading-relaxed text-on-surface-variant">
+                No. In the game's client data (checked 2026-10-09), this action raises Fun by 10 points per
+                in-game hour and nothing else — no naira, no items. It requires Coding 6, takes 60 in-game
+                minutes, and is available at CcHub. If you have seen it pay money in a live session, report it
+                via the feedback button and we will verify and update this page.
+              </dd>
+            </div>
+            <div>
+              <dt class="font-headline-sm text-headline-sm font-extrabold text-on-surface">
+                What actually earns naira fast?
+              </dt>
+              <dd class="mt-1 text-body-md leading-relaxed text-on-surface-variant">
+                Careers, not one-off actions. The best-paying career with zero requirements is Banking
+                (Marketer) at ₦11,600 per shift; the highest verified pay in the game is Oil &amp; Gas Country
+                MD at ₦96,000 per shift. There is no verified method for billions of naira — the game's
+                recorded economy tops out far below that. See the{" "}
+                <a href="/guides/career-ladders-pay/" class="text-primary hover:underline">career pay ladders guide</a> for all
+                33 careers, or the <a href="/hack/" class="text-primary hover:underline">hacks &amp; unlimited-naira page</a>{" "}
+                for why generators and modded APKs do not work.
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </section>
     )}
 
     {record.slug === "home-unilagHostel-rent" && (
